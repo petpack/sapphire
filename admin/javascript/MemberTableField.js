@@ -305,7 +305,6 @@ MemberFilterButton.prototype = {
     				updateURL += '&' + this.inputFields[index].name + '=' + encodeURIComponent( this.inputFields[index].value );
     			}
     		}
-    		updateURL += ($('SecurityID') ? '&SecurityID=' + $('SecurityID').value : '');
 
     		new Ajax.Updater( fieldID, updateURL, {
     			onComplete: function() {

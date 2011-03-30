@@ -97,7 +97,7 @@ TableListField.prototype = {
 			jQuery.ajax({
 				'url': link.getAttribute("href"),
 				'method': 'post', 
-				'data': {forceajax: 1, SecurityID: $('SecurityID') ? $('SecurityID').value : null},
+				'data': {forceajax: 1},
 				'success':  function(){
 					Effect.Fade(
 						row,
