@@ -1,6 +1,10 @@
 (function($) {
-	$('.field.date input.text').live('click', function() {
-		var holder = $(this).parents('.field.date:first'), config = holder.metadata();
+	/**
+	 * @note This method has been added so that 'showcalendar' is supported when pushing a DateField
+	 *       onto a FieldGroup.
+	 */
+	$('.field.date input.text, .fieldgroupField .date input.text').live('click', function() {
+		var holder = $(this).parents('.field.date:first, .fieldgroupField .date:first'), config = holder.metadata();
 		if(!config.showcalendar) return;
 		
 		if(config.locale && $.datepicker.regional[config.locale]) {
