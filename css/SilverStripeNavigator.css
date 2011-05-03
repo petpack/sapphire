@@ -1,3 +1,6 @@
+body {
+	margin-bottom: 22px;
+}
 
 #SilverStripeNavigator {
 	position: fixed;
