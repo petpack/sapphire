@@ -2,7 +2,7 @@
 	padding: 0px;
 	clear : both;
 }
-.SelectionGroup li {
+.SelectionGroup > li {
 	list-style-type: none;
 	float : left;
 	width: 100%;
