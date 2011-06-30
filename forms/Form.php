@@ -332,7 +332,10 @@ class Form extends RequestHandler {
 			return $this->$funcName($vars, $this, $request);
 		}
 		
-		return $this->httpError(404);
+		return $this->httpError(
+			404, 
+			sprintf('Action "%s" does not exist on form (Form: "%s" Name: "%s")', $funcName, get_class($this), $this->Name())
+		);
 	}
 	
 	/**
