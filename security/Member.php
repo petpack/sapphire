@@ -401,7 +401,7 @@ class Member extends DataObject {
 				
 				$generator = new RandomGenerator();
 				$member->RememberLoginToken = $generator->generateHash('sha1');
-				Cookie::set('alc_enc', $member->ID . ':' . $token, 90, null, null, false, true);
+				Cookie::set('alc_enc', $member->ID . ':' . $member->RememberLoginToken, 90, null, null, false, true);
 
 				$member->NumVisit++;
 				$member->write();
@@ -1133,17 +1133,7 @@ class Member extends DataObject {
 		$password->setCanBeEmpty(true);
 		if(!$this->ID) $password->showOnClick = false;
 		$mainFields->replaceField('Password', $password);
-		
-		$mainFields->insertBefore(
-			new HeaderField('MemberDetailsHeader',_t('Member.PERSONALDETAILS', "Personal Details", PR_MEDIUM, 'Headline for formfields')),
-			'FirstName'
-		);
-		
-		$mainFields->insertBefore(
-			new HeaderField('MemberUserDetailsHeader',_t('Member.USERDETAILS', "User Details", PR_MEDIUM, 'Headline for formfields')),
-			'Email'
-		);
-		
+				
 		$mainFields->replaceField('Locale', new DropdownField(
 			"Locale", 
 			_t('Member.INTERFACELANG', "Interface Language", PR_MEDIUM, 'Language of the CMS'), 
@@ -1631,9 +1621,7 @@ class Member_GroupSet extends ComponentSet {
 class Member_ProfileForm extends Form {
 	
 	function __construct($controller, $name, $member) {
-		Requirements::clear();
-		Requirements::css(CMS_DIR . '/css/typography.css');
-		Requirements::css(SAPPHIRE_DIR . "/css/Form.css");
+		Requirements::block(SAPPHIRE_DIR . '/admin/css/layout.css');
 		
 		$fields = $member->getCMSFields();
 		$fields->push(new HiddenField('ID','ID',$member->ID));
@@ -1646,6 +1634,7 @@ class Member_ProfileForm extends Form {
 		
 		parent::__construct($controller, $name, $fields, $actions, $validator);
 		
+		$this->addExtraClass('member-profile-form');
 		$this->loadDataFrom($member);
 	}
 	
@@ -1870,7 +1859,6 @@ class Member_Validator extends RequiredFields {
 class Member_DatetimeOptionsetField extends OptionsetField {
 
 	function Field() {
-		Requirements::css(SAPPHIRE_DIR . '/css/MemberDatetimeOptionsetField.css');
 		Requirements::javascript(THIRDPARTY_DIR . '/thirdparty/jquery/jquery.js');
 		Requirements::javascript(SAPPHIRE_DIR . '/javascript/MemberDatetimeOptionsetField.js');
 
