@@ -346,6 +346,14 @@ class ViewableData extends Object implements IteratorAggregate {
 			"ViewableData::renderWith(): unexpected $template->class object, expected an SSViewer instance"
 		);
 	}
+
+	/**
+	 * Clears the internal object cache.
+	 *
+	 */
+	public function clearCache(){
+		$this->objCache = array();
+	}
 	
 	/**
 	 * Get the value of a field on this object, automatically inserting the value into any available casting objects
@@ -815,6 +823,25 @@ class ViewableData_Customised extends ViewableData {
 		return $result;
 	}
 	
+	/**
+	 * Clears the internal object cache.
+	 *
+	 */
+	public function clearCache(){
+		if (is_object($this->customised)){
+			$this->customised->clearCache();
+		}
+		else{
+			$this->customised = array();
+		}
+		if (is_object($this->original)){
+			$this->original->clearCache();
+		}
+		else{
+			$this->original = array();
+		}
+	}
+
 	public function obj($fieldName, $arguments = null, $forceReturnedObject = true, $cache = false, $cacheName = null) {
 		if($this->customised->hasField($fieldName) || $this->customised->hasMethod($fieldName)) {
 			return $this->customised->obj($fieldName, $arguments, $forceReturnedObject, $cache, $cacheName);
