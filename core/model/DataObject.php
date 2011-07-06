@@ -1194,6 +1194,12 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * @return DataObject The component object. It's exact type will be that of the component.
 	 */
 	public function getComponent($componentName) {
+		$joinField = $componentName . 'ID';
+		if( isset($this->components[$componentName]) && !($this->has_one($componentName) && $this->isChanged($joinField)) ) {
+			// Only rely on the components if the joinField id hasn't changed.
+			return $this->components[$componentName];
+		}
+		
 		if(isset($this->components[$componentName])) {
 			return $this->components[$componentName];
 		}
