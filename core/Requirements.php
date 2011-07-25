@@ -95,6 +95,16 @@ class Requirements {
 	static function customScript($script, $uniquenessID = null) {
 		self::backend()->customScript($script, $uniquenessID);
 	}
+	
+	/**
+	 * Add content to be included on document ready.
+	 * @param script The script content
+	 * @param uniquenessID Use this to ensure that pieces of code only get added once.
+	 */
+	public static function onDocumentReady($script, $uniquenessID = null) {
+		self::backend()->customScript('jQuery(function($){'.$script.";});", $uniquenessID);
+	}
+	
 
 	/**
 	 * Include custom CSS styling to the header of the page.
