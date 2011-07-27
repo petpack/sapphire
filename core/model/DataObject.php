@@ -2931,6 +2931,30 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 		}
 	}
 
+
+    /**
+     * Return the given element, searching by the given array of IDs
+     *
+     * @param string $callerClass The class of the object to be returned
+     * @param array $ids The ids of the elements to return. An array of integers
+     * @param string|array $sort A sort expression to be inserted into the ORDER BY clause.  If omitted, self::$default_sort will be used.
+     *
+     * @return mixed The objects with the specified IDs in the class specified by $containerClass
+     */
+    public static function get_by_ids($callerClass, array $ids, $sort = "", $containerClass = "DataObjectSet") {
+        if (count($ids) > 0) {
+            $idField = "\"ID\"";
+            if(is_subclass_of($callerClass, 'DataObject')) {
+                $tableClasses = ClassInfo::dataClassesFor($callerClass);
+                $baseClass = array_shift($tableClasses);
+                $idField = "\"$baseClass\".$idField";
+            }
+            //Convert all ids to integers.
+            foreach($ids as $k => $v) $ids[$k] = intval($v);
+            return DataObject::get($callerClass, $idField.' IN ('.implode(', ', $ids).')', $sort, "", "", $containerClass);
+        }
+    }
+
 	/**
 	 * Get the name of the base table for this object
 	 */
