@@ -69,15 +69,34 @@ class SimpleImageField extends FileField {
 	 */
 	public $allowedExtensions = array('jpg','gif','png');
 
+	public $record;
+	
 	function __construct($name, $title = null, $value = null, $form = null, $rightTitle = null, $folderName = null) {
 		parent::__construct($name, $title, $value, $form, $rightTitle, $folderName);
 
 		$this->getValidator()->setAllowedExtensions(array('jpg','gif','png'));
 	}
 
+	function setRecord($record) {
+		$this->record = $record;
+	}
+	
+	function getMethodName() {
+		if( strpos($this->name, '[') === false ) {
+			return $this->name;
+		}
+		$part = substr($this->name, strrpos($this->name, '[') + 1);		
+		return substr($part, 0, strpos($part, ']'));		
+	}
+	
 	function Field() {
-	    if($this->form) $record = $this->form->getRecord();
-	    $fieldName = $this->name;
+	    if( isset($this->record) ) {
+	    	$record = $this->record;
+	    } else {
+			if($this->form) $record = $this->form->getRecord();
+	    }
+	    $fieldName = $this->getMethodName();
+	    
 	    if(isset($record)&&$record) {
 	    	$imageField = $record->$fieldName();
 	    } else {
@@ -124,7 +143,34 @@ class SimpleImageField extends FileField {
 		$field->setForm($this->form);
 		$field->setReadonly(true);
 		return $field;
-	} 
+	}
+
+
+	public function saveInto(DataObject $record) {
+		if(!isset($_FILES[$this->name])) return false;
+		
+		if($this->relationAutoSetting) {
+			// assume that the file is connected via a has-one
+			$hasOnes = $record->has_one($this->name);
+			// try to create a file matching the relation
+			$file = (is_string($hasOnes)) ? Object::create($hasOnes) : new File(); 
+		} else {
+			$file = new File();
+		}
+		
+		$this->upload->loadIntoFile($_FILES[$this->name], $file, $this->folderName);
+		if($this->upload->isError()) return false;
+		
+		$file = $this->upload->getFile();
+		
+		if($this->relationAutoSetting) {
+			if(!$hasOnes) return false;
+			
+			// save to record
+			$record->{$this->name . 'ID'} = $file->ID;
+		}
+	}
+	
 }
 
 /**
