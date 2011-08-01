@@ -147,15 +147,30 @@
 		var _complete = s.complete;
 		var _success = s.success;
 		var _dataType = s.dataType;
+		var _context = s.context;
 
 		// This replaces the usual ajax success & complete handlers.  They are called after any on demand JS is loaded.
 		var _ondemandComplete = function(xml, status) {
 			var status = $.httpSuccess(xml) ? 'success' : 'error';
 			if(status == 'success') {
 				var data = jQuery.httpData(xml, _dataType);
-				if(_success) _success(data, status);
+				if(_success) {
+                    if (_context) {
+                        _success.call(_context, data, status);
+                    }
+                    else {
+                        _success(data, status);
+                    }
+                }
 			}
-			if(_complete) _complete(xml, status);
+            if(_complete) {
+                if (_context) {
+                    _complete.call(_context, xml, status);
+                }
+                else {
+                    _complete(xml, status);
+                }
+            }
 		}
 	    
 		// We remove the success handler and take care of calling it outselves within _ondemandComplete
