@@ -260,5 +260,14 @@ JS;
 	abstract function javascript();
 	
 	abstract function php($data);
+	
+	/**
+	 * Returns true if no errors have been added to the stack using validationError
+	 * 
+	 * @return bool
+	 * @author Alex Hayes <alex.hayes@dimension27.com>
+	 */
+	public function valid() {
+		return empty($this->errors);
+	}
 }
-?>
