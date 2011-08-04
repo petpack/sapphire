@@ -1234,7 +1234,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 		$this->components[$componentName] = $component;
 		return $component;
 	}
-
+	
 	/**
 	 * A cache used by component getting classes
 	 * @var array
@@ -2135,8 +2135,64 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 
 				// value is always saved back when strict check succeeds
 				$this->record[$fieldName] = $val;
+				
+				/**
+				 * Now determine if we need to refresh the component cache so that we don't have stale relationships hanging around.
+				 * 
+				 * @author Alex Hayes <alex.hayes@dimension27.com>
+				 */
+				$componentName = $this->getComponentNameFromFieldName($fieldName);
+				if( $componentName && $this->componentExists($componentName) ) {
+					$this->flushComponent($componentName);
+				}
 			}
 		}
+	}
+
+	/**
+	 * Returns a component name if $fieldName looks like its a component name (ie, has ID at the end), false otherwise.
+	 * 
+	 * @param string $fieldName
+	 * @param false|string
+	 *
+	 * @author Alex Hayes <alex.hayes@dimension27.com>
+	 */
+	public function getComponentNameFromFieldName($fieldName) {
+		$len = strlen($fieldName);
+		$pos = $len - 2;
+		if( strrpos($fieldName, 'ID') === $pos ) {
+			return substr($fieldName, 0, $pos);
+		}
+		return false;
+	}
+	
+	/**
+	 * Returns true if a relationship of this name exists.
+	 * 
+	 * @param string $componentName
+	 * @return bool
+	 * @author Alex Hayes <alex.hayes@dimension27.com>
+	 */
+	public function componentExists($componentName) {
+		if( $this->has_one($componentName) || $this->has_many($componentName) || $this->belongs_to($componentName) ) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Returns true if a relationship of this name exists.
+	 * 
+	 * @param string $componentName
+	 * @return bool
+	 * @author Alex Hayes <alex.hayes@dimension27.com>
+	 */
+	public function flushComponent($componentName) {
+		if( is_array($this->components) && array_key_exists($componentName, $this->components) ) {
+			unset($this->components[$componentName]);
+			return true;
+		}
+		return false;
 	}
 
 	/**
