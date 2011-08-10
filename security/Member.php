@@ -542,7 +542,7 @@ class Member extends DataObject {
 	}
 
 	function getValidator() {
-		return new Member_Validator();
+		return Object::create('Member_Validator');
 	}
 
 
@@ -1650,7 +1650,7 @@ class Member_ProfileForm extends Form {
 			new FormAction('dosave',_t('CMSMain.SAVE', 'Save'))
 		);
 		
-		$validator = new Member_Validator();
+		$validator = Object::create('Member_Validator');
 		
 		parent::__construct($controller, $name, $fields, $actions, $validator);
 		
@@ -1790,8 +1790,7 @@ class Member_Validator extends RequiredFields {
 
 		parent::__construct($required);
 	}
-
-
+	
 	/**
 	 * Check if the submitted member data is valid (server-side)
 	 *
