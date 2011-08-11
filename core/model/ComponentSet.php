@@ -249,6 +249,9 @@ class ComponentSet extends DataObjectSet {
 		if($this->type == '1-to-many') {
 			foreach($itemList as $item) $this->remove($item);
 		} else {
+			if (is_object($itemList) && $itemList instanceof DataObjectSet) {
+				$itemList = $itemList->column('ID');
+			}
 			$itemCSV = implode(", ", $itemList);
 			$parentField = $this->ownerClass . 'ID';
 			$childField = ($this->childClass == $this->ownerClass) ? "ChildID" : ($this->childClass . 'ID');
