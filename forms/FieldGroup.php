@@ -100,7 +100,9 @@ class FieldGroup extends CompositeField {
 		foreach($fs as $subfield) {
 			$childZebra = (!isset($childZebra) || $childZebra == "odd") ? "even" : "odd";
 			if($subfield->hasMethod('setZebra')) $subfield->setZebra($childZebra);
-			$content .= "<div class=\"fieldgroupField\">" . $subfield->{$this->subfieldParam}() . "</div>";
+			$classes = $subfield->extraClass() . ' ' . str_replace('field', '', strtolower(get_class($subfield)));
+			$id = str_replace('', '', $subfield->id());
+			$content .= "<div id=\"".$id."\" class=\"fieldgroupField " . $classes . "\">" . $subfield->{$this->subfieldParam}() . "</div>";
 		}
 		$content .= "</div>";
 		return $content;
