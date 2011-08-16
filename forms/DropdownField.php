@@ -267,4 +267,20 @@ class DropdownField extends FormField {
 	function setDisabled($disabled = true) {
 		$this->disabled = $disabled;
 	}
+	
+	/**
+	 * Set the field value.
+	 * Returns $this.
+	 */
+	function setValue($value, $data = null) {
+		if ($data instanceof DataObject) {
+			if (!$this->source) {
+				$dbField = $data->dbObject($this->Name());
+				if ($dbField instanceof Enum) {
+					$this->source = $dbField->enumValues();
+				}
+			}
+		}
+		$this->value = $value; return $this;
+	}
 }

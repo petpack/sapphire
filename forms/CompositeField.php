@@ -30,19 +30,20 @@ class CompositeField extends FormField {
 	
 	public function __construct($children = null) {
 		if($children instanceof FieldSet) {
-			$this->children = $children;
+			$childFieldSet = $children;
 		} elseif(is_array($children)) {
-			$this->children = new FieldSet($children); 
+			$childFieldSet = new FieldSet($children); 
 		} else {
 			$children = is_array(func_get_args()) ? func_get_args() : array();
-			$this->children = new FieldSet($children); 
+			$childFieldSet = new FieldSet($children); 
 		}
-		$this->children->setContainerField($this);
+		$this->setChildren($childFieldSet);
 		
 		// Skipping FormField::__construct(), but we have to make sure this
 		// doesn't count as a broken constructor
 		$this->brokenOnConstruct = false;
 		Object::__construct();
+		$this->addExtraClass('CompositeField');
 	}
 
 	/**
@@ -73,73 +74,74 @@ class CompositeField extends FormField {
 	 */
 	public function setChildren($children) {
 		$this->children = $children;
+		$this->children->setContainerField($this);
 	}
 
 	/**
 	 * Returns the fields nested inside another DIV
 	 */
 	function FieldHolder() {
-		$fs = $this->FieldSet();
-		$idAtt = isset($this->id) ? " id=\"{$this->id}\"" : '';
-		$className = ($this->columnCount) ? "field CompositeField {$this->extraClass()} multicolumn" : "field CompositeField {$this->extraClass()}";
-		$content = "<div class=\"$className\"$idAtt>\n";
-		
-		foreach($fs as $subfield) {
-			if($this->columnCount) {
-				$className = "column{$this->columnCount}";
-				if(!next($fs)) $className .= " lastcolumn";
-				$content .= "\n<div class=\"{$className}\">\n" . $subfield->FieldHolder() . "\n</div>\n";
-			} else if($subfield){
-				$content .= "\n" . $subfield->FieldHolder() . "\n";
-			}
-		}
-		$content .= "</div>\n";
-				
-		return $content;
+		return $this->getFieldHolderContent('FieldHolder');
 	}
 		
 	/**
 	 * Returns the fields in the restricted field holder inside a DIV.
 	 */
-	function SmallFieldHolder() {//return $this->FieldHolder();
+	function SmallFieldHolder() {
+		return $this->getFieldHolderContent('SmallFieldHolder');
+	}	
+	
+	protected function getFieldHolderContent($subfieldCall) {
 		$fs = $this->FieldSet();
 		$idAtt = isset($this->id) ? " id=\"{$this->id}\"" : '';
-		$className = ($this->columnCount) ? "field CompositeField {$this->extraClass()} multicolumn" : "field CompositeField {$this->extraClass()}";
+		$className = ($this->columnCount) ? "field {$this->extraClass()} multicolumn" : "field {$this->extraClass()}";
 		$content = "<div class=\"$className\"$idAtt>";
 		
-		foreach($fs as $subfield) {//echo ' subf'.$subfield->Name();
+		$count = 0;
+		$total = $fs->Count();
+		foreach($fs as $subfield) {
+			$count++;
 			if($this->columnCount) {
-				$className = "column{$this->columnCount}";
-				if(!next($fs)) $className .= " lastcolumn";
-				$content .= "<div class=\"{$className}\">" . $subfield->FieldHolder() . "</div>";
+				$className = "column{$this->columnCount} columnPosition{$count}";
+				if($count == $total) $className .= " lastcolumn";
+				$content .= "<div class=\"{$className}\">" . $subfield->$subfieldCall() . "</div>";
 			} else if($subfield){
-				$content .= $subfield->SmallFieldHolder() . " ";
+				$content .= $subfield->$subfieldCall() . " ";
 			}
-		}	
+		}
 		$content .= "</div>";
-	
+				
 		return $content;
-	}	
+		
+	}
+	
 	/**
 	 * Add all of the non-composite fields contained within this field to the list.
 	 * Sequentialisation is used when connecting the form to its data source
 	 */
 	public function collateDataFields(&$list, $saveableOnly = false) {
 		foreach($this->children as $field) {
-			if(is_object($field)) {
-				if($field->isComposite()) $field->collateDataFields($list, $saveableOnly);
-				if($saveableOnly) {
-					$isIncluded =  ($field->hasData() && !$field->isReadonly() && !$field->isDisabled());
-				} else {
-					$isIncluded =  ($field->hasData());
-				}
-				if($isIncluded) {
-					$name = $field->Name();
-					if($name) {
-						$formName = (isset($this->form)) ? $this->form->FormName() : '(unknown form)';
-						if(isset($list[$name])) user_error("collateDataFields() I noticed that a field called '$name' appears twice in your form: '{$formName}'.  One is a '{$field->class}' and the other is a '{$list[$name]->class}'", E_USER_ERROR);
-						$list[$name] = $field;
-					}
+			$this->collateDataField($list, $field, $saveableOnly);
+		}
+	}
+	
+	/**
+	 * Adds the given $field to the given $list if it should be added.
+	 */
+	protected function collateDataField(&$list, $field, $saveableOnly) {
+		if(is_object($field)) {
+			if($field->isComposite()) $field->collateDataFields($list, $saveableOnly);
+			if($saveableOnly) {
+				$isIncluded =  ($field->hasData() && !$field->isReadonly() && !$field->isDisabled());
+			} else {
+				$isIncluded =  ($field->hasData());
+			}
+			if($isIncluded) {
+				$name = $field->Name();
+				if($name) {
+					$formName = (isset($this->form)) ? $this->form->FormName() : '(unknown form)';
+					if(isset($list[$name])) user_error("collateDataField() I noticed that a field called '$name' appears twice in your form: '{$formName}'.  One is a '{$field->class}' and the other is a '{$list[$name]->class}'", E_USER_ERROR);
+					$list[$name] = $field;
 				}
 			}
 		}
