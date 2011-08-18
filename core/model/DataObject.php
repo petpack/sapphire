@@ -2119,31 +2119,41 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 			if(is_object($val) && $this->db($fieldName)) {
 				user_error('DataObject::setField: passed an object that is not a DBField', E_USER_WARNING);
 			}
-		
-			$defaults = $this->stat('defaults');
-			// if a field is not existing or has strictly changed
-			if(!isset($this->record[$fieldName]) || $this->record[$fieldName] !== $val) {
-				// TODO Add check for php-level defaults which are not set in the db
-				// TODO Add check for hidden input-fields (readonly) which are not set in the db
-				// At the very least, the type has changed
-				$this->changed[$fieldName] = 1;
-				
-				if((!isset($this->record[$fieldName]) && $val) || (isset($this->record[$fieldName]) && $this->record[$fieldName] != $val)) {
-					// Value has changed as well, not just the type
-					$this->changed[$fieldName] = 2;
+			
+			if( $this->componentExists($fieldName) ) {
+				$name = $fieldName .'ID';
+				if( is_object($val) ) {
+					$this->components[$fieldName] = $val;
+					$this->$name = $val->ID;	
+				} else {
+					$this->$name = $val;
 				}
-
-				// value is always saved back when strict check succeeds
-				$this->record[$fieldName] = $val;
-				
-				/**
-				 * Now determine if we need to refresh the component cache so that we don't have stale relationships hanging around.
-				 * 
-				 * @author Alex Hayes <alex.hayes@dimension27.com>
-				 */
-				$componentName = $this->getComponentNameFromFieldName($fieldName);
-				if( $componentName && $this->componentExists($componentName) ) {
-					$this->flushComponent($componentName);
+			} else {
+				$defaults = $this->stat('defaults');
+				// if a field is not existing or has strictly changed
+				if(!isset($this->record[$fieldName]) || $this->record[$fieldName] !== $val) {
+					// TODO Add check for php-level defaults which are not set in the db
+					// TODO Add check for hidden input-fields (readonly) which are not set in the db
+					// At the very least, the type has changed
+					$this->changed[$fieldName] = 1;
+					
+					if((!isset($this->record[$fieldName]) && $val) || (isset($this->record[$fieldName]) && $this->record[$fieldName] != $val)) {
+						// Value has changed as well, not just the type
+						$this->changed[$fieldName] = 2;
+					}
+	
+					// value is always saved back when strict check succeeds
+					$this->record[$fieldName] = $val;
+					
+					/**
+					 * Now determine if we need to refresh the component cache so that we don't have stale relationships hanging around.
+					 * 
+					 * @author Alex Hayes <alex.hayes@dimension27.com>
+					 */
+					$componentName = $this->getComponentNameFromFieldName($fieldName);
+					if( $componentName && $this->componentExists($componentName) ) {
+						$this->flushComponent($componentName);
+					}
 				}
 			}
 		}

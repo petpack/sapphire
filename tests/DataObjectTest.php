@@ -182,6 +182,21 @@ class DataObjectTest extends SapphireTest {
 		$savedPage = DataObject::get_by_id('Page', $page->ID);
 		$this->assertTrue($savedPage->ParentID == 99);
 	}
+
+	function testWritePropertyWithRelatedObject() {
+		$team1 = $this->objFromFixture('DataObjectTest_Team', 'team1');
+		$player1 = $this->objFromFixture('DataObjectTest_Player', 'player1');
+	   
+		// Add a captain to team 1
+		$team1->setField('Captain', $player1);
+		$team1->write();
+		
+		$this->assertEquals($player1->ID, $team1->Captain()->ID, 'The captain exists for team 1');
+		$this->assertEquals($player1->ID, $team1->getComponent('Captain')->ID, 'The captain exists through the component getter');
+
+		$this->assertEquals($team1->Captain()->FirstName, 'Player 1', 'Player 1 is the captain');
+		$this->assertEquals($team1->getComponent('Captain')->FirstName, 'Player 1', 'Player 1 is the captain');
+	}
 	
 	/**
 	 * Test has many relationships
