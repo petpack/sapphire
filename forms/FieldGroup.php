@@ -122,7 +122,7 @@ class FieldGroup extends CompositeField {
   
 	function FieldHolder() {
 		$Title = $this->XML_val('Title');
-		$Message = $this->XML_val('Message');
+		$Message = str_replace(array('.,', '..'), array(',', '.'), $this->XML_val('Message'));
 		$MessageType = $this->XML_val('MessageType');
 		$RightTitle = $this->XML_val('RightTitle');
 		$Type = $this->XML_val('Type');
@@ -135,7 +135,7 @@ class FieldGroup extends CompositeField {
 		$rightTitleBlock = (!empty($RightTitle)) ? "<label class=\"right\">$RightTitle</label>" : "";
 
 		return <<<HTML
-<div id="$Name" class="field $Type $extraClass">$titleBlock<div class="middleColumn">$Field</div>$rightTitleBlock$messageBlock</div>
+<div id="$Name" class="field $Type $extraClass">$titleBlock$messageBlock<div class="middleColumn">$Field</div>$rightTitleBlock</div>
 HTML;
 	}
 	
