@@ -318,6 +318,9 @@ class SQLQuery {
 			$filter = "{$args[0]} = '{$args[1]}'";
 		} else {
 			$filter = $args[0];
+			if( is_object($filter) && $filter instanceof SQLFilter ) {
+				$filter = $filter->__toString();
+			}
 		}
 		
 		if(is_array($filter)) {
