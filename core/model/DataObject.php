@@ -2123,8 +2123,8 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 			if( $this->componentExists($fieldName) ) {
 				$name = $fieldName .'ID';
 				if( is_object($val) ) {
-					$this->components[$fieldName] = $val;
 					$this->$name = $val->ID;	
+					$this->components[$fieldName] = $val;
 				} else {
 					$this->$name = $val;
 				}
