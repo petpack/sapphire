@@ -57,6 +57,15 @@ class Debug {
 	 * The body of the message shown to users on the live site when a fatal error occurs.
 	 */
 	public static $friendly_error_detail = 'The website server has not been able to respond to your request.';
+	
+	/**
+	 * If true, then the error log will be used to output debug messages, 
+	 * rather than printing them directly to the page.
+	 * This can be useful for AJAX requests, or if the output of an error message will 
+	 * mess up the layout.
+	 * @var boolean
+	 */
+	public static $use_log_for_debug = false;
 
 	/**
 	 * Show the contents of val in a debug-friendly way.
@@ -158,6 +167,9 @@ class Debug {
 			if(Director::is_cli()) {
 				if($showHeader) echo "Debug (line $caller[line] of $file):\n ";
 				echo $message . "\n";
+			} elseif (self::$use_log_for_debug) {
+				if($showHeader) $message = "Debug (line $caller[line] of $file):\n ".$message;
+				error_log($message . "\n");
 			} else {
 				echo "<p style=\"background-color: white; color: black; width: 95%; margin: 0.5em; padding: 0.3em; border: 1px #CCC solid\">\n";
 				if($showHeader) echo "<b>Debug (line $caller[line] of $file):</b>\n ";
@@ -563,6 +575,14 @@ class Debug {
 		self::$log_errors_to = $logFile;
 	}
 
+	/**
+	 * Whether or not to use the log for debug messages.
+	 * @param boolean $on
+	 */
+	static function use_log_for_debug($on = true) {
+		self::$use_log_for_debug = $on;
+	}
+	
 	static function caller() {
 		$bt = debug_backtrace();
 		$caller = $bt[2];
