@@ -164,6 +164,9 @@ class Debug {
 		if(!Director::isLive()) {
 			$caller = Debug::caller();
 			$file = basename($caller['file']);
+			if (!is_string($message)) {
+				$message = var_export($message, true);
+			}
 			if(Director::is_cli()) {
 				if($showHeader) echo "Debug (line $caller[line] of $file):\n ";
 				echo $message . "\n";
