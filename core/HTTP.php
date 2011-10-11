@@ -34,11 +34,15 @@ class HTTP {
 	}
 
 	/**
-	 * Turn all relative URLs in the content to absolute URLs
+	 * Turn all relative URLs in the content to absolute URLs, optionally preserving internal links.
 	 */
-	static function absoluteURLs($html) {
+	static function absoluteURLs($html, $preserveInternalLinks = false) {
 		$html = str_replace('$CurrentPageURL', $_SERVER['REQUEST_URI'], $html);
-		return HTTP::urlRewriter($html, '(substr($URL,0,1) == "/") ? ( Director::protocolAndHost() . $URL ) : ( (ereg("^[A-Za-z]+:", $URL)) ? $URL : Director::absoluteBaseURL() . $URL )' );
+		$code = '(substr($URL,0,1) == "/") ? ( Director::protocolAndHost() . $URL ) : ( (ereg("^[A-Za-z]+:", $URL)) ? $URL : Director::absoluteBaseURL() . $URL )';
+		if ($preserveInternalLinks) {
+			$code = '(substr($URL,0,1) == "#") ? $URL : ('.$code.')';
+		}
+		return HTTP::urlRewriter($html, $code);
 	}
 
 	/*
