@@ -351,12 +351,13 @@ class Email extends ViewableData {
 				$template = new SSViewer($this->ss_template);
 				
 				if($template->exists()) {
-					$fullBody = $template->process($data);
+					//Don't rewrite hash links, or internal links will be broken.
+					$fullBody = $template->dontRewriteHashlinks()->process($data);
 				}
 			}
 			
-			// Rewrite relative URLs
-			$this->body = HTTP::absoluteURLs($fullBody);
+			// Rewrite relative URLs, but preserve internal links
+			$this->body = HTTP::absoluteURLs($fullBody, true);
 		}
 	}
 	
