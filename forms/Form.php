@@ -1004,23 +1004,27 @@ class Form extends RequestHandler {
 	 * @param $dataObject The object to save data into
 	 * @param $fieldList An optional list of fields to process.  This can be useful when you have a 
 	 * form that has some fields that save to one object, and some that save to another.
+	 * @param $ignored An optional list of fields to ignore.  This can be useful when you have a 
+	 * form that has some fields that save to one object, and some that save to another.
 	 */
-	function saveInto(DataObjectInterface $dataObject, $fieldList = null) {
+	function saveInto(DataObjectInterface $dataObject, $fieldList = null, $ignoredFields = null) {
 		$dataFields = $this->fields->saveableFields();
 		$lastField = null;
 
 		if($dataFields) foreach($dataFields as $field) {
+			$fieldName = $field->Name();
 			// Skip fields that have been exlcuded
-			if($fieldList && is_array($fieldList) && !in_array($field->Name(), $fieldList)) continue;
+			if($fieldList && is_array($fieldList) && !in_array($fieldName, $fieldList)) continue;
+			if ($ignoredFields && in_array($fieldName, $ignoredFields)) continue;
 
 
-			$saveMethod = "save{$field->Name()}";
+			$saveMethod = "save{$fieldName}";
 
-			if($field->Name() == "ClassName"){
+			if($fieldName == "ClassName"){
 				$lastField = $field;
 			}else if( $dataObject->hasMethod( $saveMethod ) ){
 				$dataObject->$saveMethod( $field->dataValue());
-			} else if($field->Name() != "ID"){
+			} else if($fieldName != "ID"){
 				$field->saveInto($dataObject);
 			}
 		}
