@@ -85,6 +85,27 @@ abstract class Extension {
 		return (($p = strpos($extensionStr, '(')) !== false) ? substr($extensionStr, 0, $p) : $extensionStr;
 	}
 	
+	/**
+	 * @see Object::get_static()
+	 */
+	public function stat($name, $uncached = false) {
+		return Object::get_static(($this->class ? $this->class : get_class($this)), $name, $uncached);
+	}
+	
+	/**
+	 * @see Object::set_static()
+	 */
+	public function set_stat($name, $value) {
+		Object::set_static(($this->class ? $this->class : get_class($this)), $name, $value);
+	}
+	
+	/**
+	 * @see Object::uninherited_static()
+	 */
+	public function uninherited($name) {
+		return Object::uninherited_static(($this->class ? $this->class : get_class($this)), $name);
+	}
+	
 }
 
 ?>
