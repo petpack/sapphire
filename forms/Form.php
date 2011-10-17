@@ -109,6 +109,8 @@ class Form extends RequestHandler {
 	
 	protected $messageType;
 	
+	protected $js = null;
+	
 	/**
 	 * Should we redirect the user back down to the 
 	 * the form on validation errors rather then just the page
@@ -819,6 +821,17 @@ class Form extends RequestHandler {
 			Session::clear("FormInfo.{$this->FormName()}");
 		}
 	}
+	
+	function FormJS() {
+		if (is_null($this->js)) {
+			$name = "FormJs.{$this->FormName()}";
+			if (!$this->js = Session::get($name)) {
+				$this->js = '';
+			}
+			Session::clear($name);
+		}
+		return $this->js ? Utils::customScript($this->js) : null;
+	}
 
 	/**
 	 * Set a status message for the form.
@@ -840,6 +853,19 @@ class Form extends RequestHandler {
 	function sessionMessage($message, $type) {
 		Session::set("FormInfo.{$this->FormName()}.formError.message", $message);
 		Session::set("FormInfo.{$this->FormName()}.formError.type", $type);
+	}
+	
+	/**
+	 * Adds some arbitrary javascript to the session, for display next time this form is shown.
+	 * 
+	 * @param js The javascript as a string.
+	 */
+	function addSessionJS($js) {
+		$name = "FormJs.{$this->FormName()}";
+		if ($current =  Session::get($name)) {
+			$current .= ';';
+		}
+		Session::set($name, $current.$js);
 	}
 
 	static function messageForForm( $formName, $message, $type ) {
