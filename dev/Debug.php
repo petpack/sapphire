@@ -295,14 +295,14 @@ class Debug {
 
 		// Send out the error details to the logger for writing
 		SS_Log::log(
-		array(
-				'errno' => $errno,
-				'errstr' => $errstr,
-				'errfile' => $errfile,
-				'errline' => $errline,
-				'errcontext' => $errcontext
-		),
-		SS_Log::ERR
+			array(
+					'errno' => $errno,
+					'errstr' => $errstr,
+					'errfile' => $errfile,
+					'errline' => $errline,
+					'errcontext' => $errcontext
+			),
+			SS_Log::ERR
 		);
 
 		if(self::$log_errors_to) {

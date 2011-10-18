@@ -153,11 +153,14 @@ class SS_Backtrace {
 	 */
 	static function get_rendered_backtrace($bt, $plainText = false, $ignoredFunctions = null) {
 		$bt = self::filter_backtrace($bt, $ignoredFunctions);
-		$result = "<ul>";
+		$result = '';
+		if( !$plainText ) {
+			$result .= "<ul>";
+		}
 		foreach($bt as $item) {
 			if($plainText) {
-				$result .= self::full_func_name($item,true) . "\n";
-				if(isset($item['line']) && isset($item['file'])) $result .= "line $item[line] of " . basename($item['file']) . "\n";
+				$result .= "\t" . self::full_func_name($item,true);
+				if(isset($item['line']) && isset($item['file'])) $result .= " on line $item[line] of " . basename($item['file']);
 				$result .= "\n";
 			} else {
 				if ($item['function'] == 'user_error') {
@@ -171,7 +174,9 @@ class SS_Backtrace {
 				$result .= "</li>\n";
 			}
 		}
-		$result .= "</ul>";
+		if( !$plainText ) {
+			$result .= "</ul>";
+		}
 		return $result;
 	}
 	

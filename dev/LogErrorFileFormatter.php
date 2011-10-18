@@ -27,6 +27,10 @@ class SS_LogErrorFileFormatter implements Zend_Log_Formatter_Interface {
 				$errtype = 'Notice';
 				break;
 		}
+		
+		if( !empty($errcontext) && is_array($errcontext) ) {
+			$errcontext = SS_Backtrace::get_rendered_backtrace($errcontext, true);
+		}
 
 		$urlSuffix = '';
 		$relfile = Director::makeRelative($errfile);
@@ -35,7 +39,8 @@ class SS_LogErrorFileFormatter implements Zend_Log_Formatter_Interface {
 			$urlSuffix = " (http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI])";
 		}
 
-		return '[' . date('d-M-Y h:i:s') . "] $errtype at $relfile line $errline: $errstr$urlSuffix" . PHP_EOL;
+		return '[' . date('d-M-Y h:i:s') . "] $errtype at $relfile line $errline: $errstr$urlSuffix Trace:\n$errcontext" . PHP_EOL;
 	}
 
 }
+

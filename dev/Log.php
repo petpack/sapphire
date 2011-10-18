@@ -67,7 +67,7 @@ class SS_Log {
 	 * Get the logger currently in use, or create a new
 	 * one if it doesn't exist.
 	 * 
-	 * @return object
+	 * @return SS_ZendLog
 	 */
 	public static function get_logger() {
 		if(!self::$logger) {
