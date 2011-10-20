@@ -57,9 +57,6 @@ class Dev_Stringifier
 		elseif (is_resource($variable)) {
 			$rv = 'Resource('.get_resource_type($variable).' '.$variable.')';
 		}
-		elseif (is_string($variable)) {
-			$rv .= '"'.str_replace('"', '\"', $variable).'"';
-		}
 		else {
 			$rv = $variable;
 		}

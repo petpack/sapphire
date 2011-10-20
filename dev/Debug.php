@@ -187,7 +187,7 @@ class Debug {
 		foreach ($vars as $var) {
 			$messages[] = Dev_Stringifier::getVariableAsString($var);
 		}
-		self::message(implode(', ', $messages));
+		self::message(implode(' ', $messages));
 	}
 	
 	// Keep track of how many headers have been sent
