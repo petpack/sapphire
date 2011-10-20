@@ -180,7 +180,16 @@ class Debug {
 			}
 		}
 	}
-
+	
+	static function bog() {
+		$vars = func_get_args();
+		$messages = array();
+		foreach ($vars as $var) {
+			$messages[] = Dev_Stringifier::getVariableAsString($var);
+		}
+		self::message(implode(', ', $messages));
+	}
+	
 	// Keep track of how many headers have been sent
 	static $headerCount = 0;
 
