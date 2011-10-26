@@ -13,15 +13,14 @@ class Dev_Stringifier
 	 * @param mixed $variable
 	 * @return string
 	 */
-	public static function getVariableAsString($variable)
-	{
+	public static function getVariableAsString($variable) {
 		$rv = '';
 		if (is_object($variable)) {
 			$rv = 'Object['.get_class($variable).']';
-            if ($variable->hasMethod('toDebugString')) {
+            if (self::objectHasMethod($variable, 'toDebugString')) {
 				$rv .= '('.$variable->toDebugString().')';
             }
-            elseif ($variable->hasMethod('_toString')) {
+            elseif (self::objectHasMethod($variable, '_toString')) {
 				$rv .= '('.$variable->_toString().')';
 			}
 		}
@@ -62,6 +61,16 @@ class Dev_Stringifier
 		}
 
 		return $rv;
+	}
+	
+	protected function objectHasMethod($object, $method) {
+		if (method_exists($object, $method)) {
+			return true;
+		}
+		if (method_exists($object, 'hasMethod')) {
+			return $object->hasMethod($method);
+		}
+		return false;
 	}
 }
 ?>
