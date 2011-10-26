@@ -181,13 +181,26 @@ class Debug {
 		}
 	}
 	
+	/**
+	 * Logs all given arguments in a firefox-style log sequence, using the Debug::message() function.
+	 * All objects are converted to an explanatory string, 
+	 * indicating class, and other pertinent information, using the the Dev_Stringifier.
+	 * Thus, at time of writing 
+	 * <code>
+	 *   Debug::use_log_for_debug(true);
+	 *   $page = DataObject::get_by_id('SiteTree', 1);
+	 *   Debug::bog('First page:', $page, 'is', $page->Title);
+	 * </code>
+	 * would result in:
+	 *   First page: Object[Page](ID:1) is Home
+	 */
 	static function bog() {
 		$vars = func_get_args();
 		$messages = array();
 		foreach ($vars as $var) {
 			$messages[] = Dev_Stringifier::getVariableAsString($var);
 		}
-		self::message(implode(' ', $messages));
+		self::message(implode(' ', $messages), false);
 	}
 	
 	// Keep track of how many headers have been sent
