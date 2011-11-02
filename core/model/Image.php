@@ -72,15 +72,29 @@ class Image extends File {
 	}
 	
 	/**
-	 * An image exists if it has a filename.
-	 * Does not do any filesystem checks.
+	 * Returns true if the Filename attribute has been set (absolutely useless) or if the record exists in the database.
 	 * 
+	 * An image exists if it has a filename. Does not do any filesystem checks.
+	 * 
+	 * @param boolean $existsInDB     If true then parent::exists() is called rather than just checking if the 
+	 *                                Filename attribute has been set (which honestly, is useless).
 	 * @return boolean
+	 * 
+	 * @author Alex Hayes <alex.hayes@dimension27.com> (added support to check if database record exists)
+	 * @ffs How is this vaguely useful to just check if a field is set! Adding support so that access to 
+	 *      the parent is possible.
 	 */
-	public function exists() {
-		if(isset($this->record["Filename"])) {
-			return true;
-		}		
+	public function exists( $existsInDB = false ) {
+		if( $existsInDB ) {
+			return parent::exists();
+		}
+		else {
+			// Existing (useless) functionality
+			if(isset($this->record["Filename"])) {
+				return true;
+			}
+			return false;
+		}
 	}
 
 	/**
