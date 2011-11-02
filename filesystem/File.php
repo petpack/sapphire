@@ -832,7 +832,11 @@ class File extends DataObject {
 		
 		return $fields;
 	}
-	
+
+	function fileExists() {
+		return is_file($path = $this->getFullPath()) || is_link($path);
+	}
+
 }
 
 ?>
