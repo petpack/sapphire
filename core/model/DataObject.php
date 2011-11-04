@@ -2726,6 +2726,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 
 		if($join) {
 			$query->from[] = $join;
+/*
 			// In order to group by unique columns we have to group by everything listed in the select
 			foreach($query->select as $field) {
 				// Skip the _SortColumns; these are only going to be aggregate functions
@@ -2741,6 +2742,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 					$query->groupby[] = $field;
 				}
 			}
+*/						
 		}
 
 		return $query;
