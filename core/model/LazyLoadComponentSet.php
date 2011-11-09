@@ -286,6 +286,95 @@ class LazyLoadComponentSet extends ComponentSet {
 		return parent::onlyContainsIDs($idList);
 	}
 
+	
+
+	/**
+	 * Get an array of all the IDs in this component set, where the keys are the same as the
+	 * values.
+	 * @return array
+	 */
+	function getIdList() {
+		$iterator = $this->executeIteratorQuery();
+		return parent::getIdList();
+	}
+		
+	/**
+	 * Add an item to this set.
+	 * @param DataObject|int|string $item Item to add, either as a DataObject or as the ID.
+	 * @param array $extraFields A map of extra fields to add.
+	 */
+	function add($item, $extraFields = null) {
+		$iterator = $this->executeIteratorQuery();
+		return parent::add($item, $extraFields);
+	}
+	
+	/**
+	 * Method to save many-many join data into the database for the given $item.
+	 * Used by add() and write().
+	 * @param DataObject|string|int The item to save, as either a DataObject or the ID.
+	 * @param array $extraFields Map of extra fields.
+	 */
+	protected function loadChildIntoDatabase($item, $extraFields = null) {
+		$iterator = $this->executeIteratorQuery();
+		return parent::loadChildIntoDatabase($item, $extraFields);
+	}
+    	
+	/**
+	 * Add a number of items to the component set.
+	 * @param array $items Items to add, as either DataObjects or IDs.
+	 */
+	function addMany($items) {
+		$iterator = $this->executeIteratorQuery();
+		return parent::addMany($items);
+	}
+	
+	/**
+	 * Sets the ComponentSet to be the given ID list.
+	 * Records will be added and deleted as appropriate.
+	 * @param array $idList List of IDs.
+	 */
+	function setByIDList($idList) {
+		$iterator = $this->executeIteratorQuery();
+		return parent::setByIDList($idList);
+	}
+	
+	/**
+	 * Remove an item from this set.
+	 *
+	 * @param DataObject|string|int $item Item to remove, either as a DataObject or as the ID.
+	 */
+	function remove($item) {
+		$iterator = $this->executeIteratorQuery();
+		return parent::remove($item);
+	}
+	
+	/**
+	 * Remove many items from this set.
+	 * @param array $itemList The items to remove, as a numerical array with IDs or as a DataObjectSet
+	 */
+	function removeMany($itemList) {
+		$iterator = $this->executeIteratorQuery();
+		return parent::removeMany($itemList);
+	}
+
+	/**
+	 * Remove all items in this set.
+	 */
+	function removeAll() {
+		$iterator = $this->executeIteratorQuery();
+		return parent::removeAll();
+	}
+	
+	/**
+	 * Write this set to the database.
+	 * Called by DataObject::write().
+	 * @param boolean $firstWrite This should be set to true if it the first time the set is being written.
+	 */
+	function write($firstWrite = false) {
+		$iterator = $this->executeIteratorQuery();
+		return parent::write($firstWrite);
+	}
+	
 }
 
 class LazyLoadComponentSet_Iterator extends DataObjectSet_Iterator {
@@ -323,7 +412,7 @@ class LazyLoadComponentSet_Iterator extends DataObjectSet_Iterator {
 		if( !is_object($this->query) ) {
 			return false;
 		}
-		var_dump('---- ' . __METHOD__ . ' ----');
+//		var_dump('---- ' . __METHOD__ . ' ----');
 		$records = $this->query->execute();
 		$this->executed = true;
 		if( $records ) {
@@ -453,4 +542,5 @@ class LazyLoadComponentSet_Iterator extends DataObjectSet_Iterator {
 		
 		return false;
 	}
+
 }
