@@ -113,11 +113,18 @@ class MySQLDatabase extends SS_Database {
 			$starttime = microtime(true);
 		}
 		
+		if(isset($_REQUEST['debug_profile'])) {
+			Profiler::mark('MySQLDatabase::query', $sql);
+		}
+		
 		$handle = mysql_query($sql, $this->dbConn);
 		
 		if(isset($_REQUEST['showqueries'])) {
 			$endtime = round(microtime(true) - $starttime,4);
 			Debug::message("\n$sql\n{$endtime}ms\n", false);
+		}
+		if(isset($_REQUEST['debug_profile'])) {
+			Profiler::mark('MySQLDatabase::query', $sql);
 		}
 		
 		if(!$handle && $errorLevel) $this->databaseError("Couldn't run query: $sql | " . mysql_error($this->dbConn), $errorLevel);
