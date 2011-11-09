@@ -302,9 +302,10 @@ class LazyLoadComponentSet extends ComponentSet {
 	 * Add an item to this set.
 	 * @param DataObject|int|string $item Item to add, either as a DataObject or as the ID.
 	 * @param array $extraFields A map of extra fields to add.
+	 * @param bool $loadExisting If set to true, then existing records will be loaded into memory and 
+	 *                           this record placed at the end of the stack.
 	 */
 	function add($item, $extraFields = null) {
-		$iterator = $this->executeIteratorQuery();
 		return parent::add($item, $extraFields);
 	}
 	
@@ -315,16 +316,16 @@ class LazyLoadComponentSet extends ComponentSet {
 	 * @param array $extraFields Map of extra fields.
 	 */
 	protected function loadChildIntoDatabase($item, $extraFields = null) {
-		$iterator = $this->executeIteratorQuery();
 		return parent::loadChildIntoDatabase($item, $extraFields);
 	}
     	
 	/**
 	 * Add a number of items to the component set.
 	 * @param array $items Items to add, as either DataObjects or IDs.
+	 * @param bool $loadExisting If set to true, then existing records will be loaded into memory and 
+	 *                           these records placed at the end of the stack.
 	 */
 	function addMany($items) {
-		$iterator = $this->executeIteratorQuery();
 		return parent::addMany($items);
 	}
 	
@@ -344,7 +345,6 @@ class LazyLoadComponentSet extends ComponentSet {
 	 * @param DataObject|string|int $item Item to remove, either as a DataObject or as the ID.
 	 */
 	function remove($item) {
-		$iterator = $this->executeIteratorQuery();
 		return parent::remove($item);
 	}
 	
@@ -353,7 +353,6 @@ class LazyLoadComponentSet extends ComponentSet {
 	 * @param array $itemList The items to remove, as a numerical array with IDs or as a DataObjectSet
 	 */
 	function removeMany($itemList) {
-		$iterator = $this->executeIteratorQuery();
 		return parent::removeMany($itemList);
 	}
 
@@ -361,7 +360,10 @@ class LazyLoadComponentSet extends ComponentSet {
 	 * Remove all items in this set.
 	 */
 	function removeAll() {
-		$iterator = $this->executeIteratorQuery();
+		if(empty($this->tableName)) {
+			// Load up items into memory, absolutely ridiculous that it has to be done this way...
+			$this->executeIteratorQuery();
+		}
 		return parent::removeAll();
 	}
 	
