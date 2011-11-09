@@ -1418,7 +1418,7 @@ class Member extends DataObject {
  * @package sapphire
  * @subpackage security
  */
-class Member_GroupSet extends LazyLoadComponentSet {
+class Member_GroupSet extends ComponentSet {
 	/**
 	 * Control group membership with a number of checkboxes.
 	 *  - If the checkbox fields are present in $data, then the member will be

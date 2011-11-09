@@ -414,7 +414,6 @@ class LazyLoadComponentSet_Iterator extends DataObjectSet_Iterator {
 		if( !is_object($this->query) ) {
 			return false;
 		}
-//		var_dump('---- ' . __METHOD__ . ' ----');
 		$records = $this->query->execute();
 		$this->executed = true;
 		if( $records ) {
