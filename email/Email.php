@@ -259,12 +259,17 @@ class Email extends ViewableData {
 	public function debug() {
 		$this->parseVariables();
 
+        $headerString = '';
+        foreach ($this->customHeaders as $name => $value) {
+            $headerString .= "\t".$name.': '.$value."\n";
+        }
 		return "<h2>Email template $this->class</h2>\n" . 
-			"<p><b>From:</b> $this->from\n" .
+			"<p>\n<b>From:</b> $this->from\n" .
 			"<b>To:</b> $this->to\n" . 
 			"<b>Cc:</b> $this->cc\n" . 
 			"<b>Bcc:</b> $this->bcc\n" . 
-			"<b>Subject:</b> $this->subject</p>" . 
+			"<b>Subject:</b> $this->subject\n" . 
+			"<b>Custom Headers</b>\n$headerString</p>\n\n" . 
 			$this->body;
 	}
 
@@ -346,12 +351,13 @@ class Email extends ViewableData {
 				$template = new SSViewer($this->ss_template);
 				
 				if($template->exists()) {
-					$fullBody = $template->process($data);
+					//Don't rewrite hash links, or internal links will be broken.
+					$fullBody = $template->dontRewriteHashlinks()->process($data);
 				}
 			}
 			
-			// Rewrite relative URLs
-			$this->body = HTTP::absoluteURLs($fullBody);
+			// Rewrite relative URLs, but preserve internal links
+			$this->body = HTTP::absoluteURLs($fullBody, true);
 		}
 	}
 	

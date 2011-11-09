@@ -72,15 +72,29 @@ class Image extends File {
 	}
 	
 	/**
-	 * An image exists if it has a filename.
-	 * Does not do any filesystem checks.
+	 * Returns true if the Filename attribute has been set (absolutely useless) or if the record exists in the database.
 	 * 
+	 * An image exists if it has a filename. Does not do any filesystem checks.
+	 * 
+	 * @param boolean $existsInDB     If true then parent::exists() is called rather than just checking if the 
+	 *                                Filename attribute has been set (which honestly, is useless).
 	 * @return boolean
+	 * 
+	 * @author Alex Hayes <alex.hayes@dimension27.com> (added support to check if database record exists)
+	 * @ffs How is this vaguely useful to just check if a field is set! Adding support so that access to 
+	 *      the parent is possible.
 	 */
-	public function exists() {
-		if(isset($this->record["Filename"])) {
-			return true;
-		}		
+	public function exists( $existsInDB = false ) {
+		if( $existsInDB ) {
+			return parent::exists();
+		}
+		else {
+			// Existing (useless) functionality
+			if(isset($this->record["Filename"])) {
+				return true;
+			}
+			return false;
+		}
 	}
 
 	/**
@@ -426,6 +440,34 @@ class Image extends File {
 
 		$this->deleteFormattedImages();
 	}
+
+	public function getSizedTag($width = null, $height = null) {
+		if (is_null($width) && is_null($height)){
+			$image = $this;
+		}
+		else {
+			if (is_null($width)) {
+				$width = $this->getWidth();
+			}
+			if (is_null($height)) {
+				$height = $this->getHeight();
+			}
+			$image = $this->SetRatioSize($width, $height);
+		}
+		$fileName = Director::baseFolder() . '/' . $image->Filename;
+		if(file_exists($fileName)) {
+			$url = $image->getURL();
+			if($image->Title) {
+				$title = Convert::raw2att($image->Title);
+			} else {
+				$title = $image->Filename;
+				if(preg_match("/([^\/]*)\.[a-zA-Z0-9]{1,6}$/", $title, $matches)) $title = Convert::raw2att($matches[1]);
+			}
+			$size = getimagesize($fileName);
+			return '<img src="'.$url.'" width="'.$size[0].'" height="'.$size[1].'" alt="'.$title.'" />';
+		}
+	}
+
 }
 
 /**

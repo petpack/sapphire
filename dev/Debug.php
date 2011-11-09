@@ -57,6 +57,15 @@ class Debug {
 	 * The body of the message shown to users on the live site when a fatal error occurs.
 	 */
 	public static $friendly_error_detail = 'The website server has not been able to respond to your request.';
+	
+	/**
+	 * If true, then the error log will be used to output debug messages, 
+	 * rather than printing them directly to the page.
+	 * This can be useful for AJAX requests, or if the output of an error message will 
+	 * mess up the layout.
+	 * @var boolean
+	 */
+	public static $use_log_for_debug = false;
 
 	/**
 	 * Show the contents of val in a debug-friendly way.
@@ -155,9 +164,15 @@ class Debug {
 		if(!Director::isLive()) {
 			$caller = Debug::caller();
 			$file = basename($caller['file']);
+			if (!is_string($message)) {
+				$message = var_export($message, true);
+			}
 			if(Director::is_cli()) {
 				if($showHeader) echo "Debug (line $caller[line] of $file):\n ";
 				echo $message . "\n";
+			} elseif (self::$use_log_for_debug) {
+				if($showHeader) $message = "Debug (line $caller[line] of $file):\n ".$message;
+				error_log($message . "\n");
 			} else {
 				echo "<p style=\"background-color: white; color: black; width: 95%; margin: 0.5em; padding: 0.3em; border: 1px #CCC solid\">\n";
 				if($showHeader) echo "<b>Debug (line $caller[line] of $file):</b>\n ";
@@ -165,7 +180,29 @@ class Debug {
 			}
 		}
 	}
-
+	
+	/**
+	 * Logs all given arguments in a firefox-style log sequence, using the Debug::message() function.
+	 * All objects are converted to an explanatory string, 
+	 * indicating class, and other pertinent information, using the the Dev_Stringifier.
+	 * Thus, at time of writing 
+	 * <code>
+	 *   Debug::use_log_for_debug(true);
+	 *   $page = DataObject::get_by_id('SiteTree', 1);
+	 *   Debug::bog('First page:', $page, 'is', $page->Title);
+	 * </code>
+	 * would result in:
+	 *   First page: Object[Page](ID:1) is Home
+	 */
+	static function bog() {
+		$vars = func_get_args();
+		$messages = array();
+		foreach ($vars as $var) {
+			$messages[] = Dev_Stringifier::getVariableAsString($var);
+		}
+		self::message(implode(' ', $messages), false);
+	}
+	
 	// Keep track of how many headers have been sent
 	static $headerCount = 0;
 
@@ -280,14 +317,14 @@ class Debug {
 
 		// Send out the error details to the logger for writing
 		SS_Log::log(
-		array(
-				'errno' => $errno,
-				'errstr' => $errstr,
-				'errfile' => $errfile,
-				'errline' => $errline,
-				'errcontext' => $errcontext
-		),
-		SS_Log::ERR
+			array(
+					'errno' => $errno,
+					'errstr' => $errstr,
+					'errfile' => $errfile,
+					'errline' => $errline,
+					'errcontext' => $errcontext
+			),
+			SS_Log::ERR
 		);
 
 		if(self::$log_errors_to) {
@@ -375,7 +412,8 @@ class Debug {
 		if(!headers_sent()) {
 			$errText = "$errtype: \"$errstr\" at line $errline of $errfile";
 			$errText = str_replace(array("\n","\r")," ",$errText);
-			if(!headers_sent()) header($_SERVER['SERVER_PROTOCOL'] . " 500 $errText");
+			$protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'http';
+			if(!headers_sent()) header($protocol . " 500 $errText");
 				
 			// if error is displayed through ajax with CliDebugView, use plaintext output
 			if(Director::is_ajax()) header('Content-Type: text/plain');
@@ -563,6 +601,14 @@ class Debug {
 		self::$log_errors_to = $logFile;
 	}
 
+	/**
+	 * Whether or not to use the log for debug messages.
+	 * @param boolean $on
+	 */
+	static function use_log_for_debug($on = true) {
+		self::$use_log_for_debug = $on;
+	}
+	
 	static function caller() {
 		$bt = debug_backtrace();
 		$caller = $bt[2];

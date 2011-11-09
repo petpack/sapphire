@@ -419,24 +419,24 @@ class FormField extends RequestHandler {
 <div id="$Name" class="field $Type $extraClass">$titleBlock<div class="middleColumn">$Field</div>$rightTitleBlock$messageBlock</div>
 HTML;
 	}
+	
+	public function TitleBlock() {
+		$result = '';
+		if ($title = $this->XML_val('RightTitle')) {
+			$result .= "<label class=\"right\" for=\"" . $this->id() . "\">{$title}</label>\n";
+		} elseif ($title = $this->XML_val('LeftTitle')) {
+			$result .= "<label class=\"left\" for=\"" . $this->id() . "\">{$title}</label>\n";
+		} elseif ($title = $this->XML_val('Title')) {
+			$result .= "<label for=\"" . $this->id() . "\">{$title}</label>\n";
+		}
+		return $result;
+	}
 
 	/**
 	 * Returns a restricted field holder used within things like FieldGroups.
 	 */
 	function SmallFieldHolder() {
-		$result = '';
-		// set label
-		if($title = $this->RightTitle()){
-			$result .= "<label class=\"right\" for=\"" . $this->id() . "\">{$title}</label>\n";
-		} elseif($title = $this->LeftTitle()) {
-			$result .= "<label class=\"left\" for=\"" . $this->id() . "\">{$title}</label>\n";
-		} elseif($title = $this->Title()) {
-			$result .= "<label for=\"" . $this->id() . "\">{$title}</label>\n";
-		}
-		
-		$result .= $this->Field();
-		
-		return $result;
+		return $this->TitleBlock().$this->Field();
 	}
 
 	

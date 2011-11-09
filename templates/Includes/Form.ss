@@ -1,6 +1,9 @@
 <% if IncludeFormTag %>
 <form $FormAttributes>
 <% end_if %>
+	<% if FormJS %>
+      $FormJS
+	<% end_if %>
 	<% if Message %>
 	<p id="{$FormName}_error" class="message $MessageType">$Message</p>
 	<% else %>

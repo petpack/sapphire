@@ -109,6 +109,8 @@ class Form extends RequestHandler {
 	
 	protected $messageType;
 	
+	protected $js = null;
+	
 	/**
 	 * Should we redirect the user back down to the 
 	 * the form on validation errors rather then just the page
@@ -819,6 +821,17 @@ class Form extends RequestHandler {
 			Session::clear("FormInfo.{$this->FormName()}");
 		}
 	}
+	
+	function FormJS() {
+		if (is_null($this->js)) {
+			$name = "FormJs.{$this->FormName()}";
+			if (!$this->js = Session::get($name)) {
+				$this->js = '';
+			}
+			Session::clear($name);
+		}
+		return $this->js ? Utils::customScript($this->js) : null;
+	}
 
 	/**
 	 * Set a status message for the form.
@@ -840,6 +853,19 @@ class Form extends RequestHandler {
 	function sessionMessage($message, $type) {
 		Session::set("FormInfo.{$this->FormName()}.formError.message", $message);
 		Session::set("FormInfo.{$this->FormName()}.formError.type", $type);
+	}
+	
+	/**
+	 * Adds some arbitrary javascript to the session, for display next time this form is shown.
+	 * 
+	 * @param js The javascript as a string.
+	 */
+	function addSessionJS($js) {
+		$name = "FormJs.{$this->FormName()}";
+		if ($current =  Session::get($name)) {
+			$current .= ';';
+		}
+		Session::set($name, $current.$js);
 	}
 
 	static function messageForForm( $formName, $message, $type ) {
@@ -1004,23 +1030,27 @@ class Form extends RequestHandler {
 	 * @param $dataObject The object to save data into
 	 * @param $fieldList An optional list of fields to process.  This can be useful when you have a 
 	 * form that has some fields that save to one object, and some that save to another.
+	 * @param $ignored An optional list of fields to ignore.  This can be useful when you have a 
+	 * form that has some fields that save to one object, and some that save to another.
 	 */
-	function saveInto(DataObjectInterface $dataObject, $fieldList = null) {
+	function saveInto(DataObjectInterface $dataObject, $fieldList = null, $ignoredFields = null) {
 		$dataFields = $this->fields->saveableFields();
 		$lastField = null;
 
 		if($dataFields) foreach($dataFields as $field) {
+			$fieldName = $field->Name();
 			// Skip fields that have been exlcuded
-			if($fieldList && is_array($fieldList) && !in_array($field->Name(), $fieldList)) continue;
+			if($fieldList && is_array($fieldList) && !in_array($fieldName, $fieldList)) continue;
+			if ($ignoredFields && in_array($fieldName, $ignoredFields)) continue;
 
 
-			$saveMethod = "save{$field->Name()}";
+			$saveMethod = "save{$fieldName}";
 
-			if($field->Name() == "ClassName"){
+			if($fieldName == "ClassName"){
 				$lastField = $field;
 			}else if( $dataObject->hasMethod( $saveMethod ) ){
 				$dataObject->$saveMethod( $field->dataValue());
-			} else if($field->Name() != "ID"){
+			} else if($fieldName != "ID"){
 				$field->saveInto($dataObject);
 			}
 		}

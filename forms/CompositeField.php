@@ -19,6 +19,12 @@ class CompositeField extends FormField {
 	protected $readonly;
 	
 	/**
+	 * Whether or not to force showing an overall title for the composite field.
+	 * @var boolean
+	 */
+	public $ShowTitle = true;
+	
+	/**
 	 * @var $columnCount int Toggle different css-rendering for multiple columns 
 	 * ("onecolumn", "twocolumns", "threecolumns"). The content is determined
 	 * by the $children-array, so wrap all items you want to have grouped in a
@@ -92,11 +98,15 @@ class CompositeField extends FormField {
 	}	
 	
 	protected function getFieldHolderContent($subfieldCall) {
+		//* debug */ var_dump(__FILE__.':'.__LINE__, $this->Title().':: showTitle:', $this->ShowTitle);
 		$fs = $this->FieldSet();
 		$idAtt = isset($this->id) ? " id=\"{$this->id}\"" : '';
 		$className = ($this->columnCount) ? "field {$this->extraClass()} multicolumn" : "field {$this->extraClass()}";
 		$content = "<div class=\"$className\"$idAtt>";
 		
+		if ($this->ShowTitle){
+			$content .= $this->TitleBlock();
+		}
 		$count = 0;
 		$total = $fs->Count();
 		foreach($fs as $subfield) {

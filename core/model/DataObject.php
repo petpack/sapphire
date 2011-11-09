@@ -3655,5 +3655,12 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
  			return parent::hasValue($field, $arguments, $cache);
  		}
  	}
+ 	
+ 	/**
+ 	 * Returns debug information for this object, to be used by Dev_Stringifier.
+ 	 */
+ 	public function toDebugString() {
+ 		return 'ID:'.$this->ID;
+ 	}
 
 }

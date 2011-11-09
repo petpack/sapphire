@@ -6,6 +6,36 @@
 class SS_Backtrace {
 	
 	/**
+	 * @var array Replaces all arguments with a '<filtered>' string,
+	 * mostly for security reasons. Use string values for global functions,
+	 * and array notation for class methods.
+	 * PHP's debug_backtrace() doesn't allow to inspect the argument names,
+	 * so all arguments of the provided functions will be filtered out.
+	 */
+	static $ignore_function_args = array(
+		'mysql_connect',
+		'mssql_connect',
+		'pg_connect',
+		array('DB', 'connect'),
+		array('Security', 'check_default_admin'),
+		array('Security', 'encrypt_password'),
+		array('Security', 'setDefaultAdmin'),
+		array('DB', 'createDatabase'),
+		array('Member', 'checkPassword'),
+		array('Member', 'changePassword'),
+		array('MemberPassword', 'checkPassword'),
+		array('PasswordValidator', 'validate'),
+		array('PasswordEncryptor_PHPHash', 'encrypt'),
+		array('PasswordEncryptor_PHPHash', 'salt'),
+		array('PasswordEncryptor_LegacyPHPHash', 'encrypt'),
+		array('PasswordEncryptor_LegacyPHPHash', 'salt'),
+		array('PasswordEncryptor_MySQLPassword', 'encrypt'),
+		array('PasswordEncryptor_MySQLPassword', 'salt'),
+		array('PasswordEncryptor_MySQLOldPassword', 'encrypt'),
+		array('PasswordEncryptor_MySQLOldPassword', 'salt'),
+	);
+	
+	/**
 	 * Return debug_backtrace() results with functions filtered
 	 * specific to the debugging system, and not the trace.
 	 * 
@@ -51,6 +81,21 @@ class SS_Backtrace {
 		
 		while($bt && in_array(self::full_func_name($bt[0]), $defaultIgnoredFunctions)) {
 			array_shift($bt);
+		}
+		
+		// Filter out arguments
+		foreach($bt as $i => $frame) {
+			$match = false;
+			if(@$bt[$i]['class']) {
+				foreach(self::$ignore_function_args as $fnSpec) {
+					if(is_array($fnSpec) && $bt[$i]['class'] == $fnSpec[0] && $bt[$i]['function'] == $fnSpec[1]) $match = true;
+				}
+			} else {
+				if(in_array($bt[$i]['function'], self::$ignore_function_args)) $match = true;
+			}
+			if($match) {
+				foreach($bt[$i]['args'] as $j => $arg) $bt[$i]['args'][$j] = '<filtered>';
+			}
 		}
 		
 		return $bt;	
@@ -108,11 +153,14 @@ class SS_Backtrace {
 	 */
 	static function get_rendered_backtrace($bt, $plainText = false, $ignoredFunctions = null) {
 		$bt = self::filter_backtrace($bt, $ignoredFunctions);
-		$result = "<ul>";
+		$result = '';
+		if( !$plainText ) {
+			$result .= "<ul>";
+		}
 		foreach($bt as $item) {
 			if($plainText) {
-				$result .= self::full_func_name($item,true) . "\n";
-				if(isset($item['line']) && isset($item['file'])) $result .= "line $item[line] of " . basename($item['file']) . "\n";
+				$result .= "\t" . self::full_func_name($item,true);
+				if(isset($item['line']) && isset($item['file'])) $result .= " on line $item[line] of " . basename($item['file']);
 				$result .= "\n";
 			} else {
 				if ($item['function'] == 'user_error') {
@@ -126,7 +174,9 @@ class SS_Backtrace {
 				$result .= "</li>\n";
 			}
 		}
-		$result .= "</ul>";
+		if( !$plainText ) {
+			$result .= "</ul>";
+		}
 		return $result;
 	}
 	

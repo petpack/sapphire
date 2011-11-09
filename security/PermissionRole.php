@@ -39,16 +39,18 @@ class PermissionRole extends DataObject {
 		$fields->removeFieldFromTab('Root', 'Codes');
 		$fields->removeFieldFromTab('Root', 'Groups');
 		
-		$fields->addFieldToTab(
-			'Root.Main', 
-			$permissionField = new PermissionCheckboxSetField(
-				'Codes',
-				singleton('Permission')->i18n_plural_name(),
-				'PermissionRoleCode',
-				'RoleID'
-			)
-		);
-		$permissionField->setHiddenPermissions(SecurityAdmin::$hidden_permissions);
+		if( $this->exists() ) {
+			$fields->addFieldToTab(
+				'Root.Main', 
+				$permissionField = new PermissionCheckboxSetField(
+					'Codes',
+					singleton('Permission')->i18n_plural_name(),
+					'PermissionRoleCode',
+					'RoleID'
+				)
+			);
+			$permissionField->setHiddenPermissions(SecurityAdmin::$hidden_permissions);
+		}
 		
 		return $fields;
 	}
