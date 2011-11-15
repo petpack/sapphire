@@ -218,18 +218,17 @@ class Group extends DataObject {
 		$filter[] = "\"$table\".\"GroupID\" IN ($groupFamily)";
 		$join .= " INNER JOIN \"$table\" ON \"$table\".\"MemberID\" = \"Member\".\"ID\"" . Convert::raw2sql($join);
 		
-		$result = singleton("Member")->instance_get(
+		$query = singleton("Member")->extendedSQL(
 			$filter, 
 			$sort,
-			$join, 
 			$limit,
-			"ComponentSet" // datatype
-			);
-			
+			$join
+		);
+		$result = new LazyLoadComponentSet($query);
 		if(!$result) $result = new ComponentSet();
 
 		$result->setComponentInfo("many-to-many", $this, "Group", $table, "Member");
-		foreach($result as $item) $item->GroupID = $this->ID;
+		//foreach($result as $item) $item->GroupID = $this->ID;
 		return $result;
 	}
 	

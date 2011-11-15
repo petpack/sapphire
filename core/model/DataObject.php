@@ -1271,8 +1271,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 
 		if($this->isInDB()) { //Check to see whether we should query the db
 			$query = $this->getComponentsQuery($componentName, $filter, $sort, $join, $limit);
-			$result = $this->buildDataObjectSet($query->execute(), 'ComponentSet', $query, $componentClass);
-			if($result) $result->parseQueryLimit($query);
+			$result = new LazyLoadComponentSet($query);
 		}
 
 		if(!$result) {
@@ -1387,12 +1386,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 				
 			if($componentClass) {
 				$query = $this->getManyManyComponentsQuery($componentName, $filter, $sort, $join, $limit);
-				$records = $query->execute();
-				$result = $this->buildDataObjectSet($records, "ComponentSet", $query, $componentBaseClass);
-				if($result) $result->parseQueryLimit($query); // for pagination support
-				if(!$result) {
-					$result = new ComponentSet();
-				}
+				$result = new LazyLoadComponentSet($query);
 			}
 		} else {
 			$result = new ComponentSet();
