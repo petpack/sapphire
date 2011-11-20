@@ -46,6 +46,13 @@ class SS_LogErrorEmailFormatter implements Zend_Log_Formatter_Interface {
 
 		$data .= "</div>\n";
 
+		$data .= Debug::text(array(
+			'$_SERVER' => $_SERVER,
+			'$_REQUEST' => (isset($_SERVER['SSL']) || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off'))
+				? '[Not included for https:// requests]'
+				: $_REQUEST
+		));
+		
 		$relfile = Director::makeRelative($errfile);
 		if($relfile[0] == '/') $relfile = substr($relfile, 1);
 
