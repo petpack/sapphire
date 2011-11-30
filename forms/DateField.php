@@ -455,6 +455,12 @@ JS;
 	function getConfig($name) {
 		return $this->config[$name];
 	}
+	
+	function createTag( $tag, $attributes, $content = null ) {
+		if( $this->config['showcalendar'] )
+			$attributes['autocomplete'] = 'false';
+		return parent::createTag($tag, $attributes, $content);
+	}
 }
 
 /**
