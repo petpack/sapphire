@@ -537,7 +537,7 @@ class Security extends Controller {
 			// Temporary value, unset in ChangePasswordForm
 			Session::set('AutoLoginHash', $_REQUEST['h']);
 			
-			return $this->redirect($this->Link('changepassword'));
+			return $this->redirect($this->Link('changepassword').'?BackURL='.urlencode($_REQUEST['BackURL']));
 		// Redirection target after "First load with hash"
 		} elseif(Session::get('AutoLoginHash')) {
 			$customisedController = $controller->customise(array(
