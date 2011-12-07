@@ -98,7 +98,6 @@ class CompositeField extends FormField {
 	}	
 	
 	protected function getFieldHolderContent($subfieldCall) {
-		//* debug */ var_dump(__FILE__.':'.__LINE__, $this->Title().':: showTitle:', $this->ShowTitle);
 		$fs = $this->FieldSet();
 		$idAtt = isset($this->id) ? " id=\"{$this->id}\"" : '';
 		$className = ($this->columnCount) ? "field {$this->extraClass()} multicolumn" : "field {$this->extraClass()}";
