@@ -458,7 +458,7 @@ JS;
 	
 	function createTag( $tag, $attributes, $content = null ) {
 		if( $this->config['showcalendar'] )
-			$attributes['autocomplete'] = 'false';
+			$attributes['autocomplete'] = 'off';
 		return parent::createTag($tag, $attributes, $content);
 	}
 }
