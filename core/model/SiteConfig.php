@@ -286,4 +286,13 @@ class SiteConfig extends DataObject implements PermissionProvider {
 
 		return false;
 	}
+	
+	protected function onBeforeWrite() {
+		parent::onBeforeWrite();
+		
+		// It doesn't make sense to allow the SiteConfig Theme to override the subsite theme
+		// If Subsites exist, set the SiteConfig Theme to null
+		if( class_exists('Subsite') && $this->Theme )
+			$this->Theme = null;
+	}
 }
