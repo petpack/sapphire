@@ -377,6 +377,36 @@ class LazyLoadComponentSet extends ComponentSet {
 		return parent::write($firstWrite);
 	}
 	
+	/**
+	 * Remove a DataObject from the beginning of this set and return it.
+	 * This is the equivalent of pop() but acts on the head of the set.
+	 * Opposite of unshift().
+	 * 
+	 * @return DataObject (or null if there are no items in the set)
+	 */
+	public function shift() {
+		throw new Exception(get_class($this)."::shift() not supported");
+	}
+
+	/**
+	 * Remove a DataObject from the end of this set and return it.
+	 * This is the equivalent of shift() but acts on the tail of the set.
+	 * Opposite of push().
+	 * 
+	 * @return DataObject (or null if there are no items in the set)
+	 */
+	public function pop() {
+		throw new Exception(get_class($this)."::pop() not supported");
+	}
+	
+	/**
+	 * Add an item to the DataObject Set.
+	 * @param DataObject $item Item to add.
+	 * @param string $key Key to index this DataObject by.
+	 */
+	public function push($item, $key = null) {
+		throw new Exception(get_class($this)."::push() not supported");
+	}
 }
 
 class LazyLoadComponentSet_Iterator extends DataObjectSet_Iterator {
