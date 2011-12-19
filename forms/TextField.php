@@ -4,7 +4,7 @@
  * @package forms
  * @subpackage fields-basic
  */
-class TextField extends FormField {
+class TextField extends PlaceholderField {
 
 	/**
 	 * @var Int
@@ -14,9 +14,9 @@ class TextField extends FormField {
 	/**
 	 * Returns an input field, class="text" and type="text" with an optional maxlength
 	 */
-	function __construct($name, $title = null, $value = "", $maxLength = null, $form = null){
+	function __construct($name, $title = null, $value = "", $maxLength = null, $form = null, $placeholder = false){
 		$this->maxLength = $maxLength;
-		
+		$this->setPlaceholder($placeholder);
 		parent::__construct($name, $title, $value, $form);
 	}
 	
@@ -43,8 +43,12 @@ class TextField extends FormField {
 			'value' => $this->Value(),
 			'tabindex' => $this->getTabIndex(),
 			'maxlength' => ($this->maxLength) ? $this->maxLength : null,
-			'size' => ($this->maxLength) ? min( $this->maxLength, 30 ) : null 
+			'size' => ($this->maxLength) ? min( $this->maxLength, 30 ) : null
 		);
+		
+		if( $this->placeholder ) {
+			$attributes['placeholder'] = $this->placeholder;
+		}
 		
 		if($this->disabled) $attributes['disabled'] = 'disabled';
 		
@@ -57,4 +61,3 @@ class TextField extends FormField {
 	}
 	
 }
-?>

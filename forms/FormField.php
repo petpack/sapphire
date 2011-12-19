@@ -72,7 +72,7 @@ class FormField extends RequestHandler {
 	 * @var Custom Validation Message for the Field
 	 */
 	protected $customValidationMessage = "";
-	
+
 	/**
 	 * Create a new field.
 	 * @param name The internal field name, passed to forms.

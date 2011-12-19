@@ -4,7 +4,7 @@
  * @package forms
  * @subpackage fields-formattedinput
  */
-class PasswordField extends FormField {
+class PasswordField extends PlaceholderField {
 
 	/**
 	 * maxlength of the password field
@@ -12,7 +12,6 @@ class PasswordField extends FormField {
 	 * @var int
 	 */
 	protected $maxLength;
-
 
 	/**
 	 * Returns an input field, class="text" and type="text" with an optional
@@ -27,13 +26,20 @@ class PasswordField extends FormField {
 	function Field() {
 		$disabled = $this->isDisabled()?"disabled=\"disabled\"":""; 
 		$readonly = $this->isReadonly()?"readonly=\"readonly\"":"";
+	
+		if( $this->placeholder ) {
+			$placeholder = ' placeholder="' . $this->placeholder . '"';
+		} else {
+			$placeholder = '';
+		}
+		
 		if($this->maxLength) {
 			return "<input class=\"text\" type=\"password\" id=\"" . $this->id() .
 				"\" name=\"{$this->name}\" value=\"" . $this->attrValue() .
-				"\" maxlength=\"$this->maxLength\" size=\"$this->maxLength\" $disabled $readonly />"; 
+				"\" maxlength=\"$this->maxLength\" size=\"$this->maxLength\"$placeholder $disabled $readonly />"; 
 		} else {
 			return "<input class=\"text\" type=\"password\" id=\"" . $this->id() .
-				"\" name=\"{$this->name}\" value=\"" . $this->attrValue() . "\" $disabled $readonly />"; 
+				"\" name=\"{$this->name}\" value=\"" . $this->attrValue() . "\"$placeholder $disabled $readonly />"; 
 		}
 	}
 
@@ -50,5 +56,3 @@ class PasswordField extends FormField {
 		return $field;
 	}
 }
-
-?>
