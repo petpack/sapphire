@@ -399,7 +399,7 @@ class Member extends DataObject {
 				
 				$generator = new RandomGenerator();
 				$member->RememberLoginToken = $generator->generateHash('sha1');
-				Cookie::set('alc_enc', $member->ID . ':' . $token, 90, null, null, false, true);
+				Cookie::set('alc_enc', $member->ID . ':' . $member->RememberLoginToken, 90, null, null, false, true);
 
 				$member->NumVisit++;
 				$member->write();
@@ -695,15 +695,14 @@ class Member extends DataObject {
 	}
 	
 	/**
-	 * If any admin groups are requested, deny the whole save operation.
-	 * 
+	 * If any admin groups are requested, deny unless the current user is an admin
 	 * @param Array $ids Database IDs of Group records
 	 * @return boolean
 	 */
 	function onChangeGroups($ids) {
 		// Filter out admin groups to avoid privilege escalation, 
 		// unless the current user is an admin already
-		if(!Permission::checkMember($this, 'ADMIN')) {
+		if(!Permission::check('ADMIN')) {
 			$adminGroups = Permission::get_groups_by_permission('ADMIN');
 			$adminGroupIDs = ($adminGroups) ? $adminGroups->column('ID') : array();
 			return count(array_intersect($ids, $adminGroupIDs)) == 0;

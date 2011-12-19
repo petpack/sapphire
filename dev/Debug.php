@@ -412,7 +412,8 @@ class Debug {
 		if(!headers_sent()) {
 			$errText = "$errtype: \"$errstr\" at line $errline of $errfile";
 			$errText = str_replace(array("\n","\r")," ",$errText);
-			if(!headers_sent()) header($_SERVER['SERVER_PROTOCOL'] . " 500 $errText");
+			$protocol = isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'http';
+			if(!headers_sent()) header($protocol . " 500 $errText");
 				
 			// if error is displayed through ajax with CliDebugView, use plaintext output
 			if(Director::is_ajax()) header('Content-Type: text/plain');
