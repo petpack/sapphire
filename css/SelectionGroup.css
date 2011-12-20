@@ -27,6 +27,9 @@
 }
 .SelectionGroup li input, .right .SelectionGroup li label {
 	display: block;
+}
+.SelectionGroup li .checkbox input, .right .SelectionGroup li .checkbox label {
+	display: inline;
 }	
 .SelectionGroup li.selected div.field {
 	margin-left: 30px;
