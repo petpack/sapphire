@@ -86,6 +86,22 @@ class Requirements {
 	}
 	
 	/**
+	 * Replace a specific js file with another file and maintain index position.
+	 * 
+	 * @param string $search       The file name to search for.
+	 * @param string $replace      The replacement file to use.
+	 * @param bool $blockExisting  If true then the searched file will be blocked so that it isn't
+	 *                             added by another requirement.
+	 *
+	 * @return bool                True if the file was replaced, false otherwise.
+	 * 
+	 * @author Alex Hayes <alex.hayes@dimension27.com>
+	 */
+	static function replace_javascript($search, $replace, $blockExisting = true) {
+		self::backend()->replace_javascript($search, $replace, $blockExisting);
+	}
+	
+	/**
 	 * Add the javascript code to the header of the page
 	 * 
 	 * See {@link Requirements_Backend::customScript()} for more info
@@ -475,13 +491,40 @@ class Requirements_Backend {
 	public function set_write_js_to_body($var) {
 		$this->write_js_to_body = $var;
 	}
+	
 	/**
 	 * Register the given javascript file as required.
 	 * Filenames should be relative to the base, eg, 'sapphire/javascript/loader.js'
 	 */
-	
 	public function javascript($file) {
 		$this->javascript[$file] = true;
+	}
+	
+	/**
+	 * Replace a specific js file with another file and maintain index position.
+	 * 
+	 * @param string $search       The file name to search for.
+	 * @param string $replace      The replacement file to use.
+	 * @param bool $blockExisting  If true then the searched file will be blocked so that it isn't
+	 *                             added by another requirement.
+	 * @return bool                True if the file was replaced, false otherwise.
+	 * 
+	 * @author Alex Hayes <alex.hayes@dimension27.com>
+	 */
+	public function replace_javascript($search, $replace, $blockExisting) {
+		if( array_key_exists($search, $this->javascript) ) {
+			$keys = array_keys($this->javascript);
+			$values = array_values($this->javascript);
+			$pos = array_search($search, $keys);
+			$keys[$pos] = $replace;
+			$this->javascript = array_combine($keys, $values);
+			if( $blockExisting ) {
+				self::block($search);
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
