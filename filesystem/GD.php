@@ -10,6 +10,10 @@ class GD extends Object {
 	
 	protected static $default_quality = 75;
 
+	static function get_default_quality() {
+		return self::$default_quality;
+	}
+
 	/**
 	 * Set the default image quality.
 	 * @param quality int A number from 0 to 100, 100 being the best quality.
