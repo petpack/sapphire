@@ -396,7 +396,8 @@ class LazyLoadComponentSet extends ComponentSet {
 	 * @return DataObject (or null if there are no items in the set)
 	 */
 	public function pop() {
-		throw new Exception(get_class($this)."::pop() not supported");
+		$iterator = $this->executeIteratorQuery();
+		return parent::pop();
 	}
 	
 	/**
