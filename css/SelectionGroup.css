@@ -40,3 +40,9 @@
 .SelectionGroup li.selected label.selector {
 	font-weight: bold;
 }
+
+.SelectionGroup li .checkbox input,
+.right .SelectionGroup li .checkbox label {
+	float: left;
+	margin: 0 0 5px 5px;
+}
