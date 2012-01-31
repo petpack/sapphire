@@ -408,6 +408,19 @@ class LazyLoadComponentSet extends ComponentSet {
 	public function push($item, $key = null) {
 		throw new Exception(get_class($this)."::push() not supported");
 	}
+
+	/**
+	 * Gets a specific slice of an existing set.
+	 * 
+	 * @param int $offset
+	 * @param int $length
+	 * @return DataObjectSet
+	 */
+	public function getRange($offset, $length) {
+		$iterator = $this->executeIteratorQuery();
+		return parent::getRange($offset, $length);
+	}
+	
 }
 
 class LazyLoadComponentSet_Iterator extends DataObjectSet_Iterator {
