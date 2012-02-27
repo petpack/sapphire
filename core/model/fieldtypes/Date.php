@@ -25,6 +25,24 @@ class Date extends DBField {
 	 * @var string DB | Nice | US
 	 */
 	static $format = 'DB';
+
+	function getValue() {
+		if( $this->value ) {
+			switch( self::$format ) {
+				case 'Nice':
+					$value = $this->Nice($this->value);
+					break;
+				case 'US':
+					$value = $this->NiceUS($this->value);
+					break;
+				default:
+					$value = date('Y-m-d', $this->value);
+			}
+		}
+		else $value = null;
+
+		return $value;
+	}
 	
 	function setValue($value) {
 		// @todo This needs tidy up (what if you only specify a month and a year, for example?)
@@ -40,17 +58,10 @@ class Date extends DBField {
 			$value = "$parts[2]/$parts[1]/$parts[3]";			
 		}
 
-		$value = ( is_numeric($value) ? $value : ( is_string($value) ? strtotime($value) : NULL ) );
-		switch( self::$format ) {
-			case 'Nice':
-				$this->value = $this->Nice($value);
-				break;
-			case 'US':
-				$this->value = $this->NiceUS($value);
-				break;
-			default:
-				$this->value = date('Y-m-d', $value);
-		}
+		if(is_numeric($value))
+			$this->value = date('Y-m-d', $value);
+		elseif(is_string($value))
+			$this->value = date('Y-m-d', strtotime($value));
 	}
 
 	/**
