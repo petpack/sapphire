@@ -448,7 +448,7 @@ function getMimeType($filename) {
 	global $global_mimetypes;
 	if(!$global_mimetypes) loadMimeTypes();
 	$ext = strtolower(substr($filename,strrpos($filename,'.')+1));
-	return $global_mimetypes[$ext];
+	return isset($global_mimetypes[$ext]) ? $global_mimetypes[$ext] : null;
 }
 
 /*
