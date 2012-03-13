@@ -459,7 +459,7 @@ class Email extends ViewableData {
 		$to = $this->to;
 		$subject = $this->subject;
 		if(self::$send_all_emails_to) {
-			$subject .= " [addressed to $to";
+			$subject .= " [addressed to ".preg_replace('/[<>]/', '', $to);
 			$to = self::$send_all_emails_to;
 			if($this->cc) $subject .= ", cc to $this->cc";
 			if($this->bcc) $subject .= ", bcc to $this->bcc";
