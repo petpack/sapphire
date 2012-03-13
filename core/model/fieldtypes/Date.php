@@ -19,6 +19,30 @@
  * @subpackage model
  */
 class Date extends DBField {
+
+	/**
+	 * Date format
+	 * @var string DB | Nice | US
+	 */
+	static $format = 'DB';
+
+	function getValue() {
+		if( $this->value ) {
+			switch( self::$format ) {
+				case 'Nice':
+					$value = $this->Nice($this->value);
+					break;
+				case 'US':
+					$value = $this->NiceUS($this->value);
+					break;
+				default:
+					$value = date('Y-m-d', $this->value);
+			}
+		}
+		else $value = null;
+
+		return $value;
+	}
 	
 	function setValue($value) {
 		// @todo This needs tidy up (what if you only specify a month and a year, for example?)
@@ -33,26 +57,27 @@ class Date extends DBField {
 		if(ereg('^([0-9]+)/([0-9]+)/([0-9]+)$', $value, $parts)) {
 			$value = "$parts[2]/$parts[1]/$parts[3]";			
 		}
-		
-		if(is_numeric($value)) {
+
+		if(is_numeric($value))
 			$this->value = date('Y-m-d', $value);
-		} elseif(is_string($value)) {
+		elseif(is_string($value))
 			$this->value = date('Y-m-d', strtotime($value));
-		}
 	}
 
 	/**
-	 * Returns the date in the format dd/mm/yy 
+	 * Returns the date in the format dd/mm/yy
+	 * @param int $value date in int format (e.g. return value of strtotime)
 	 */	 
-	function Nice() {
-		if($this->value) return date('d/m/Y', strtotime($this->value));
+	function Nice( $value = NULL ) {
+		if($value || $this->value) return date('d/m/Y', ($value ? $value : strtotime($this->value)));
 	}
 	
 	/**
 	 * Returns the date in US format: “01/18/2006”
+	 * @param int $value date in int format (e.g. return value of strtotime)
 	 */
-	function NiceUS() {
-		if($this->value) return date('m/d/Y', strtotime($this->value));
+	function NiceUS( $value = NULL ) {
+		if($value || $this->value) return date('m/d/Y', ($value ? $value : strtotime($this->value)));
 	}
 	
 	/** 
