@@ -942,7 +942,7 @@ class Member extends DataObject {
 	 * @return Member_GroupSet Returns a map holding for all members their
 	 *                         group memberships.
 	 */
-	public function Groups() {
+	public function Groups($filter = "", $sort = "", $join = "", $limit="") {
 		$groups = $this->getManyManyComponents("Groups");
 		$groupIDs = $groups->column();
 		$collatedGroups = array();
@@ -958,13 +958,17 @@ class Member extends DataObject {
 		if(count($collatedGroups) > 0) {
 			$collatedGroups = implode(", ", array_unique($collatedGroups));
 
-			$unfilteredGroups = singleton('Group')->instance_get("\"Group\".\"ID\" IN ($collatedGroups)", "\"Group\".\"ID\"", "", "", "Member_GroupSet");
+			$filter .= ($filter ? ' AND ' : '') . "\"Group\".\"ID\" IN ($collatedGroups)";
+			$sort .= ($sort ? ", " : '') . "\"Group\".\"ID\"";
+			$unfilteredGroups = singleton('Group')->instance_get($filter, $sort, $join, $limit, "Member_GroupSet");
 			$result = new ComponentSet();
 			
 			// Only include groups where allowedIPAddress() returns true
 			$ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
-			foreach($unfilteredGroups as $group) {
-				if($group->allowedIPAddress($ip)) $result->push($group);
+			if( $unfilteredGroups ) {
+				foreach($unfilteredGroups as $group) {
+					if($group->allowedIPAddress($ip)) $result->push($group);
+				}
 			}
 		} else {
 			$result = new Member_GroupSet();
