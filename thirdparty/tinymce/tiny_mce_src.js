@@ -11,6 +11,7 @@ var tinymce = {
 		t.isWebKit = /WebKit/.test(ua);
 		t.isIE = !t.isWebKit && !t.isOpera && (/MSIE/gi).test(ua) && (/Explorer/gi).test(na.appName);
 		t.isIE6 = t.isIE && /MSIE [56]/.test(ua);
+		t.isIE9 = t.isIE && /MSIE [9]/.test(ua);
 		t.isGecko = !t.isWebKit && /Gecko/.test(ua);
 		t.isMac = ua.indexOf('Mac') != -1;
 		t.isAir = /adobeair/i.test(ua);
@@ -1651,7 +1652,7 @@ tinymce.create('static tinymce.util.XHR', {
 				// IE 8 has a bug where dynamically loading stylesheets would produce a 1 item remaining bug
 				// This fix seems to resolve that issue by realcing the document ones a stylesheet finishes loading
 				// It's ugly but it seems to work fine.
-				if (isIE && d.documentMode) {
+				if (isIE && !tinymce.isIE9 && d.documentMode) {
 					link.onload = function() {
 						d.recalc();
 						link.onload = null;
@@ -4889,7 +4890,7 @@ window.tinymce.dom.Sizzle = Sizzle;
 		getStart : function() {
 			var t = this, r = t.getRng(), e;
 
-			if (isIE) {
+			if (isIE && !tinymce.isIE9 ) {
 				if (r.item)
 					return r.item(0);
 
@@ -4914,7 +4915,7 @@ window.tinymce.dom.Sizzle = Sizzle;
 		getEnd : function() {
 			var t = this, r = t.getRng(), e;
 
-			if (isIE) {
+			if (isIE && !tinymce.isIE9) {
 				if (r.item)
 					return r.item(0);
 
@@ -4946,7 +4947,7 @@ window.tinymce.dom.Sizzle = Sizzle;
 				return {rng : r, scrollX : sx, scrollY : sy};
 
 			// Handle IE
-			if (isIE) {
+			if (isIE && !tinymce.isIE9) {
 				// Control selection
 				if (r.item) {
 					e = r.item(0);
@@ -5297,7 +5298,7 @@ window.tinymce.dom.Sizzle = Sizzle;
 			// This can occur when the editor is placed in a hidden container element on Gecko
 			// Or on IE when there was an exception
 			if (!r)
-				r = isIE ? t.win.document.body.createTextRange() : t.win.document.createRange();
+				r = isIE && !tinymce.isIE9 ? t.win.document.body.createTextRange() : t.win.document.createRange();
 
 			return r;
 		},
@@ -5339,7 +5340,7 @@ window.tinymce.dom.Sizzle = Sizzle;
 		getNode : function() {
 			var t = this, r = t.getRng(), s = t.getSel(), e;
 
-			if (!isIE) {
+			if (!isIE || tinymce.isIE9 ) {
 				// Range maybe lost after the editor is made visible again
 				if (!r)
 					return t.dom.getRoot();
@@ -10242,7 +10243,7 @@ var tinyMCE = window.tinyMCE = tinymce.EditorManager;
 				};
 
 				// Add undo level on editor blur
-				if (tinymce.isIE) {
+				if (tinymce.isIE && !tinymce.isIE9) {
 					t.dom.bind(t.getWin(), 'blur', function(e) {
 						var n;
 
@@ -10844,7 +10845,7 @@ var tinyMCE = window.tinyMCE = tinymce.EditorManager;
 			if (tinymce.is(re, 'string'))
 				re = new RegExp(re, 'i');
 
-			if (isIE) {
+			if (isIE && !tinymce.isIE9) {
 				r1 = r.duplicate();
 				r1.collapse(true);
 				sc = r1.parentElement();
@@ -11752,7 +11753,7 @@ var tinyMCE = window.tinyMCE = tinymce.EditorManager;
 						if (nx.nodeType != 3 || /[^\s]/g.test(nx.nodeValue)) {
 							// Store selection
 							if (si == -2 && r) {
-								if (!isIE) {
+								if (!isIE || tinymce.isIE9) {
 									// If selection is element then mark it
 									if (r.startContainer.nodeType == 1 && (n = r.startContainer.childNodes[r.startOffset]) && n.nodeType == 1) {
 										// Save the id of the selected element
