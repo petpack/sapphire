@@ -130,7 +130,7 @@ function htmlEmail($to, $from, $subject, $htmlContent, $attachedFiles = false, $
 	$headers["From"] = validEmailAddr($from);
 
 	// Messages with the X-SilverStripeMessageID header can be tracked
-    if(isset($customheaders["X-SilverStripeMessageID"]) && defined('BOUNCE_EMAIL')) {
+    if(defined('BOUNCE_EMAIL')) {
             $bounceAddress = BOUNCE_EMAIL;
     } else {
             $bounceAddress = $from;
