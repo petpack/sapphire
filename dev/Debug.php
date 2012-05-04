@@ -172,7 +172,7 @@ class Debug {
 				echo $message . "\n";
 			} elseif (self::$use_log_for_debug) {
 				if($showHeader) $message = "Debug (line $caller[line] of $file):\n ".$message;
-				error_log($message . "\n");
+				error_log($message);
 			} else {
 				echo "<p style=\"background-color: white; color: black; width: 95%; margin: 0.5em; padding: 0.3em; border: 1px #CCC solid\">\n";
 				if($showHeader) echo "<b>Debug (line $caller[line] of $file):</b>\n ";
