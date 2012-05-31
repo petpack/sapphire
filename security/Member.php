@@ -399,7 +399,7 @@ class Member extends DataObject {
 				
 				$generator = new RandomGenerator();
 				$member->RememberLoginToken = $generator->generateHash('sha1');
-				Cookie::set('alc_enc', $member->ID . ':' . $token, 90, null, null, false, true);
+				Cookie::set('alc_enc', $member->ID . ':' . $member->RememberLoginToken, 90, null, null, false, true);
 
 				$member->NumVisit++;
 				$member->write();
@@ -695,15 +695,14 @@ class Member extends DataObject {
 	}
 	
 	/**
-	 * If any admin groups are requested, deny the whole save operation.
-	 * 
+	 * If any admin groups are requested, deny unless the current user is an admin
 	 * @param Array $ids Database IDs of Group records
 	 * @return boolean
 	 */
 	function onChangeGroups($ids) {
 		// Filter out admin groups to avoid privilege escalation, 
 		// unless the current user is an admin already
-		if(!Permission::checkMember($this, 'ADMIN')) {
+		if(!Permission::check('ADMIN')) {
 			$adminGroups = Permission::get_groups_by_permission('ADMIN');
 			$adminGroupIDs = ($adminGroups) ? $adminGroups->column('ID') : array();
 			return count(array_intersect($ids, $adminGroupIDs)) == 0;
@@ -943,7 +942,7 @@ class Member extends DataObject {
 	 * @return Member_GroupSet Returns a map holding for all members their
 	 *                         group memberships.
 	 */
-	public function Groups() {
+	public function Groups($filter = "", $sort = "", $join = "", $limit="") {
 		$groups = $this->getManyManyComponents("Groups");
 		$groupIDs = $groups->column();
 		$collatedGroups = array();
@@ -959,13 +958,17 @@ class Member extends DataObject {
 		if(count($collatedGroups) > 0) {
 			$collatedGroups = implode(", ", array_unique($collatedGroups));
 
-			$unfilteredGroups = singleton('Group')->instance_get("\"Group\".\"ID\" IN ($collatedGroups)", "\"Group\".\"ID\"", "", "", "Member_GroupSet");
+			$filter .= ($filter ? ' AND ' : '') . "\"Group\".\"ID\" IN ($collatedGroups)";
+			$sort .= ($sort ? ", " : '') . "\"Group\".\"ID\"";
+			$unfilteredGroups = singleton('Group')->instance_get($filter, $sort, $join, $limit, "Member_GroupSet");
 			$result = new ComponentSet();
 			
 			// Only include groups where allowedIPAddress() returns true
 			$ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
-			foreach($unfilteredGroups as $group) {
-				if($group->allowedIPAddress($ip)) $result->push($group);
+			if( $unfilteredGroups ) {
+				foreach($unfilteredGroups as $group) {
+					if($group->allowedIPAddress($ip)) $result->push($group);
+				}
 			}
 		} else {
 			$result = new Member_GroupSet();

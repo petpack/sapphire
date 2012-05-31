@@ -79,7 +79,7 @@
 	</table>
 	<% if Print %><% else %><div class="utility">
 		<% control Utility %>
-			<span class="item"><a href="$Link">$Title</a></span>
+			<span class="item"><a class="$LinkClass" target="$LinkTarget" href="$Link">$Title</a></span>
 		<% end_control %>
 	</div><% end_if %>
 </div>

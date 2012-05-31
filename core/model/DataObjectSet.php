@@ -630,6 +630,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	 */
 	public function map($index = 'ID', $titleField = 'Title', $emptyString = null, $sort = false) {
 		$map = array();
+		if( $emptyString !== null ) $map[''] = "$emptyString";
 		
 		if($this->items) {
 			foreach($this->items as $item) {
@@ -637,7 +638,6 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 			}
 		}
 		
-		if($emptyString) $map = array('' => "$emptyString") + $map;
 		if($sort) asort($map);
 		
 		return $map;

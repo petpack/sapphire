@@ -7,6 +7,12 @@
  */
 class Dev_Stringifier 
 {
+	
+	/**
+	 * If greater than zero, strings that are over this length are truncated for display.
+	 * @var integer
+	 */
+	public static $string_length_limit = 500;
 
 	/**
 	 * Returns the given $variable as a string.
@@ -58,6 +64,9 @@ class Dev_Stringifier
 		}
 		else {
 			$rv = $variable;
+			if ((static::$string_length_limit > 0) && (strlen($rv) > static::$string_length_limit)) {
+				$rv = substr($rv, 0, static::$string_length_limit - 1).'...';
+			}
 		}
 
 		return $rv;

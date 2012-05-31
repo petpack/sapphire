@@ -297,38 +297,6 @@ class LazyLoadComponentSet extends ComponentSet {
 		$iterator = $this->executeIteratorQuery();
 		return parent::getIdList();
 	}
-		
-	/**
-	 * Add an item to this set.
-	 * @param DataObject|int|string $item Item to add, either as a DataObject or as the ID.
-	 * @param array $extraFields A map of extra fields to add.
-	 * @param bool $loadExisting If set to true, then existing records will be loaded into memory and 
-	 *                           this record placed at the end of the stack.
-	 */
-	function add($item, $extraFields = null) {
-		return parent::add($item, $extraFields);
-	}
-	
-	/**
-	 * Method to save many-many join data into the database for the given $item.
-	 * Used by add() and write().
-	 * @param DataObject|string|int The item to save, as either a DataObject or the ID.
-	 * @param array $extraFields Map of extra fields.
-	 */
-	protected function loadChildIntoDatabase($item, $extraFields = null) {
-		return parent::loadChildIntoDatabase($item, $extraFields);
-	}
-    	
-	/**
-	 * Add a number of items to the component set.
-	 * @param array $items Items to add, as either DataObjects or IDs.
-	 * @param bool $loadExisting If set to true, then existing records will be loaded into memory and 
-	 *                           these records placed at the end of the stack.
-	 */
-	function addMany($items) {
-		return parent::addMany($items);
-	}
-	
 	/**
 	 * Sets the ComponentSet to be the given ID list.
 	 * Records will be added and deleted as appropriate.
@@ -339,23 +307,6 @@ class LazyLoadComponentSet extends ComponentSet {
 		return parent::setByIDList($idList);
 	}
 	
-	/**
-	 * Remove an item from this set.
-	 *
-	 * @param DataObject|string|int $item Item to remove, either as a DataObject or as the ID.
-	 */
-	function remove($item) {
-		return parent::remove($item);
-	}
-	
-	/**
-	 * Remove many items from this set.
-	 * @param array $itemList The items to remove, as a numerical array with IDs or as a DataObjectSet
-	 */
-	function removeMany($itemList) {
-		return parent::removeMany($itemList);
-	}
-
 	/**
 	 * Remove all items in this set.
 	 */
@@ -375,6 +326,50 @@ class LazyLoadComponentSet extends ComponentSet {
 	function write($firstWrite = false) {
 		$iterator = $this->executeIteratorQuery();
 		return parent::write($firstWrite);
+	}
+	
+	/**
+	 * Remove a DataObject from the beginning of this set and return it.
+	 * This is the equivalent of pop() but acts on the head of the set.
+	 * Opposite of unshift().
+	 * 
+	 * @return DataObject (or null if there are no items in the set)
+	 */
+	public function shift() {
+		throw new Exception(get_class($this)."::shift() not supported");
+	}
+
+	/**
+	 * Remove a DataObject from the end of this set and return it.
+	 * This is the equivalent of shift() but acts on the tail of the set.
+	 * Opposite of push().
+	 * 
+	 * @return DataObject (or null if there are no items in the set)
+	 */
+	public function pop() {
+		$iterator = $this->executeIteratorQuery();
+		return parent::pop();
+	}
+	
+	/**
+	 * Add an item to the DataObject Set.
+	 * @param DataObject $item Item to add.
+	 * @param string $key Key to index this DataObject by.
+	 */
+	public function push($item, $key = null) {
+		throw new Exception(get_class($this)."::push() not supported");
+	}
+
+	/**
+	 * Gets a specific slice of an existing set.
+	 * 
+	 * @param int $offset
+	 * @param int $length
+	 * @return DataObjectSet
+	 */
+	public function getRange($offset, $length) {
+		$iterator = $this->executeIteratorQuery();
+		return parent::getRange($offset, $length);
 	}
 	
 }

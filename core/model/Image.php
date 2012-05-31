@@ -388,7 +388,7 @@ class Image extends File {
 	/**
 	 * Get the dimensions of this Image.
 	 * @param string $dim If this is equal to "string", return the dimensions in string form,
-	 * if it is 0 return the height, if it is 1 return the width.
+	 * if it is 1 return the height, if it is 0 return the width.
 	 * @return string|int
 	 */
 	function getDimensions($dim = "string") {
