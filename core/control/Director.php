@@ -201,7 +201,7 @@ class Director {
 		// Handle absolute URLs
 		if (@parse_url($url, PHP_URL_HOST) != '') {
 			$bits = parse_url($url);
-			$_SERVER['HTTP_HOST'] = $bits['host'];
+			$_SERVER['HTTP_HOST'] = $bits['host'].($bits['port'] ? ':'.$bits['port'] : '');
 			$url = Director::makeRelative($url);
 		}
 
@@ -250,6 +250,7 @@ class Director {
 		krsort(Director::$rules);
 
 		if(isset($_REQUEST['debug'])) Debug::show(Director::$rules);
+		/* debug */ $rules = Director::$rules;
 		foreach(Director::$rules as $priority => $rules) {
 			foreach($rules as $pattern => $controllerOptions) {
 				if(is_string($controllerOptions)) {
