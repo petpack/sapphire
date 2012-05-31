@@ -201,7 +201,7 @@ class Director {
 		// Handle absolute URLs
 		if (@parse_url($url, PHP_URL_HOST) != '') {
 			$bits = parse_url($url);
-			$_SERVER['HTTP_HOST'] = $bits['host'].($bits['port'] ? ':'.$bits['port'] : '');
+			$_SERVER['HTTP_HOST'] = $bits['host'].(isset($bits['port']) && $bits['port'] ? ':'.$bits['port'] : '');
 			$url = Director::makeRelative($url);
 		}
 
