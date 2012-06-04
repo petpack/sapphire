@@ -23,7 +23,7 @@ class FileIFrameField extends FileField {
 	 * @var boolean
 	 */
 	protected $canUploadNewFile = true;	
-	
+
 	/** 
 	 * Sets whether or not files can be uploaded into the CMS from the user's local computer 
 	 * @param boolean $can
@@ -32,6 +32,12 @@ class FileIFrameField extends FileField {
 		$this->canUploadNewFile = $can;
 	}
 	
+	protected $treeBaseID;
+
+	public function setTreeBaseID( $id ) {
+		$this->treeBaseID = $id;
+	}
+
 	/**
 	 * The data class that this field is editing.
 	 * @return string Class name
@@ -135,7 +141,11 @@ class FileIFrameField extends FileField {
 			}
 		}
 		
-		$fileSources["existing//$selectFile"] = new TreeDropdownField('ExistingFile', '', 'File');
+		$treeField = new TreeDropdownField('ExistingFile', '', 'File');
+		$fileSources["existing//$selectFile"] = $treeField; 
+		if( isset($this->treeBaseID) ) {
+			$treeField->setTreeBaseID($this->treeBaseID);
+		}
 
 		$fields = new FieldSet (
 			new HeaderField('EditFileHeader', $title),

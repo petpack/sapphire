@@ -459,7 +459,7 @@ class Email extends ViewableData {
 		$to = $this->to;
 		$subject = $this->subject;
 		if(self::$send_all_emails_to) {
-			$subject .= " [addressed to $to";
+			$subject .= " [addressed to ".preg_replace('/[<>]/', '', $to);
 			$to = self::$send_all_emails_to;
 			if($this->cc) $subject .= ", cc to $this->cc";
 			if($this->bcc) $subject .= ", bcc to $this->bcc";
@@ -704,11 +704,11 @@ class Email_BounceHandler extends Controller {
 						$newNewsletterSentRecipient->write();
 					}
 
-					// Now we are going to Blacklist this member so that email will not be sent to them in the future.
-					// Note: Sending can be re-enabled by going to 'Mailing List' 'Bounced' tab and unchecking the box under 'Blacklisted'
-					$member->setBlacklistedEmail(TRUE);
-					echo '<p><b>Member: '.$member->FirstName.' '.$member->Surname.' <'.$member->Email.'> was added to the Email Blacklist!</b></p>';
 				}
+				// Now we are going to Blacklist this member so that email will not be sent to them in the future.
+				// Note: Sending can be re-enabled by going to 'Mailing List' 'Bounced' tab and unchecking the box under 'Blacklisted'
+				$member->setBlacklistedEmail(TRUE);
+				echo '<p><b>Member: '.$member->FirstName.' '.$member->Surname.' <'.$member->Email.'> was added to the Email Blacklist!</b></p>';
 			} 
 						
 			if( !$date )

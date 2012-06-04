@@ -201,7 +201,7 @@ class Director {
 		// Handle absolute URLs
 		if (@parse_url($url, PHP_URL_HOST) != '') {
 			$bits = parse_url($url);
-			$_SERVER['HTTP_HOST'] = $bits['host'];
+			$_SERVER['HTTP_HOST'] = $bits['host'].(isset($bits['port']) && $bits['port'] ? ':'.$bits['port'] : '');
 			$url = Director::makeRelative($url);
 		}
 
@@ -250,6 +250,7 @@ class Director {
 		krsort(Director::$rules);
 
 		if(isset($_REQUEST['debug'])) Debug::show(Director::$rules);
+		/* debug */ $rules = Director::$rules;
 		foreach(Director::$rules as $priority => $rules) {
 			foreach($rules as $pattern => $controllerOptions) {
 				if(is_string($controllerOptions)) {
@@ -397,6 +398,7 @@ class Director {
 	 * @return String
 	 */
 	static function protocol() {
+		if(isset($_SERVER['HTTP_X_FORWARDED_PROTOCOL']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTOCOL']) == 'https') return "https://";
 		return (isset($_SERVER['SSL']) || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off')) ? 'https://' : 'http://';
 	}
 
@@ -646,7 +648,7 @@ class Director {
 			$matched = true;
 		}
 
-		if($matched && (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off')) {
+		if($matched && (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') && !(isset($_SERVER['HTTP_X_FORWARDED_PROTOCOL']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTOCOL']) == 'https')) {
 			$destURL = str_replace('http:', 'https:', Director::absoluteURL($_SERVER['REQUEST_URI']));
 
 			// This coupling to SapphireTest is necessary to test the destination URL and to not interfere with tests

@@ -394,7 +394,7 @@ $lang['en_GB']['RelationComplexTableField.ss']['NOTFOUND'] = 'No items found';
 $lang['en_GB']['RelationComplexTableField.ss']['SHOW'] = 'show';
 $lang['en_GB']['SearchForm']['GO'] = 'Go';
 $lang['en_GB']['SearchForm']['SEARCH'] = 'Search';
-$lang['en_GB']['Security']['ALREADYLOGGEDIN'] = 'You don\'t have access to this page. If you have another account that can access that page, you can <a href="%s">log in again</a>.';
+$lang['en_GB']['Security']['ALREADYLOGGEDIN'] = 'You don\'t have access to this page.  If you have another account that can access that page, you can log in again below.';
 $lang['en_GB']['Security']['BUTTONSEND'] = 'Send me the password reset link';
 $lang['en_GB']['Security']['CHANGEPASSWORDBELOW'] = 'You can change your password below.';
 $lang['en_GB']['Security']['CHANGEPASSWORDHEADER'] = 'Change your password';

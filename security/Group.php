@@ -216,7 +216,7 @@ class Group extends DataObject {
 		$groupFamily = implode(", ", $this->collateFamilyIDs());
 		
 		$filter[] = "\"$table\".\"GroupID\" IN ($groupFamily)";
-		$join .= " INNER JOIN \"$table\" ON \"$table\".\"MemberID\" = \"Member\".\"ID\"" . Convert::raw2sql($join);
+		$join .= " INNER JOIN \"$table\" ON \"$table\".\"MemberID\" = \"Member\".\"ID\"";
 		
 		$query = singleton("Member")->extendedSQL(
 			$filter, 
