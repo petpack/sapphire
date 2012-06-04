@@ -227,7 +227,7 @@ class Debug {
 	 * @param $message string to output
 	 */
 	static function log($message) {
-		$file = dirname(__FILE__).'/../../debug.log';
+		$file = dirname(__FILE__).'/../../../logs/debug.log';
 		$now = date('r');
 		$oldcontent = (file_exists($file)) ? file_get_contents($file) : '';
 		$content = $oldcontent . "\n\n== $now ==\n$message\n";
