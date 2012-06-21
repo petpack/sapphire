@@ -357,7 +357,8 @@ class LazyLoadComponentSet extends ComponentSet {
 	 * @param string $key Key to index this DataObject by.
 	 */
 	public function push($item, $key = null) {
-		throw new Exception(get_class($this)."::push() not supported");
+		$iterator = $this->executeIteratorQuery();
+		return parent::push($item, $key);
 	}
 
 	/**
