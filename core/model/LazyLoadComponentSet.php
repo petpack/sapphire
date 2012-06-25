@@ -27,7 +27,11 @@ class LazyLoadComponentSet extends ComponentSet {
 		}
 		return $this->iterator;
 	}
-	
+
+	public function reset() {
+		$this->iterator = null;
+	}
+
 	/**
 	 * @return LazyLoadComponentSet_Iterator
 	 * @author Alex Hayes <alex.hayes@dimension27.com>
