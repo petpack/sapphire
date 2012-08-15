@@ -28,15 +28,16 @@ class Date extends DBField {
 
 	function getValue() {
 		if( $this->value ) {
+			$value = strtotime($this->value);
 			switch( self::$format ) {
 				case 'Nice':
-					$value = $this->Nice($this->value);
+					$value = $this->Nice($value);
 					break;
 				case 'US':
-					$value = $this->NiceUS($this->value);
+					$value = $this->NiceUS($value);
 					break;
 				default:
-					$value = date('Y-m-d', $this->value);
+					$value = date('Y-m-d', $value);
 			}
 		}
 		else $value = null;
