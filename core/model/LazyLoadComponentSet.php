@@ -211,7 +211,7 @@ class LazyLoadComponentSet extends ComponentSet {
 	 */
 	public function getChildrenAsUL($nestingLevels, $level = 0, $template = "<li id=\"record-\$ID\" class=\"\$EvenOdd\">\$Title", $ulExtraAttributes = null, &$itemCount = 0) {
 		$iterator = $this->executeIteratorQuery();
-		return parent::getChildrenAsUL($nestingLevels, $level, $template, $ulExtraAttributes, &$itemCount);
+		return parent::getChildrenAsUL($nestingLevels, $level, $template, $ulExtraAttributes, $itemCount);
 	}
 
 	/**
