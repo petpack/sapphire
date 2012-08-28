@@ -158,7 +158,7 @@ class SSViewer {
 				return Security::permissionFailure(null, 'Please log in as an administrator to flush the template cache.');
 			}
 		}
-		if(!is_array($templateList) && (substr($templateList,-3) == '.ss')) {
+		if(is_string($templateList) && substr((string) $templateList,-3) == '.ss') {
 			$this->chosenTemplates['main'] = $templateList;
 		} else {
 			if(!is_array($templateList)) $templateList = array($templateList);
