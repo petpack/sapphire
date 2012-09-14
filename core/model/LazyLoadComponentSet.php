@@ -430,18 +430,8 @@ class LazyLoadComponentSet_Iterator extends DataObjectSet_Iterator {
 			}
 			if(class_exists($record['RecordClassName'])) {
 				$this->items[] = new $record['RecordClassName']($record);
-			} else {
-				if(!$baseClass) {
-					user_error("Bad RecordClassName '{$record['RecordClassName']}' and "
-						. "\$baseClass not set", E_USER_ERROR);
-				} else if(!is_string($baseClass) || !class_exists($baseClass)) {
-					user_error("Bad RecordClassName '{$record['RecordClassName']}' and bad "
-						. "\$baseClass '$baseClass not set", E_USER_ERROR);
-				}
-				$this->items[] = new $baseClass($record);
 			}
 		}
-
 		$this->current = $this->prepareItem(current($this->items));
 		
 	}
