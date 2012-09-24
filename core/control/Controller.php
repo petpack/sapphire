@@ -383,6 +383,9 @@ class Controller extends RequestHandler {
 	 */
 	function can($perm, $member = null) {
 		if(!$member) $member = Member::currentUser();
+		if( is_array($perm) ) {
+			$perm = array_shift($perm);
+		}
 		if($this->hasMethod($methodName = 'can' . $perm)) {
 			return $this->$methodName($member);
 		} else {
