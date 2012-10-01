@@ -818,7 +818,7 @@ class Zend_Gdata_App
           require_once 'Zend/Loader.php';
           @Zend_Loader::loadClass($className);
         }
-echo $string;
+
         // Load the feed as an XML DOMDocument object
         @ini_set('track_errors', 1);
         $doc = new DOMDocument();
