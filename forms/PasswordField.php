@@ -13,6 +13,8 @@ class PasswordField extends PlaceholderField {
 	 */
 	protected $maxLength;
 
+	protected $preventAutoComplete;
+
 	/**
 	 * Returns an input field, class="text" and type="text" with an optional
 	 * maxlength
@@ -24,7 +26,7 @@ class PasswordField extends PlaceholderField {
 
 
 	function Field() {
-		$disabled = $this->isDisabled()?"disabled=\"disabled\"":""; 
+		$disabled = $this->isDisabled()?"disabled=\"disabled\"":"";
 		$readonly = $this->isReadonly()?"readonly=\"readonly\"":"";
 	
 		if( $this->placeholder ) {
@@ -33,16 +35,23 @@ class PasswordField extends PlaceholderField {
 			$placeholder = '';
 		}
 		
+		$attributes = '';
+		if( $this->preventAutoComplete ) {
+			$attributes = ' autocomplete="off"';
+		}
 		if($this->maxLength) {
 			return "<input class=\"text\" type=\"password\" id=\"" . $this->id() .
 				"\" name=\"{$this->name}\" value=\"" . $this->attrValue() .
-				"\" maxlength=\"$this->maxLength\" size=\"$this->maxLength\"$placeholder $disabled $readonly />"; 
+				"\" maxlength=\"$this->maxLength\" size=\"$this->maxLength\"$placeholder $disabled $readonly $attributes />";
 		} else {
 			return "<input class=\"text\" type=\"password\" id=\"" . $this->id() .
-				"\" name=\"{$this->name}\" value=\"" . $this->attrValue() . "\"$placeholder $disabled $readonly />"; 
+				"\" name=\"{$this->name}\" value=\"" . $this->attrValue() . "\"$placeholder $disabled $readonly $attributes />";
 		}
 	}
 
+	function preventAutoComplete( $bool = true ) {
+		$this->preventAutoComplete = $bool;
+	}
 
 	/**
 	 * Makes a pretty readonly field with some stars in it
