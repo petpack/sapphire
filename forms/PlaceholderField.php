@@ -19,12 +19,8 @@ class PlaceholderField extends FormField {
 	 * @author Alex Hayes <alex.hayes@dimension27.com>
 	 */
 	function setPlaceholder($placeholder = true) {
-		if( $placeholder && is_bool($placeholder) ) {
-			$this->placeholder = $this->Title();
-		}
-		elseif( $placeholder ) {
-			$this->placeholder = $placeholder;
-		}
+		if( $placeholder )
+			$this->placeholder = is_bool($placeholder) ? $this->Title() : $placeholder;
 	}
 	
 }
