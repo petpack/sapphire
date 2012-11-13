@@ -454,6 +454,9 @@ class Controller extends RequestHandler {
 		if($this === self::$controller_stack[0]) {
 			array_shift(self::$controller_stack);
 		} else {
+			// SS_Log::skipNext();
+			Debug::bog(SS_Log::get_writers());
+			die;
 			user_error("popCurrent called on $this->class controller, but it wasn't at the top of the stack", E_USER_WARNING);
 		}
 	}
