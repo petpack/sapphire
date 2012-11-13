@@ -20,6 +20,11 @@ class SS_LogEmailWriter extends Zend_Log_Writer_Abstract {
 
 	protected $customSmtpServer;
 
+	/**
+	 * Should the next message be skipped?
+	 */
+	protected static $skip_next = false;
+
 	public function __construct($emailAddress, $customSmtpServer = false) {
 		$this->emailAddress = $emailAddress;
 		$this->customSmtpServer = $customSmtpServer;
@@ -33,34 +38,48 @@ class SS_LogEmailWriter extends Zend_Log_Writer_Abstract {
 		return self::$send_from;
 	}
 
+	public static function set_skip_next($bool = true) {
+		self::$skip_next = $bool;
+	}
+
+	protected static function skip_next() {
+		if( !self::$skip_next ) {
+			self::set_skip_next(false);
+			return false;
+		}
+		else return true;
+	}
+
 	/**
 	 * Send an email to the email address set in
 	 * this writer.
 	 */
 	public function _write($event) {
-		// If no formatter set up, use the default
-		if(!$this->_formatter) {
-			$formatter = new SS_LogErrorEmailFormatter();
-			$this->setFormatter($formatter);
+		if( !self::skip_next() ) {
+			// If no formatter set up, use the default
+			if(!$this->_formatter) {
+				$formatter = new SS_LogErrorEmailFormatter();
+				$this->setFormatter($formatter);
+			}
+
+			$formattedData = $this->_formatter->format($event);
+			$subject = $formattedData['subject'];
+			$data = $formattedData['data'];
+
+			$originalSMTP = ini_get('SMTP');
+			// override the SMTP server with a custom one if required
+			if($this->customSmtpServer) ini_set('SMTP', $this->customSmtpServer);
+
+			mail(
+				$this->emailAddress,
+				$subject,
+				$data,
+				"Content-type: text/html\nFrom: " . self::$send_from
+			);
+
+			// reset the SMTP server to the original
+			if($this->customSmtpServer) ini_set('SMTP', $originalSMTP);
 		}
-
-		$formattedData = $this->_formatter->format($event);
-		$subject = $formattedData['subject'];
-		$data = $formattedData['data'];
-
-		$originalSMTP = ini_get('SMTP');
-		// override the SMTP server with a custom one if required
-		if($this->customSmtpServer) ini_set('SMTP', $this->customSmtpServer);
-
-		mail(
-			$this->emailAddress,
-			$subject,
-			$data,
-			"Content-type: text/html\nFrom: " . self::$send_from
-		);
-
-		// reset the SMTP server to the original
-		if($this->customSmtpServer) ini_set('SMTP', $originalSMTP);
 	}
 
 }
