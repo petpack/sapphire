@@ -124,7 +124,9 @@ class ModelAsController extends Controller implements NestedController {
 				
 				return $this->response;
 			}
-			
+
+			$this->extend('extendGetNestedController');
+
 			if($response = ErrorPage::response_for(404)) {
 				return $response;
 			} else {
