@@ -196,7 +196,10 @@ function findParentLabel(el) {
 							return strip_tags(left.innerHTML);
 						} else if(right) {
 							return strip_tags(right.innerHTML);
-						} else {
+						} else if( el.className.indexOf('fieldgroupField') != -1 ) {
+							return strip_tags(labels[0].innerHTML);
+						}
+						else {
 							return findParentLabel(el.parentNode);
 						}
 					}
