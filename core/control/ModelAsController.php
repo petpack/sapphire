@@ -125,7 +125,15 @@ class ModelAsController extends Controller implements NestedController {
 				return $this->response;
 			}
 
-			$this->extend('extendGetNestedController');
+			//create a ModelAsControllerDecorator class with an extendGetNestedController method
+			//	to intercept the execution pipeline. extendGetNestedController should return a SSHTTPResponse
+			//	or null/false to resume normal programming
+			$extend = $this->extend('extendGetNestedController');
+			foreach ($extend as $extresponse)
+				if ($extresponse) {
+					$this->response = $extresponse;
+					return $this->response;
+				}	
 
 			if($response = ErrorPage::response_for(404)) {
 				return $response;
