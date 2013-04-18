@@ -413,6 +413,14 @@ class Requirements_Backend {
 	public $combine_files = array();
 
 	/**
+	 * Using the Minify library to minify any
+	 * CSS file passed to {@link combine_files()}.
+	 *
+	 * @var boolean
+	 */
+	public $combine_css_with_minify = true;
+
+	/**
 	 * Using the JSMin library to minify any
 	 * javascript file passed to {@link combine_files()}.
 	 *
@@ -972,11 +980,11 @@ class Requirements_Backend {
 		// SapphireTest isn't running :-)
 		if(class_exists('SapphireTest', false)) $runningTest = SapphireTest::is_running_test();
 		else $runningTest = false;
-		
+
 		if((Director::isDev() && !$runningTest) || !$this->combined_files_enabled) {
 			return;
 		}
-		
+
 		// Make a map of files that could be potentially combined
 		$combinerCheck = array();
 		foreach($this->combine_files as $combinedFile => $sourceItems) {
@@ -985,7 +993,6 @@ class Requirements_Backend {
 					user_error("Requirements_Backend::process_combined_files - file '$sourceItem' appears in two combined files:" .	" '{$combinerCheck[$sourceItem]}' and '$combinedFile'", E_USER_WARNING);
 				}
 				$combinerCheck[$sourceItem] = $combinedFile;
-				
 			}
 		}
 
@@ -993,19 +1000,18 @@ class Requirements_Backend {
 		$combinedFilesFolder = ($this->getCombinedFilesFolder()) ? ($this->getCombinedFilesFolder() . '/') : '';
 
 		// Figure out which ones apply to this pageview
-		$combinedFiles = array();
-		$newJSRequirements = array();
-		$newCSSRequirements = array();
-		foreach($this->javascript as $file => $dummy) {
-			if(isset($combinerCheck[$file])) {
+		$combinedFiles = $newCSSRequirements = $newJSRequirements = array();
+
+		foreach( $this->javascript as $file => $dummy ) {
+			if( isset($combinerCheck[$file]) ) {
 				$newJSRequirements[$combinedFilesFolder . $combinerCheck[$file]] = true;
 				$combinedFiles[$combinerCheck[$file]] = true;
 			} else {
 				$newJSRequirements[$file] = true;
 			}
 		}
-		
-		foreach($this->css as $file => $params) {
+
+		foreach( $this->css as $file => $params ) {
 			if(isset($combinerCheck[$file])) {
 				$newCSSRequirements[$combinedFilesFolder . $combinerCheck[$file]] = true;
 				$combinedFiles[$combinerCheck[$file]] = true;
@@ -1019,7 +1025,6 @@ class Requirements_Backend {
 		foreach(array_diff_key($combinedFiles, $this->blocked) as $combinedFile => $dummy) {
 			$fileList = $this->combine_files[$combinedFile];
 			$combinedFilePath = $base . $combinedFilesFolder . '/' . $combinedFile;
-
 
 			// Make the folder if necessary
 			if(!file_exists(dirname($combinedFilePath))) {
@@ -1041,22 +1046,24 @@ class Requirements_Backend {
 				foreach($fileList as $file) {
 					$srcLastMod = max(filemtime($base . $file), $srcLastMod);
 				}
-				$refresh = $srcLastMod > filemtime($combinedFilePath);
-			} else {
-				// file doesn't exist, or refresh was explicitly required
-				$refresh = true;
+				if( $srcLastMod > filemtime($combinedFilePath) ) continue;
 			}
 
-			if(!$refresh) continue;
-
-			$combinedData = "";
+			$combinedData = '';
 			foreach(array_diff($fileList, $this->blocked) as $file) {
 				$fileContent = file_get_contents($base . $file);
-				// if we have a javascript file and jsmin is enabled, minify the content
+				$isCSS = stripos($file, '.css');
 				$isJS = stripos($file, '.js');
-				if($isJS && $this->combine_js_with_jsmin) {
+
+				// if we have a CSS file and Minify is enabled, minify the content
+				if( $isCSS && $this->combine_css_with_minify ) {
+					require_once('thirdparty/minify/CSS.php');
+					increase_time_limit_to();
+					$fileContent = Minify_CSS::minify($fileContent, array('preserveComments' => false));
+				}
+				// if we have a javascript file and jsmin is enabled, minify the content
+				else if( $isJS && $this->combine_js_with_jsmin ) {
 					require_once('thirdparty/jsmin/jsmin.php');
-					
 					increase_time_limit_to();
 					$fileContent = JSMin::minify($fileContent);
 				}
