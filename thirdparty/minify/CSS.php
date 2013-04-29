@@ -67,11 +67,11 @@ class Minify_CSS {
         if ($options['removeCharsets']) {
             $css = preg_replace('/@charset[^;]+;\\s*/', '', $css);
         }
-        require_once 'Minify/CSS/Compressor.php';
+        require_once 'minify/CSS/Compressor.php';
         if (! $options['preserveComments']) {
             $css = Minify_CSS_Compressor::process($css, $options);
         } else {
-            require_once 'Minify/CommentPreserver.php';
+            require_once 'minify/CommentPreserver.php';
             $css = Minify_CommentPreserver::process(
                 $css
                 ,array('Minify_CSS_Compressor', 'process')
@@ -81,7 +81,7 @@ class Minify_CSS {
         if (! $options['currentDir'] && ! $options['prependRelativePath']) {
             return $css;
         }
-        require_once 'Minify/CSS/UriRewriter.php';
+        require_once 'minify/CSS/UriRewriter.php';
         if ($options['currentDir']) {
             return Minify_CSS_UriRewriter::rewrite(
                 $css
