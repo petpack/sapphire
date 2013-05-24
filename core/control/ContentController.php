@@ -88,6 +88,11 @@ class ContentController extends Controller {
 	public function init() {
 		parent::init();
 		
+		// Use theme from the site config
+		if(($config = SiteConfig::current_site_config()) && $config->Theme) {
+			SSViewer::set_theme($config->Theme);
+		}
+		
 		// If we've accessed the homepage as /home/, then we should redirect to /.
 		if($this->dataRecord && $this->dataRecord instanceof SiteTree
 			 	&& RootURLController::should_be_on_root($this->dataRecord) && (!isset($this->urlParams['Action']) || !$this->urlParams['Action'] ) 
@@ -122,10 +127,6 @@ class ContentController extends Controller {
 			}
 		}
 
-		// Use theme from the site config
-		if(($config = SiteConfig::current_site_config()) && $config->Theme) {
-			SSViewer::set_theme($config->Theme);
-		}
 	}
 	
 	/**
