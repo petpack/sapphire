@@ -2676,7 +2676,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 			
 
 			$query->select[] = "\"$baseClass\".\"ID\"";
-			$query->select[] = "CASE WHEN \"$baseClass\".\"ClassName\" IS NOT NULL THEN \"$baseClass\".\"ClassName\" ELSE '$baseClass' END AS \"RecordClassName\"";
+			$query->select[] = "\"$baseClass\".\"ClassName\" AS \"RecordClassName\"";
 
 			// Get the ClassName values to filter to
 			$classNames = ClassInfo::subclassesFor($this->class);
