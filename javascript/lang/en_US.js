@@ -2,7 +2,7 @@ if(typeof(ss) == 'undefined' || typeof(ss.i18n) == 'undefined') {
 	if(typeof(console) != 'undefined') console.error('Class ss.i18n not defined');
 } else {
 	ss.i18n.addDictionary('en_US', {
-		'VALIDATOR.FIELDREQUIRED': 'Please fill out "%s", it is required.',
+		'VALIDATOR.FIELDREQUIRED': 'Please fill out %s, it is required.',
 		'HASMANYFILEFIELD.UPLOADING': 'Uploading... %s',
 		'TABLEFIELD.DELETECONFIRMMESSAGE': 'Are you sure you want to delete this record?',
 		'LOADING': 'loading...',

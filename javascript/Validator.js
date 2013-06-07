@@ -152,13 +152,17 @@ function require(fieldName,cachedError) {
 			var fieldLabel = findParentLabel(baseEl);
 
 			// Some fields do-not have labels, in
-			// which case we need a blank one
-			if(fieldLabel == null || fieldLabel == "") {
-				fieldlabel = "this field";
+			// which case we need a blank one)
+			if(fieldLabel == null || fieldLabel.replace(/^\s+|\s+$/g, '') == "") {
+				fieldLabel = "this field";
+			} else {
+				fieldLabel = '"' + fieldLabel + '"'
 			}
-
-			var errorMessage = ss.i18n.sprintf(ss.i18n._t('VALIDATOR.FIELDREQUIRED', 'Please fill out "%s", it is required.'), fieldLabel);
+			
+			var errorMessage = ss.i18n.sprintf(ss.i18n._t('VALIDATOR.FIELDREQUIRED', 'Please fill out %s, it is required.'), fieldLabel);
+			
 			if(baseEl.requiredErrorMsg) errorMessage = baseEl.requiredErrorMsg;
+			
 			else if(_CURRENT_FORM.requiredErrorMsg) errorMessage = _CURRENT_FORM.requiredErrorMsg;
 
 			validationError(baseEl, errorMessage.replace('$FieldLabel', fieldLabel),"required",cachedError);
@@ -189,7 +193,7 @@ function findParentLabel(el) {
 			if(el.className) {
 				if(el.className.indexOf('field') == 0) {
 					labels = el.getElementsByTagName('label');
-					if(labels){
+					if(labels && labels.length > 0){
 						var left = findIndexOf(labels,'left');
 						var right = findIndexOf(labels,'right');
 						if(left) {
@@ -202,7 +206,7 @@ function findParentLabel(el) {
 						else {
 							return findParentLabel(el.parentNode);
 						}
-					}
+					} else return "";	//no label
 				}//merged by nlou 23/08/2007, r#40674
 				else if(el.className.indexOf('tablecolumn') != -1){ 
 					return el.className.substring(0, el.className.indexOf('tablecolumn')-1); 
