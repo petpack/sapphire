@@ -3,12 +3,12 @@
 /**
  * Requirements tracker, for javascript and css.
  * @todo Document the requirements tracker, and discuss it with the others.
- * 
+ *
  * @package sapphire
  * @subpackage view
  */
 class Requirements {
-	
+
 	/**
 	 * Enable combining of css/javascript files.
 	 * @param boolean $enable
@@ -34,38 +34,38 @@ class Requirements {
 	}
 
 	/**
-	 * Set whether we want to suffix requirements with the time / 
+	 * Set whether we want to suffix requirements with the time /
 	 * location on to the requirements
-	 * 
+	 *
 	 * @param bool
 	 */
 	public static function set_suffix_requirements($var) {
 		self::backend()->set_suffix_requirements($var);
 	}
-	
+
 	/**
 	 * Return whether we want to suffix requirements
-	 * 
+	 *
 	 * @return bool
 	 */
 	public static function get_suffix_requirements() {
 		return self::backend()->get_suffix_requirements();
 	}
-	
+
 	/**
 	 * Instance of requirements for storage
 	 *
 	 * @var Requirements
 	 */
 	private static $backend = null;
-	
+
 	public static function backend() {
 		if(!self::$backend) {
 			self::$backend = new Requirements_Backend();
 		}
 		return self::$backend;
 	}
-	
+
 	/**
 	 * Setter method for changing the Requirements backend
 	 *
@@ -74,36 +74,36 @@ class Requirements {
 	public static function set_backend(Requirements_Backend $backend) {
 		self::$backend = $backend;
 	}
-	
+
 	/**
 	 * Register the given javascript file as required.
-	 * 
+	 *
 	 * See {@link Requirements_Backend::javascript()} for more info
-	 * 
+	 *
 	 */
-	static function javascript($file) {		
+	static function javascript($file) {
 		self::backend()->javascript($file);
 	}
-	
+
 	/**
 	 * Replace a specific js file with another file and maintain index position.
-	 * 
+	 *
 	 * @param string $search       The file name to search for.
 	 * @param string $replace      The replacement file to use.
 	 * @param bool $blockExisting  If true then the searched file will be blocked so that it isn't
 	 *                             added by another requirement.
 	 *
 	 * @return bool                True if the file was replaced, false otherwise.
-	 * 
+	 *
 	 * @author Alex Hayes <alex.hayes@dimension27.com>
 	 */
 	static function replace_javascript($search, $replace, $blockExisting = true) {
 		self::backend()->replace_javascript($search, $replace, $blockExisting);
 	}
-	
+
 	/**
 	 * Add the javascript code to the header of the page
-	 * 
+	 *
 	 * See {@link Requirements_Backend::customScript()} for more info
 	 * @param script The script content
 	 * @param uniquenessID Use this to ensure that pieces of code only get added once.
@@ -111,7 +111,7 @@ class Requirements {
 	static function customScript($script, $uniquenessID = null) {
 		self::backend()->customScript($script, $uniquenessID);
 	}
-	
+
 	/**
 	 * Add content to be included on document ready.
 	 * @param script The script content
@@ -120,70 +120,70 @@ class Requirements {
 	public static function onDocumentReady($script, $uniquenessID = null) {
 		self::backend()->customScript('jQuery(function($){'.$script.";});", $uniquenessID);
 	}
-	
+
 
 	/**
 	 * Include custom CSS styling to the header of the page.
-	 * 
+	 *
 	 * See {@link Requirements_Backend::customCSS()}
-	 * 
+	 *
 	 * @param string $script CSS selectors as a string (without <style> tag enclosing selectors).
 	 * @param int $uniquenessID Group CSS by a unique ID as to avoid duplicate custom CSS in header
 	 */
 	static function customCSS($script, $uniquenessID = null) {
 		self::backend()->customCSS($script, $uniquenessID);
 	}
-	
+
 	/**
 	 * Add the following custom code to the <head> section of the page.
 	 * See {@link Requirements_Backend::insertHeadTags()}
-	 * 
+	 *
 	 * @param string $html
 	 * @param string $uniquenessID
 	 */
 	static function insertHeadTags($html, $uniquenessID = null) {
 		self::backend()->insertHeadTags($html, $uniquenessID);
 	}
-	
+
 	/**
 	 * Load the given javascript template with the page.
 	 * See {@link Requirements_Backend::javascriptTemplate()}
-	 * 
+	 *
 	 * @param file The template file to load.
 	 * @param vars The array of variables to load.  These variables are loaded via string search & replace.
 	 */
 	static function javascriptTemplate($file, $vars, $uniquenessID = null) {
 		self::backend()->javascriptTemplate($file, $vars, $uniquenessID);
 	}
-	
+
 	/**
 	 * Register the given stylesheet file as required.
 	 * See {@link Requirements_Backend::css()}
-	 * 
+	 *
 	 * @param $file String Filenames should be relative to the base, eg, 'sapphire/javascript/tree/tree.css'
-	 * @param $media String Comma-separated list of media-types (e.g. "screen,projector") 
+	 * @param $media String Comma-separated list of media-types (e.g. "screen,projector")
 	 * @see http://www.w3.org/TR/REC-CSS2/media.html
 	 */
 	static function css($file, $media = null) {
 		self::backend()->css($file, $media);
 	}
-	
+
 	/**
 	 * Register the given "themeable stylesheet" as required. See {@link Requirements_Backend::themedCSS()}
-	 * 
+	 *
 	 * @param $name String The identifier of the file.  For example, css/MyFile.css would have the identifier "MyFile"
-	 * @param $media String Comma-separated list of media-types (e.g. "screen,projector") 
+	 * @param $media String Comma-separated list of media-types (e.g. "screen,projector")
 	 */
 	static function themedCSS($name, $media = null) {
 		return self::backend()->themedCSS($name, $media);
 	}
-		
+
 	/**
 	 * Clear either a single or all requirements.
-	 * Caution: Clearing single rules works only with customCSS and customScript if you specified a {@uniquenessID}. 
-	 * 
+	 * Caution: Clearing single rules works only with customCSS and customScript if you specified a {@uniquenessID}.
+	 *
 	 * See {@link Requirements_Backend::clear()}
-	 * 
+	 *
 	 * @param $file String
 	 */
 	static function clear($fileOrID = null) {
@@ -203,7 +203,7 @@ class Requirements {
 	/**
 	 * Removes an item from the blocking-list.
 	 * See {@link Requirements_Backend::unblock()}
-	 * 
+	 *
 	 * @param string $fileOrID
 	 */
 	static function unblock($fileOrID) {
@@ -217,7 +217,7 @@ class Requirements {
 	static function unblock_all() {
 		self::backend()->unblock_all();
 	}
-	
+
 	/**
 	 * Restore requirements cleared by call to Requirements::clear
 	 * See {@link Requirements_Backend::restore()}
@@ -225,12 +225,12 @@ class Requirements {
 	static function restore() {
 		self::backend()->restore();
 	}
-	
+
 	/**
 	 * Update the given HTML content with the appropriate include tags for the registered
-	 * requirements. 
+	 * requirements.
 	 * See {@link Requirements_Backend::includeInHTML()} for more information.
-	 * 
+	 *
 	 * @param string $templateFilePath Absolute path for the *.ss template file
 	 * @param string $content HTML content that has already been parsed from the $templateFilePath through {@link SSViewer}.
 	 * @return string HTML content thats augumented with the requirements before the closing <head> tag.
@@ -238,21 +238,21 @@ class Requirements {
 	static function includeInHTML($templateFile, $content) {
 		return self::backend()->includeInHTML($templateFile, $content);
 	}
-	
+
 	static function include_in_response(SS_HTTPResponse $response) {
 		return self::backend()->include_in_response($response);
 	}
-	
+
 	/**
 	 * Add i18n files from the given javascript directory.
 	 * @param $langDir The javascript lang directory, relative to the site root, e.g., 'sapphire/javascript/lang'
-	 * 
+	 *
 	 * See {@link Requirements_Backend::add_i18n_javascript()} for more information.
 	 */
 	public static function add_i18n_javascript($langDir) {
 		return self::backend()->add_i18n_javascript($langDir);
 	}
-	
+
 	/**
 	 * Concatenate several css or javascript files into a single dynamically generated file.
 	 * See {@link Requirements_Backend::combine_files()} for more info.
@@ -263,27 +263,27 @@ class Requirements {
 	static function combine_files($combinedFileName, $files) {
 		self::backend()->combine_files($combinedFileName, $files);
 	}
-	
+
 	/**
 	 * Returns all combined files.
 	 * See {@link Requirements_Backend::get_combine_files()}
-	 * 
+	 *
 	 * @return array
 	 */
 	static function get_combine_files() {
 		return self::backend()->get_combine_files();
 	}
-	
+
 	/**
-	 * Deletes all dynamically generated combined files from the filesystem. 
+	 * Deletes all dynamically generated combined files from the filesystem.
 	 * See {@link Requirements_Backend::delete_combine_files()}
-	 * 
+	 *
 	 * @param string $combinedFileName If left blank, all combined files are deleted.
 	 */
 	static function delete_combined_files($combinedFileName = null) {
 		return self::backend()->delete_combined_files($combinedFileName);
 	}
-	
+
 
 	/**
 	 * Re-sets the combined files definition. See {@link Requirements_Backend::clear_combined_files()}
@@ -291,7 +291,7 @@ class Requirements {
 	static function clear_combined_files() {
 		self::backend()->clear_combined_files();
 	}
-		
+
 	/**
 	 * See {@link combine_files()}.
  	 */
@@ -308,18 +308,18 @@ class Requirements {
 	static function get_custom_scripts() {
 		return self::backend()->get_custom_scripts();
 	}
-	
+
 	/**
-	 * Set whether you want to write the JS to the body of the page or 
-	 * in the head section 
-	 * 
+	 * Set whether you want to write the JS to the body of the page or
+	 * in the head section
+	 *
 	 * @see Requirements_Backend::set_write_js_to_body()
 	 * @param boolean
 	 */
 	static function set_write_js_to_body($var) {
 		self::backend()->set_write_js_to_body($var);
 	}
-	
+
 	static function debug() {
 		return self::backend()->debug();
 	}
@@ -452,7 +452,7 @@ class Requirements_Backend {
 	function set_combined_files_enabled($enable) {
 		$this->combined_files_enabled = (bool) $enable;
 	}
-	
+
 	function get_combined_files_enabled() {
 		return $this->combined_files_enabled;
 	}
@@ -463,33 +463,33 @@ class Requirements_Backend {
 	function setCombinedFilesFolder($folder) {
 		$this->combinedFilesFolder = $folder;
 	}
-	
+
 	/**
 	 * @return String Folder relative to the webroot
 	 */
 	function getCombinedFilesFolder() {
 		return ($this->combinedFilesFolder) ? $this->combinedFilesFolder : ASSETS_DIR . '/_combinedfiles';
 	}
-	
+
 	/**
-	 * Set whether we want to suffix requirements with the time / 
+	 * Set whether we want to suffix requirements with the time /
 	 * location on to the requirements
-	 * 
+	 *
 	 * @param bool
 	 */
 	function set_suffix_requirements($var) {
 		$this->suffix_requirements = $var;
 	}
-	
+
 	/**
 	 * Return whether we want to suffix requirements
-	 * 
+	 *
 	 * @return bool
 	 */
 	function get_suffix_requirements() {
 		return $this->suffix_requirements;
 	}
-	
+
 	/**
 	 * Set whether you want the files written to the head or the body. It
 	 * writes to the body by default which can break some scripts
@@ -499,7 +499,7 @@ class Requirements_Backend {
 	public function set_write_js_to_body($var) {
 		$this->write_js_to_body = $var;
 	}
-	
+
 	/**
 	 * Register the given javascript file as required.
 	 * Filenames should be relative to the base, eg, 'sapphire/javascript/loader.js'
@@ -507,16 +507,16 @@ class Requirements_Backend {
 	public function javascript($file) {
 		$this->javascript[$file] = true;
 	}
-	
+
 	/**
 	 * Replace a specific js file with another file and maintain index position.
-	 * 
+	 *
 	 * @param string $search       The file name to search for.
 	 * @param string $replace      The replacement file to use.
 	 * @param bool $blockExisting  If true then the searched file will be blocked so that it isn't
 	 *                             added by another requirement.
 	 * @return bool                True if the file was replaced, false otherwise.
-	 * 
+	 *
 	 * @author Alex Hayes <alex.hayes@dimension27.com>
 	 */
 	public function replace_javascript($search, $replace, $blockExisting) {
@@ -534,7 +534,7 @@ class Requirements_Backend {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Returns an array of all included javascript
 	 *
@@ -543,7 +543,7 @@ class Requirements_Backend {
 	public function get_javascript() {
 		return array_keys(array_diff_key($this->javascript,$this->blocked));
 	}
-	
+
 	/**
 	 * Add the javascript code to the header of the page
 	 * @todo Make Requirements automatically put this into a separate file :-)
@@ -553,10 +553,10 @@ class Requirements_Backend {
 	public function customScript($script, $uniquenessID = null) {
 		if($uniquenessID) $this->customScript[$uniquenessID] = $script;
 		else $this->customScript[] = $script;
-		
+
 		$script .= "\n";
 	}
-	
+
 	/**
 	 * Include custom CSS styling to the header of the page.
 	 *
@@ -567,7 +567,7 @@ class Requirements_Backend {
 		if($uniquenessID) $this->customCSS[$uniquenessID] = $script;
 		else $this->customCSS[] = $script;
 	}
-	
+
 	/**
 	 * Add the following custom code to the <head> section of the page.
 	 *
@@ -578,7 +578,7 @@ class Requirements_Backend {
 		if($uniquenessID) $this->customHeadTags[$uniquenessID] = $html;
 		else $this->customHeadTags[] = $html;
 	}
-	
+
 	/**
 	 * Load the given javascript template with the page.
 	 * @param file The template file to load.
@@ -593,16 +593,16 @@ class Requirements_Backend {
 			$search[] = '$' . $k;
 			$replace[] = str_replace("\\'","'", Convert::raw2js($v));
 		}
-		
+
 		$script = str_replace($search, $replace, $script);
 		$this->customScript($script, $uniquenessID);
 	}
-	
+
 	/**
 	 * Register the given stylesheet file as required.
-	 * 
+	 *
 	 * @param $file String Filenames should be relative to the base, eg, 'sapphire/javascript/tree/tree.css'
-	 * @param $media String Comma-separated list of media-types (e.g. "screen,projector") 
+	 * @param $media String Comma-separated list of media-types (e.g. "screen,projector")
 	 * @see http://www.w3.org/TR/REC-CSS2/media.html
 	 */
 	function css($file, $media = null) {
@@ -610,28 +610,28 @@ class Requirements_Backend {
 			"media" => $media
 		);
 	}
-	
+
 	function get_css() {
 		return array_diff_key($this->css, $this->blocked);
 	}
-	
+
 	/**
 	 * Needed to actively prevent the inclusion of a file,
 	 * e.g. when using your own prototype.js.
 	 * Blocking should only be used as an exception, because
 	 * it is hard to trace back. You can just block items with an
 	 * ID, so make sure you add an unique identifier to customCSS() and customScript().
-	 * 
+	 *
 	 * @param string $fileOrID
 	 */
 	function block($fileOrID) {
 		$this->blocked[$fileOrID] = $fileOrID;
 	}
-	
+
 	/**
 	 * Clear either a single or all requirements.
-	 * Caution: Clearing single rules works only with customCSS and customScript if you specified a {@uniquenessID}. 
-	 * 
+	 * Caution: Clearing single rules works only with customCSS and customScript if you specified a {@uniquenessID}.
+	 *
 	 * @param $file String
 	 */
 	function clear($fileOrID = null) {
@@ -648,7 +648,7 @@ class Requirements_Backend {
 			$this->disabled['customScript'] = $this->customScript;
 			$this->disabled['customCSS'] = $this->customCSS;
 			$this->disabled['customHeadTags'] = $this->customHeadTags;
-		
+
 			$this->javascript = array();
 			$this->css = array();
 			$this->customScript = array();
@@ -656,7 +656,7 @@ class Requirements_Backend {
 			$this->customHeadTags = array();
 		}
 	}
-	
+
 	/**
 	 * Removes an item from the blocking-list.
 	 * CAUTION: Does not "re-add" any previously blocked elements.
@@ -671,7 +671,7 @@ class Requirements_Backend {
 	function unblock_all() {
 		$this->blocked = array();
 	}
-	
+
 	/**
 	 * Restore requirements cleared by call to Requirements::clear
 	 */
@@ -682,67 +682,67 @@ class Requirements_Backend {
 		$this->customCSS = $this->disabled['customCSS'];
 		$this->customHeadTags = $this->disabled['customHeadTags'];
 	}
-	
+
 	/**
 	 * Update the given HTML content with the appropriate include tags for the registered
 	 * requirements. Needs to receive a valid HTML/XHTML template in the $content parameter,
 	 * including a <head> tag. The requirements will insert before the closing <head> tag automatically.
 	 *
 	 * @todo Calculate $prefix properly
-	 * 
+	 *
 	 * @param string $templateFilePath Absolute path for the *.ss template file
 	 * @param string $content HTML content that has already been parsed from the $templateFilePath through {@link SSViewer}.
 	 * @return string HTML content thats augumented with the requirements before the closing <head> tag.
 	 */
 	function includeInHTML($templateFile, $content) {
 		if(isset($_GET['debug_profile'])) Profiler::mark("Requirements::includeInHTML");
-		
+
 		if(strpos($content, '</head') !== false && ($this->css || $this->javascript || $this->customCSS || $this->customScript || $this->customHeadTags)) {
 			$requirements = '';
 			$jsRequirements = '';
-			
-			// Combine files - updates $this->javascript and $this->css 
- 			$this->process_combined_files(); 
-	
+
+			// Combine files - updates $this->javascript and $this->css
+ 			$this->process_combined_files();
+
 			foreach(array_diff_key($this->javascript,$this->blocked) as $file => $dummy) {
 				$path = $this->path_for_file($file);
 				if($path) {
 					$jsRequirements .= "<script type=\"text/javascript\" src=\"$path\"></script>\n";
 				}
 			}
-			
+
 			// add all inline javascript *after* including external files which
 			// they might rely on
 			if($this->customScript) {
-				foreach(array_diff_key($this->customScript,$this->blocked) as $script) { 
+				foreach(array_diff_key($this->customScript,$this->blocked) as $script) {
 					$jsRequirements .= "<script type=\"text/javascript\">\n//<![CDATA[\n";
 					$jsRequirements .= "$script\n";
 					$jsRequirements .= "\n//]]>\n</script>\n";
 				}
 			}
-			
-			foreach(array_diff_key($this->css,$this->blocked) as $file => $params) {  					
+
+			foreach(array_diff_key($this->css,$this->blocked) as $file => $params) {
 				$path = $this->path_for_file($file);
 				if($path) {
 					$media = (isset($params['media']) && !empty($params['media'])) ? " media=\"{$params['media']}\"" : "";
 					$requirements .= "<link rel=\"stylesheet\" type=\"text/css\"{$media} href=\"$path\" />\n";
 				}
 			}
-			
-			foreach(array_diff_key($this->customCSS, $this->blocked) as $css) { 
+
+			foreach(array_diff_key($this->customCSS, $this->blocked) as $css) {
 				$requirements .= "<style type=\"text/css\">\n$css\n</style>\n";
 			}
-			
-			foreach(array_diff_key($this->customHeadTags,$this->blocked) as $customHeadTag) { 
-				$requirements .= "$customHeadTag\n"; 
+
+			foreach(array_diff_key($this->customHeadTags,$this->blocked) as $customHeadTag) {
+				$requirements .= "$customHeadTag\n";
 			}
-	
+
 			if($this->write_js_to_body) {
 				// Remove all newlines from code to preserve layout
 				$jsRequirements = preg_replace('/>\n*/', '>', $jsRequirements);
-				
+
 				// We put script tags into the body, for performance.
-				// If your template already has script tags in the body, then we put our script 
+				// If your template already has script tags in the body, then we put our script
 				// tags just before those. Otherwise, we put it at the bottom.
 				$p1 = stripos($content, '<script');
 				$p2 = stripos($content, '</body');
@@ -751,17 +751,17 @@ class Requirements_Backend {
 				} else {
 					$content = preg_replace("/(<\/body[^>]*>)/i", $jsRequirements . "\\1", $content);
 				}
-				
-				// Put CSS at the bottom of the head			
+
+				// Put CSS at the bottom of the head
 				$content = preg_replace("/(<\/head>)/i", $requirements . "\\1", $content);
 			} else {
 				$content = preg_replace("/(<\/head>)/i", $requirements . "\\1", $content);
 				$content = preg_replace("/(<\/head>)/i", $jsRequirements . "\\1", $content);
 			}
-		} 
-		
+		}
+
 		if(isset($_GET['debug_profile'])) Profiler::unmark("Requirements::includeInHTML");
-		
+
 		return $content;
 	}
 
@@ -769,25 +769,25 @@ class Requirements_Backend {
 	 * Attach requirements inclusion to X-Include-JS and X-Include-CSS headers on the HTTP response
 	 */
 	function include_in_response(SS_HTTPResponse $response) {
-		$this->process_combined_files(); 
+		$this->process_combined_files();
 		$jsRequirements = array();
 		$cssRequirements = array();
 
-		foreach(array_diff_key($this->javascript, $this->blocked) as $file => $dummy) { 
+		foreach(array_diff_key($this->javascript, $this->blocked) as $file => $dummy) {
 			$path = $this->path_for_file($file);
 			if($path) $jsRequirements[] = $path;
 		}
-		
+
 		$response->addHeader('X-Include-JS', implode(',', $jsRequirements));
 
-		foreach(array_diff_key($this->css,$this->blocked) as $file => $params) {  					
+		foreach(array_diff_key($this->css,$this->blocked) as $file => $params) {
 			$path = $this->path_for_file($file);
 			if($path) $cssRequirements[] = isset($params['media']) ? "$path:##:$params[media]" : $path;
 		}
 
 		$response->addHeader('X-Include-CSS', implode(',', $cssRequirements));
 	}
-	
+
 	/**
 	 * Add i18n files from the given javascript directory.  Sapphire expects that the given directory
 	 * will contain a number of java script files named by language: en_US.js, de_DE.js, etc.
@@ -801,21 +801,21 @@ class Requirements_Backend {
 			$this->javascript(SAPPHIRE_DIR . '/javascript/i18n.js');
 
 			if(substr($langDir,-1) != '/') $langDir .= '/';
-			
+
 			$this->javascript($langDir . i18n::default_locale() . '.js');
 			$this->javascript($langDir . i18n::get_locale() . '.js');
-		
+
 		// Stub i18n implementation for when i18n is disabled.
 		} else {
 			$this->javascript[SAPPHIRE_DIR . '/javascript/i18nx.js'] = true;
 		}
-	} 
-	
+	}
+
 	/**
 	 * Finds the path for specified file.
 	 *
 	 * @param string $fileOrUrl
-	 * @return string|boolean 
+	 * @return string|boolean
 	 */
 	protected function path_for_file($fileOrUrl) {
 		if(preg_match('/^http[s]?/', $fileOrUrl)) {
@@ -836,22 +836,22 @@ class Requirements_Backend {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Concatenate several css or javascript files into a single dynamically generated
 	 * file (stored in {@link Director::baseFolder()}). This increases performance
 	 * by fewer HTTP requests.
-	 * 
+	 *
 	 * The combined file is regenerated
 	 * based on every file modification time. Optionally a rebuild can be triggered
 	 * by appending ?flush=1 to the URL.
 	 * If all files to be combined are javascript, we use the external JSMin library
 	 * to minify the javascript. This can be controlled by {@link $combine_js_with_jsmin}.
-	 * 
+	 *
 	 * All combined files will have a comment on the start of each concatenated file
 	 * denoting their original position. For easier debugging, we recommend to only
 	 * minify javascript if not in development mode ({@link Director::isDev()}).
-	 * 
+	 *
 	 * CAUTION: You're responsible for ensuring that the load order for combined files
 	 * is retained - otherwise combining javascript files can lead to functional errors
 	 * in the javascript logic, and combining css can lead to wrong styling inheritance.
@@ -859,7 +859,7 @@ class Requirements_Backend {
 	 * in more than one combine_files() call.
 	 * Best practice is to include every javascript file in exactly *one* combine_files()
 	 * directive to avoid the issues mentioned above - this is enforced by this function.
-	 * 
+	 *
 	 * CAUTION: Combining CSS Files discards any "media" information.
 	 *
 	 * Example for combined JavaScript:
@@ -885,13 +885,13 @@ class Requirements_Backend {
 	 * </code>
 	 *
 	 * @see http://code.google.com/p/jsmin-php/
-	 * 
+	 *
 	 * @todo Should we enforce unique inclusion of files, or leave it to the developer? Can auto-detection cause breaks?
-	 * 
+	 *
 	 * @param string $combinedFileName Filename of the combined file (will be stored in {@link Director::baseFolder()} by default)
 	 * @param array $files Array of filenames relative to the webroot
 	 */
-	function combine_files($combinedFileName, $files) { 	
+	function combine_files($combinedFileName, $files) {
 		// duplicate check
 		foreach($this->combine_files as $_combinedFileName => $_files) {
 			$duplicates = array_intersect($_files, $files);
@@ -900,7 +900,7 @@ class Requirements_Backend {
 				return false;
 			}
 		}
-		
+
 		foreach($files as $index=>$file) {
 			if(is_array($file)) {
 				// Either associative array path=>path type=>type or numeric 0=>path 1=>type
@@ -939,10 +939,10 @@ class Requirements_Backend {
 				}
 			}
 		}
-		
+
 		$this->combine_files[$combinedFileName] = $files;
 	}
-	
+
 		/**
 	 * Returns all combined files.
 	 * @return array
@@ -950,10 +950,10 @@ class Requirements_Backend {
 	function get_combine_files() {
 		return $this->combine_files;
 	}
-	
+
 	/**
-	 * Deletes all dynamically generated combined files from the filesystem. 
-	 * 
+	 * Deletes all dynamically generated combined files from the filesystem.
+	 *
 	 * @param string $combinedFileName If left blank, all combined files are deleted.
 	 */
 	function delete_combined_files($combinedFileName = null) {
@@ -966,7 +966,7 @@ class Requirements_Backend {
 			}
 		}
 	}
-	
+
 	function clear_combined_files() {
 		$this->combine_files = array();
 	}
@@ -989,7 +989,7 @@ class Requirements_Backend {
 		$combinerCheck = array();
 		foreach($this->combine_files as $combinedFile => $sourceItems) {
 			foreach($sourceItems as $sourceItem) {
-				if(isset($combinerCheck[$sourceItem]) && $combinerCheck[$sourceItem] != $combinedFile){ 
+				if(isset($combinerCheck[$sourceItem]) && $combinerCheck[$sourceItem] != $combinedFile){
 					user_error("Requirements_Backend::process_combined_files - file '$sourceItem' appears in two combined files:" .	" '{$combinerCheck[$sourceItem]}' and '$combinedFile'", E_USER_WARNING);
 				}
 				$combinerCheck[$sourceItem] = $combinedFile;
@@ -1030,7 +1030,7 @@ class Requirements_Backend {
 			if(!file_exists(dirname($combinedFilePath))) {
 				Filesystem::makeFolder(dirname($combinedFilePath));
 			}
-			
+
 			// If the file isn't writebale, don't even bother trying to make the combined file
 			// Complex test because is_writable fails if the file doesn't exist yet.
 			if((file_exists($combinedFilePath) && !is_writable($combinedFilePath)) ||
@@ -1046,7 +1046,7 @@ class Requirements_Backend {
 				foreach($fileList as $file) {
 					$srcLastMod = max(filemtime($base . $file), $srcLastMod);
 				}
-				if( $srcLastMod > filemtime($combinedFilePath) ) continue;
+				if( $srcLastMod < filemtime($combinedFilePath) ) continue;
 			}
 
 			$combinedData = '';
@@ -1092,41 +1092,41 @@ class Requirements_Backend {
 		$this->javascript = $newJSRequirements;
 		$this->css = $newCSSRequirements;
   }
-  
+
   function get_custom_scripts() {
 		$requirements = "";
-		
+
 		if($this->customScript) {
 			foreach($this->customScript as $script) {
 				$requirements .= "$script\n";
 			}
 		}
-		
+
 		return $requirements;
 	}
-	
+
 	/**
 	 * Register the given "themeable stylesheet" as required.
 	 * Themeable stylesheets have globally unique names, just like templates and PHP files.
 	 * Because of this, they can be replaced by similarly named CSS files in the theme directory.
-	 * 
+	 *
 	 * @param $name String The identifier of the file.  For example, css/MyFile.css would have the identifier "MyFile"
-	 * @param $media String Comma-separated list of media-types (e.g. "screen,projector") 
+	 * @param $media String Comma-separated list of media-types (e.g. "screen,projector")
 	 */
 	function themedCSS($name, $media = null) {
 		global $_CSS_MANIFEST;
-		
+
 		$theme = SSViewer::current_theme();
-		
-		if($theme && isset($_CSS_MANIFEST[$name]) && isset($_CSS_MANIFEST[$name]['themes']) 
-			&& isset($_CSS_MANIFEST[$name]['themes'][$theme])) 
+
+		if($theme && isset($_CSS_MANIFEST[$name]) && isset($_CSS_MANIFEST[$name]['themes'])
+			&& isset($_CSS_MANIFEST[$name]['themes'][$theme]))
 			$this->css($_CSS_MANIFEST[$name]['themes'][$theme], $media);
 
 		else if(isset($_CSS_MANIFEST[$name]) && isset($_CSS_MANIFEST[$name]['unthemed'])) $this->css($_CSS_MANIFEST[$name]['unthemed'], $media);
 		// Normal requirements fails quietly when there is no css - we should do the same
 		// else user_error("themedCSS - No CSS file '$name.css' found.", E_USER_WARNING);
 	}
-	
+
 	function debug() {
 		Debug::show($this->javascript);
 		Debug::show($this->css);
@@ -1135,5 +1135,5 @@ class Requirements_Backend {
 		Debug::show($this->customHeadTags);
 		Debug::show($this->combine_files);
 	}
-	
+
 }
