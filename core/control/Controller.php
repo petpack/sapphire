@@ -82,7 +82,8 @@ class Controller extends RequestHandler {
 			$member = Member::currentUser();
 			if($member) {
 				if(!headers_sent()) Cookie::set("PastMember", true, 90, null, null, false, true);
-				DB::query("UPDATE \"Member\" SET \"LastVisited\" = " . DB::getConn()->now() . " WHERE \"ID\" = $member->ID", null);
+				DB::query("UPDATE \"Member\" SET \"LastVisited\" = " . DB::getConn()->now() . ", IPAddress = '" . 
+					Convert::raw2sql($_SERVER['REMOTE_ADDR']) . "' WHERE \"ID\" = $member->ID", null);
 			}
 		}
 		

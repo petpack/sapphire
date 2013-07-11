@@ -14,6 +14,7 @@ class Member extends DataObject {
 		'RememberLoginToken' => 'Varchar(50)',
 		'NumVisit' => 'Int',
 		'LastVisited' => 'SS_Datetime',
+		'IPAddress' => 'Varchar(64)',
 		'Bounced' => 'Boolean', // Note: This does not seem to be used anywhere.
 		'AutoLoginHash' => 'Varchar(50)',
 		'AutoLoginExpired' => 'SS_Datetime',
