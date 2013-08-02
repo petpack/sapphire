@@ -103,3 +103,5 @@ fi
 ## Basic execution
 
 $php $sapphire/cli-script.php ${*}
+#pass exit code back to caller:
+exit $?
