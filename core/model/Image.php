@@ -6,6 +6,166 @@
  */
 class Image extends File {
 	
+	/**
+	 * Sets Image pixel limit, to restrict images to a 
+	 * 	certain size - if they're too large, they'll eat up all available
+	 * 	memory doing GD operations.
+	 * 
+	 * Set to <=0 to disable this option.
+	 * 
+	 * When this is set, images with more than this many pixels will be 
+	 * 	scaled down to a reasonable size (~90% of this pixel count) 
+	 * 	using ImageMagick.
+	 * 
+	 * You'll probably want to set this in _config.php
+	 * 
+	 * Enabling this functionality requires that you install the ImageMagick
+	 * 	PECL plugin. (maybe by running 'pecl install Imagick').
+	 * 	use Image::canHasImageMagick() to test whether it is installed
+	 * 
+	 * @see suggestMaxPixels() 
+	 * @see ensureNotInsanelyHuge()
+	 * @var int
+	 */
+	static public $maxPixels = -1;
+	
+	/**
+	 * Whether to dump messages like 'image is insanely huge, resizing 
+	 * 	from <x>x<y> to <x>x<y>' to the error log when a large image is 
+	 * 	resized
+	 * @var boolean
+	 */
+	static public $logHugeImages = False;
+	
+	/**
+	 * Provides a suggestion for self::$maxPixels based on PHP's memory limit,
+	 * current memory usage, and image channels 
+	 * 	(i.e 8/16/24/32 bit images. We default to 32 bit - 24bit + alpha).
+	 * Note that the return from this is pretty damn unpredictable due to the
+	 * 	highly variable nature of current memory usage
+	 * @param int $bitsPerPixel		number of bits per pixel in image
+	 * @param float $safetyBuffer	fraction of memory to be used (0-1)
+	 * @return int
+	 */
+	static public function suggestMaxPixels($bitsPerPixel = 32,$safetyBuffer = 0.75) {
+		$usage = memory_get_usage();
+		$limit = ini_get('memory_limit');
+		//convert hunam-readable '128M' to bytes
+		if (preg_match('/^\s*([0-9.]+)\s*([KMGTPE])B?\s*$/i', $limit, $matches)) {
+			$num = (float)$matches[1];
+			switch (strtoupper($matches[2])) {
+				case 'E':
+					$num = $num * 1024;
+				case 'P':
+					$num = $num * 1024;
+				case 'T':
+					$num = $num * 1024;
+				case 'G':
+					$num = $num * 1024;
+				case 'M':
+					$num = $num * 1024;
+				case 'K':
+					$num = $num * 1024;
+			}
+			//echo "\nlimit: $num, usage: $usage\n";
+			$available = $num - $usage;
+		} else {
+			// unknown response. possibly -1, indicating no limit
+			$available = 104857600; //assume 100MB;
+		}
+		return intval(($available * $safetyBuffer) / ($bitsPerPixel / 8));
+	}
+	
+
+	/**
+	 * Return full path and filename to image file
+	 * @return string
+	 */
+	function absoluteFilename() {
+		return Director::baseFolder() . '/' . $this->getField('Filename');
+	}
+	
+	/**
+	 * Returns the number of pixels in the image
+	 * @return int
+	 */
+	function pixelCount() {
+		$dim = $this->getDimensions("Array");
+		return $dim['width'] * $dim['height'];
+	}
+
+	/**
+	 * Tells us whether the ImageMagick PECL extension is installed. 
+	 */
+	static public function canHasImageMagick(){
+		return class_exists("Imagick");
+	}
+	
+	/**
+	 * Returns a boolean indicating whether the image is too large
+	 * 	(i.e pixelCount() > $maxPixels)
+	 * @return boolean
+	 */
+	function isTooBig() {
+		return (self::$maxPixels > 0 && 
+			($this->pixelCount() > self::$maxPixels)
+		);
+	}
+	
+	/**
+	 * Ensures the image isn't too large (according to Image::$maxPixels)
+	 * 	if it is too large, use ImageMagick to scale it down to something
+	 * 	reasonable.
+	 * You should call this before the image is displayed - it's painful
+	 * 	to handle this when the file is uploaded.
+	 * WILL DIE HORRIBLY IF IMAGICK IS NOT INSTALLED!
+	 * @return boolean
+	 */
+	function ensureNotInsanelyHuge() {
+		
+		//debugging:
+		//if (!$this->isTooBig()) error_log($this->Filename . " is not too large");
+		//if (!file_exists($this->absoluteFilename())) error_log($this->Filename . " does not exist!");
+		
+		if (!$this->isTooBig() || !file_exists($this->absoluteFilename())) 
+			return False;
+		
+		if (Image::canHasImageMagick()) {
+			$size = $this->getDimensions("Array");
+			
+			$ar = $size['width'] / $size['height'];
+			
+			//determine new image size (use 90% of $maxPixels)
+			$newHeight = intval(sqrt((self::$maxPixels * 0.9) / $ar));
+			$newWidth = intval($newHeight * $ar);
+			
+			if (self::$logHugeImages) { 
+				error_log($this->Filename . " is insanely huge - Resizing from " . 
+					$size['width'] . 'x' . $size['height'] . 
+					" to {$newWidth}x{$newHeight}"
+				);
+			}
+			
+			$img = new Imagick($filename = $this->absoluteFilename());
+			$img->scaleImage($newWidth,$newHeight);
+			$img->writeImage($filename);
+		} else {
+			die('Please install the Imagick PECL Plugin.');
+		}
+		
+		return true;
+	}
+	
+	function validate() {
+		$this->ensureNotInsanelyHuge();
+		return parent::validate();
+	}
+	
+	function onBeforeWrite() {
+		$this->ensureNotInsanelyHuge();
+		return parent::onBeforeWrite();
+	}
+	
 	const ORIENTATION_SQUARE = 0;
 	const ORIENTATION_PORTRAIT = 1;
 	const ORIENTATION_LANDSCAPE = 2;
@@ -104,6 +264,7 @@ class Image extends File {
 	 * @return string
 	 */
 	function getTag() {
+		$this->ensureNotInsanelyHuge();
 		if(file_exists(Director::baseFolder() . '/' . $this->Filename)) {
 			$url = $this->getURL();
 			$title = ($this->Title) ? $this->Title : $this->Filename;
@@ -264,6 +425,7 @@ class Image extends File {
 	 * @return Image_Cached
 	 */
 	function getFormattedImage($format, $arg1 = null, $arg2 = null) {
+		$this->ensureNotInsanelyHuge();
 		if($this->ID && $this->Filename && Director::fileExists($this->Filename)) {
 			$cacheFile = $this->cacheFilename($format, $arg1, $arg2);
 
@@ -392,11 +554,22 @@ class Image extends File {
 	 * @return string|int
 	 */
 	function getDimensions($dim = "string") {
+		$dim = strtolower($dim);
 		if($this->getField('Filename')) {
 			$imagefile = Director::baseFolder() . '/' . $this->getField('Filename');
 			if(file_exists($imagefile)) {
 				$size = getimagesize($imagefile);
-				return ($dim === "string") ? "$size[0]x$size[1]" : $size[$dim];
+				if ($dim === "string") {
+					$rv = "$size[0]x$size[1]";
+				} else if ($dim === 'array') {
+					$rv = Array(
+						'width'  => $size[0],
+						'height' => $size[1],
+					);					
+				} else if (is_numeric($dim)) {
+					$rv = $size[$dim];
+				}
+				return $rv;
 			} else {
 				return ($dim === "string") ? "file '$imagefile' not found" : null;
 			}
