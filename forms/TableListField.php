@@ -232,8 +232,15 @@ class TableListField extends FormField {
 	
 	/**
 	 * @var array Specify custom formatting for fields, e.g. to render a link instead of pure text.
-	 * Caution: Make sure to escape special php-characters like in a normal php-statement. 
-	 * Example:	"myFieldName" => '<a href=\"custom-admin/$ID\">$ID</a>'
+	 * 
+	 * You can use dollarsign-notation for object variable/method names in the format string
+	 *	and the special variable $value for the field value. (Note: result must be castable
+	 *	to string)
+	 *
+	 * Escaping special php-characters like in a normal php-statement is optional 
+	 *	in the Pet Pack CMS but required in SS because it uses eval() <shudder>
+	 *
+	 * Example:	"myFieldName" => '<a href="custom-admin/$ID">$ID</a>'
 	 */
 	public $fieldFormatting = array();
 	
@@ -1390,10 +1397,40 @@ class TableListField_Item extends ViewableData {
 			// formatting
 			$item = $this->item;
 			if(array_key_exists($fieldName, $this->parent->fieldFormatting)) {
+				
 				$format = str_replace('$value', "__VAL__", $this->parent->fieldFormatting[$fieldName]);
+				
+				//DM: be less idiotic: do replacements without eval() and supporting 
+				// callable properties (object methods) in the format string:
+				if (preg_match_all('/\$([A-Za-z0-9-_]+)/', $format,$matches)) {
+					foreach ($matches[1] as $var) {	//$matches[1] is an array of var names
+						if (method_exists($item, $var)) { //TODO: this wont find methods on decorators
+							$format = str_replace('$' . $var,$item->$var(),$format);
+						} else {
+							$format = str_replace('$' . $var,$item->$var,$format);
+						}
+					}
+				}
+				
+				//we don't use eval because we're not fucktarded, so you don't have to 
+				//	escape things in TableListField format strings anymore, but since 
+				//	we have an existing codebase which expects idiocy in the framework,
+				//	we maintain compatibility with SS stupidity and remove escaped characters
+				/* old regex method:
+				$format=str_replace('\"','"',$format);
+				$format=str_replace('\\' . '\'','"',$format);
+				*/
+				//proper method:
+				$format = stripcslashes($format);
+
+				$value = str_replace('__VAL__', $value, $format);
+				
+				/*
 				$format = preg_replace('/\$([A-Za-z0-9-_]+)/','$item->$1', $format);
 				$format = str_replace('__VAL__', '$value', $format);
+				//DM: ZOMG kill me now
 				eval('$value = "' . $format . '";');
+				*/
 			}
 			
 			//escape
