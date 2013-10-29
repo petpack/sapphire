@@ -1399,12 +1399,11 @@ class TableListField_Item extends ViewableData {
 			if(array_key_exists($fieldName, $this->parent->fieldFormatting)) {
 				
 				$format = str_replace('$value', "__VAL__", $this->parent->fieldFormatting[$fieldName]);
-				
 				//DM: be less idiotic: do replacements without eval() and supporting 
 				// callable properties (object methods) in the format string:
 				if (preg_match_all('/\$([A-Za-z0-9-_]+)/', $format,$matches)) {
 					foreach ($matches[1] as $var) {	//$matches[1] is an array of var names
-						if (method_exists($item, $var)) { //TODO: this wont find methods on decorators
+						if (method_exists($item, $var) || (method_exists($object,'hasMethod') && $item->hasMethod($var)) ) { //hasMethod to handle DataObject extensions
 							$format = str_replace('$' . $var,$item->$var(),$format);
 						} else {
 							$format = str_replace('$' . $var,$item->$var,$format);
