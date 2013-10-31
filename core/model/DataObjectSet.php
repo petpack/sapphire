@@ -1008,13 +1008,29 @@ function column_sort(&$data, $column, $direction = "ASC", $preserveIndexes = tru
  */
 function column_sort_callback_basic($a, $b) {
 	global $column_sort_field, $column_sort_multiplier;
-
-	if($a->$column_sort_field == $b->$column_sort_field) {
-		$result  = 0;
-	} else {
-		$result = ($a->$column_sort_field < $b->$column_sort_field) ? -1 * $column_sort_multiplier : 1 * $column_sort_multiplier;
-	}
 	
+	//DM: support dot notation in sorts:
+	//TODO; recurse so that you can use multiple-dot notation!
+	//TODO: doing this string match/explode stuff on every iteration is 
+	//			horrendously inefficient!
+	if (strpos($column_sort_field, '.') !== false) {
+		//dot notation
+		list($main,$sub) = explode(".",$column_sort_field);
+		//XXX: we're assuming that the part before the dot refers to a 
+		//	class method which returns an object
+		$c = $a->$main();
+		$d = $b->$main();
+		if ($c->$sub == $d->$sub) $result = 0;
+		else $result = ($c->$sub < $b->$sub) ? -1 * $column_sort_multiplier : $column_sort_multiplier;
+	} else {
+		//normal:
+		if($a->$column_sort_field == $b->$column_sort_field) {
+			$result  = 0;
+		} else {
+			$result = ($a->$column_sort_field < $b->$column_sort_field) ? -1 * $column_sort_multiplier : 1 * $column_sort_multiplier;
+		}
+	
+	}
 	return $result;
 }
 
