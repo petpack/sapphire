@@ -66,6 +66,15 @@ class Debug {
 	 * @var boolean
 	 */
 	public static $use_log_for_debug = false;
+	
+	
+	/**
+	 * Enables Debug output in live environments. USE WITH CAUTION!
+	 * You really shouldn't be debugging on live!
+	 * 	Added for use in CLI Scripts (PetPackScript turns this on)
+	 * @var boolean
+	 */
+	public static $live_debugging = false;
 
 	/**
 	 * Show the contents of val in a debug-friendly way.
@@ -161,7 +170,7 @@ class Debug {
 	 * Show a debugging message
 	 */
 	static function message($message, $showHeader = true) {
-		if(!Director::isLive()) {
+		if(!Director::isLive() || self::$live_debugging) {
 			$caller = Debug::caller();
 			$file = basename($caller['file']);
 			if (!is_string($message)) {
