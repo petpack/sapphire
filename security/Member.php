@@ -975,7 +975,7 @@ class Member extends DataObject {
 			$result = new Member_GroupSet();
 		}
 
-		$result->setComponentInfo("many-to-many", $this, "Member", $table, "Group");
+		$result->setComponentInfo("many-to-many", $this, "Member", $table, "Group",null,"Groups");
 
 		return $result;
 	}

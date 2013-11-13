@@ -1087,8 +1087,9 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * @param $recursive Recursively write components
 	 */
 	public function writeComponents($recursive = false) {
+		error_log("WriteComponents!");
 		if(!$this->components) return;
-		
+		error_log("Components: " . print_r($this->components,true));
 		foreach($this->components as $component) {
 			$component->write(false, false, false, $recursive);
 		}
@@ -1199,6 +1200,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 			return $this->components[$componentName];
 		}
 		
+		//DM: I think this block is a bug - see comment above
 		if(isset($this->components[$componentName])) {
 			return $this->components[$componentName];
 		}
@@ -1280,7 +1282,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 			$this->setComponent($componentName . '_' . $sum, $result);
 		}
 
-		$result->setComponentInfo("1-to-many", $this, null, null, $componentClass, $joinField);
+		$result->setComponentInfo("1-to-many", $this, null, null, $componentClass, $joinField,$componentName);
 
 		return $result;
 	}
@@ -1355,6 +1357,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * @param DataObject|ComponentSet $componentValue Value of the component
 	 */
 	public function setComponent($componentName, $componentValue) {
+		
 		$this->componentCache[$componentName] = $componentValue;
 	}
 
@@ -1390,7 +1393,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 		} else {
 			$result = new ComponentSet();
 		}
-		$result->setComponentInfo("many-to-many", $this, $parentClass, $table, $componentClass);
+		$result->setComponentInfo("many-to-many", $this, $parentClass, $table, $componentClass,null,$componentName);
 
 		// If this record isn't in the database, then we want to hold onto this specific ComponentSet,
 		// because it's the only copy of the data that we have.

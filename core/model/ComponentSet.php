@@ -7,6 +7,12 @@
  */
 class ComponentSet extends DataObjectSet {
 	/**
+	 * The name of the Component in the Owner Object
+	 * DM: WTF?!? why was this not here already?!?
+	 */
+	protected $name;
+	
+	/**
 	 * Type of relationship (eg '1-1', '1-many').
 	 * @var string
 	 */
@@ -51,13 +57,14 @@ class ComponentSet extends DataObjectSet {
 	 * @param string $childClass Class of child side of the relationship.
 	 * @param string $joinField Field to join on.
 	 */
-	function setComponentInfo($type, $ownerObj, $ownerClass, $tableName, $childClass, $joinField = null) {
+	function setComponentInfo($type, $ownerObj, $ownerClass, $tableName, $childClass, $joinField = null,$name = null) {
 		$this->type = $type;
 		$this->ownerObj = $ownerObj;
 		$this->ownerClass = $ownerClass ? $ownerClass : $ownerObj->class;
 		$this->tableName = $tableName;
 		$this->childClass = $childClass;
 		$this->joinField = $joinField;
+		$this->name = ($name?$name:($tableName?$tableName:$JoinField));
 	}
 	
 	/**
@@ -127,6 +134,7 @@ class ComponentSet extends DataObjectSet {
 		
 		// In either case, add something to $this->items
 		$this->items[] = $item;
+		
 	}
 	
 	/**
@@ -136,12 +144,22 @@ class ComponentSet extends DataObjectSet {
 	 * @param array $extraFields Map of extra fields.
 	 */
 	protected function loadChildIntoDatabase($item, $extraFields = null) {
+		error_log("ComponentSet: Load child");
 		if($this->type == '1-to-many') {
 			$child = DataObject::get_by_id($this->childClass,$item->ID);
 			if (!$child) $child = $item;
 			$joinField = $this->joinField;
-			$child->$joinField = $this->ownerObj->ID;
-			$child->write();
+			if(($child->$joinField != $this->ownerObj->ID) || !$child->ID) {
+				
+				$child->$joinField = $this->ownerObj->ID;
+				$child->write();
+				
+				//fire extension on owner object for handling by LogEntryDecorator:
+				$action="added";
+				$type="has_many";
+				$this->ownerObj->extend("relationshipChanged",$this->name,$action,$type,$child);
+				
+			}
 			
 		} else {		
 			$parentField = $this->ownerClass . 'ID';
@@ -149,16 +167,32 @@ class ComponentSet extends DataObjectSet {
 			
 			DB::query( "DELETE FROM \"$this->tableName\" WHERE \"$parentField\" = {$this->ownerObj->ID} AND \"$childField\" = {$item->ID}" );
 			
+			//this might be MySQL-specific:
+			$isNew = (DB::getConn()->affectedRows() == 0);
+			
 			$extraKeys = $extraValues = '';
 			if($extraFields) foreach($extraFields as $k => $v) {
 				$extraKeys .= ", \"$k\"";
 				$extraValues .= ", '" . Convert::raw2sql($v) . "'";
 			}
-
+			
 			DB::query("INSERT INTO \"$this->tableName\" (\"$parentField\",\"$childField\" $extraKeys) VALUES ({$this->ownerObj->ID}, {$item->ID} $extraValues)");
+			
+			if ($isNew) {
+				/*
+				error_log("ComponentSet: Add " . $this->tableName . " " . 
+					$this->childClass . " " . $item->ID . 
+					" to " . $this->ownerClass . " " . $this->ownerObj->ID
+				);
+				*/
+				//fire extension on owner object for handling by LogEntryDecorator:
+				$action="added";
+				$type="many_many";
+				$this->ownerObj->extend("relationshipChanged",$this->name,$action,$type,$item,$this->tableName);
+			}
 		}
 	}
-    	
+    
 	/**
 	 * Add a number of items to the component set.
 	 * @param array $items Items to add, as either DataObjects or IDs.
@@ -221,12 +255,24 @@ class ComponentSet extends DataObjectSet {
 				if($child->$joinField == $this->ownerObj->ID) {
 					$child->$joinField = null;
 					$child->write();
+					//fire extension on owner object for handling by LogEntryDecorator:
+					$action="deleted";
+					$type="has_many";
+					$this->ownerObj->extend("relationshipChanged",$this->name,$action,$type,$child);
 				}
 				
 			} else {
 				$parentField = $this->ownerClass . 'ID';
 				$childField = ($this->childClass == $this->ownerClass) ? "ChildID" : ($this->childClass . 'ID');
 				DB::query("DELETE FROM \"$this->tableName\" WHERE \"$parentField\" = {$this->ownerObj->ID} AND \"$childField\" = {$item->ID}");
+				//this might be MySQL-specific:
+				$isChange = (DB::getConn()->affectedRows() != 0);
+				if ($isChange) {
+					//fire extension on owner object for handling by LogEntryDecorator:
+					$action="deleted";
+					$type="many_many";
+					$this->ownerObj->extend("relationshipChanged",$this->name,$action,$type,$item,$this->tableName);
+				}
 			}
 		}
 		
