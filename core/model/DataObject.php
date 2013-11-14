@@ -1087,9 +1087,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * @param $recursive Recursively write components
 	 */
 	public function writeComponents($recursive = false) {
-		error_log("WriteComponents!");
 		if(!$this->components) return;
-		error_log("Components: " . print_r($this->components,true));
 		foreach($this->components as $component) {
 			$component->write(false, false, false, $recursive);
 		}

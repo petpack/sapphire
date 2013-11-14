@@ -144,7 +144,6 @@ class ComponentSet extends DataObjectSet {
 	 * @param array $extraFields Map of extra fields.
 	 */
 	protected function loadChildIntoDatabase($item, $extraFields = null) {
-		error_log("ComponentSet: Load child");
 		if($this->type == '1-to-many') {
 			$child = DataObject::get_by_id($this->childClass,$item->ID);
 			if (!$child) $child = $item;
@@ -179,12 +178,6 @@ class ComponentSet extends DataObjectSet {
 			DB::query("INSERT INTO \"$this->tableName\" (\"$parentField\",\"$childField\" $extraKeys) VALUES ({$this->ownerObj->ID}, {$item->ID} $extraValues)");
 			
 			if ($isNew) {
-				/*
-				error_log("ComponentSet: Add " . $this->tableName . " " . 
-					$this->childClass . " " . $item->ID . 
-					" to " . $this->ownerClass . " " . $this->ownerObj->ID
-				);
-				*/
 				//fire extension on owner object for handling by LogEntryDecorator:
 				$action="added";
 				$type="many_many";
@@ -222,13 +215,22 @@ class ComponentSet extends DataObjectSet {
 		// $id is the database ID of the record
 		if($idList) foreach($idList as $id) {
 			$itemsToDelete[$id] = false;
-			if($id && !isset($has[$id])) $this->add($id);
+			if($id && !isset($has[$id])) {
+				$this->add($id);
+				$action="added";
+				$this->ownerObj->extend('relationshipChanged',$this->name,$action,$this->type,DataObject::get_by_id($this->childClass,$id),$this->tableName);
+			}
 		}
-
+		
 		// delete items not in the list
 		$removeList = array();
 		foreach($itemsToDelete as $id => $actuallyDelete) {
-			if($actuallyDelete) $removeList[] = $id;
+			if($actuallyDelete) {
+				$removeList[] = $id;
+				
+				$action="deleted";
+				$this->ownerObj->extend('relationshipChanged',$this->name,$action,$this->type,DataObject::get_by_id($this->childClass,$id),$this->tableName);
+			}
 		}
 		$this->removeMany($removeList);
 	}
@@ -299,6 +301,15 @@ class ComponentSet extends DataObjectSet {
 				$itemList = $itemList->column('ID');
 			}
 			$itemCSV = implode(", ", $itemList);
+			
+			//DM: This is horribly inefficient, but compatible with both types of call (CSV and DataObjectSet)
+			$itms = DataObject::get($this->childClass,"ID in ($itemCSV)");
+			if ($itms && $itms->exists()) {
+				$action="deleted";
+				foreach ($itms as $itm)
+					$this->ownerObj->extend('relationshipChanged',$this->name,$action,$this->type,$itm,$this->tableName);
+			}
+			
 			$parentField = $this->ownerClass . 'ID';
 			$childField = ($this->childClass == $this->ownerClass) ? "ChildID" : ($this->childClass . 'ID');
 			DB::query("DELETE FROM \"$this->tableName\" WHERE \"$parentField\" = {$this->ownerObj->ID} AND \"$childField\" IN ($itemCSV)");
@@ -309,6 +320,16 @@ class ComponentSet extends DataObjectSet {
 	 * Remove all items in this set.
 	 */
 	function removeAll() {
+		
+		//$this->ownerObj->extend('relationshipChanged',$this->name,$action,$this->type,$itm);
+		$action = "deleted";
+		$items = DataObject::get($this->childClass,"$parentField = " . $this->ownerObj->ID);
+		if ($items && $items->exists()) {
+			foreach ($items as $itm)
+				$this->ownerObj->extend('relationshipChanged',$this->name,$action,$this->type,$itm,$this->tableName);
+			$this->ownerObj->extend('event',"All '" . $this->name . "' records deleted");
+		}
+		
 		if(!empty($this->tableName)) {
 			$parentField = $this->ownerClass . 'ID';
 			DB::query("DELETE FROM \"$this->tableName\" WHERE \"$parentField\" = {$this->ownerObj->ID}");
