@@ -323,15 +323,23 @@ class ComponentSet extends DataObjectSet {
 		
 		if(!empty($this->tableName)) {
 			$parentField = $this->ownerClass . 'ID';
-			
+			$childField = $this->childClass . "ID";
+			//error_log("Tablename: " . $this->tableName . ", Field: $parentField, childclass: " . $this->childClass );
 			$action = "deleted";
-			$items = DataObject::get($this->childClass,"$parentField = " . $this->ownerObj->ID);
+			//Debug::sql(true);
+			$ancestry = Array();
+			foreach(singleton($this->childClass)->getClassAncestry() as $ancestor) {
+				if(DataObject::has_own_table($ancestor))
+				$ancestry[] = $ancestor;
+			}
+			$items = DataObject::get($this->childClass,"$parentField = " . $this->ownerObj->ID,null," LEFT JOIN $this->tableName on $childField = {$ancestry[0]}.ID" );
 			if ($items && $items->exists()) {
 				foreach ($items as $itm)
 					$this->ownerObj->extend('relationshipChanged',$this->name,$action,$this->type,$itm,$this->tableName);
-				$this->ownerObj->extend('event',"All '" . $this->name . "' records deleted");
+				$msg = "All '" . $this->name . "' records deleted";
+				$this->ownerObj->extend('event',$msg);
 			}
-			
+			//Debug::sql(false);
 			DB::query("DELETE FROM \"$this->tableName\" WHERE \"$parentField\" = {$this->ownerObj->ID}");
 		} else {
 			foreach($this->items as $item) {

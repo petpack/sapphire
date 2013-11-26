@@ -982,8 +982,12 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 					
 				// New records have their insert into the base data table done first, so that they can pass the
 				// generated primary key on to the rest of the manipulation
+
 				$baseTable = $ancestry[0];
-				
+				//DM: I'd just like to call attention to the awesomeness of calling isset() on an expression you 
+				//	just referenced on the previous line of code, meaning that you've either wasted time 
+				//	evaluating it (isset() == true) or that your script has already fallen over due to an invalid 
+				//	array index. Good work guys! 
 				if((!isset($this->record['ID']) || !$this->record['ID']) && isset($ancestry[0])) {	
 
 					DB::query("INSERT INTO \"{$baseTable}\" (\"Created\") VALUES (" . DB::getConn()->now() . ")");
