@@ -321,17 +321,17 @@ class ComponentSet extends DataObjectSet {
 	 */
 	function removeAll() {
 		
-		//$this->ownerObj->extend('relationshipChanged',$this->name,$action,$this->type,$itm);
-		$action = "deleted";
-		$items = DataObject::get($this->childClass,"$parentField = " . $this->ownerObj->ID);
-		if ($items && $items->exists()) {
-			foreach ($items as $itm)
-				$this->ownerObj->extend('relationshipChanged',$this->name,$action,$this->type,$itm,$this->tableName);
-			$this->ownerObj->extend('event',"All '" . $this->name . "' records deleted");
-		}
-		
 		if(!empty($this->tableName)) {
 			$parentField = $this->ownerClass . 'ID';
+			
+			$action = "deleted";
+			$items = DataObject::get($this->childClass,"$parentField = " . $this->ownerObj->ID);
+			if ($items && $items->exists()) {
+				foreach ($items as $itm)
+					$this->ownerObj->extend('relationshipChanged',$this->name,$action,$this->type,$itm,$this->tableName);
+				$this->ownerObj->extend('event',"All '" . $this->name . "' records deleted");
+			}
+			
 			DB::query("DELETE FROM \"$this->tableName\" WHERE \"$parentField\" = {$this->ownerObj->ID}");
 		} else {
 			foreach($this->items as $item) {
