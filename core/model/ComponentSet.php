@@ -303,7 +303,13 @@ class ComponentSet extends DataObjectSet {
 			$itemCSV = implode(", ", $itemList);
 			
 			//DM: This is horribly inefficient, but compatible with both types of call (CSV and DataObjectSet)
-			$itms = DataObject::get($this->childClass,"ID in ($itemCSV)");
+			$itms = DataObject::get($this->childClass,$this->childClass . ".ID in ($itemCSV)");
+			//NOTE: need to specify subtable.ID above, rather than just ID in
+			//	case there's a join and ID becomes ambiguous
+			//TODO: it'd be a good idea to handle aliases and be more fault-tolerant here
+			//	but for the moment it's being left as-is in the hope that we'll find
+			//	any bugs
+
 			if ($itms && $itms->exists()) {
 				$action="deleted";
 				foreach ($itms as $itm)
