@@ -29,12 +29,18 @@ class GD extends Object {
 		increase_time_limit_to(300);
 
 		if($filename) {
-			// We use getimagesize instead of extension checking, because sometimes extensions are wrong.
-			list($width, $height, $type, $attr) = getimagesize($filename);
-			switch($type) {
-				case 1: if(function_exists('imagecreatefromgif')) $this->setGD(imagecreatefromgif($filename)); break;
-				case 2: if(function_exists('imagecreatefromjpeg')) $this->setGD(imagecreatefromjpeg($filename)); break;
-				case 3: if(function_exists('imagecreatefrompng')) $this->setGD(imagecreatefrompng($filename)); break;
+			try {
+				// We use getimagesize instead of extension checking, because sometimes extensions are wrong.
+				list($width, $height, $type, $attr) = getimagesize($filename);
+				switch($type) {
+					case 1: if(function_exists('imagecreatefromgif')) $this->setGD(@imagecreatefromgif($filename)); break;
+					case 2: if(function_exists('imagecreatefromjpeg')) $this->setGD(@imagecreatefromjpeg($filename)); break;
+					case 3: if(function_exists('imagecreatefrompng')) $this->setGD(@imagecreatefrompng($filename)); break;
+				}
+			} catch (Exception $ex) {
+				//unable to load file for one of many reasons (invalid file? too large?)
+				//what do we do here?!?
+				error_log("Error: Could not load image '$filename', error: " . $ex->getMessage());
 			}
 		}
 		
@@ -43,6 +49,12 @@ class GD extends Object {
 	}
 
 	public function setGD($gd) {
+		//validation:
+		if (!is_resource($gd)) {
+			$this->gd = null;
+			$this->width = $this->height = 0; 
+			return false;
+		}
 		$this->gd = $gd;
 		$this->width = imagesx($gd);
 		$this->height = imagesy($gd);
