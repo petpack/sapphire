@@ -64,7 +64,7 @@ class MySQLDatabase extends SS_Database {
 		}
 		
 		if (self::$session_timezone) {
-			$this->query("SET SESSION time_zone = '{self::$connection_timezone}'");
+			$this->query("SET SESSION time_zone = '" . self::$session_timezone ."'");
 		}
 
 		$this->active = mysql_select_db($parameters['database'], $this->dbConn);
