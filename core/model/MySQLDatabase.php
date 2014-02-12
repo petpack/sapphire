@@ -28,6 +28,8 @@ class MySQLDatabase extends SS_Database {
 	
 	private static $connection_charset = null;
 	
+	public static $session_timezone = null;
+	
 	private $supportsTransactions=false;
 	
 	/**
@@ -59,6 +61,10 @@ class MySQLDatabase extends SS_Database {
 		if(self::$connection_charset) {
 			$this->query("SET CHARACTER SET '" . self::$connection_charset . "'"); 
 			$this->query("SET NAMES '" . self::$connection_charset . "'");
+		}
+		
+		if (self::$session_timezone) {
+			$this->query("SET SESSION time_zone = '{self::$connection_timezone}'");
 		}
 
 		$this->active = mysql_select_db($parameters['database'], $this->dbConn);
