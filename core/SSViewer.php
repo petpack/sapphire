@@ -381,6 +381,11 @@ class SSViewer {
 			$template = $this->chosenTemplates[ reset($dummy = array_keys($this->chosenTemplates)) ];
 		}
 		
+		if (!file_exists($template)) {
+			//template file does not exist, just return an empty string.
+			return "";
+		}
+		
 		if(isset($_GET['debug_profile'])) Profiler::mark("SSViewer::process", " for $template");
 		$cacheFile = TEMP_FOLDER . "/.cache" . str_replace(array('\\','/',':'), '.', Director::makeRelative(realpath($template)));
 

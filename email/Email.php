@@ -344,6 +344,7 @@ class Email extends ViewableData {
 			
 			// Process a .SS template file
 			$fullBody = $this->body;
+			
 			if($this->ss_template && !$isPlain) {
 				// Requery data so that updated versions of To, From, Subject, etc are included
 				$data = $this->templateData();
@@ -356,8 +357,14 @@ class Email extends ViewableData {
 				}
 			}
 			
+			//we need to escape dollar signs in content to prevent silverstripe
+			//	from trying to parse them as vars:
+			// note that we don't alter the content.
+			//$fullBody=str_replace('$', '\$', $fullBody);
+			
 			// Rewrite relative URLs, but preserve internal links
 			$this->body = HTTP::absoluteURLs($fullBody, true);
+			
 		}
 	}
 	
