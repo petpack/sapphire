@@ -50,6 +50,11 @@ class SS_Datetime extends Date {
 	function Date() {
 		return date('d/m/Y', strtotime($this->value));
 	}
+	
+	function HumanDate() {
+		return date('d M Y', strtotime($this->value));
+	}
+	
 	function Time() {
 		return date('g:ia', strtotime($this->value));
 	}
