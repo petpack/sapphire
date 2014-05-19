@@ -182,6 +182,14 @@ class Controller extends RequestHandler {
 		if(!$this->action) $this->action = 'index';
 		
 		if(!$this->hasAction($this->action)) {
+			
+			//action not found - see if there's a redirect for this URL.
+			$redirect = $this->extend('extendGetNestedController');
+			foreach ($redirect as $extresponse) // (extend returns an array)
+			if ($extresponse) {
+				return $extresponse;
+			}
+			
 			$this->httpError(404, "The action '$this->action' does not exist in class $this->class");
 		}
 		
