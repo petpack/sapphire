@@ -216,6 +216,11 @@ class Form extends RequestHandler {
 		if(isset($errorInfo['message']) && isset($errorInfo['type'])) {
 			$this->setMessage($errorInfo['message'], $errorInfo['type']);
 		}
+		
+		//DM: I think this is desired, but it might have unpredictable behaviour:
+		//if (isset($errorInfo['formError']) && is_array(isset($errorInfo['formError'])))
+		//	$this->setMessage($errorInfo['formError']['message'], $errorInfo['formError']['type']);
+		
 	}
 	
 	/**

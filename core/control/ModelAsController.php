@@ -102,8 +102,11 @@ class ModelAsController extends Controller implements NestedController {
 		if(!$sitetree) {
 			// If a root page has been renamed, redirect to the new location.
 			// See ContentController->handleRequest() for similiar logic.
+			
 			$redirect = self::find_old_page($URLSegment);
-			if($redirect = self::find_old_page($URLSegment)) {
+			if ($redirect) {
+			//DM: WTF? Why were we doing the query twice? idiocy perchance?
+			//if($redirect = self::find_old_page($URLSegment)) {
 				$params = $request->getVars();
 				if(isset($params['url'])) unset($params['url']);
 				$this->response = new SS_HTTPResponse();
@@ -152,16 +155,26 @@ class ModelAsController extends Controller implements NestedController {
 		return self::controller_for($sitetree, $this->request->param('Action'));
 	}
 	
+	/*
+	 * Boolean to enable/disable 'find old page' behaviour (i.e redirecting when
+	 * 	a page has been renamed)
+	 * NOTE: This enables/disables this behaviour globally, you're probably looking 
+	 *	for the 'DontFindOldPage' field on the SiteTree Object.
+	 */
+	public static $find_old_page_enabled = True;
+	
 	/**
 	 * @param string $URLSegment A subset of the url. i.e in /home/contact/ home and contact are URLSegment.
 	 * @param int $parentID The ID of the parent of the page the URLSegment belongs to. 
 	 * @return SiteTree
 	 */
 	static function find_old_page($URLSegment,$parentID = 0, $ignoreNestedURLs = false) {
+		
+		if (!self::$find_old_page_enabled) return null;
 		$URLSegment = Convert::raw2sql($URLSegment);
 		
 		$useParentIDFilter = SiteTree::nested_urls() && $parentID;
-				
+		
 		// First look for a non-nested page that has a unique URLSegment and can be redirected to.
 		if(SiteTree::nested_urls()) {
 			$pages = DataObject::get(
@@ -172,20 +185,35 @@ class ModelAsController extends Controller implements NestedController {
 		}
 		
 		// Get an old version of a page that has been renamed.
+		//DM: Note: need to join with the live version of the record to query the CURRENT
+		//		status of DontFindOldPage, otherwise it'll pick up pages that have it set not
+		//		but didn't at some point in the past (or vice-versa)
+		$filter = "v.URLSegment = '$URLSegment' AND v.WasPublished = 1" .
+					" AND l.DontFindOldPage = 0 " . 
+					($useParentIDFilter ? ' AND "v.ParentID" = ' . (int)$parentID : '');
+		
+		//DM: if the subsite module is loaded, augment the SQL.
+		if (class_exists("Subsite")) {	//NB: this doesn't actually test if the extension is loaded
+			$filter .= " AND v.SubsiteID = " . Subsite::currentSubsiteID();
+		}
+		
 		$query = new SQLQuery (
-			'"RecordID"',
-			'"SiteTree_versions"',
-			"\"URLSegment\" = '$URLSegment' AND \"WasPublished\" = 1" . ($useParentIDFilter ? ' AND "ParentID" = ' . (int)$parentID : ''),
-			'"LastEdited" DESC',
+			'v.RecordID',
+			'SiteTree_versions v LEFT JOIN SiteTree_Live l on l.ID = v.RecordID',
+			$filter,
+			'v.LastEdited DESC',
 			null,
 			null,
 			1
 		);
+		
 		$record = $query->execute()->first();
 		
 		if($record && ($oldPage = DataObject::get_by_id('SiteTree', $record['RecordID']))) {
 			// Run the page through an extra filter to ensure that all decorators are applied.
-			if(SiteTree::get_by_link($oldPage->RelativeLink())) return $oldPage;
+			if(SiteTree::get_by_link($oldPage->RelativeLink())) {
+				return $oldPage;
+			}
 		}
 	}
 	

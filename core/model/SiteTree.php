@@ -79,6 +79,9 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 		"ReportClass" => "Varchar",
 		"CanViewType" => "Enum('Anyone, LoggedInUsers, OnlyTheseUsers, Inherit', 'Inherit')",
 		"CanEditType" => "Enum('LoggedInUsers, OnlyTheseUsers, Inherit', 'Inherit')",
+			
+		//If True, ModelAsController->findOldPage() will never return this SiteTree Object.
+		"DontFindOldPage" => "Boolean",
 
 		// Simple task tracking
 		"ToDo" => "Text",
@@ -119,7 +122,8 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 		"ShowInSearch" => 1,
 		"Status" => "New page",
 		"CanViewType" => "Inherit",
-		"CanEditType" => "Inherit"
+		"CanEditType" => "Inherit",
+		"DontFindOldPage" => False,
 	);
 
 	static $versioning = array(
@@ -1761,6 +1765,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 						new LiteralField('LinkChangeNote', self::nested_urls() && count($this->Children()) ?
 							'<p>' . $this->fieldLabel('LinkChangeNote'). '</p>' : null
 						),
+						new CheckboxField("DontFindOldPage","Don't redirect to this page if the URL is changed",$this->DontFindOldPage),
 						new HeaderField('MetaTagsHeader',$this->fieldLabel('MetaTagsHeader')),
 						new TextField("MetaTitle", $this->fieldLabel('MetaTitle')),
 						new TextareaField("MetaKeywords", $this->fieldLabel('MetaKeywords'), 1),
