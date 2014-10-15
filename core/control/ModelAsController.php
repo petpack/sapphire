@@ -190,7 +190,7 @@ class ModelAsController extends Controller implements NestedController {
 		//		but didn't at some point in the past (or vice-versa)
 		$filter = "v.URLSegment = '$URLSegment' AND v.WasPublished = 1" .
 					" AND l.DontFindOldPage = 0 " . 
-					($useParentIDFilter ? ' AND "v.ParentID" = ' . (int)$parentID : '');
+					($useParentIDFilter ? ' AND v.ParentID = ' . (int)$parentID : '');
 		
 		//DM: if the subsite module is loaded, augment the SQL.
 		if (class_exists("Subsite")) {	//NB: this doesn't actually test if the extension is loaded
