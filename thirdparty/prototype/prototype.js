@@ -653,10 +653,12 @@ var $R = function(start, end, exclusive) {
 
 var Ajax = {
   getTransport: function() {
-    return Try.these(
+    return Try.these(	
+    //DM: sane order, so that users with real browsers are not disadvantaged
+    //		by the mere existence of IE.
+      function() {return new XMLHttpRequest()},
       function() {return new ActiveXObject('Msxml2.XMLHTTP')},
-      function() {return new ActiveXObject('Microsoft.XMLHTTP')},
-      function() {return new XMLHttpRequest()}
+      function() {return new ActiveXObject('Microsoft.XMLHTTP')}
     ) || false;
   },
 
