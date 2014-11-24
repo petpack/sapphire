@@ -82,6 +82,8 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 			
 		//If True, ModelAsController->findOldPage() will never return this SiteTree Object.
 		"DontFindOldPage" => "Boolean",
+			
+		"HeaderTags" => "Varchar(4000)",
 
 		// Simple task tracking
 		"ToDo" => "Text",
@@ -1770,7 +1772,8 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 						new TextField("MetaTitle", $this->fieldLabel('MetaTitle')),
 						new TextareaField("MetaKeywords", $this->fieldLabel('MetaKeywords'), 1),
 						new TextareaField("MetaDescription", $this->fieldLabel('MetaDescription')),
-						new TextareaField("ExtraMeta",$this->fieldLabel('ExtraMeta'))
+						new TextareaField("ExtraMeta",$this->fieldLabel('ExtraMeta')),
+						new TextareaField('HeaderTags', 'Extra code (e.g scripts) to add to the &lt;head&gt; of the page',$this->HeaderTags)
 					)
 				),
 				$tabBehaviour = new Tab('Behaviour',
