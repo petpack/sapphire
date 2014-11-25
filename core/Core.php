@@ -345,6 +345,13 @@ function singleton($className) {
 	if(!isset($className)) user_error("singleton() Called without a class", E_USER_ERROR);
 	if(!is_string($className)) user_error("singleton() passed bad class_name: " . var_export($className,true), E_USER_ERROR);
 	if(!isset($_SINGLETONS[$className])) {
+
+		//nasty, nasty hack: for some reason the Redirection class hasn't been loaded in some cases
+		//	so we include it manually
+		if ($className == "Redirection" && !class_exists($className) && 
+				file_exists(Director::baseFolder() . "/pet-pack/code/redirection/Redirection.php"))
+			require_once(Director::baseFolder() . "/pet-pack/code/redirection/Redirection.php");
+
 		if(!class_exists($className)) user_error("Bad class to singleton() - $className", E_USER_ERROR);
 		$_SINGLETONS[$className] = Object::strong_create($className,null, true);
 		if(!$_SINGLETONS[$className]) user_error("singleton() Unknown class '$className'", E_USER_ERROR);

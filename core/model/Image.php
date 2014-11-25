@@ -156,6 +156,34 @@ class Image extends File {
 		return true;
 	}
 	
+	/**
+	 * Duplicates both the dataobject and file.
+	 * @see DataObject::duplicate()
+	 */
+	public function duplicate() {
+		$c=0;
+		$src = $this->getFullPath();
+		$fn=$src;
+		
+		while (file_exists($fn)) {
+			$c++;
+			$ext = pathinfo($fn, PATHINFO_EXTENSION);
+			$fn = str_replace(".$ext", "-" . $c . ".$ext", $src);
+		}
+		//error_log("Duplicate '$src' -> '$fn'");
+		//copy the file:
+		copy($src, $fn);
+		
+		$rec = parent::duplicate(false);
+		
+		$rec->Filename = $fn;
+		
+		$rec->write();
+		
+		return $rec;
+		
+	}
+	
 	function validate() {
 		$this->ensureNotInsanelyHuge();
 		return parent::validate();

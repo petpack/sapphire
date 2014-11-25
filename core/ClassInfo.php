@@ -73,7 +73,19 @@ class ClassInfo {
 		
 		$dataClasses = array();
 		
-		if(!$_ALL_CLASSES['parents'][$class]) user_error("ClassInfo::dataClassesFor() no parents for $class", E_USER_WARNING);
+		//nasty, nasty hack:
+		//	the problem here is that silverstripe eats dick every night, 
+		//	so it doesn't bother doing anything like allowing a coder to 
+		//	specify load order. So by the time you get here, the redirection 
+		//	class may or may not have been included. I can't tell WTF is 
+		//	going on exactly, so rather than spending days figuring out 
+		//	and then enforcing the correct load order I'm just hardcoding
+		//	the correct result:
+		if ($class == "Redirection") return Array("Redirection");
+		
+		//DM: extra isset() check to prevent epic fail:
+		if(!isset($_ALL_CLASSES['parents'][$class]) || !$_ALL_CLASSES['parents'][$class]) 
+			user_error("ClassInfo::dataClassesFor() no parents for $class", E_USER_WARNING);
 		foreach($_ALL_CLASSES['parents'][$class] as $subclass) {
 			if(self::hasTable($subclass)) $dataClasses[] = $subclass;
 		}
@@ -151,7 +163,11 @@ class ClassInfo {
 		if(is_object($class)) $class = $class->class;
 		else if(!is_string($class)) user_error("Bad class value " . var_export($class, true) . " passed to ClassInfo::ancestry()", E_USER_WARNING);
 
-		$items = $_ALL_CLASSES['parents'][$class];
+		if (!isset($_ALL_CLASSES['parents'][$class])) 
+			$items = Array();
+		else 
+			$items = $_ALL_CLASSES['parents'][$class];
+		
 		$items[$class] = $class;
 		if($onlyWithTables) foreach($items as $item) {
 			if(!DataObject::has_own_table($item)) unset($items[$item]);
