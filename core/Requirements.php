@@ -10,6 +10,14 @@
 class Requirements {
 
 	/**
+	 * A Shortcut function to include pplib.css and pplib.js
+	 */
+	public static function pplib() {
+		self::javascript('pet-pack/javascript/pplib.js');
+		self::css('pet-pack/css/pplib.css');
+	}
+	
+	/**
 	 * Enable combining of css/javascript files.
 	 * @param boolean $enable
 	 */
