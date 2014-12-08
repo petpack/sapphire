@@ -28,7 +28,7 @@ class GD extends Object {
 		// If we're working with image resampling, things could take a while.  Bump up the time-limit
 		increase_time_limit_to(300);
 
-		if($filename) {
+		if($filename && is_file($filename)) {
 			try {
 				// We use getimagesize instead of extension checking, because sometimes extensions are wrong.
 				list($width, $height, $type, $attr) = getimagesize($filename);
@@ -42,6 +42,20 @@ class GD extends Object {
 				//what do we do here?!?
 				error_log("Error: Could not load image '$filename', error: " . $ex->getMessage());
 			}
+		} else if ($filename) {
+			error_log("GD.php:46: Error: Image file '$filename' not found!");
+			
+			/*
+			$trace = debug_backtrace();
+			$msg = "";
+			foreach ($trace as $itm) {
+				$file = isset($itm['file'])?$itm['file']:'(no file)';
+				$line = isset($itm['line'])?$itm['line']:'??';
+				$msg .= "$file:$line \n";
+			}
+			error_log($msg);
+			*/
+			
 		}
 		
 		$this->quality = self::$default_quality;

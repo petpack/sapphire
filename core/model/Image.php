@@ -164,11 +164,11 @@ class Image extends File {
 		$c=0;
 		$src = $this->getFullPath();
 		$fn=$src;
+		$ext = pathinfo($fn, PATHINFO_EXTENSION);
 		
 		while (file_exists($fn)) {
 			$c++;
-			$ext = pathinfo($fn, PATHINFO_EXTENSION);
-			$fn = str_replace(".$ext", "-" . $c . ".$ext", $src);
+			$fn = str_replace(".$ext", "-$c.$ext", $src);
 		}
 		//error_log("Duplicate '$src' -> '$fn'");
 		//copy the file:
@@ -494,7 +494,7 @@ class Image extends File {
 	function generateFormattedImage($format, $arg1 = null, $arg2 = null) {
 		$cacheFile = $this->cacheFilename($format, $arg1, $arg2);
 	
-		$gd = new GD(Director::baseFolder()."/" . $this->Filename);
+		$gd = new GD($this->getFullPath());
 		
 		
 		if($gd->hasGD()){
@@ -584,7 +584,9 @@ class Image extends File {
 	function getDimensions($dim = "string") {
 		if (!is_numeric($dim)) $dim = strtolower($dim);
 		if($this->getField('Filename')) {
-			$imagefile = Director::baseFolder() . '/' . $this->getField('Filename');
+			$imagefile = $this->getFullPath();
+			//DM: Dear silverstripe devs: great work on the lack of consistency!
+			//$imagefile = Director::baseFolder() . '/' . $this->getField('Filename');
 			if(file_exists($imagefile)) {
 				$size = getimagesize($imagefile);
 				if ($dim === "string") {
