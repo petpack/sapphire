@@ -176,6 +176,10 @@ class Email extends ViewableData {
 			user_error("Could not attach '$absoluteFileName' to email. File does not exist.", E_USER_NOTICE);
 		}
 	}
+	
+	public function clearAttachments() {
+		$this->attachments = array();
+	}
 
 	public function Subject() {
 		return $this->subject;
