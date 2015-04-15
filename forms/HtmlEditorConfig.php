@@ -135,6 +135,10 @@ class HtmlEditorConfig {
 		}
 	}
 	
+	function options() {
+		return $this->settings;
+	}
+	
 	/**
 	 * Enable one or several plugins. Will maintain unique list if already 
 	 * enabled plugin is re-passed. If passed in as a map of plugin-name to path,
