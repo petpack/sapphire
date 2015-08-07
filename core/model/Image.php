@@ -163,13 +163,29 @@ class Image extends File {
 	public function duplicate() {
 		$c=0;
 		$src = $this->getFullPath();
+		
+		if (!file_exists($src) || !is_file($src)) {
+			//hmmm... what to do if the file doesn't exist?
+			error_log("Image::duplicate: file '" . $src . 
+				"' does not exist or cannot be duplicated!");
+			
+			$rec = parent::duplicate();
+			
+			return $rec;
+		}
+		
 		$fn=$src;
 		$ext = pathinfo($fn, PATHINFO_EXTENSION);
 		
 		while (file_exists($fn)) {
 			$c++;
-			$fn = str_replace(".$ext", "-$c.$ext", $src);
+			if ($ext)
+				$fn = str_replace(".$ext", "-$c.$ext", $src);
+			else
+				$fn = "$src-$c";
+			echo $fn . "\n";
 		}
+		
 		//error_log("Duplicate '$src' -> '$fn'");
 		//copy the file:
 		copy($src, $fn);
