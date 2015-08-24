@@ -155,6 +155,15 @@ class CSVParser extends Object implements Iterator {
 	}
 	
 	/**
+	 * Set this to true if you want a warning message for every column of 
+	 * 	every row which doesn't have a heading (default silverstripe behaviour)
+	 * 	Otherwise columns which have no heading will be silently ignored
+	 *  (you should be checking for this anyway)
+	 * @var Bool
+	 */
+	public static $copius_warnings = false;
+	
+	/**
 	 * Get a row from the CSV file and update $this->currentRow;
 	 */
 	protected function fetchCSVRow() {
@@ -173,7 +182,7 @@ class CSVParser extends Object implements Iterator {
 						array($this->enclosure,$this->delimiter),$value);
 				if(array_key_exists($i, $this->headerRow)) {
 					if($this->headerRow[$i]) $row[$this->headerRow[$i]] = $value;
-				} else {
+				} else if (self::$copius_warnings) {
 					user_error("No heading for column $i on row $this->rowNum", E_USER_WARNING);
 				}
 			}
