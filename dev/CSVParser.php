@@ -101,6 +101,15 @@ class CSVParser extends Object implements Iterator {
 	}
 	
 	/**
+	 * read-only. Returns $this->columnMap
+	 */
+	function headerRow() {
+		if(!$this->fileHandle) $this->openFile();
+		if(!$this->headerRow) $this->fetchCSVHeader();
+		return $this->headerRow;
+	}
+	
+	/**
 	 * If your CSV file doesn't have a header row, then you can call this function to provide one.
 	 * If you call this function, then the first row of the CSV will be included in the data returned.
 	 */
