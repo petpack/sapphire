@@ -626,6 +626,14 @@ class Member extends DataObject {
 				)
 			);
 			if($existingRecord) {
+				echo sprintf( 
+					'Can\'t overwrite existing member #%d with identical identifier (%s = %s), this #%d', 
+					$existingRecord->ID,
+					$identifierField,
+					$this->$identifierField,
+					$this->ID
+				) . "\n";
+				
 				throw new ValidationException(new ValidationResult(false, sprintf(
 					_t(
 						'Member.ValidationIdentifierFailed', 
