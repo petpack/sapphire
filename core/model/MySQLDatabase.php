@@ -76,6 +76,10 @@ class MySQLDatabase extends SS_Database {
 
 		if(isset($parameters['timezone'])) $this->query(sprintf("SET SESSION time_zone = '%s'", $parameters['timezone']));
 		$this->query("SET sql_mode = 'ANSI'");
+		
+		if (isset($_REQUEST['showqueries']))
+			self::$showqueries = true;
+		
 	}
 	
 	/**
@@ -109,13 +113,28 @@ class MySQLDatabase extends SS_Database {
 		return "mysql";
 	}
 	
+	/**
+	 * Set to true to have all SQL queries logged. for debugging / profiling.
+	 * 	works in combination with $_REQUEST['showqueries'] - this static 
+	 * 	allows debugging everything (e.g sake jobs, ajax calls) 
+	 * @var bool
+	 */
+	public static $showqueries = false;
+	/**
+	 * If this is set to a filename and $showqueries is true (or set via $_REQUEST),
+	 * 	queries will be logged to this file rather than using Debug::message
+	 * file is tab-delimited and contains backtrace, execution time, and SQL.
+	 * @var string
+	 */
+	public static $query_log_file = null;
+	
 	public function query($sql, $errorLevel = E_USER_ERROR) {
 		if(isset($_REQUEST['previewwrite']) && in_array(strtolower(substr($sql,0,strpos($sql,' '))), array('insert','update','delete','replace'))) {
 			Debug::message("Will execute: $sql");
 			return;
 		}
-
-		if(isset($_REQUEST['showqueries'])) { 
+		
+		if(self::$showqueries || isset($_REQUEST['showqueries'])) { 
 			$starttime = microtime(true);
 		}
 		
@@ -125,9 +144,32 @@ class MySQLDatabase extends SS_Database {
 		
 		$handle = mysql_query($sql, $this->dbConn);
 		
-		if(isset($_REQUEST['showqueries'])) {
+		if(self::$showqueries || isset($_REQUEST['showqueries'])) {
 			$endtime = round(microtime(true) - $starttime,4);
-			Debug::message("\n$sql\n{$endtime}ms\n", false);
+			//
+			if (self::$query_log_file) {
+				//append to query log rather than using Debug::message:
+				
+				$bt = debug_backtrace();
+				array_shift($bt); //never 1st element (which is MySQLDatabase::query)
+				foreach ($bt as $trace) {	//find first call which is not part of the sapphire core:
+					if (!isset($trace['file'])) $trace['file'] = "";
+					if (!isset($trace['line'])) $trace['line'] = "";
+					if ($trace['file'] && (!strpos($trace['file'], 'sapphire'))) break;
+				}
+				
+				$caller = $trace['file'] . ":" . $trace['line'];
+				
+				//remove tabs and linefeeds from SQL: 
+				$dsql = str_replace("\r","",str_replace("\n", " ", str_replace("\t", " ", $sql)));
+				
+				$Handle = fopen(self::$query_log_file, "a");
+				fwrite($Handle, "$caller\t{$endtime}ms\t$dsql\n");
+				fclose($Handle);
+				
+			} else 
+				Debug::message("\n$sql\n{$endtime}ms\n", false);
+			
 		}
 		if(isset($_REQUEST['debug_profile'])) {
 			Profiler::mark('MySQLDatabase::query', $sql);
