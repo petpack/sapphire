@@ -561,6 +561,12 @@ abstract class SS_Database {
 				
 				switch($writeInfo['command']) {
 					case "update":
+						
+						//DM: if LastEdited is the only field to be updated, it doesn't really 
+						//		count as a change, so do nothing.
+						if (implode(",",array_keys($writeInfo['fields'])) == "LastEdited")
+							break;
+						
 						// Test to see if this update query shouldn't, in fact, be an insert
 						if($this->query("SELECT \"ID\" FROM \"$table\" WHERE $writeInfo[where]")->value()) {
 							$fieldList = implode(", ", $fieldList);
