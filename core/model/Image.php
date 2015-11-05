@@ -183,7 +183,6 @@ class Image extends File {
 				$fn = str_replace(".$ext", "-$c.$ext", $src);
 			else
 				$fn = "$src-$c";
-			echo $fn . "\n";
 		}
 		
 		//error_log("Duplicate '$src' -> '$fn'");
