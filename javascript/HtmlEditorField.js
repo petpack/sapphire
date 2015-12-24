@@ -55,13 +55,23 @@
 		 * Loads images from getimages() to the thumbnail view. It's called on
 		 */
 		function loadImages(params) {
+			
+			//DM: if params (an uploaded filename) have been provided, that overrides what's in the search box:
+			if (params && ('Filename' in params)) {
+				match = /\.*\/(.*?)$/.exec(params.Filename);	//strip path
+				if (match) searchTerm = match[1]
+				else searchTerm = params.Filename;
+			} else {
+				searchTerm = $("#Form_EditorToolbarImageForm_getimagesSearch").val();
+			}
+			
 			$.get('admin/EditorToolbar/ImageForm', {
 				action_callfieldmethod: "1",
 				fieldName: "FolderImages",
 				ajax: "1",
 				methodName: "getimages",
 				folderID: $("#Form_EditorToolbarImageForm_FolderID").val(),
-				searchText: $("#Form_EditorToolbarImageForm_getimagesSearch").val(),
+				searchText: searchTerm,
 				cacheKillerDate: parseInt((new Date()).getTime()),
 				cacheKillerRand: parseInt(10000 * Math.random())
 			},
@@ -72,7 +82,7 @@
 					Behaviour.apply(this);
 				});
 				
-				if(params) {
+				if(params && ('Filename' in params)) {
 					$("#FolderImages a[href*="+ params.Filename +"]").click();
 				}
 			});	
