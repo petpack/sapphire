@@ -310,6 +310,8 @@ class DB {
 		return self::getConn()->tableList();
 	}
 	
+	public static $fieldlist_cache = Array();
+	
 	/**
 	 * Get a list of all the fields for the given table.
 	 * Returns a map of field name => field spec.
@@ -317,7 +319,12 @@ class DB {
 	 * @return array
 	 */
 	static function fieldList($table) {
-		return self::getConn()->fieldList($table);
+		if (isset(self::$fieldlist_cache[$table]))
+			return self::$fieldlist_cache[$table];
+		
+		$ret = self::getConn()->fieldList($table);
+		self::$fieldlist_cache[$table] = $ret;
+		return $ret;
 	}
 
 	/**
