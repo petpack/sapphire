@@ -146,19 +146,31 @@ class MySQLDatabase extends SS_Database {
 		
 		if(self::$showqueries || isset($_REQUEST['showqueries'])) {
 			$endtime = round(microtime(true) - $starttime,4);
-			//
+			
+			$full_trace = true;	//set to true to get the full trace in the log
+			
 			if (self::$query_log_file) {
 				//append to query log rather than using Debug::message:
+				
+				$caller = '';
 				
 				$bt = debug_backtrace();
 				array_shift($bt); //never 1st element (which is MySQLDatabase::query)
 				foreach ($bt as $trace) {	//find first call which is not part of the sapphire core:
 					if (!isset($trace['file'])) $trace['file'] = "";
 					if (!isset($trace['line'])) $trace['line'] = "";
-					if ($trace['file'] && (!strpos($trace['file'], 'sapphire'))) break;
+					if ($full_trace) 
+						$caller .= ($caller?"\n":"") . $trace['file'] . ":" . $trace['line'];
+					else {
+						if ($trace['file'] && (!strpos($trace['file'], 'sapphire'))) 
+							break;
+					}
 				}
 				
-				$caller = $trace['file'] . ":" . $trace['line'];
+				if (!$full_trace)
+					$caller = $trace['file'] . ":" . $trace['line'];
+				else
+					$caller='"' . $caller . '"';
 				
 				//remove tabs and linefeeds from SQL: 
 				$dsql = str_replace("\r","",str_replace("\n", " ", str_replace("\t", " ", $sql)));
