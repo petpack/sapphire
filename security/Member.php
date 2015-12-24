@@ -943,6 +943,7 @@ class Member extends DataObject {
 
 	//---------------------------------------------------------------------//
 
+	static $groupCache = Array();
 
 	/**
 	 * Get a "many-to-many" map that holds for all members their group
@@ -952,6 +953,10 @@ class Member extends DataObject {
 	 *                         group memberships.
 	 */
 	public function Groups($filter = "", $sort = "", $join = "", $limit="") {
+		
+		$hash = md5("$filter:$sort:$join:$limit");
+		if (isset(self::$groupCache[$hash])) return self::$groupCache[$hash];
+		
 		$groups = $this->getManyManyComponents("Groups");
 		$groupIDs = $groups->column();
 		$collatedGroups = array();
@@ -984,6 +989,8 @@ class Member extends DataObject {
 		}
 
 		$result->setComponentInfo("many-to-many", $this, "Member", $table, "Group",null,"Groups");
+		
+		self::$groupCache[$hash] = $result;
 
 		return $result;
 	}
