@@ -230,6 +230,15 @@ class HtmlEditorField_Toolbar extends RequestHandler {
 		// mimic the SiteTree::getMenuTitle(), which is bypassed when the search is performed
 		$siteTree->setSearchFunction(array($this, 'siteTreeSearchCallback'));
 		
+		$fileTree = new TreeDropdownField('file', _t('HtmlEditorField.FILE', 'File'), 'File', 'Filename', 'Title', true);
+		
+		//get the client's default upload folder:
+		$folder = UploadFolderManager::getUploadFolder(new DataObject());
+		//...as an object
+		$folderObj = Folder::findOrMake($folder);
+		//set the tree root as that folder (prevents seeing other client's trees)
+		$fileTree->setTreeBaseID($folderObj->ID);
+		
 		$form = new Form(
 			$this->controller,
 			"{$this->name}/LinkForm", 
@@ -249,7 +258,7 @@ class HtmlEditorField_Toolbar extends RequestHandler {
 				$siteTree,
 				new TextField('external', _t('HtmlEditorField.URL', 'URL'), 'http://'),
 				new EmailField('email', _t('HtmlEditorField.EMAIL', 'Email address')),
-				new TreeDropdownField('file', _t('HtmlEditorField.FILE', 'File'), 'File', 'Filename', 'Title', true),
+				$fileTree,
 				new TextField('Anchor', _t('HtmlEditorField.ANCHORVALUE', 'Anchor')),
 				new TextField('LinkText', _t('HtmlEditorField.LINKTEXT', 'Link text')),
 				new TextField('Description', _t('HtmlEditorField.LINKDESCR', 'Link description')),
