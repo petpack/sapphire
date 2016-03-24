@@ -195,6 +195,156 @@ class Convert {
 	}
 	
 	/**
+	 * Helper for Convert::prettyJSON()
+	 * Returns a HTML <span> with a class matching the data type (integer,string,double,etc)
+	 * 	Add css to colour the values according to type.
+	 * 
+	 * autodetects numeric strings and treats them as numbers 
+	 * 
+	 * runs htmlentities() and wordwrap() on values (wraps at 100 chars)
+	 * 
+	 * @param mixed $val	value to beautify
+	 * @param int $indents	number of indents
+	 * @param bool $isKey	true if this is a key name
+	 * @return HTML
+	 * @see Convert::prettyJSON()
+	 * @see Convert::json2PrettyHTML() 
+	 * 
+	 */
+	private static function jsonColor($val,$indents=1,$isKey=false) {
+		//echo print_r($val,true) . ": " . gettype($val) . "\n";
+		$type = gettype($val);
+		
+		if (($type == "string") && is_numeric($val)) {
+			//try to convert it to a number
+			$val = floatval($val);
+			
+			if (intval($val) == $val)	//convert from float to int if it's a whole number: 
+				$val = intval($val);
+			
+			$type = gettype($val);
+		}
+		
+		//$type = gettype($val);
+		
+		$color = "";
+		switch($type) {
+			case 'string':
+				$val = '"' . $val . '"';
+				break;
+			case 'array':
+				$val = self::prettyJSON($val,$indents);
+				break;
+		}
+		$val = wordwrap(htmlentities($val),100,"<br />",true);
+		
+		if ($isKey) $type = $type . " key";
+		
+		return "<span class='$type'>" . //"' style='color:$color;'>" 
+			"$val</span>"; // . " (" . gettype($val) . ")";
+	}
+	
+	/**
+	 * Helper for Convert::json2PrettyHtml()
+	 * convert a value (i.e from json_decode) into a pretty colourised string
+	 * @param array|string|number $json		value to prettify
+	 * @param number $indents				indentation level (used for recursion)
+	 * @return string
+	 * @see Convert::json2PrettyHTML()
+	 */
+	private static function prettyJSON($json,$indents = 1) {
+		$ret = "";
+		$indent=str_repeat("<span class='indent'>&nbsp;</span>",$indents);
+		if (is_array($json) || is_object($json) ) {
+			foreach ($json as $k => $v) {
+				$k = htmlentities($k);
+				if (is_array($v) || is_object($v)) {
+					$v = self::prettyJson($v,$indents+1);
+					$ret .= ($ret ? ",<br />\n" : "") . $indent .
+						self::jsonColor($k,$indents,true) . ":\t<br />$v";
+				} else {
+					$ret .= ($ret ? ",<br />\n" : "") . $indent .
+						self::jsonColor($k,$indents,true) . ":\t" . self::jsonColor($v,$indents);
+				}
+			}
+			if (is_object($json)) {
+				$openbrace = "{";
+				$closebrace = "}";
+			} else {
+				$openbrace = "[";
+				$closebrace = "]";
+			}
+			$outdent=str_repeat("<span class='indent'>&nbsp;</span>",$indents-1);
+			$ret = "$outdent$openbrace<br />\n$ret<br />\n$outdent$closebrace";
+		} else
+			$ret = self::jsonColor($json,$indents);
+		
+		return $ret;
+		
+	}
+	
+	/**
+	 * Converts a JSON string to pretty, readable HTML output which can be 
+	 * 	colourised/customised via CSS
+	 * 
+	 * Also does other nice things, like word wrapping at 100 chars, running 
+	 * 	values through htmlentities(), and treating numeric strings as numbers
+	 * 
+	 * Include CSS to style the output (set colours, indent width, etc)
+	 * Notes: 
+	 * 		- everything will be wrapped in a span.json (i.e <span> with 'json' 
+	 * 			as the class, css: span.json)
+	 * 		- keys will be spans with the'key' class  ( e.g span.key )
+	 * 		- values and keys will be spans and will have the datatype as the 
+	 * 			class ( span.integer, span.key.integer)
+	 * 		- there will be empty spans with the 'indent' class in the 
+	 * 			appropriate places. There may be more than one consecutively. 
+	 * 
+	 * Example CSS is returned by the jsonPrettyHtmlCSS() function
+			
+	 * @param string $json	the json to beautify
+	 * @return HTML
+	 * @see Convert::jsonPrettyHtmlCSS()
+	 */
+	public static function json2PrettyHTML($json) {
+		return "<span class='json'>" . self::prettyJSON(json_decode($json)) . "</span>";
+	}
+	
+	/**
+	 * Return or add some CSS for json2PrettyHTML to the requirements
+	 * @param string $return	if true, return the CSS. Otherwise insert it using Requirements::customCSS()
+	 * @return string | void
+	 * @see Convert::json2PrettyHTML()
+	 */
+	public static function jsonPrettyHtmlCSS($return = true) {
+		$css = 'span.json .integer, span.json .double {
+				color: #700;
+				font-family: mono;
+			}
+			
+			span.json .string {
+				color: #070;
+				font-family: mono;
+			}
+			
+			
+			span.json .key.string {
+				color: #007;
+			}
+			
+			span.json .key.integer, span.json .key.double {
+				color: #707;
+			}
+			
+			
+			span.json .indent {
+				padding-left: 40px;
+			}';
+		if ($return) return $css;
+		else return Requirements::customCSS($css,"jsonPrettyHtmlCSS");
+	}
+	
+	/**
 	 * @uses recursiveXMLToArray()
 	 */
 	static function xml2array($val) {
