@@ -317,6 +317,10 @@ class Email extends ViewableData {
 		return true;
 	}
 	
+	public function setPlainText($content) {
+		$this->plaintext_body = $content;
+	}
+	
 	/**
 	 * Populate this email template with values.
 	 * This may be called many times.
