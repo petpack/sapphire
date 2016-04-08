@@ -141,7 +141,7 @@ function htmlEmail($to, $from, $subject, $htmlContent, $attachedFiles = false, $
 	
 	// $headers["Sender"] 		= $from;
 
-	if (!defined("X_MAILER") set_x_mailer();	
+	if (!defined("X_MAILER")) set_x_mailer();	
 	$headers["X-Mailer"]	= X_MAILER;
 	
 	if (!isset($customheaders["X-Priority"])) $headers["X-Priority"]	= 3;
@@ -244,7 +244,7 @@ function plaintextEmail($to, $from, $subject, $plainContent, $attachedFiles, $cu
 	
 	// $headers["Sender"] 		= $from;
 
-	if (!defined("X_MAILER") set_x_mailer();
+	if (!defined("X_MAILER")) set_x_mailer();
 	$headers["X-Mailer"]	= X_MAILER;
 	
 	if(!isset($customheaders["X-Priority"])) {

@@ -8,7 +8,7 @@ function set_x_mailer() {
 
 	if (!defined('X_MAILER')) {
 
-		if (!defined('PETPACK_VERSION')	//this should be defined in _config.php
+		if (!defined('PETPACK_VERSION'))	//this should be defined in _config.php
 			define('PETPACK_VERSION','unknown');
 
 		if(isset($_SERVER['SERVER_NAME'])) {
