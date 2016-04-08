@@ -76,7 +76,7 @@ function htmlEmail($to, $from, $subject, $htmlContent, $attachedFiles = false, $
 
 	// Make the HTML part
 	$headers["Content-Type"] = "text/html; charset=\"utf-8\"";
-        
+	
 	
 	// Add basic wrapper tags if the body tag hasn't been given
 	if(stripos($htmlContent, '<body') === false) {
@@ -140,7 +140,10 @@ function htmlEmail($to, $from, $subject, $htmlContent, $attachedFiles = false, $
     if(ereg('^([^<>]*)<([^<>]+)> *$', $bounceAddress, $parts)) $bounceAddress = $parts[2];	
 	
 	// $headers["Sender"] 		= $from;
+
+	if (!defined("X_MAILER") set_x_mailer();	
 	$headers["X-Mailer"]	= X_MAILER;
+	
 	if (!isset($customheaders["X-Priority"])) $headers["X-Priority"]	= 3;
 	
 	$headers = array_merge((array)$headers, (array)$customheaders);
@@ -157,6 +160,16 @@ function htmlEmail($to, $from, $subject, $htmlContent, $attachedFiles = false, $
 	// Send the email
 	$headers = processHeaders($headers);
 	$to = validEmailAddr($to);
+	
+	/* DM: experimental code to store / queue emails for sending:
+	file_put_contents("/tmp/email.json.html",convert::json2PrettyHTML(json_encode(Array(
+		'to' => $to,
+		'subject' => $subject,
+		'headers' => $headers,
+		'body' => $fullBody,
+		'bounceAddress' => $bounceAddress
+	))));
+	*/
 	
 	// Try it without the -f option if it fails
 	if(!($result = @mail($to, $subject, $fullBody, $headers, "-f$bounceAddress"))) {
@@ -230,7 +243,10 @@ function plaintextEmail($to, $from, $subject, $plainContent, $attachedFiles, $cu
 	}
 	
 	// $headers["Sender"] 		= $from;
+
+	if (!defined("X_MAILER") set_x_mailer();
 	$headers["X-Mailer"]	= X_MAILER;
+	
 	if(!isset($customheaders["X-Priority"])) {
 		$headers["X-Priority"]	= 3;
 	}

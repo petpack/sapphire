@@ -4,18 +4,27 @@
  * @package sapphire
  * @subpackage email
  */
+function set_x_mailer() {
 
-if(isset($_SERVER['SERVER_NAME'])) {
-	/**
-	 * X-Mailer header value on emails sent
-	 */
-	define('X_MAILER', 'SilverStripe Mailer - version 2006.06.21 (Sent from "'.$_SERVER['SERVER_NAME'].'")');
-} else {
-	/**
-	 * @ignore
-	 */
-	define('X_MAILER', 'SilverStripe Mailer - version 2006.06.21');
+	if (!defined('X_MAILER')) {
+
+		if (!defined('PETPACK_VERSION')	//this should be defined in _config.php
+			define('PETPACK_VERSION','unknown');
+
+		if(isset($_SERVER['SERVER_NAME'])) {
+			/**
+			 * X-Mailer header value on emails sent
+			 */
+			define('X_MAILER', 'Pet Pack Mailer - version ' . PETPACK_VERSION . '(Sent from "'.$_SERVER['SERVER_NAME'].'")');
+		} else {
+			/**
+			 * @ignore
+			 */
+			define('X_MAILER', 'Pet Pack Mailer - version ' . PETPACK_VERSION);
+		}
+	}
 }
+
 // Note: The constant 'BOUNCE_EMAIL' should be defined as a valid email address for where bounces should be returned to.
 
 /**
