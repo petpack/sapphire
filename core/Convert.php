@@ -258,13 +258,18 @@ class Convert {
 		if (is_array($json) || is_object($json) ) {
 			foreach ($json as $k => $v) {
 				$k = htmlentities($k);
-				if (is_array($v) || is_object($v)) {
+				$kv = self::jsonColor($k,$indents,true) . ":\t";
+				if (is_array($json)) {	//don't show keys for arrays
+					$kv = "";
+				}
+				
+				if (is_array($v) || is_object($v)) {	//recursively handle nested arrays/objects
 					$v = self::prettyJson($v,$indents+1);
 					$ret .= ($ret ? ",<br />\n" : "") . $indent .
-						self::jsonColor($k,$indents,true) . ":\t<br />$v";
+						$kv ."<br />$v";
 				} else {
 					$ret .= ($ret ? ",<br />\n" : "") . $indent .
-						self::jsonColor($k,$indents,true) . ":\t" . self::jsonColor($v,$indents);
+						$kv . self::jsonColor($v,$indents);
 				}
 			}
 			if (is_object($json)) {
