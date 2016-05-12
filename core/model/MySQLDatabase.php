@@ -311,9 +311,9 @@ class MySQLDatabase extends SS_Database {
 		if($alteredIndexes) foreach($alteredIndexes as $k => $v) {
 			$alterList[] .= "DROP INDEX \"$k\"";
 			$alterList[] .= "ADD ". $this->getIndexSqlDefinition($k, $v);
- 		}
+		}
 		
- 		$alterations = implode(",\n", $alterList);
+		$alterations = implode(",\n", $alterList);
 		$this->query("ALTER TABLE \"$tableName\" $alterations");
 		
 		if($alteredOptions && isset($alteredOptions[get_class($this)])) {
@@ -480,9 +480,9 @@ class MySQLDatabase extends SS_Database {
 		
 		$indexSpec = trim($indexSpec);
 		if($indexSpec[0] != '(') list($indexType, $indexFields) = explode(' ',$indexSpec,2);
-	    else $indexFields = $indexSpec;
-	    
-	    if(!isset($indexType))
+		else $indexFields = $indexSpec;
+		
+		if(!isset($indexType))
 			$indexType = "index";
 		
 		if($indexType=='using')
@@ -511,16 +511,16 @@ class MySQLDatabase extends SS_Database {
 		$indexSpec=$this->convertIndexSpec($indexSpec);
 		
 		$indexSpec = trim($indexSpec);
-	    if($indexSpec[0] != '(') {
-	    	list($indexType, $indexFields) = explode(' ',$indexSpec,2);
-	    } else {
-	    	$indexFields = $indexSpec;
-	    }
-	    
-	    if(!$indexType) {
-	    	$indexType = "index";
-	    }
-    
+		if($indexSpec[0] != '(') {
+			list($indexType, $indexFields) = explode(' ',$indexSpec,2);
+		} else {
+			$indexFields = $indexSpec;
+		}
+		
+		if(!$indexType) {
+			$indexType = "index";
+		}
+	
 		$this->query("ALTER TABLE \"$tableName\" DROP INDEX \"$indexName\"");
 		$this->query("ALTER TABLE \"$tableName\" ADD $indexType \"$indexName\" $indexFields");
 	}
@@ -818,20 +818,20 @@ class MySQLDatabase extends SS_Database {
 	 */
 	public function searchEngine($classesToSearch, $keywords, $start, $pageLength, $sortBy = "Relevance DESC", $extraFilter = "", $booleanSearch = false, $alternativeFileFilter = "", $invertedMatch = false) {
 		$fileFilter = '';	 	
-	 	$keywords = Convert::raw2sql($keywords);
+		$keywords = Convert::raw2sql($keywords);
 		$htmlEntityKeywords = htmlentities($keywords,ENT_NOQUOTES);
 		
 		$extraFilters = array('SiteTree' => '', 'File' => '');
-	 	
-	 	if($booleanSearch) $boolean = "IN BOOLEAN MODE";
+		
+		if($booleanSearch) $boolean = "IN BOOLEAN MODE";
 	
-	 	if($extraFilter) {
-	 		$extraFilters['SiteTree'] = " AND $extraFilter";
-	 		
-	 		if($alternativeFileFilter) $extraFilters['File'] = " AND $alternativeFileFilter";
-	 		else $extraFilters['File'] = $extraFilters['SiteTree'];
-	 	}
-	 	
+		if($extraFilter) {
+			$extraFilters['SiteTree'] = " AND $extraFilter";
+			
+			if($alternativeFileFilter) $extraFilters['File'] = " AND $alternativeFileFilter";
+			else $extraFilters['File'] = $extraFilters['SiteTree'];
+		}
+		
 		// Always ensure that only pages with ShowInSearch = 1 can be searched
 		$extraFilters['SiteTree'] .= " AND ShowInSearch <> 0";
 		
@@ -958,7 +958,7 @@ class MySQLDatabase extends SS_Database {
 		$boolean = $booleanSearch ? "IN BOOLEAN MODE" : "";
 		$fieldNames = '"' . implode('", "', $fields) . '"';
 
-	 	$SQL_keywords = Convert::raw2sql($keywords);
+		$SQL_keywords = Convert::raw2sql($keywords);
 		$SQL_htmlEntityKeywords = Convert::raw2sql(htmlentities($keywords));
 
 		return "(MATCH ($fieldNames) AGAINST ('$SQL_keywords' $boolean) + MATCH ($fieldNames) AGAINST ('$SQL_htmlEntityKeywords' $boolean))";
