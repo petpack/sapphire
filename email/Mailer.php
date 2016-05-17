@@ -161,20 +161,18 @@ function htmlEmail($to, $from, $subject, $htmlContent, $attachedFiles = false, $
 	$headers = processHeaders($headers);
 	$to = validEmailAddr($to);
 	
-	/* DM: experimental code to store / queue emails for sending:
-	file_put_contents("/tmp/email.json.html",convert::json2PrettyHTML(json_encode(Array(
-		'to' => $to,
-		'subject' => $subject,
-		'headers' => $headers,
-		'body' => $fullBody,
-		'bounceAddress' => $bounceAddress
-	))));
-	*/
-	
 	// Try it without the -f option if it fails
 	if(!($result = @mail($to, $subject, $fullBody, $headers, "-f$bounceAddress"))) {
 		$result = mail($to, $subject, $fullBody, $headers);
 	}
+	
+	/*
+	 * DM: uncomment the following (and comment out the 3 lines above) to use the new 
+	 *	Queued email system for all emails.
+	 * NOTE that this is NOT the silverstripe QueuedEmail system (and class), that was
+	 *	deemed to be sucky and removed.
+	 */
+	//$result = QueuedEmail::send($to, $subject, $fullBody,$headers,$bounceAddress); 
 	
 	return $result;
 }
