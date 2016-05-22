@@ -454,32 +454,28 @@ class Email extends ViewableData {
 	}
 	
 	/**
-	 * Send an email with HTML content.
-	 *
-	 * @see sendPlain() for sending plaintext emails only.
-	 * @uses Mailer->sendHTML()
-	 * 
-	 * @param string $messageID Optional message ID so the message can be identified in bounces etc.
-	 * @return bool Success of the sending operation from an MTA perspective. 
-	 * Doesn't actually give any indication if the mail has been delivered to the recipient properly)
+	 * Perform pre-send operations, including adding certain headers and changing
+	 * 	the to/cc/subject if self::$send_all_emails_to is set.
+	 * must be called before send
+	 * @param string $messageID	same as passed to send()
 	 */
-	public function send($messageID = null) {
+	public function preSend($messageID = null) {
 		Requirements::clear();
-	
+		
 		$this->parseVariables();
-
+		
 		if(empty($this->from)) $this->from = Email::getAdminEmail();
-
+		
 		$this->setBounceHandlerURL( $this->bounceHandlerURL );
-
+		
 		$headers = $this->customHeaders;
-
+		
 		$headers['X-SilverStripeBounceURL'] = $this->bounceHandlerURL;
-
+		
 		if($messageID) $headers['X-SilverStripeMessageID'] = project() . '.' . $messageID;
-
+		
 		if(project()) $headers['X-SilverStripeSite'] = project();
-
+		
 		$to = $this->to;
 		$subject = $this->subject;
 		if(self::$send_all_emails_to) {
@@ -494,10 +490,10 @@ class Email extends ViewableData {
 			if($this->cc) $headers['Cc'] = $this->cc;
 			if($this->bcc) $headers['Bcc'] = $this->bcc;
 		}
-
+		
 		if(self::$cc_all_emails_to) {
 			if(!empty($headers['Cc']) && trim($headers['Cc'])) {
-				$headers['Cc'] .= ', ' . self::$cc_all_emails_to;		
+				$headers['Cc'] .= ', ' . self::$cc_all_emails_to;
 			} else {
 				$headers['Cc'] = self::$cc_all_emails_to;
 			}
@@ -505,15 +501,38 @@ class Email extends ViewableData {
 		
 		if(self::$bcc_all_emails_to) {
 			if(!empty($headers['Bcc']) && trim($headers['Bcc'])) {
-				$headers['Bcc'] .= ', ' . self::$bcc_all_emails_to;		
+				$headers['Bcc'] .= ', ' . self::$bcc_all_emails_to;
 			} else {
 				$headers['Bcc'] = self::$bcc_all_emails_to;
 			}
 		}
 		
+		//set vars which may have been modified to new values:
+		$this->to = $to;
+		$this->subject = $subject;
+		$this->customHeaders = $headers;
+		
 		Requirements::restore();
 		
-		return self::mailer()->sendHTML($to, $this->from, $subject, $this->body, $this->attachments, $headers, $this->plaintext_body);
+	}
+	
+	/**
+	 * Send an email with HTML content.
+	 *
+	 * @see sendPlain() for sending plaintext emails only.
+	 * @uses Mailer->sendHTML()
+	 * 
+	 * @param string $messageID Optional message ID so the message can be identified in bounces etc.
+	 * @return bool Success of the sending operation from an MTA perspective. 
+	 * Doesn't actually give any indication if the mail has been delivered to the recipient properly)
+	 */
+	public function send($messageID = null) {
+		
+		$this->preSend($messageID);
+		
+		return self::mailer()->sendHTML($this->to, $this->from, $this->subject, 
+				$this->body, $this->attachments, $this->customHeaders, $this->plaintext_body);
+		
 	}
 
 	/**
