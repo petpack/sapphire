@@ -30,7 +30,7 @@ class MySQLDatabase extends SS_Database {
 	
 	public static $session_timezone = null;
 	
-	private $supportsTransactions=false;
+	private $supportsTransactions = false;
 	
 	/**
 	 * Sets the character set for the MySQL database connection.
@@ -56,7 +56,12 @@ class MySQLDatabase extends SS_Database {
 	 *  - timezone: (optional) The timezone offset. For example: +12:00, "Pacific/Auckland", or "SYSTEM"
 	 */
 	public function __construct($parameters) {
-		$this->dbConn = mysql_connect($parameters['server'], $parameters['username'], $parameters['password'], true);
+		$this->dbConn = new mysqli($parameters['server'],  $parameters['username'],  $parameters['password']);
+		
+		if(mysqli_connect_errno()) {
+			$this->databaseError("Couldn't connect to MySQL database");
+			exit();
+		}
 
 		if(self::$connection_charset) {
 			$this->query("SET CHARACTER SET '" . self::$connection_charset . "'"); 
@@ -67,13 +72,9 @@ class MySQLDatabase extends SS_Database {
 			$this->query("SET SESSION time_zone = '" . self::$session_timezone ."'");
 		}
 
-		$this->active = mysql_select_db($parameters['database'], $this->dbConn);
+		$this->active = (bool) $this->dbConn->select_db($parameters['database']);
 		$this->database = $parameters['database'];
-
-		if(!$this->dbConn) {
-			$this->databaseError("Couldn't connect to MySQL database");
-		}
-
+		
 		if(isset($parameters['timezone'])) $this->query(sprintf("SET SESSION time_zone = '%s'", $parameters['timezone']));
 		$this->query("SET sql_mode = 'ANSI'");
 		
@@ -102,7 +103,7 @@ class MySQLDatabase extends SS_Database {
 	 * @return string
 	 */
 	public function getVersion() {
-		return mysql_get_server_info($this->dbConn);
+		return $this->dbConn->server_info;
 	}
 	
 	/**
@@ -115,14 +116,14 @@ class MySQLDatabase extends SS_Database {
 	
 	/**
 	 * Set to true to have all SQL queries logged. for debugging / profiling.
-	 * 	works in combination with $_REQUEST['showqueries'] - this static 
-	 * 	allows debugging everything (e.g sake jobs, ajax calls) 
+	 * works in combination with $_REQUEST['showqueries'] - this static
+	 * allows debugging everything (e.g sake jobs, ajax calls) 
 	 * @var bool
 	 */
 	public static $showqueries = false;
 	/**
 	 * If this is set to a filename and $showqueries is true (or set via $_REQUEST),
-	 * 	queries will be logged to this file rather than using Debug::message
+	 * queries will be logged to this file rather than using Debug::message
 	 * file is tab-delimited and contains backtrace, execution time, and SQL.
 	 * @var string
 	 */
@@ -142,12 +143,12 @@ class MySQLDatabase extends SS_Database {
 			Profiler::mark('MySQLDatabase::query', $sql);
 		}
 		
-		$handle = mysql_query($sql, $this->dbConn);
+		$handle = $this->dbConn->query($sql);
 		
 		if(self::$showqueries || isset($_REQUEST['showqueries'])) {
 			$endtime = round(microtime(true) - $starttime,4);
 			
-			$full_trace = true;	//set to true to get the full trace in the log
+			$full_trace = true;		//set to true to get the full trace in the log
 			
 			if (self::$query_log_file) {
 				//append to query log rather than using Debug::message:
@@ -155,8 +156,8 @@ class MySQLDatabase extends SS_Database {
 				$caller = '';
 				
 				$bt = debug_backtrace();
-				array_shift($bt); //never 1st element (which is MySQLDatabase::query)
-				foreach ($bt as $trace) {	//find first call which is not part of the sapphire core:
+				array_shift($bt);						//never 1st element (which is MySQLDatabase::query)
+				foreach ($bt as $trace) {				//find first call which is not part of the sapphire core:
 					if (!isset($trace['file'])) $trace['file'] = "";
 					if (!isset($trace['line'])) $trace['line'] = "";
 					if ($full_trace) 
@@ -187,12 +188,12 @@ class MySQLDatabase extends SS_Database {
 			Profiler::mark('MySQLDatabase::query', $sql);
 		}
 		
-		if(!$handle && $errorLevel) $this->databaseError("Couldn't run query: $sql | " . mysql_error($this->dbConn), $errorLevel);
+		if(!$handle && $errorLevel) $this->databaseError("Couldn't run query: $sql | " . $this->dbConn->error, $errorLevel);
 		return new MySQLQuery($this, $handle);
 	}
 	
 	public function getGeneratedID($table) {
-		return mysql_insert_id($this->dbConn);
+		return $this->dbConn->insert_id;
 	}
 	
 	public function isActive() {
@@ -205,7 +206,7 @@ class MySQLDatabase extends SS_Database {
 
 		$this->tableList = $this->fieldList = $this->indexList = null;
 
-		if(mysql_select_db($this->database, $this->dbConn)) {
+		if ( (bool) $this->dbConn->select_db($this->database)) {
 			$this->active = true;
 			return true;
 		}
@@ -240,14 +241,14 @@ class MySQLDatabase extends SS_Database {
 	 */
 	public function selectDatabase($dbname) {
 		$this->database = $dbname;
-		if($this->databaseExists($this->database)) {
-			if(mysql_select_db($this->database, $this->dbConn)) $this->active = true;
+		if ($this->databaseExists($this->database)) {
+			if ( (bool) $this->dbConn->select_db($this->database)) $this->active = true;
 		}
 		$this->tableList = $this->fieldList = $this->indexList = null;
 	}
 
 	/**
-	 * Returns true if the named database exists.
+	 * Returns true if the named database exists.f
 	 */
 	public function databaseExists($name) {
 		$SQL_name = Convert::raw2sql($name);
@@ -579,7 +580,7 @@ class MySQLDatabase extends SS_Database {
 	 * @return int 
 	 */
 	public function affectedRows() {
-		return mysql_affected_rows($this->dbConn);
+		return $this->dbConn->affected_rows;
 	}
 	
 	function databaseError($msg, $errorLevel = E_USER_ERROR) {
@@ -791,7 +792,7 @@ class MySQLDatabase extends SS_Database {
 	 */
 	public function hasTable($table) {
 		$SQL_table = Convert::raw2sql($table);
-		return (bool)($this->query("SHOW TABLES LIKE '$SQL_table'")->value());
+		return (bool) $this->query("SHOW TABLES LIKE '$SQL_table'")->value();
 	}
 
 	/**
@@ -817,7 +818,7 @@ class MySQLDatabase extends SS_Database {
 	 * @param string $keywords Keywords as a string.
 	 */
 	public function searchEngine($classesToSearch, $keywords, $start, $pageLength, $sortBy = "Relevance DESC", $extraFilter = "", $booleanSearch = false, $alternativeFileFilter = "", $invertedMatch = false) {
-		$fileFilter = '';	 	
+		$fileFilter = '';
 		$keywords = Convert::raw2sql($keywords);
 		$htmlEntityKeywords = htmlentities($keywords,ENT_NOQUOTES);
 		
@@ -937,7 +938,7 @@ class MySQLDatabase extends SS_Database {
 	 * This will return text which has been escaped in a database-friendly manner.
 	 */
 	function addslashes($value){
-		return mysql_real_escape_string($value, $this->dbConn);
+		return  $this->dbConn->real_escape_string($value);
 	}
 	
 	/*
@@ -1130,34 +1131,37 @@ class MySQLQuery extends SS_Query {
 	}
 	
 	public function __destruct() {
-		if(is_resource($this->handle)) mysql_free_result($this->handle);
+		if (is_object($this->handle)) { 
+			$this->handle->free_result();
+		}
 	}
 	
 	public function seek($row) {
-		return is_resource($this->handle) ? mysql_data_seek($this->handle, $row) : false;
+		return is_object($this->handle) ? $this->handle->data_seek($row) : false;
 	}
 	
 	public function numRecords() {
-		return is_resource($this->handle) ? mysql_num_rows($this->handle) : false;
+		return is_object($this->handle) ? $this->handle->num_rows : false;
 	}
 	
 	public function nextRecord() {
 		// Coalesce rather than replace common fields.
-		if(is_resource($this->handle) && $data = mysql_fetch_row($this->handle)) {
+		if (is_object($this->handle) && $data = $this->handle->fetch_row()) {
 			foreach($data as $columnIdx => $value) {
-				$columnName = mysql_field_name($this->handle, $columnIdx);
+				$columnName = $this->handle->fetch_field_direct($columnIdx)->name;
 				// $value || !$ouput[$columnName] means that the *last* occurring value is shown
 				// !$ouput[$columnName] means that the *first* occurring value is shown
 				if(isset($value) || !isset($output[$columnName])) {
 					$output[$columnName] = $value;
 				}
 			}
+			
 			return $output;
-		} else {
+		} 
+		else {
 			return false;
 		}
 	}
-	
 	
 }
 
