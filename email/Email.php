@@ -534,6 +534,16 @@ class Email extends ViewableData {
 				$this->body, $this->attachments, $this->customHeaders, $this->plaintext_body);
 		
 	}
+	
+	/**
+	 * Queue the email to be sent at a specific date/time via the email queueing system
+	 * @param unknown $messageID	@see Email::send()
+	 * @param SS_DateTime $when		when to send the message, default to now
+	 */
+	public function queue($messageID = null,SS_DateTime $when = null) {
+		$this->preSend($messageID);
+		//TODO: Create a QueuedEmail
+	}
 
 	/**
 	 * Used as a default sender address in the {@link Email} class
