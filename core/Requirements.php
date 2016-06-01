@@ -11,8 +11,13 @@ class Requirements {
 
 	/**
 	 * A Shortcut function to include pplib.css and pplib.js
+	 * Note that these require jquery, which can also be required
+	 * @param bool $include_jquery	whether to also require jquery (default: no, it's usually included)
 	 */
-	public static function pplib() {
+	public static function pplib($include_jquery = false) {
+		if ($include_jquery)
+			self::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
+		
 		self::javascript('pet-pack/javascript/pplib.js');
 		self::css('pet-pack/css/pplib.css');
 	}

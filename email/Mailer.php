@@ -179,6 +179,85 @@ class Mailer extends Object {
 			'bounceAddress' => $bounceAddress
 		);
 	}
+	
+	/**
+	 * Decodes a multipart message. Kinda sorta the opposite of encodeMultipart(), but not really
+	 * 	separates a multipart message into an array.
+	 * Initially, only supports multipart text/html messages (i.e no attachments) 
+	 * @param string $headers
+	 * @param string $body
+	 * @return Array(
+	 * 		'headers' => Array(<key> => <val>),
+	 * 		'parts' => Array(<type> => content)
+	 * )
+	 */
+	static function decodeMultiPart($headers,$body) {
+		
+		$headers = self::parseHeaders($headers);
+		
+		$parts = Array();
+		
+		//find multipart boundary:
+		if (preg_match('/^multipart\/alternative;\s*boundary="(.*?)"$/',$headers['Content-Type'],$matches)) {
+			$separator = $matches[1];
+			$bodyParts = explode("--" . $separator,$body);
+			
+			foreach($bodyParts as $part) {
+				$part = trim($part);
+				if ($part == 'This is a multi-part message in MIME format.') continue;	//do nothing with this part.
+				
+				//get headers for each part:
+				if (preg_match('/^(.*?)[\r\n]{2}(.*)/sm', $part,$matches)) {
+					$partheaders = self::parseHeaders($matches[1]);
+					$partcontent = $matches[2];
+					
+					//ignore charset for now (just remove it):
+					//TODO: it would be nice to actually use/parse this
+					//also trim it
+					$partheaders['Content-Type'] = trim(preg_replace('/; charset=".*?"/', '', $partheaders['Content-Type']));
+					
+					if ($partheaders['Content-Transfer-Encoding'] == 'quoted-printable')
+						$parts[$partheaders['Content-Type']] = quoted_printable_decode($partcontent);
+					else
+						$parts[$partheaders['Content-Type']] = $partcontent;
+					
+				}
+				
+			}
+			
+			return Array(
+				'headers' => $headers,
+				'parts' => $parts,
+			); 
+			
+			/*
+			echo "<pre>";
+			var_dump($bodyParts);
+			echo "</pre>";
+			*/
+		}
+		
+		die();
+	}
+	
+	/**
+	 * takes text headers as used in an email and turns them into an array of key => value pairs.
+	 * @param string $headers
+	 * @return Array(<key> => <value>)
+	 */
+	static function parseHeaders($headers) {
+		$headerlines = explode("\n", $headers);
+		$headers = Array();
+		foreach ($headerlines as $line) {
+			if (preg_match('/^(.*?)\s*\:\s*(.*)$/', $line,$matches)) {
+				$k = $matches[1];
+				$v = $matches[2];
+				$headers[$k] = $v;
+			}
+		}
+		return $headers;
+	}
+	
 }
 
 // TO DO: Clean this code up, make it more OO.
