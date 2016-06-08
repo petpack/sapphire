@@ -261,6 +261,15 @@ class Email extends ViewableData {
 			else $this->customHeaders[$headerName] = $headerValue;
 		}
 	}
+	
+	/**
+	 * Clear a custom header
+	 * @param string $headerName
+	 */
+	public function clearCustomHeader($headerName) {
+		if (isset($this->customHeaders[$headerName]))
+			unset($this->customHeaders[$headerName]);
+	}
 
 	public function BaseURL() {
 		return Director::absoluteBaseURL();

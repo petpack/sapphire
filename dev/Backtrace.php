@@ -36,6 +36,31 @@ class SS_Backtrace {
 	);
 	
 	/**
+	 * A brief and friendly backtrace which won't take up 300 pages
+	 * @return string
+	 */
+	static function brief() {
+		$ret = "";
+		$bt = debug_backtrace();
+		foreach ($bt as $itm) {
+			$file = "(?)";
+			$line = "(?)";
+			$fn = "";
+			if (isset($itm['file']))
+				$file = $itm['file'];
+			
+			if (isset($itm['line']))
+				$line = $itm['line'];
+			
+			if (isset($itm['function']))
+				$fn = $itm['function'];
+			
+			$ret .= ($ret?"\n":"") . "$file:$line" . ($fn?" ($fn)":""); 
+		}
+		return $ret;
+	}
+	
+	/**
 	 * Return debug_backtrace() results with functions filtered
 	 * specific to the debugging system, and not the trace.
 	 * 
