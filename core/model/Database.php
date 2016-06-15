@@ -702,6 +702,8 @@ abstract class SS_Database {
 		if($sqlQuery->groupby) $text .= " GROUP BY " . implode(", ", $sqlQuery->groupby);
 		if($sqlQuery->having) $text .= " HAVING ( " . implode(" ) AND ( ", $sqlQuery->having) . " )";
 		if($sqlQuery->orderby) $text .= " ORDER BY " . $sqlQuery->orderby;
+		
+		if ($sqlQuery->unionAll) $text .= " UNION ALL " . $sqlQuery->unionAll->sql();
 
 		if($sqlQuery->limit) {
 			$limit = $sqlQuery->limit;

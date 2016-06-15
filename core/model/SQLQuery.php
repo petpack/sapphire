@@ -55,6 +55,12 @@ class SQLQuery {
 	public $limit;
 	
 	/**
+	 * A UNION ALL clause. Should contain another SQLQuery
+	 * @var SQLQuery
+	 */
+	public $unionAll;
+	
+	/**
 	 * If this is true DISTINCT will be added to the SQL.
 	 * @var boolean
 	 */
@@ -364,6 +370,10 @@ class SQLQuery {
 		}
 		
 		return $this;
+	}
+	
+	public function unionAll(SQLQuery $query) {
+		$this->unionAll = $query;
 	}
 	
 	/**
