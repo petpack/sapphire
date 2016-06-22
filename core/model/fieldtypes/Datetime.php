@@ -52,7 +52,13 @@ class SS_Datetime extends Date {
 	}
 	
 	function HumanDate() {
+		if (!$this->value || !strtotime($this->value)) return null;	//0 == empty
 		return date('d M Y', strtotime($this->value));
+	}
+	
+	function HumanDateTime() {
+		if (!$this->value || !strtotime($this->value)) return null;	//0 == empty
+		return date('d M Y H:i:s', strtotime($this->value));
 	}
 	
 	function Time() {
