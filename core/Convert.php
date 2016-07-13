@@ -489,5 +489,29 @@ class Convert {
 			$data
 		);
 	}
+	
+	/**
+	 * convert an int number of seconds to a string like 'Xh Ym Zs'
+	 * @param int $sec	number of seconds
+	 * @param string $padHours	true to pad hours to 2 digits.
+	 * @return string
+	 */
+	static function sec2hms ($sec, $padHours = false) {
+		$hms = "";
+		$hours = intval(intval($sec) / 3600);
+		if ($hours > 0) {
+			$hms .= ($padHours)
+			? str_pad($hours, 2, "0", STR_PAD_LEFT). 'h '
+			: $hours. 'h ';
+		}
+		$minutes = intval(($sec / 60) % 60);
+		if ($minutes > 0) {
+			$hms .= $minutes . "m ";
+		}
+		$seconds = intval($sec % 60);
+		$hms .= $seconds;
+		$hms .= "s";
+		return $hms;
+	}
 
 }
