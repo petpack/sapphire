@@ -179,7 +179,7 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
     /**
      * Get the value for this element's viewCount attribute.
      *
-     * @return int The value associated with this attribute.
+     * @return SS_Int The value associated with this attribute.
      */
     public function getViewCount()
     {
@@ -189,7 +189,7 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
     /**
      * Set the value for this element's viewCount attribute.
      *
-     * @param int $value The desired value for this attribute.
+     * @param SS_Int $value The desired value for this attribute.
      * @return Zend_Gdata_YouTube_Extension_Statistics The element being
      * modified.
      */
@@ -202,7 +202,7 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
     /**
      * Get the value for this element's videoWatchCount attribute.
      *
-     * @return int The value associated with this attribute.
+     * @return SS_Int The value associated with this attribute.
      */
     public function getVideoWatchCount()
     {
@@ -212,7 +212,7 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
     /**
      * Set the value for this element's videoWatchCount attribute.
      *
-     * @param int $value The desired value for this attribute.
+     * @param SS_Int $value The desired value for this attribute.
      * @return Zend_Gdata_YouTube_Extension_Statistics The element being
      * modified.
      */
@@ -225,7 +225,7 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
     /**
      * Get the value for this element's subscriberCount attribute.
      *
-     * @return int The value associated with this attribute.
+     * @return SS_Int The value associated with this attribute.
      */
     public function getSubscriberCount()
     {
@@ -235,7 +235,7 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
     /**
      * Set the value for this element's subscriberCount attribute.
      *
-     * @param int $value The desired value for this attribute.
+     * @param SS_Int $value The desired value for this attribute.
      * @return Zend_Gdata_YouTube_Extension_Statistics The element being
      * modified.
      */
@@ -248,7 +248,7 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
     /**
      * Get the value for this element's lastWebAccess attribute.
      *
-     * @return int The value associated with this attribute.
+     * @return SS_Int The value associated with this attribute.
      */
     public function getLastWebAccess()
     {
@@ -258,7 +258,7 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
     /**
      * Set the value for this element's lastWebAccess attribute.
      *
-     * @param int $value The desired value for this attribute.
+     * @param SS_Int $value The desired value for this attribute.
      * @return Zend_Gdata_YouTube_Extension_Statistics The element being
      * modified.
      */
@@ -271,7 +271,7 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
     /**
      * Get the value for this element's favoriteCount attribute.
      *
-     * @return int The value associated with this attribute.
+     * @return SS_Int The value associated with this attribute.
      */
     public function getFavoriteCount()
     {
@@ -281,7 +281,7 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
     /**
      * Set the value for this element's favoriteCount attribute.
      *
-     * @param int $value The desired value for this attribute.
+     * @param SS_Int $value The desired value for this attribute.
      * @return Zend_Gdata_YouTube_Extension_Statistics The element being
      * modified.
      */

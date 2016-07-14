@@ -97,7 +97,7 @@ class ComplexTableField extends TableListField {
 	public $popupClass = 'ComplexTableField_Popup';
 	
 	/**
-	 * @var boolean Trigger pagination (defaults to true for ComplexTableField)
+	 * @var SS_Boolean Trigger pagination (defaults to true for ComplexTableField)
 	 */
 	protected $showPagination = true;
 
@@ -123,7 +123,7 @@ class ComplexTableField extends TableListField {
 	 * Automatically detect a has-one relationship
 	 * in the popup (=child-class) and save the relation ID.
 	 *
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected $relationAutoSetting = true;
 	
@@ -329,7 +329,7 @@ JS;
 	 * Calculates the number of columns needed for colspans
 	 * used in template
 	 *
-	 * @return Int
+	 * @return SS_Int
 	 */
 	function ItemCount() {
 		return count($this->fieldList);
@@ -338,7 +338,7 @@ JS;
 	/**
 	 * Used to toggle paging (makes no sense when adding a record)
 	 *
-	 * @return Boolean
+	 * @return SS_Boolean
 	 */
 	function IsAddMode() {
 		return ($this->methodName == "add" || $this->request->param('Action') == 'AddForm');
@@ -618,7 +618,7 @@ JS;
 	 * 
 	 * Calling $this->setRelationAutoSetting(false) will disable this functionality.
 	 *
-	 * @param boolean $value Should the relation auto-setting functionality be enabled?
+	 * @param SS_Boolean $value Should the relation auto-setting functionality be enabled?
 	 */
 	function setRelationAutoSetting($value) {
 		$this->relationAutoSetting = $value;
@@ -784,7 +784,7 @@ class ComplexTableField_ItemRequest extends TableListField_ItemRequest {
 	 * parentClass, Link back to correct container-class (the parent-record might have many 'has-one'-relationships)
 	 * CAUTION: "ID" in the DetailForm would be the "childID" in the overview table.
 	 * 
-	 * @param int $childID
+	 * @param SS_Int $childID
 	 */
 	function DetailForm($childID = null) {
 		$childData = $this->dataObj();
@@ -1024,7 +1024,7 @@ class ComplexTableField_Item extends TableListField_Item {
 	
 	/**
 	 * @param String $action
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function IsDefaultAction($action) {
 		return ($action == $this->parent->defaultAction);

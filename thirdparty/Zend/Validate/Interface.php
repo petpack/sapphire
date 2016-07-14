@@ -35,7 +35,7 @@ interface Zend_Validate_Interface
      * validation failed.
      *
      * @param  mixed $value
-     * @return boolean
+     * @return SS_Boolean
      * @throws Zend_Validate_Exception If validation of $value is impossible
      */
     public function isValid($value);

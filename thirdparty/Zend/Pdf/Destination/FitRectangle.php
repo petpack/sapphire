@@ -52,10 +52,10 @@ class Zend_Pdf_Destination_FitRectangle extends Zend_Pdf_Destination_Explicit
      * Create destination object
      *
      * @param Zend_Pdf_Page|integer $page  Page object or page number
-     * @param float $left    Left edge of displayed page
-     * @param float $bottom  Bottom edge of displayed page
-     * @param float $right   Right edge of displayed page
-     * @param float $top     Top edge of displayed page
+     * @param SS_Float $left    Left edge of displayed page
+     * @param SS_Float $bottom  Bottom edge of displayed page
+     * @param SS_Float $right   Right edge of displayed page
+     * @param SS_Float $top     Top edge of displayed page
      * @return Zend_Pdf_Destination_FitRectangle
      * @throws Zend_Pdf_Exception
      */
@@ -84,7 +84,7 @@ class Zend_Pdf_Destination_FitRectangle extends Zend_Pdf_Destination_Explicit
     /**
      * Get left edge of the displayed page
      *
-     * @return float
+     * @return SS_Float
      */
     public function getLeftEdge()
     {
@@ -94,7 +94,7 @@ class Zend_Pdf_Destination_FitRectangle extends Zend_Pdf_Destination_Explicit
     /**
      * Set left edge of the displayed page
      *
-     * @param float $left
+     * @param SS_Float $left
      * @return Zend_Pdf_Action_FitRectangle
      */
     public function setLeftEdge($left)
@@ -106,7 +106,7 @@ class Zend_Pdf_Destination_FitRectangle extends Zend_Pdf_Destination_Explicit
     /**
      * Get bottom edge of the displayed page
      *
-     * @return float
+     * @return SS_Float
      */
     public function getBottomEdge()
     {
@@ -116,7 +116,7 @@ class Zend_Pdf_Destination_FitRectangle extends Zend_Pdf_Destination_Explicit
     /**
      * Set bottom edge of the displayed page
      *
-     * @param float $bottom
+     * @param SS_Float $bottom
      * @return Zend_Pdf_Action_FitRectangle
      */
     public function setBottomEdge($bottom)
@@ -128,7 +128,7 @@ class Zend_Pdf_Destination_FitRectangle extends Zend_Pdf_Destination_Explicit
     /**
      * Get right edge of the displayed page
      *
-     * @return float
+     * @return SS_Float
      */
     public function getRightEdge()
     {
@@ -138,7 +138,7 @@ class Zend_Pdf_Destination_FitRectangle extends Zend_Pdf_Destination_Explicit
     /**
      * Set right edge of the displayed page
      *
-     * @param float $right
+     * @param SS_Float $right
      * @return Zend_Pdf_Action_FitRectangle
      */
     public function setRightEdge($right)
@@ -150,7 +150,7 @@ class Zend_Pdf_Destination_FitRectangle extends Zend_Pdf_Destination_Explicit
     /**
      * Get top edge of the displayed page
      *
-     * @return float
+     * @return SS_Float
      */
     public function getTopEdge()
     {
@@ -160,7 +160,7 @@ class Zend_Pdf_Destination_FitRectangle extends Zend_Pdf_Destination_Explicit
     /**
      * Set top edge of the displayed page
      *
-     * @param float $top
+     * @param SS_Float $top
      * @return Zend_Pdf_Action_FitRectangle
      */
     public function setTopEdge($top)

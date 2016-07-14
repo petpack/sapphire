@@ -47,7 +47,7 @@ class LazyLoadComponentSet extends ComponentSet {
 
 	/**
 	 * Returns false if the set is empty.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function exists() {
 		return (bool) $this->Count();
@@ -55,7 +55,7 @@ class LazyLoadComponentSet extends ComponentSet {
 
 	/**
 	 * Returns the actual number of items in this dataset.
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function Count() {
 		$iterator = $this->executeIteratorQuery();
@@ -82,7 +82,7 @@ class LazyLoadComponentSet extends ComponentSet {
 
 	/**
 	 * Return the total number of items in this dataset.
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function TotalItems() {
 		$iterator = $this->executeIteratorQuery();
@@ -204,7 +204,7 @@ class LazyLoadComponentSet extends ComponentSet {
 	 * Gets called recursively on the child-objects of the chain.
 	 * 
 	 * @param array $nestingLevels see {@buildNestedUL}
-	 * @param int $level Current nesting level
+	 * @param SS_Int $level Current nesting level
 	 * @param string $template Template for list item
 	 * @param string $ulExtraAttributes Extra attributes
 	 * @return string
@@ -253,7 +253,7 @@ class LazyLoadComponentSet extends ComponentSet {
 	 * @param string $groupClassName Classname.
 	 * @param string $sortParents SORT clause to insert into the parents SQL.
 	 * @param string $parentField Parent field.
-	 * @param boolean $collapse Collapse up until an ancestor with the given class is found.
+	 * @param SS_Boolean $collapse Collapse up until an ancestor with the given class is found.
 	 * @param string $requiredParents Required parents
 	 * @return DataObjectSet
 	 */
@@ -325,7 +325,7 @@ class LazyLoadComponentSet extends ComponentSet {
 	/**
 	 * Write this set to the database.
 	 * Called by DataObject::write().
-	 * @param boolean $firstWrite This should be set to true if it the first time the set is being written.
+	 * @param SS_Boolean $firstWrite This should be set to true if it the first time the set is being written.
 	 */
 	function write($firstWrite = false) {
 		$iterator = $this->executeIteratorQuery();
@@ -368,8 +368,8 @@ class LazyLoadComponentSet extends ComponentSet {
 	/**
 	 * Gets a specific slice of an existing set.
 	 * 
-	 * @param int $offset
-	 * @param int $length
+	 * @param SS_Int $offset
+	 * @param SS_Int $length
 	 * @return DataObjectSet
 	 */
 	public function getRange($offset, $length) {
@@ -491,7 +491,7 @@ class LazyLoadComponentSet_Iterator extends DataObjectSet_Iterator {
 	
 	/**
 	 * Check the iterator is pointing to a valid item in the set.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function valid() {
 		$this->executeQuery();
@@ -517,8 +517,8 @@ class LazyLoadComponentSet_Iterator extends DataObjectSet_Iterator {
 	
 	/**
 	 * Return the object in this set offset by $offset from the iterator pointer.
-	 * @param int $offset The offset.
-	 * @return DataObject|boolean DataObject of offset item, or boolean FALSE if not found
+	 * @param SS_Int $offset The offset.
+	 * @return DataObject|SS_Boolean DataObject of offset item, or boolean FALSE if not found
 	 */
 	public function getOffset($offset) {
 		$keys = array_keys($this->items);

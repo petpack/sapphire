@@ -41,7 +41,7 @@ class Minify_Build {
     /**
      * Last modification time of all files in the build
      * 
-     * @var int 
+     * @var SS_Int 
      */
     public $lastModified = 0;
     
@@ -65,7 +65,7 @@ class Minify_Build {
      * </code>
      *
      * @param string $uri
-     * @param boolean $forceAmpersand (default = false) Force the use of ampersand to 
+     * @param SS_Boolean $forceAmpersand (default = false) Force the use of ampersand to 
      * append the timestamp to the URI.
      * @return string
      */

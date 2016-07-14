@@ -81,7 +81,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * True if the user has administrative rights for this domain, false
      * otherwise.
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_admin = null;
 
@@ -89,14 +89,14 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * True if the user has agreed to the terms of service for Google Apps,
      * false otherwise.
      *
-     * @var boolean.
+     * @var SS_Boolean.
      */
     protected $_agreedToTerms = null;
 
     /**
      * True if this user has been suspended, false otherwise.
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_suspended = null;
 
@@ -104,7 +104,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * True if the user will be required to change their password at
      * their next login, false otherwise.
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_changePasswordAtNextLogin = null;
 
@@ -119,13 +119,13 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      *          function used to protect the password, or null if no
      *          has function has been applied. As of this writing,
      *          the only valid values are 'SHA-1' or null.
-     * @param boolean $admin (optional) Whether the user is an administrator
+     * @param SS_Boolean $admin (optional) Whether the user is an administrator
      *          or not.
-     * @param boolean $suspended (optional) Whether this login is suspended or not.
-     * @param boolean $changePasswordAtNextLogin (optional) Whether
+     * @param SS_Boolean $suspended (optional) Whether this login is suspended or not.
+     * @param SS_Boolean $changePasswordAtNextLogin (optional) Whether
      *          the user is required to change their password at their
      *          next login.
-     * @param boolean $agreedToTerms (optional) Whether the user has
+     * @param SS_Boolean $agreedToTerms (optional) Whether the user has
      *          agreed to the terms of service.
      */
     public function __construct($username = null, $password = null,
@@ -336,7 +336,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Get the value for this element's admin attribute.
      *
      * @see setAdmin
-     * @return boolean The requested attribute.
+     * @return SS_Boolean The requested attribute.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function getAdmin()
@@ -352,7 +352,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Set the value for this element's admin attribute. This indicates
      * whether this user is an administrator for this domain.
      *
-     * @param boolean $value The desired value for this attribute.
+     * @param SS_Boolean $value The desired value for this attribute.
      * @return Zend_Gdata_Gapps_Extension_Login Provides a fluent interface.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
@@ -370,7 +370,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Get the value for this element's agreedToTerms attribute.
      *
      * @see setAgreedToTerms
-     * @return boolean The requested attribute.
+     * @return SS_Boolean The requested attribute.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function getAgreedToTerms()
@@ -386,7 +386,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Set the value for this element's agreedToTerms attribute. This
      * indicates whether this user has agreed to the terms of service.
      *
-     * @param boolean $value The desired value for this attribute.
+     * @param SS_Boolean $value The desired value for this attribute.
      * @return Zend_Gdata_Gapps_Extension_Login Provides a fluent interface.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
@@ -404,7 +404,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Get the value for this element's suspended attribute.
      *
      * @see setSuspended
-     * @return boolean The requested attribute.
+     * @return SS_Boolean The requested attribute.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function getSuspended()
@@ -420,7 +420,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Set the value for this element's suspended attribute. If true, the
      * user will not be able to login to this domain until unsuspended.
      *
-     * @param boolean $value The desired value for this attribute.
+     * @param SS_Boolean $value The desired value for this attribute.
      * @return Zend_Gdata_Gapps_Extension_Login Provides a fluent interface.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
@@ -438,7 +438,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * Get the value for this element's changePasswordAtNextLogin attribute.
      *
      * @see setChangePasswordAtNextLogin
-     * @return boolean The requested attribute.
+     * @return SS_Boolean The requested attribute.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function getChangePasswordAtNextLogin()
@@ -455,7 +455,7 @@ class Zend_Gdata_Gapps_Extension_Login extends Zend_Gdata_Extension
      * If true, the user will be forced to set a new password the next
      * time they login.
      *
-     * @param boolean $value The desired value for this attribute.
+     * @param SS_Boolean $value The desired value for this attribute.
      * @return Zend_Gdata_Gapps_Extension_Login Provides a fluent interface.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */

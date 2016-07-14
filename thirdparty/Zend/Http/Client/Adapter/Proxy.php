@@ -72,7 +72,7 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
     /**
      * Whether HTTPS CONNECT was already negotiated with the proxy or not
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $negotiated = false;
     
@@ -90,8 +90,8 @@ class Zend_Http_Client_Adapter_Proxy extends Zend_Http_Client_Adapter_Socket
      * fall back to the target server (behave like regular Socket adapter)
      *
      * @param string  $host
-     * @param int     $port
-     * @param boolean $secure
+     * @param SS_Int     $port
+     * @param SS_Boolean $secure
      */
     public function connect($host, $port = 80, $secure = false)
     {

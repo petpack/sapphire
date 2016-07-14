@@ -134,7 +134,7 @@ class Convert {
 			if(strpos($val,'<') !== false) return self::html2raw($val);
 			
 			$converted = str_replace(array('&amp;','&lt;','&gt;','&quot;','&apos;', '&#39;'), array('&','<','>','"',"'", "'"), $val);
-			$converted = ereg_replace('&#[0-9]+;', '', $converted);
+			$converted = preg_replace('/&#[0-9]+;/', '', $converted);
 			return $converted;
 		}
 	}
@@ -180,7 +180,7 @@ class Convert {
 	 * 
 	 * @uses json2obj
 	 * @param string $val JSON string to convert
-	 * @return array|boolean
+	 * @return array|SS_Boolean
 	 */
 	static function json2array($val) {
 		$json = self::json2obj($val);
@@ -204,7 +204,7 @@ class Convert {
 	 * runs htmlentities() and wordwrap() on values (wraps at 100 chars)
 	 * 
 	 * @param mixed $val	value to beautify
-	 * @param int $indents	number of indents
+	 * @param SS_Int $indents	number of indents
 	 * @param bool $isKey	true if this is a key name
 	 * @return HTML
 	 * @see Convert::prettyJSON()
@@ -397,7 +397,7 @@ class Convert {
 	 * Simple conversion of HTML to plaintext.
 	 * 
 	 * @param $data string
-	 * @param $preserveLinks boolean
+	 * @param $preserveLinks SS_Boolean
 	 * @param $wordwrap array 
 	 */
 	static function html2raw($data, $preserveLinks = false, $wordWrap = 60, $config = null) {
@@ -425,8 +425,13 @@ class Convert {
 		
 		// Expand hyperlinks
 		if(!$preserveLinks && !$config['PreserveLinks']) {
-			$data = preg_replace('/<a[^>]*href\s*=\s*"([^"]*)">(.*?)<\/a>/ie', "Convert::html2raw('\\2').'[\\1]'", $data);
-			$data = preg_replace('/<a[^>]*href\s*=\s*([^ ]*)>(.*?)<\/a>/ie', "Convert::html2raw('\\2').'[\\1]'", $data);
+			$callback = function($matches) {
+				// @fixme: is this right?
+				//"Convert::html2raw('\\2').'[\\1]
+				return Convert::html2raw($matches[2]).$matches[1];
+			};
+			$data = preg_replace('/<a[^>]*href\s*=\s*"([^"]*)">(.*?)<\/a>/i', $callback, $data);
+			$data = preg_replace('/<a[^>]*href\s*=\s*([^ ]*)>(.*?)<\/a>/i', $callback, $data);
 			
 			/* $data = eregi_replace('<a[^>]*href *= *"([^"]*)">([^<>]*)</a>', '\\2 [\\1]', $data); */
 			/* $data = eregi_replace('<a[^>]*href *= *([^ ]*)>([^<>]*)</a>', '\\2 [\\1]', $data); */
@@ -434,24 +439,24 @@ class Convert {
 	
 		// Replace images with their alt tags
 		if($config['ReplaceImagesWithAlt']) {
-			$data = eregi_replace('<img[^>]*alt *= *"([^"]*)"[^>]*>', ' \\1 ', $data);
-			$data = eregi_replace('<img[^>]*alt *= *([^ ]*)[^>]*>', ' \\1 ', $data);
+			$data = preg_replace('/<img[^>]*alt *= *"([^"]*)"[^>]*>/i', ' \\1 ', $data);
+			$data = preg_replace('/<img[^>]*alt *= *([^ ]*)[^>]*>/i', ' \\1 ', $data);
 		}
 	
 		// Compress whitespace
 		if($config['CompressWhitespace']) {
-			$data = ereg_replace("[\n\r\t ]+", " ", $data);
+			$data = preg_replace("/[\n\r\t ]+/", " ", $data);
 		}
 		
 		// Parse newline tags
-		$data = ereg_replace("[ \n\r\t]*<[Hh][1-6]([^A-Za-z0-9>][^>]*)?> *", "\n\n", $data);
-		$data = ereg_replace("[ \n\r\t]*<[Pp]([^A-Za-z0-9>][^>]*)?> *", "\n\n", $data);
-		$data = ereg_replace("[ \n\r\t]*<[Dd][Ii][Vv]([^A-Za-z0-9>][^>]*)?> *", "\n\n", $data);
-		$data = ereg_replace("\n\n\n+","\n\n", $data);
+		$data = preg_replace("/[ \n\r\t]*<[Hh][1-6]([^A-Za-z0-9>][^>]*)?> */", "\n\n", $data);
+		$data = preg_replace("/[ \n\r\t]*<[Pp]([^A-Za-z0-9>][^>]*)?> */", "\n\n", $data);
+		$data = preg_replace("/[ \n\r\t]*<[Dd][Ii][Vv]([^A-Za-z0-9>][^>]*)?> */", "\n\n", $data);
+		$data = preg_replace("/\n\n\n+/","\n\n", $data);
 		
-		$data = ereg_replace("<[Bb][Rr]([^A-Za-z0-9>][^>]*)?> *", "\n", $data);
-		$data = ereg_replace("<[Tt][Rr]([^A-Za-z0-9>][^>]*)?> *", "\n", $data);
-		$data = ereg_replace("</[Tt][Dd]([^A-Za-z0-9>][^>]*)?> *", "    ", $data);
+		$data = preg_replace("/<[Bb][Rr]([^A-Za-z0-9>][^>]*)?> */", "\n", $data);
+		$data = preg_replace("/<[Tt][Rr]([^A-Za-z0-9>][^>]*)?> */", "\n", $data);
+		$data = preg_replace("/<\/[Tt][Dd]([^A-Za-z0-9>][^>]*)?> */", "    ", $data);
 		$data = preg_replace('/<\/p>/i', "\n\n", $data );
 		
 	

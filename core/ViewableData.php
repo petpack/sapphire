@@ -43,7 +43,7 @@ class ViewableData extends Object implements IteratorAggregate {
 	// -----------------------------------------------------------------------------------------------------------------
 	
 	/**
-	 * @var int
+	 * @var SS_Int
 	 */
 	protected $iteratorPos, $iteratorTotalItems;
 	
@@ -351,7 +351,7 @@ class ViewableData extends Object implements IteratorAggregate {
 	 * Clears the internal object cache.
 	 *
 	 */
-	public function clearCache(){
+	public function clearCache($method, $ID = false, $arguments = Array()){
 		$this->objCache = array();
 	}
 	
@@ -518,8 +518,8 @@ class ViewableData extends Object implements IteratorAggregate {
 	/** 
 	 * Set the current iterator properties - where we are on the iterator.
 	 *
-	 * @param int $pos position in iterator
-	 * @param int $totalItems total number of items
+	 * @param SS_Int $pos position in iterator
+	 * @param SS_Int $totalItems total number of items
 	 */
 	public function iteratorProperties($pos, $totalItems) {
 		$this->iteratorPos        = $pos;
@@ -602,8 +602,8 @@ class ViewableData extends Object implements IteratorAggregate {
 	/**
 	 * Return the numerical position of this object in the container set. The count starts at $startIndex.
 	 *
-	 * @param int $startIndex Number to start count from.
-	 * @return int
+	 * @param SS_Int $startIndex Number to start count from.
+	 * @return SS_Int
 	 */
 	public function Pos($startIndex = 1) {
 		return $this->iteratorPos + $startIndex;
@@ -612,7 +612,7 @@ class ViewableData extends Object implements IteratorAggregate {
 	/**
 	 * Return the total number of "sibling" items in the dataset.
 	 *
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function TotalItems() {
 		return $this->iteratorTotalItems;
@@ -621,9 +621,9 @@ class ViewableData extends Object implements IteratorAggregate {
 	/**
 	 * Returns the modulus of the numerical position of the item in the data set.
 	 * The count starts from $startIndex, which defaults to 1.
-	 * @param int $Mod The number to perform Mod operation to.
-	 * @param int $startIndex Number to start count from.
-	 * @return int
+	 * @param SS_Int $Mod The number to perform Mod operation to.
+	 * @param SS_Int $startIndex Number to start count from.
+	 * @return SS_Int
 	 */
 	public function Modulus($mod, $startIndex = 1) {
 		return ($this->iteratorPos + $startIndex) % $mod;
@@ -827,7 +827,7 @@ class ViewableData_Customised extends ViewableData {
 	 * Clears the internal object cache.
 	 *
 	 */
-	public function clearCache(){
+	public function clearCache($method, $ID = false, $arguments = array()){
 		if (is_object($this->customised)){
 			$this->customised->clearCache();
 		}

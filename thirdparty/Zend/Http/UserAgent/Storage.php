@@ -32,7 +32,7 @@ interface Zend_Http_UserAgent_Storage
      * Returns true if and only if storage is empty
      *
      * @throws Zend_Http_UserAgent_Storage_Exception If it is impossible to determine whether storage is empty
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isEmpty();
 

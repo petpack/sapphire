@@ -39,7 +39,7 @@ class MemberPassword extends DataObject {
 	 * See {@link Member->checkPassword()}.
 	 * 
 	 * @param String $password Cleartext password
-	 * @return Boolean
+	 * @return SS_Boolean
 	 */	
 	function checkPassword($password) {
 		$spec = Security::encrypt_password(

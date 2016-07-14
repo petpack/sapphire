@@ -24,7 +24,7 @@ class Minify_Cache_ZendPlatform {
      * Create a Minify_Cache_ZendPlatform object, to be passed to
      * Minify::setCache().
      *
-     * @param int $expire seconds until expiration (default = 0
+     * @param SS_Int $expire seconds until expiration (default = 0
      * meaning the item will not get an expiration date)
      *
      * @return null
@@ -55,7 +55,7 @@ class Minify_Cache_ZendPlatform {
      *
      * @param string $id cache id
      *
-     * @return int size in bytes
+     * @return SS_Int size in bytes
      */
     public function getSize($id)
     {
@@ -70,7 +70,7 @@ class Minify_Cache_ZendPlatform {
      *
      * @param string $id cache id
      *
-     * @param int $srcMtime mtime of the original source file(s)
+     * @param SS_Int $srcMtime mtime of the original source file(s)
      *
      * @return bool exists
      */

@@ -30,7 +30,7 @@ class SapphireTest extends PHPUnit_Framework_TestCase {
 	protected $mailer;
 	
 	/**
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected static $is_running_test = false;
 	
@@ -94,7 +94,7 @@ class SapphireTest extends PHPUnit_Framework_TestCase {
 	 * Caution: When set to FALSE, certain controllers might bypass
 	 * access checks, so this is a very security sensitive setting.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public static function is_running_test() {
 		return self::$is_running_test;
@@ -263,7 +263,7 @@ class SapphireTest extends PHPUnit_Framework_TestCase {
 	 * Get the ID of an object from the fixture.
 	 * @param $className The data class, as specified in your fixture file.  Parent classes won't work
 	 * @param $identifier The identifier string, as provided in your fixture file
-	 * @return int
+	 * @return SS_Int
 	 */
 	protected function idFromFixture($className, $identifier) {
 		if(!$this->fixtures) {

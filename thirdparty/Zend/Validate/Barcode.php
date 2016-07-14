@@ -155,7 +155,7 @@ class Zend_Validate_Barcode extends Zend_Validate_Abstract
     /**
      * Returns the checksum option
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getChecksum()
     {
@@ -165,7 +165,7 @@ class Zend_Validate_Barcode extends Zend_Validate_Abstract
     /**
      * Sets the checksum option
      *
-     * @param  boolean $checksum
+     * @param  SS_Boolean $checksum
      * @return Zend_Validate_Barcode
      */
     public function setChecksum($checksum)
@@ -180,7 +180,7 @@ class Zend_Validate_Barcode extends Zend_Validate_Abstract
      * Returns true if and only if $value contains a valid barcode
      *
      * @param  string $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

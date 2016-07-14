@@ -48,7 +48,7 @@ abstract class PasswordEncryptor {
 	
 	/**
 	 * @param String $algorithm
-	 * @return PasswordEncryptor|Boolean Returns FALSE if class was not found
+	 * @return PasswordEncryptor|SS_Boolean Returns FALSE if class was not found
 	 */
 	static function create_for_algorithm($algorithm) {
 		if(!isset(self::$encryptors[$algorithm])) {
@@ -100,7 +100,7 @@ abstract class PasswordEncryptor {
 	 * 
 	 * @param String $hash1
 	 * @param String $hash2
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function compare($hash1, $hash2) {
 		return ($hash1 === $hash2);

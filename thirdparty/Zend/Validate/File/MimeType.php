@@ -104,14 +104,14 @@ class Zend_Validate_File_MimeType extends Zend_Validate_Abstract
 
     /**
      * Indicates whether use of $_magicFiles should be attempted.
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_tryCommonMagicFiles = true;
 
     /**
      * Option to allow header check
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_headerCheck = false;
 
@@ -222,7 +222,7 @@ class Zend_Validate_File_MimeType extends Zend_Validate_Abstract
      * Enables or disables attempts to try the common magic file locations
      * specified by Zend_Validate_File_MimeType::_magicFiles
      *
-     * @param  boolean $flag
+     * @param  SS_Boolean $flag
      * @return Zend_Validate_File_MimeType Provides fluent interface
      * @see http://framework.zend.com/issues/browse/ZF-11784
      */
@@ -236,7 +236,7 @@ class Zend_Validate_File_MimeType extends Zend_Validate_Abstract
     /**
      * Accessor for Zend_Validate_File_MimeType::_magicFiles
      *
-     * @return boolean
+     * @return SS_Boolean
      * @see http://framework.zend.com/issues/browse/ZF-11784
      */
     public function shouldTryCommonMagicFiles()
@@ -247,7 +247,7 @@ class Zend_Validate_File_MimeType extends Zend_Validate_Abstract
     /**
      * Returns the Header Check option
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getHeaderCheck()
     {
@@ -258,7 +258,7 @@ class Zend_Validate_File_MimeType extends Zend_Validate_Abstract
      * Defines if the http header should be used
      * Note that this is unsave and therefor the default value is false
      *
-     * @param  boolean $checkHeader
+     * @param  SS_Boolean $checkHeader
      * @return Zend_Validate_File_MimeType Provides fluid interface
      */
     public function enableHeaderCheck($headerCheck = true)
@@ -270,7 +270,7 @@ class Zend_Validate_File_MimeType extends Zend_Validate_Abstract
     /**
      * Returns the set mimetypes
      *
-     * @param  boolean $asArray Returns the values as array, when false an concated string is returned
+     * @param  SS_Boolean $asArray Returns the values as array, when false an concated string is returned
      * @return string|array
      */
     public function getMimeType($asArray = false)
@@ -347,7 +347,7 @@ class Zend_Validate_File_MimeType extends Zend_Validate_Abstract
      *
      * @param  string $value Real file to check for mimetype
      * @param  array  $file  File data from Zend_File_Transfer
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value, $file = null)
     {

@@ -15,7 +15,7 @@
 class SearchForm extends Form {
 	
 	/**
-	 * @var int $pageLength How many results are shown per page.
+	 * @var SS_Int $pageLength How many results are shown per page.
 	 * Relies on pagination being implemented in the search results template.
 	 */
 	protected $pageLength = 10;
@@ -92,7 +92,7 @@ class SearchForm extends Form {
 	 * Return dataObjectSet of the results using $_REQUEST to get info from form.
 	 * Wraps around {@link searchEngine()}.
 	 * 
-	 * @param int $pageLength DEPRECATED 2.3 Use SearchForm->pageLength
+	 * @param SS_Int $pageLength DEPRECATED 2.3 Use SearchForm->pageLength
 	 * @param array $data Request data as an associative array. Should contain at least a key 'Search' with all searched keywords.
 	 * @return DataObjectSet
 	 */
@@ -178,14 +178,14 @@ class SearchForm extends Form {
 	/**
 	 * Set the maximum number of records shown on each page.
 	 * 
-	 * @param int $length
+	 * @param SS_Int $length
 	 */
 	public function setPageLength($length) {
 		$this->pageLength = $length;
 	}
 	
 	/**
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function getPageLength() {
 		return $this->pageLength;

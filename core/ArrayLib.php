@@ -106,7 +106,7 @@ class ArrayLib {
 	 * @see http://nz.php.net/manual/en/function.is-array.php#76188
 	 *
 	 * @param array $arr
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	static function is_associative($arr) {
 		if(is_array($arr) && ! empty($arr)) {
@@ -125,8 +125,8 @@ class ArrayLib {
 	 *
 	 * @param mixed $needle
 	 * @param array $haystack
-	 * @param boolean $strict
-	 * @return boolean
+	 * @param SS_Boolean $strict
+	 * @return SS_Boolean
 	 */
 	static function in_array_recursive($needle, $haystack, $strict = false) {
 		if(!is_array($haystack)) return false; // Not an array, we've gone as far as we can down this branch

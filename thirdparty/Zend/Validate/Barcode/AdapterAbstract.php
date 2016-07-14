@@ -53,7 +53,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
 
     /**
      * Is a checksum value included?
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_hasChecksum = true;
 
@@ -61,7 +61,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
      * Checks the length of a barcode
      *
      * @param  string $value The barcode to check for proper length
-     * @return boolean
+     * @return SS_Boolean
      */
     public function checkLength($value)
     {
@@ -101,7 +101,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
      * Checks for allowed characters within the barcode
      *
      * @param  string $value The barcode to check for allowed characters
-     * @return boolean
+     * @return SS_Boolean
      */
     public function checkChars($value)
     {
@@ -132,7 +132,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
      * Validates the checksum
      *
      * @param  string $value The barcode to check the checksum for
-     * @return boolean
+     * @return SS_Boolean
      */
     public function checksum($value)
     {
@@ -178,7 +178,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
     /**
      * Returns if barcode uses checksum
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getCheck()
     {
@@ -188,7 +188,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
     /**
      * Sets the checksum validation
      *
-     * @param  boolean $check
+     * @param  SS_Boolean $check
      * @return Zend_Validate_Barcode_AdapterAbstract
      */
     public function setCheck($check)
@@ -202,7 +202,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
      * GTIN implementation factor 3
      *
      * @param  string $value The barcode to validate
-     * @return boolean
+     * @return SS_Boolean
      */
     protected function _gtin($value)
     {
@@ -232,7 +232,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
      * IDENTCODE implementation factors 9 and 4
      *
      * @param  string $value The barcode to validate
-     * @return boolean
+     * @return SS_Boolean
      */
     protected function _identcode($value)
     {
@@ -262,7 +262,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
      * CODE25 implementation factor 3
      *
      * @param  string $value The barcode to validate
-     * @return boolean
+     * @return SS_Boolean
      */
     protected function _code25($value)
     {
@@ -292,7 +292,7 @@ abstract class Zend_Validate_Barcode_AdapterAbstract
      * POSTNET implementation
      *
      * @param  string $value The barcode to validate
-     * @return boolean
+     * @return SS_Boolean
      */
     protected function _postnet($value)
     {

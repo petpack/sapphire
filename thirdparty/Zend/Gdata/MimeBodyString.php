@@ -81,7 +81,7 @@ class Zend_Gdata_MimeBodyString
     /**
      * The length of the string.
      *
-     * @return int The length of the string contained in the object.
+     * @return SS_Int The length of the string contained in the object.
      */
     public function getSize()
     {

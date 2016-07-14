@@ -307,7 +307,7 @@ class Translatable extends DataObjectDecorator implements PermissionProvider {
 	 * @param string $class The name of the class.
 	 * @param string $locale  The name of the language.
 	 * @param string $filter A filter to be inserted into the WHERE clause.
-	 * @param boolean $cache Use caching (default: false)
+	 * @param SS_Boolean $cache Use caching (default: false)
 	 * @param string $orderby A sort expression to be inserted into the ORDER BY clause.
 	 * @return DataObject
 	 */
@@ -439,7 +439,7 @@ class Translatable extends DataObjectDecorator implements PermissionProvider {
 	 * @deprecated 2.4 Use {@link getTranslations()}
 	 *
 	 * @param string $class Name of the class of the element
-	 * @param int $id ID of the element
+	 * @param SS_Int $id ID of the element
 	 * @return array List of languages
 	 */
 	static function get_langs_by_id($class, $id) {
@@ -469,7 +469,7 @@ class Translatable extends DataObjectDecorator implements PermissionProvider {
 	 * Check whether multilingual support has been enabled
 	 *
 	 * @deprecated 2.4 Use Object::has_extension('SiteTree', 'Translatable')
-	 * @return boolean True if enabled
+	 * @return SS_Boolean True if enabled
 	 */
 	static function is_enabled() {
 		return Object::has_extension('SiteTree', 'Translatable');
@@ -662,9 +662,9 @@ class Translatable extends DataObjectDecorator implements PermissionProvider {
 	 * based off the same object can be determined later on.
 	 * See class header for further comments.
 	 * 
-	 * @param int $originalID Either the primary key of the record this new translation is based on,
+	 * @param SS_Int $originalID Either the primary key of the record this new translation is based on,
 	 *  or the primary key of this record, to create a new translation group
-	 * @param boolean $overwrite
+	 * @param SS_Boolean $overwrite
 	 */
 	public function addTranslationGroup($originalID, $overwrite = false) {
 		if(!$this->owner->exists()) return false;
@@ -701,7 +701,7 @@ class Translatable extends DataObjectDecorator implements PermissionProvider {
 	 * This ID might equal the record ID, but doesn't have to -
 	 * it just points to one "original" record in the list.
 	 * 
-	 * @return int Numeric ID of the translationgroup in the <classname>_translationgroup table
+	 * @return SS_Int Numeric ID of the translationgroup in the <classname>_translationgroup table
 	 */
 	public function getTranslationGroup() {
 		if(!$this->owner->exists()) return false;
@@ -730,7 +730,7 @@ class Translatable extends DataObjectDecorator implements PermissionProvider {
 	 * This is called at db/build time
 	 *
 	 * @param string $table Table name
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function isVersionedTable($table) {
 		return false;
@@ -849,7 +849,7 @@ class Translatable extends DataObjectDecorator implements PermissionProvider {
 	 * Attempt to get the page for a link in the default language that has been translated.
 	 *
 	 * @param string $URLSegment
-	 * @param int|null $parentID
+	 * @param SS_Int|null $parentID
 	 * @return SiteTree
 	 */
 	public function alternateGetByLink($URLSegment, $parentID) {
@@ -1188,9 +1188,9 @@ class Translatable extends DataObjectDecorator implements PermissionProvider {
 	/**
 	 * Caution: Does not consider the {@link canEdit()} permissions.
 	 * 
-	 * @param DataObject|int $member
+	 * @param DataObject|SS_Int $member
 	 * @param string $locale
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function canTranslate($member = null, $locale) {
 		if($locale && !i18n::validate_locale($locale)) throw new InvalidArgumentException(sprintf('Invalid locale "%s"', $locale));
@@ -1218,7 +1218,7 @@ class Translatable extends DataObjectDecorator implements PermissionProvider {
 	}
 	
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function canEdit($member) {
 		if(!$this->owner->Locale) return null;
@@ -1231,7 +1231,7 @@ class Translatable extends DataObjectDecorator implements PermissionProvider {
 	 * the database.
 	 * 
 	 * @param string $locale
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function hasTranslation($locale) {
 		if($locale && !i18n::validate_locale($locale)) throw new InvalidArgumentException(sprintf('Invalid locale "%s"', $locale));
@@ -1453,7 +1453,7 @@ class Translatable extends DataObjectDecorator implements PermissionProvider {
 	 * Does not look at translation groups to see if the record
 	 * is based on another record.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 * @deprecated 2.4
 	 */
 	function isTranslation() { 

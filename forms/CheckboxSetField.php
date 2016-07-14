@@ -121,7 +121,7 @@ class CheckboxSetField extends OptionsetField {
 			$odd = ($odd + 1) % 2;
 			$extraClass = $odd ? 'odd' : 'even';
 			$extraClass .= ' val' . str_replace(' ', '', $key);
-			$itemID = $this->id() . '_' . ereg_replace('[^a-zA-Z0-9]+', '', $key);
+			$itemID = $this->id() . '_' . preg_replace('/[^a-zA-Z0-9]+/', '', $key);
 			$checked = '';
 			
 			if(isset($items)) {
@@ -135,8 +135,8 @@ class CheckboxSetField extends OptionsetField {
 		return "<ul id=\"{$this->id()}\" class=\"optionset checkboxsetfield{$this->extraClass()}\">\n$options</ul>\n"; 
 	}
 	
-	function setDisabled($val) {
-		$this->disabled = $val;
+	function setDisabled($disabled = true) {
+		$this->disabled = $disabled;
 	}
 	
 	/**
@@ -179,7 +179,8 @@ class CheckboxSetField extends OptionsetField {
 	 *
 	 * @param DataObject $record The record to save into
 	 */
-	function saveInto(DataObject $record) {
+	function saveInto(DataObjectInterface $record) {
+		// @fixme: is this right?
 		$fieldname = $this->name ;
 		if($fieldname && $record && ($record->has_many($fieldname) || $record->many_many($fieldname))) {
 			$idList = array();
@@ -220,7 +221,7 @@ class CheckboxSetField extends OptionsetField {
 		return '';
 	}
 	
-	function performDisabledTransformation() {
+	function performDisabledTransformation($trans) {
 		$clone = clone $this;
 		$clone->setDisabled(true);
 		

@@ -69,7 +69,7 @@ class FileField extends FormField {
 	 * trigger saving the ID of newly created file into "PlayerImageID"
 	 * on the record).
 	 *
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public $relationAutoSetting = true;
 	
@@ -95,7 +95,7 @@ class FileField extends FormField {
 	 * 
 	 * @param string $name The internal field name, passed to forms.
 	 * @param string $title The field label.
-	 * @param int $value The value of the field.
+	 * @param SS_Int $value The value of the field.
 	 * @param Form $form Reference to the container form
 	 * @param string $rightTitle Used in SmallFieldHolder() to force a right-aligned label
 	 * @param string $folderName Folder to upload files to
@@ -128,7 +128,8 @@ class FileField extends FormField {
 		);
 	}
 	
-	public function saveInto(DataObject $record) {
+	public function saveInto(DataObjectInterface $record) {
+		// @fixme: is this right?
 		if(!isset($_FILES[$this->name])) return false;
 		
 		if($this->relationAutoSetting) {
@@ -182,7 +183,7 @@ class FileField extends FormField {
 	 *
 	 * @deprecated 2.5
 	 * @param string $ext
-	 * @return int Filesize in bytes (0 means no filesize set)
+	 * @return SS_Int Filesize in bytes (0 means no filesize set)
 	 */
 	public function getAllowedMaxFileSize($ext = null) {
 		user_error('Upload::getAllowedMaxFileSize() is deprecated. Please use Upload_Validator::getAllowedMaxFileSize() instead', E_USER_NOTICE);

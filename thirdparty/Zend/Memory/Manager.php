@@ -273,7 +273,7 @@ class Zend_Memory_Manager
      * Create new Zend_Memory object
      *
      * @param string $value
-     * @param boolean $locked
+     * @param SS_Boolean $locked
      * @return Zend_Memory_Container_Interface
      * @throws Zend_Memory_Exception
      */

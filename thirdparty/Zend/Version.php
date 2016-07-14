@@ -46,7 +46,7 @@ final class Zend_Version
      * with the current Zend_Version::VERSION of Zend Framework.
      *
      * @param  string  $version  A version string (e.g. "0.7.1").
-     * @return int           -1 if the $version is older,
+     * @return SS_Int           -1 if the $version is older,
      *                           0 if they are the same,
      *                           and +1 if $version is newer.
      *

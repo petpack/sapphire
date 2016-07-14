@@ -25,13 +25,13 @@ class SimpleStickyError {
      *    Sets the error to empty.
      *    @access public
      */
-    function SimpleStickyError() {
+    function __construct() {
         $this->_clearError();
     }
 
     /**
      *    Test for an outstanding error.
-     *    @return boolean           True if there is an error.
+     *    @return SS_Boolean           True if there is an error.
      *    @access public
      */
     function isError() {
@@ -85,7 +85,7 @@ class SimpleSocket extends SimpleStickyError {
      *    @param integer $block_size   Size of chunk to read.
      *    @access public
      */
-    function SimpleSocket($host, $port, $timeout, $block_size = 255) {
+    function __construct($host, $port, $timeout, $block_size = 255) {
         $this->SimpleStickyError();
         if (! ($this->_handle = $this->_openSocket($host, $port, $error_number, $error, $timeout))) {
             $this->_setError("Cannot open [$host:$port] with [$error] within [$timeout] seconds");
@@ -99,7 +99,7 @@ class SimpleSocket extends SimpleStickyError {
     /**
      *    Writes some data to the socket and saves alocal copy.
      *    @param string $message       String to send to socket.
-     *    @return boolean              True if successful.
+     *    @return SS_Boolean              True if successful.
      *    @access public
      */
     function write($message) {
@@ -141,7 +141,7 @@ class SimpleSocket extends SimpleStickyError {
 
     /**
      *    Accessor for socket open state.
-     *    @return boolean           True if open.
+     *    @return SS_Boolean           True if open.
      *    @access public
      */
     function isOpen() {
@@ -151,7 +151,7 @@ class SimpleSocket extends SimpleStickyError {
     /**
      *    Closes the socket preventing further reads.
      *    Cannot be reopened once closed.
-     *    @return boolean           True if successful.
+     *    @return SS_Boolean           True if successful.
      *    @access public
      */
     function close() {
@@ -196,7 +196,7 @@ class SimpleSecureSocket extends SimpleSocket {
      *    @param integer $timeout  Connection timeout in seconds.
      *    @access public
      */
-    function SimpleSecureSocket($host, $port, $timeout) {
+    function __construct($host, $port, $timeout) {
         $this->SimpleSocket($host, $port, $timeout);
     }
 

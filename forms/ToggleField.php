@@ -27,7 +27,7 @@ class ToggleField extends ReadonlyField {
 	public $truncateMethod = 'FirstSentence';
 	
 	/**
-	 * @var $truncateChars int Number of chars to preview (optional). 
+	 * @var $truncateChars SS_Int Number of chars to preview (optional). 
 	 * 	Truncating will be applied with $truncateMethod by default. 
 	 */
 	public $truncateChars;

@@ -41,7 +41,7 @@ class SimpleUrl {
      *    @param string $url        Incoming URL.
      *    @access public
      */
-    function SimpleUrl($url = '') {
+    function __construct($url = '') {
         list($x, $y) = $this->_chompCoordinates($url);
         $this->setCoordinates($x, $y);
         $this->_scheme = $this->_chompScheme($url);
@@ -379,14 +379,14 @@ class SimpleUrl {
      */
     function clearRequest() {
         $this->_raw = false;
-        $this->_request = &new SimpleGetEncoding();
+        $this->_request = new SimpleGetEncoding();
     }
     
     /**
      *    Gets the frame target if present. Although
      *    not strictly part of the URL specification it
      *    acts as similarily to the browser.
-     *    @return boolean/string    Frame name or false if none.
+     *    @return SS_Boolean/string    Frame name or false if none.
      *    @access public
      */
     function getTarget() {
@@ -483,7 +483,7 @@ class SimpleUrl {
     /**
      *    Simple test to see if a path part is relative.
      *    @param string $path        Path to test.
-     *    @return boolean            True if starts with a "/".
+     *    @return SS_Boolean            True if starts with a "/".
      *    @access private
      */
     function _isRelativePath($path) {

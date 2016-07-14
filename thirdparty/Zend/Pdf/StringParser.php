@@ -95,7 +95,7 @@ class Zend_Pdf_StringParser
      * Character with code $chCode is white space
      *
      * @param integer $chCode
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function isWhiteSpace($chCode)
     {
@@ -117,7 +117,7 @@ class Zend_Pdf_StringParser
      * Character with code $chCode is a delimiter character
      *
      * @param integer $chCode
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function isDelimiter($chCode )
     {
@@ -142,7 +142,7 @@ class Zend_Pdf_StringParser
     /**
      * Skip white space
      *
-     * @param boolean $skipComment
+     * @param SS_Boolean $skipComment
      */
     public function skipWhiteSpace($skipComment = true)
     {

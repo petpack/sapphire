@@ -107,8 +107,8 @@ class Zend_Loader
      * @param  string        $filename
      * @param  string|array  $dirs - OPTIONAL either a path or array of paths
      *                       to search.
-     * @param  boolean       $once
-     * @return boolean
+     * @param  SS_Boolean       $once
+     * @return SS_Boolean
      * @throws Zend_Exception
      */
     public static function loadFile($filename, $dirs = null, $once = false)
@@ -157,7 +157,7 @@ class Zend_Loader
      * At mark of fopen() can not suppress warning if the handler is used.
      *
      * @param string   $filename
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function isReadable($filename)
     {
@@ -244,7 +244,7 @@ class Zend_Loader
      *
      * @deprecated Since 1.8.0
      * @param string $class (optional)
-     * @param boolean $enabled (optional)
+     * @param SS_Boolean $enabled (optional)
      * @return void
      * @throws Zend_Exception if spl_autoload() is not found
      * or if the specified class does not have an autoload() method.
@@ -302,8 +302,8 @@ class Zend_Loader
      * Always set display_errors = Off on production servers!
      *
      * @param  string  $filespec
-     * @param  boolean $once
-     * @return boolean
+     * @param  SS_Boolean $once
+     * @return SS_Boolean
      * @deprecated Since 1.5.0; use loadFile() instead
      */
     protected static function _includeFile($filespec, $once = false)

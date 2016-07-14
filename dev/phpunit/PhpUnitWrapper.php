@@ -8,7 +8,7 @@
  * This method checks if a given filename exists in the include path (defined
  * in php.ini. 
  *
- * @return boolean when the file has been found in the include path.
+ * @return SS_Boolean when the file has been found in the include path.
  */
 function fileExistsInIncludePath($filename) {
 	$paths = explode(PATH_SEPARATOR, ini_get('include_path'));
@@ -28,7 +28,7 @@ class PhpUnitWrapper implements IPhpUnitWrapper {
 	
 	/**
 	 * Flag if coverage report shall be generated or not.
-	 * @var boolean
+	 * @var SS_Boolean
 	 */	
 	private $coverage = false;
 	
@@ -60,7 +60,7 @@ class PhpUnitWrapper implements IPhpUnitWrapper {
 
 	/** 
 	 * Getter for $coverage (@see $coverage).
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function getCoverageStatus() {
 		return $this->coverage;
@@ -155,7 +155,7 @@ class PhpUnitWrapper implements IPhpUnitWrapper {
 	/**
 	 * Returns true if one of the two supported PHPUNIT versions is installed.
 	 *
-	 * @return boolean true if PHPUnit has been installed on the environment.
+	 * @return SS_Boolean true if PHPUnit has been installed on the environment.
 	 */
 	static function has_php_unit() {
 		return (Bool) self::inst()->getVersion();

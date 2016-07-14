@@ -90,7 +90,7 @@ class GroupTest extends FunctionalTest {
 
 class GroupTest_Member extends Member implements TestOnly {
    
-   function getCMSFields() {
+   function getCMSFields($params = null) {
       $groups = DataObject::get('Group');
       $groupsMap = ($groups) ? $groups->toDropDownMap() : false;
       $fields = new FieldSet(

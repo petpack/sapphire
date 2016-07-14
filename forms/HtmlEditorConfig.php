@@ -226,7 +226,7 @@ class HtmlEditorConfig {
 	 * @param $offset integer - the offset relative to that button to perform an array_splice at - 0 for before $name, 1 for after 
 	 * @param $del integer - the number of buttons to remove at the position given by index(string) + offset
 	 * @param $add mixed - an array or single item to insert at the position given by index(string) + offset, or null for no insertion
-	 * @return boolean - true if $name matched a button, false otherwise
+	 * @return SS_Boolean - true if $name matched a button, false otherwise
 	 */
 	protected function modifyButtons($name, $offset, $del=0, $add=null) {
 		foreach ($this->buttons as &$buttons) {
@@ -243,7 +243,7 @@ class HtmlEditorConfig {
 	 * Insert buttons before the first occurance of another button
 	 * @param string - the name of the button to insert other buttons before
 	 * @param string a string, or several strings, or a single array of strings - the button names to insert before that button 
-	 * @return boolean - true if insertion occured, false if it did not (because the given button name was not found)
+	 * @return SS_Boolean - true if insertion occured, false if it did not (because the given button name was not found)
 	 */
 	function insertButtonsBefore() {
 		$inserts = func_get_args();
@@ -255,7 +255,7 @@ class HtmlEditorConfig {
 	 * Insert buttons after the first occurance of another button
 	 * @param string - the name of the button to insert other buttons after
 	 * @param string a string, or several strings, or a single array of strings - the button names to insert after that button 
-	 * @return boolean - true if insertion occured, false if it did not (because the given button name was not found)
+	 * @return SS_Boolean - true if insertion occured, false if it did not (because the given button name was not found)
 	 */
 	function insertButtonsAfter() {
 		$inserts = func_get_args();

@@ -178,7 +178,7 @@ class Zend_Log
      * Before a message will be received by any of the writers, it
      * must be accepted by all filters added with this method.
      *
-     * @param  int|Zend_Log_Filter_Interface $filter
+     * @param  SS_Int|Zend_Log_Filter_Interface $filter
      * @return void
      */
     public function addFilter($filter)

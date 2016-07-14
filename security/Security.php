@@ -94,12 +94,12 @@ class Security extends Controller {
 	 * Enable or disable recording of login attempts
 	 * through the {@link LoginRecord} object.
 	 * 
-	 * @var boolean $login_recording
+	 * @var SS_Boolean $login_recording
 	 */
 	protected static $login_recording = false;
 	
 	/**
-	 * @var boolean If set to TRUE or FALSE, {@link database_is_ready()}
+	 * @var SS_Boolean If set to TRUE or FALSE, {@link database_is_ready()}
 	 * will always return FALSE. Used for unit testing.
 	 */
 	static $force_database_is_ready = null;
@@ -730,7 +730,7 @@ class Security extends Controller {
 	 * This prevents sharing of the session across several sites in the
 	 * domain.
 	 *
-	 * @param boolean $strictPathChecking To enable or disable strict patch
+	 * @param SS_Boolean $strictPathChecking To enable or disable strict patch
 	 *                                    checking.
 	 */
 	public static function setStrictPathChecking($strictPathChecking) {
@@ -741,7 +741,7 @@ class Security extends Controller {
 	/**
 	 * Get strict path checking
 	 *
-	 * @return boolean Status of strict path checking
+	 * @return SS_Boolean Status of strict path checking
 	 */
 	public static function getStrictPathChecking() {
 		return self::$strictPathChecking;
@@ -885,14 +885,14 @@ class Security extends Controller {
 	 * Enable or disable recording of login attempts
 	 * through the {@link LoginRecord} object.
 	 * 
-	 * @param boolean $bool
+	 * @param SS_Boolean $bool
 	 */
 	public static function set_login_recording($bool) {
 		self::$login_recording = (bool)$bool;
 	}
 	
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public static function login_recording() {
 		return self::$login_recording;

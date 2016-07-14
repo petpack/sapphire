@@ -172,7 +172,7 @@ method to the *ArticlePage* class.
 		// ...
 		
 		function getCMSFields() {
-			$fields = parent::getCMSFields();
+			$fields = parent::getCMSFields($params);
 			
 			$fields->addFieldToTab('Root.Content.Main', new DateField('Date'), 'Content');
 			$fields->addFieldToTab('Root.Content.Main', new TextField('Author'), 'Content');
@@ -188,7 +188,7 @@ method to the *ArticlePage* class.
 Let's walk through this method.
 
 	:::php
-	$fields = parent::getCMSFields();
+	$fields = parent::getCMSFields($params);
 
 
 Firstly, we get the fields from the parent class; we want to add fields, not replace them. The *$fields* variable
@@ -230,7 +230,7 @@ To make the date field a bit more user friendly, you can add a dropdown calendar
 	// .....
 	
 	function getCMSFields() {
-		$fields = parent::getCMSFields();
+		$fields = parent::getCMSFields($params);
 		
 		$fields->addFieldToTab('Root.Content.Main', $dateField = new DateField('Date','Article Date (for example: 20/12/2010)'), 'Content');
 		$dateField->setConfig('showcalendar', true);
@@ -592,7 +592,7 @@ insert an image in the *$Content* field).
 		);
 		
 		function getCMSFields() {
-			$fields = parent::getCMSFields();
+			$fields = parent::getCMSFields($params);
 			
 			$fields->addFieldToTab("Root.Content.Images", new ImageField('Photo'));
 			

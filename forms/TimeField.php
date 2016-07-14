@@ -135,7 +135,7 @@ class TimeField extends TextField {
 	}
 
 	/**
-	 * @return Boolean
+	 * @return SS_Boolean
 	 */
 	function validate($validator) {
 		$valid = true;

@@ -63,7 +63,7 @@ class Zend_Http_Cookie
     /**
      * Cookie expiry date
      *
-     * @var int
+     * @var SS_Int
      */
     protected $expires;
 
@@ -84,14 +84,14 @@ class Zend_Http_Cookie
     /**
      * Whether the cookie is secure or not
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $secure;
 
     /**
      * Whether the cookie value has been encoded/decoded
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $encodeValue;
 
@@ -103,7 +103,7 @@ class Zend_Http_Cookie
      * @param string $name
      * @param string $value
      * @param string $domain
-     * @param int $expires
+     * @param SS_Int $expires
      * @param string $path
      * @param bool $secure
      */
@@ -173,7 +173,7 @@ class Zend_Http_Cookie
     /**
      * Get the expiry time of the cookie, or null if no expiry time is set
      *
-     * @return int|null
+     * @return SS_Int|null
      */
     public function getExpiryTime()
     {
@@ -183,7 +183,7 @@ class Zend_Http_Cookie
     /**
      * Check whether the cookie should only be sent over secure connections
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isSecure()
     {
@@ -195,8 +195,8 @@ class Zend_Http_Cookie
      *
      * Always returns false if the cookie is a session cookie (has no expiry time)
      *
-     * @param int $now Timestamp to consider as "now"
-     * @return boolean
+     * @param SS_Int $now Timestamp to consider as "now"
+     * @return SS_Boolean
      */
     public function isExpired($now = null)
     {
@@ -211,7 +211,7 @@ class Zend_Http_Cookie
     /**
      * Check whether the cookie is a session cookie (has no expiry time set)
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isSessionCookie()
     {
@@ -222,9 +222,9 @@ class Zend_Http_Cookie
      * Checks whether the cookie should be sent or not in a specific scenario
      *
      * @param string|Zend_Uri_Http $uri URI to check against (secure, domain, path)
-     * @param boolean $matchSessionCookies Whether to send session cookies
-     * @param int $now Override the current time when checking for expiry time
-     * @return boolean
+     * @param SS_Boolean $matchSessionCookies Whether to send session cookies
+     * @param SS_Int $now Override the current time when checking for expiry time
+     * @return SS_Boolean
      */
     public function match($uri, $matchSessionCookies = true, $now = null)
     {
@@ -277,7 +277,7 @@ class Zend_Http_Cookie
      *
      * @param string $cookieStr
      * @param Zend_Uri_Http|string $refUri Reference URI for default values (domain, path)
-     * @param boolean $encodeValue Whether or not the cookie's value should be
+     * @param SS_Boolean $encodeValue Whether or not the cookie's value should be
      *                             passed through urlencode/urldecode
      * @return Zend_Http_Cookie A new Zend_Http_Cookie object or false on failure.
      */
@@ -372,7 +372,7 @@ class Zend_Http_Cookie
      * @param  string $cookieDomain
      * @param  string $host
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function matchCookieDomain($cookieDomain, $host)
     {
@@ -405,7 +405,7 @@ class Zend_Http_Cookie
      *
      * @param  string $cookiePath
      * @param  string $path
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function matchCookiePath($cookiePath, $path)
     {

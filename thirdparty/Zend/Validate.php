@@ -68,7 +68,7 @@ class Zend_Validate implements Zend_Validate_Interface
      * if one exists, will not be executed.
      *
      * @param  Zend_Validate_Interface $validator
-     * @param  boolean                 $breakChainOnFailure
+     * @param  SS_Boolean                 $breakChainOnFailure
      * @return Zend_Validate Provides a fluent interface
      */
     public function addValidator(Zend_Validate_Interface $validator, $breakChainOnFailure = false)
@@ -86,7 +86,7 @@ class Zend_Validate implements Zend_Validate_Interface
      * Validators are run in the order in which they were added to the chain (FIFO).
      *
      * @param  mixed $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {
@@ -177,7 +177,7 @@ class Zend_Validate implements Zend_Validate_Interface
     /**
      * Returns true when defaultNamespaces are set
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function hasDefaultNamespaces()
     {
@@ -189,7 +189,7 @@ class Zend_Validate implements Zend_Validate_Interface
      * @param  string   $classBaseName
      * @param  array    $args          OPTIONAL
      * @param  mixed    $namespaces    OPTIONAL
-     * @return boolean
+     * @return SS_Boolean
      * @throws Zend_Validate_Exception
      */
     public static function is($value, $classBaseName, array $args = array(), $namespaces = array())

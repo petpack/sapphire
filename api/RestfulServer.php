@@ -194,7 +194,7 @@ class RestfulServer extends Controller {
 	 * @todo Access checking
 	 * 
 	 * @param String $className
-	 * @param Int $id
+	 * @param SS_Int $id
 	 * @param String $relation
 	 * @return String The serialized representation of the requested object(s) - usually XML or JSON.
 	 */
@@ -282,7 +282,7 @@ class RestfulServer extends Controller {
 	 * Returns a dataformatter instance based on the request
 	 * extension or mimetype. Falls back to {@link self::$default_extension}.
 	 * 
-	 * @param boolean $includeAcceptHeader Determines wether to inspect and prioritize any HTTP Accept headers 
+	 * @param SS_Boolean $includeAcceptHeader Determines wether to inspect and prioritize any HTTP Accept headers 
 	 * @return DataFormatter
 	 */
 	protected function getDataFormatter($includeAcceptHeader = false) {
@@ -493,7 +493,7 @@ class RestfulServer extends Controller {
 	 * through a request like /api/v1/<MyClass>/<MyID>
 	 * 
 	 * @param string $className
-	 * @param int $id
+	 * @param SS_Int $id
 	 * @param array $params
 	 * @return SQLQuery
 	 */
@@ -507,8 +507,8 @@ class RestfulServer extends Controller {
 	/**
 	 * @param DataObject $obj
 	 * @param array $params
-	 * @param int|array $sort
-	 * @param int|array $limit
+	 * @param SS_Int|array $sort
+	 * @param SS_Int|array $limit
 	 * @return SQLQuery
 	 */
 	protected function getObjectsQuery($className, $params, $sort, $limit) {
@@ -519,10 +519,10 @@ class RestfulServer extends Controller {
 	/**
 	 * @param DataObject $obj
 	 * @param array $params
-	 * @param int|array $sort
-	 * @param int|array $limit
+	 * @param SS_Int|array $sort
+	 * @param SS_Int|array $limit
 	 * @param string $relationName
-	 * @return SQLQuery|boolean
+	 * @return SQLQuery|SS_Boolean
 	 */
 	protected function getObjectRelationQuery($obj, $params, $sort, $limit, $relationName) {
 		if($obj->hasMethod("{$relationName}Query")) {

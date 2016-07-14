@@ -175,7 +175,7 @@ class Zend_Gdata_Spreadsheets_WorksheetEntry extends Zend_Gdata_Entry
      * http://code.google.com/apis/spreadsheets/reference.html#cells_Parameters
      *
      * @param string $range The range of cells to retrieve
-     * @param boolean $empty Whether to retrieve empty cells
+     * @param SS_Boolean $empty Whether to retrieve empty cells
      * @return array An associative array of cells
      */
     public function getContentsAsCells($range = null, $empty = false)

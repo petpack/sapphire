@@ -43,7 +43,7 @@ class InlineFormAction extends FormField {
 	 * Optionally disable the default javascript include (sapphire/javascript/InlineFormAction.js),
 	 * which routes to an "admin-custom"-URL.
 	 * 
-	 * @param $bool boolean
+	 * @param $bool SS_Boolean
 	 */
 	function includeDefaultJS($bool) {
 		$this->includeDefaultJS = (bool)$bool;

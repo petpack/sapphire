@@ -462,7 +462,7 @@ class Zend_Gdata_Photos extends Zend_Gdata
      *
      * @param Zend_Gdata_Photos_AlbumEntry $album The album entry to
      *          delete.
-     * @param boolean $catch Whether to catch an exception when
+     * @param SS_Boolean $catch Whether to catch an exception when
      *            modified and re-delete or throw
      * @return void.
      * @throws Zend_Gdata_App_Exception
@@ -491,7 +491,7 @@ class Zend_Gdata_Photos extends Zend_Gdata
      *
      * @param Zend_Gdata_Photos_PhotoEntry $photo The photo entry to
      *          delete.
-     * @param boolean $catch Whether to catch an exception when
+     * @param SS_Boolean $catch Whether to catch an exception when
      *            modified and re-delete or throw
      * @return void.
      * @throws Zend_Gdata_App_Exception
@@ -520,7 +520,7 @@ class Zend_Gdata_Photos extends Zend_Gdata
      *
      * @param Zend_Gdata_Photos_CommentEntry $comment The comment entry to
      *          delete.
-     * @param boolean $catch Whether to catch an exception when
+     * @param SS_Boolean $catch Whether to catch an exception when
      *            modified and re-delete or throw
      * @return void.
      * @throws Zend_Gdata_App_Exception
@@ -549,7 +549,7 @@ class Zend_Gdata_Photos extends Zend_Gdata
      *
      * @param Zend_Gdata_Photos_TagEntry $tag The tag entry to
      *          delete.
-     * @param boolean $catch Whether to catch an exception when
+     * @param SS_Boolean $catch Whether to catch an exception when
      *            modified and re-delete or throw
      * @return void.
      * @throws Zend_Gdata_App_Exception

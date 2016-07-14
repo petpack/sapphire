@@ -59,7 +59,7 @@ abstract class Zend_Pdf_Annotation
     /**
      * Set bottom edge of the annotation rectangle.
      *
-     * @param float $bottom
+     * @param SS_Float $bottom
      * @return Zend_Pdf_Annotation
      */
     public function setBottom($bottom) {
@@ -72,7 +72,7 @@ abstract class Zend_Pdf_Annotation
     /**
      * Get bottom edge of the annotation rectangle.
      *
-     * @return float
+     * @return SS_Float
      */
     public function getBottom() {
         return $this->_annotationDictionary->Rect->items[1]->value;
@@ -81,7 +81,7 @@ abstract class Zend_Pdf_Annotation
     /**
      * Set top edge of the annotation rectangle.
      *
-     * @param float $top
+     * @param SS_Float $top
      * @return Zend_Pdf_Annotation
      */
     public function setTop($top) {
@@ -94,7 +94,7 @@ abstract class Zend_Pdf_Annotation
     /**
      * Get top edge of the annotation rectangle.
      *
-     * @return float
+     * @return SS_Float
      */
     public function getTop() {
         return $this->_annotationDictionary->Rect->items[3]->value;
@@ -103,7 +103,7 @@ abstract class Zend_Pdf_Annotation
     /**
      * Set right edge of the annotation rectangle.
      *
-     * @param float $right
+     * @param SS_Float $right
      * @return Zend_Pdf_Annotation
      */
     public function setRight($right) {
@@ -116,7 +116,7 @@ abstract class Zend_Pdf_Annotation
     /**
      * Get right edge of the annotation rectangle.
      *
-     * @return float
+     * @return SS_Float
      */
     public function getRight() {
         return $this->_annotationDictionary->Rect->items[2]->value;
@@ -125,7 +125,7 @@ abstract class Zend_Pdf_Annotation
     /**
      * Set left edge of the annotation rectangle.
      *
-     * @param float $left
+     * @param SS_Float $left
      * @return Zend_Pdf_Annotation
      */
     public function setLeft($left) {
@@ -138,7 +138,7 @@ abstract class Zend_Pdf_Annotation
     /**
      * Get left edge of the annotation rectangle.
      *
-     * @return float
+     * @return SS_Float
      */
     public function getLeft() {
         return $this->_annotationDictionary->Rect->items[0]->value;

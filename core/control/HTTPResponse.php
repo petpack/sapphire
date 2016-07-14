@@ -65,7 +65,7 @@ class SS_HTTPResponse {
 	);
 	
 	/**
-	 * @var Int
+	 * @var SS_Int
 	 */
 	protected $statusCode = 200;
 	
@@ -128,7 +128,7 @@ class SS_HTTPResponse {
 	}
 	
 	/**
-	 * @return Int
+	 * @return SS_Int
 	 */
 	function getStatusCode() {
 		return $this->statusCode;

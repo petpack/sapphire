@@ -81,9 +81,9 @@ abstract class Zend_Cache
      * @param mixed  $backend         backend name (string) or Zend_Cache_Backend_ object
      * @param array  $frontendOptions associative array of options for the corresponding frontend constructor
      * @param array  $backendOptions  associative array of options for the corresponding backend constructor
-     * @param boolean $customFrontendNaming if true, the frontend argument is used as a complete class name ; if false, the frontend argument is used as the end of "Zend_Cache_Frontend_[...]" class name
-     * @param boolean $customBackendNaming if true, the backend argument is used as a complete class name ; if false, the backend argument is used as the end of "Zend_Cache_Backend_[...]" class name
-     * @param boolean $autoload if true, there will no require_once for backend and frontend (usefull only for custom backends/frontends)
+     * @param SS_Boolean $customFrontendNaming if true, the frontend argument is used as a complete class name ; if false, the frontend argument is used as the end of "Zend_Cache_Frontend_[...]" class name
+     * @param SS_Boolean $customBackendNaming if true, the backend argument is used as a complete class name ; if false, the backend argument is used as the end of "Zend_Cache_Backend_[...]" class name
+     * @param SS_Boolean $autoload if true, there will no require_once for backend and frontend (usefull only for custom backends/frontends)
      * @throws Zend_Cache_Exception
      * @return Zend_Cache_Core|Zend_Cache_Frontend
      */
@@ -116,8 +116,8 @@ abstract class Zend_Cache
      *
      * @param string  $backend
      * @param array   $backendOptions
-     * @param boolean $customBackendNaming
-     * @param boolean $autoload
+     * @param SS_Boolean $customBackendNaming
+     * @param SS_Boolean $autoload
      * @return Zend_Cache_Backend
      */
     public static function _makeBackend($backend, $backendOptions, $customBackendNaming = false, $autoload = false)
@@ -157,8 +157,8 @@ abstract class Zend_Cache
      *
      * @param string  $frontend
      * @param array   $frontendOptions
-     * @param boolean $customFrontendNaming
-     * @param boolean $autoload
+     * @param SS_Boolean $customFrontendNaming
+     * @param SS_Boolean $autoload
      * @return Zend_Cache_Core|Zend_Cache_Frontend
      */
     public static function _makeFrontend($frontend, $frontendOptions = array(), $customFrontendNaming = false, $autoload = false)
@@ -231,7 +231,7 @@ abstract class Zend_Cache
      * Note : this method comes from Zend_Loader (see #ZF-2891 for details)
      *
      * @param string   $filename
-     * @return boolean
+     * @return SS_Boolean
      */
     private static function _isReadable($filename)
     {

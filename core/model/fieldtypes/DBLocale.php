@@ -16,7 +16,7 @@ class DBLocale extends Varchar {
 	/**
 	 * See {@link getShortName()} and {@link getNativeName()}.
 	 * 
-	 * @param Boolean $showNative Show a localized version of the name instead, based on the 
+	 * @param SS_Boolean $showNative Show a localized version of the name instead, based on the 
 	 *  field's locale value.
 	 * @return String
 	 */

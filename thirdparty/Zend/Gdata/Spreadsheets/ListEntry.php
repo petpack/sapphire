@@ -159,7 +159,7 @@ class Zend_Gdata_Spreadsheets_ListEntry extends Zend_Gdata_Entry
     /**
      * Remove an individual row element from this list entry by index. This
      * will cause the array to be re-indexed.
-     * @param int $index The index of the custom element to be deleted.
+     * @param SS_Int $index The index of the custom element to be deleted.
      * @return Zend_Gdata_Spreadsheets_ListEntry Provides a fluent interface.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */

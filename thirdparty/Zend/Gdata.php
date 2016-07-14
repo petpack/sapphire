@@ -203,7 +203,7 @@ class Zend_Gdata extends Zend_Gdata_App
      * @param string $body The body of the HTTP request
      * @param string $contentType The value for the content type of the
      *                            request body
-     * @param int $remainingRedirects Number of redirects to follow
+     * @param SS_Int $remainingRedirects Number of redirects to follow
      *                                if requests results in one
      * @return Zend_Http_Response The response object
      */
@@ -225,7 +225,7 @@ class Zend_Gdata extends Zend_Gdata_App
     /**
      * Determines whether service object is authenticated.
      *
-     * @return boolean True if service object is authenticated, false otherwise.
+     * @return SS_Boolean True if service object is authenticated, false otherwise.
      */
     public function isAuthenticated()
     {

@@ -66,11 +66,11 @@ class Zend_Gdata_AuthSub
       *                      access to the specified service only.
       *                      Some services may limit scope further, such
       *                      as read-only access.
-      * @param int $secure (optional) Boolean flag indicating whether the
+      * @param SS_Int $secure (optional) Boolean flag indicating whether the
       *                    authentication transaction should issue a secure
       *                    token (1) or a non-secure token (0). Secure tokens
       *                    are available to registered applications only.
-      * @param int $session (optional) Boolean flag indicating whether
+      * @param SS_Int $session (optional) Boolean flag indicating whether
       *                     the one-time-use  token may be exchanged for
       *                     a session token (1) or not (0).
       * @param string $request_uri (optional) URI to which to direct the
@@ -146,7 +146,7 @@ class Zend_Gdata_AuthSub
      * @param string $token The token to revoke
      * @param Zend_Http_Client $client (optional) HTTP client to use to make the request
      * @param string $request_uri (optional) URI to which to direct the revokation request
-     * @return boolean Whether the revokation was successful
+     * @return SS_Boolean Whether the revokation was successful
      * @throws Zend_Gdata_App_HttpException
      */
     public static function AuthSubRevokeToken($token, $client = null,

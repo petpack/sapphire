@@ -267,7 +267,7 @@ class Zend_Uri_Http extends Zend_Uri
      * Validate the current URI from the instance variables. Returns true if and only if all
      * parts pass validation.
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function valid()
     {
@@ -297,7 +297,7 @@ class Zend_Uri_Http extends Zend_Uri
      *
      * @param  string $username The HTTP username
      * @throws Zend_Uri_Exception When username validation fails
-     * @return boolean
+     * @return SS_Boolean
      * @link   http://www.faqs.org/rfcs/rfc2396.html
      */
     public function validateUsername($username = null)
@@ -359,7 +359,7 @@ class Zend_Uri_Http extends Zend_Uri
      *
      * @param  string $password The HTTP password
      * @throws Zend_Uri_Exception When password validation fails
-     * @return boolean
+     * @return SS_Boolean
      * @link   http://www.faqs.org/rfcs/rfc2396.html
      */
     public function validatePassword($password = null)
@@ -425,7 +425,7 @@ class Zend_Uri_Http extends Zend_Uri
      * then the host contained in the instance variable is used.
      *
      * @param  string $host The HTTP host
-     * @return boolean
+     * @return SS_Boolean
      * @uses   Zend_Filter
      */
     public function validateHost($host = null)
@@ -480,7 +480,7 @@ class Zend_Uri_Http extends Zend_Uri
      * then the port contained in the instance variable is used.
      *
      * @param  string $port The HTTP port
-     * @return boolean
+     * @return SS_Boolean
      */
     public function validatePort($port = null)
     {
@@ -533,7 +533,7 @@ class Zend_Uri_Http extends Zend_Uri
      *
      * @param  string $path The HTTP path
      * @throws Zend_Uri_Exception When path validation fails
-     * @return boolean
+     * @return SS_Boolean
      */
     public function validatePath($path = null)
     {
@@ -610,7 +610,7 @@ class Zend_Uri_Http extends Zend_Uri
      *
      * @param  string $query The query to validate
      * @throws Zend_Uri_Exception When query validation fails
-     * @return boolean
+     * @return SS_Boolean
      * @link   http://www.faqs.org/rfcs/rfc2396.html
      */
     public function validateQuery($query = null)
@@ -718,7 +718,7 @@ class Zend_Uri_Http extends Zend_Uri
      *
      * @param  string $fragment Fragment of an URI
      * @throws Zend_Uri_Exception When fragment validation fails
-     * @return boolean
+     * @return SS_Boolean
      * @link   http://www.faqs.org/rfcs/rfc2396.html
      */
     public function validateFragment($fragment = null)

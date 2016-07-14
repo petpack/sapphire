@@ -15,7 +15,7 @@ class MySQLDatabaseConfigurationHelper implements DatabaseConfigurationHelper {
 	 * If it is, we assume the PHP module for this database has been setup correctly.
 	 * 
 	 * @param array $databaseConfig Associative array of db configuration, e.g. "server", "username" etc
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function requireDatabaseFunctions($databaseConfig) {
 		return (function_exists('mysql_connect')) ? true : false;

@@ -231,7 +231,7 @@ class File extends DataObject {
 	/**
 	 * @todo Enforce on filesystem URL level via mod_rewrite
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function canView($member = null) {
 		if(!$member) $member = Member::currentUser();
@@ -248,7 +248,7 @@ class File extends DataObject {
 	 * 
 	 * @todo Decouple from CMS view access
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function canEdit($member = null) {
 		if(!$member) $member = Member::currentUser();
@@ -260,7 +260,7 @@ class File extends DataObject {
 	}
 	
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function canCreate($member = null) {
 		if(!$member) $member = Member::currentUser();
@@ -272,7 +272,7 @@ class File extends DataObject {
 	}
 	
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function canDelete($member = null) {
 		if(!$member) $member = Member::currentUser();
@@ -715,7 +715,7 @@ class File extends DataObject {
 
 	/**
 	 * Return file size in bytes.
-	 * @return int
+	 * @return SS_Int
 	 */
 	function getAbsoluteSize(){
 		if(file_exists($this->getFullPath())) {
@@ -765,15 +765,15 @@ class File extends DataObject {
 		return $ret;
 	}
 	
-	public function flushCache() {
-		parent::flushCache();
+	public function flushCache($persistant = true) {
+		parent::flushCache($persistant);
 		
 		self::$cache_file_fields = null;
 	}
 	
 	/**
 	 *
-	 * @param boolean $includerelations a boolean value to indicate if the labels returned include relation fields
+	 * @param SS_Boolean $includerelations a boolean value to indicate if the labels returned include relation fields
 	 * 
 	 */
 	function fieldLabels($includerelations = true) {

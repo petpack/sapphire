@@ -60,7 +60,7 @@ class Zend_Validate_Digits extends Zend_Validate_Abstract
      * Returns true if and only if $value only contains digit characters
      *
      * @param  string $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

@@ -48,7 +48,7 @@ class Text extends StringField {
 	 * CAUTION: This is not XML safe. Please use
 	 * {@link LimitWordCountXML()} instead.
 	 *
-	 * @param int $numWords Number of words to limit by
+	 * @param SS_Int $numWords Number of words to limit by
 	 * @param string $add Ellipsis to add to the end of truncated string
 	 * @return string
 	 */
@@ -94,7 +94,7 @@ class Text extends StringField {
 	 * CAUTION: Does not take into account HTML tags, so it
 	 * has the potential to return malformed HTML.
 	 *
-	 * @param int $limit Number of characters to limit by
+	 * @param SS_Int $limit Number of characters to limit by
 	 * @param string $add Ellipsis to add to the end of truncated string
 	 * @return string
 	 */
@@ -108,7 +108,7 @@ class Text extends StringField {
 	 * content. This is XML safe, so characters like &
 	 * are converted to &amp;
 	 *
-	 * @param int $numWords Number of words to limit by
+	 * @param SS_Int $numWords Number of words to limit by
 	 * @param string $add Ellipsis to add to the end of truncated string
 	 * @return string
 	 */
@@ -119,7 +119,7 @@ class Text extends StringField {
 
 	/**
 	 * Limit sentences, can be controlled by passing an integer.
-	 * @param int $sentCount The amount of sentences you want.
+	 * @param SS_Int $sentCount The amount of sentences you want.
 	 */
 	function LimitSentences($sentCount = 2) {
 		if(!is_numeric($sentCount)) user_error("Text::LimitSentence() expects one numeric argument", E_USER_NOTICE);
@@ -274,10 +274,10 @@ class Text extends StringField {
 	 * Perform context searching to give some context to searches, optionally
 	 * highlighting the search term.
 	 * 
-	 * @param int $characters Number of characters in the summary
-	 * @param boolean $string Supplied string ("keywords")
-	 * @param boolean $striphtml Strip HTML?
-	 * @param boolean $highlight Add a highlight <span> element around search query?
+	 * @param SS_Int $characters Number of characters in the summary
+	 * @param SS_Boolean $string Supplied string ("keywords")
+	 * @param SS_Boolean $striphtml Strip HTML?
+	 * @param SS_Boolean $highlight Add a highlight <span> element around search query?
 	 * @param String prefix text
 	 * @param String suffix 
 	 * 

@@ -324,7 +324,7 @@ class UploadTest_Validator extends Upload_Validator implements TestOnly {
 	 * checks as we're faking a POST request that PHP didn't generate
 	 * itself.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function validate() {
 		$pathInfo = pathinfo($this->tmpFile['name']);

@@ -97,7 +97,7 @@ class Zend_Gdata_YouTube_Extension_MediaContent extends Zend_Gdata_Media_Extensi
      * Returns the format of the media
      * Optional.
      *
-     * @return int  The format of the media
+     * @return SS_Int  The format of the media
      */
     public function getFormat()
     {
@@ -107,7 +107,7 @@ class Zend_Gdata_YouTube_Extension_MediaContent extends Zend_Gdata_Media_Extensi
     /**
      * Sets the format of the media
      *
-     * @param int $value    Format of the media
+     * @param SS_Int $value    Format of the media
      * @return Zend_Gdata_YouTube_Extension_MediaContent  Provides a fluent interface
      *
      */

@@ -28,7 +28,7 @@ class CsvBulkLoader extends BulkLoader {
 	
 	/**
 	 * Identifies if the has a header row.
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public $hasHeaderRow = true;
 	
@@ -182,7 +182,7 @@ class CsvBulkLoader extends BulkLoader {
 	 * Determine wether any loaded files should be parsed
 	 * with a header-row (otherwise we rely on {@link self::$columnMap}.
 	 *
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function hasHeaderRow() {
 		return ($this->hasHeaderRow || isset($this->columnMap));

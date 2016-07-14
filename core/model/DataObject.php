@@ -92,7 +92,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	
 	/**
 	 * True if this DataObject has been destroyed.
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public $destroyed = false;
 	
@@ -128,13 +128,13 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	
 	/**
 	 * Used by onBeforeDelete() to ensure child classes call parent::onBeforeDelete()
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected $brokenOnDelete = false;
 	
 	/**
 	 * Used by onBeforeWrite() to ensure child classes call parent::onBeforeWrite()
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected $brokenOnWrite = false;
 	
@@ -279,7 +279,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 *
 	 * @param array|null $record This will be null for a new database record.  Alternatively, you can pass an array of
 	 * field values.  Normally this contructor is only used by the internal systems that get objects from the database.
-	 * @param boolean $isSingleton This this to true if this is a singleton() object, a stub for calling methods.  Singletons
+	 * @param SS_Boolean $isSingleton This this to true if this is a singleton() object, a stub for calling methods.  Singletons
 	 * don't have their defaults set.
 	 */
 	function __construct($record = null, $isSingleton = false) {
@@ -498,7 +498,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * The default behaviour for a DataObject is to return true if
 	 * the object exists in the database, you can override this in subclasses.
 	 *
-	 * @return boolean true if this object exists
+	 * @return SS_Boolean true if this object exists
 	 */
 	public function exists() {
 		return ($this->record && $this->record['ID'] > 0);
@@ -704,10 +704,10 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 *
 	 * @param $obj DataObject
 	 * @param $priority String left|right Determines who wins in case of a conflict (optional)
-	 * @param $includeRelations Boolean Merge any existing relations (optional)
-	 * @param $overwriteWithEmpty Boolean Overwrite existing left values with empty right values.
+	 * @param $includeRelations SS_Boolean Merge any existing relations (optional)
+	 * @param $overwriteWithEmpty SS_Boolean Overwrite existing left values with empty right values.
 	 * 	Only applicable with $priority='right'. (optional)
-	 * @return Boolean
+	 * @return SS_Boolean
 	 */
 	public function merge($rightObj, $priority = 'right', $includeRelations = true, $overwriteWithEmpty = false) {
 		$leftObj = $this;
@@ -907,14 +907,14 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * 
 	 *  @uses DataObjectDecorator->augmentWrite()
 	 *
-	 * @param boolean $showDebug Show debugging information
-	 * @param boolean $forceInsert Run INSERT command rather than UPDATE, even if record already exists
-	 * @param boolean $forceWrite Write to database even if there are no changes
-	 * @param boolean $writeComponents Call write() on all associated component instances which were previously
+	 * @param SS_Boolean $showDebug Show debugging information
+	 * @param SS_Boolean $forceInsert Run INSERT command rather than UPDATE, even if record already exists
+	 * @param SS_Boolean $forceWrite Write to database even if there are no changes
+	 * @param SS_Boolean $writeComponents Call write() on all associated component instances which were previously
 	 * 					retrieved through {@link getComponent()}, {@link getComponents()} or {@link getManyManyComponents()}
 	 * 					(Default: false)
 	 *
-	 * @return int The ID of the record
+	 * @return SS_Int The ID of the record
 	 * @throws ValidationException Exception that can be caught and handled by the calling function
 	 */
 	public function write($showDebug = false, $forceInsert = false, $forceWrite = false, $writeComponents = false) {
@@ -1101,7 +1101,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * Perform a write without affecting the version table.
 	 * On objects without versioning.
 	 *
-	 * @return int The ID of the record
+	 * @return SS_Int The ID of the record
 	 */
 	public function writeWithoutVersion() {
 		$this->changed['Version'] = 1;
@@ -1152,7 +1152,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * Delete the record with the given ID.
 	 *
 	 * @param string $className The class name of the record to be deleted
-	 * @param int $id ID of record to be deleted
+	 * @param SS_Int $id ID of record to be deleted
 	 */
 	public static function delete_by_id($className, $id) {
 		$obj = DataObject::get_by_id($className, $id);
@@ -2036,8 +2036,8 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * )
 	 * </code>
 	 *
-	 * @param boolean $databaseFieldsOnly Get only database fields that have changed
-	 * @param int $changeLevel The strictness of what is defined as change
+	 * @param SS_Boolean $databaseFieldsOnly Get only database fields that have changed
+	 * @param SS_Int $changeLevel The strictness of what is defined as change
 	 * @return array
 	 */
 	public function getChangedFields($databaseFieldsOnly = false, $changeLevel = 1) {
@@ -2086,8 +2086,8 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * since loading them from the database.
 	 * 
 	 * @param string $fieldName Name of the database field to check, will check for any if not given
-	 * @param int $changeLevel See {@link getChangedFields()}
-	 * @return boolean
+	 * @param SS_Int $changeLevel See {@link getChangedFields()}
+	 * @return SS_Boolean
 	 */
 	function isChanged($fieldName = null, $changeLevel = 1) {
 		$changed = $this->getChangedFields(false, $changeLevel);
@@ -2232,7 +2232,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * or as a dynamic getter with get<fieldName>().
 	 *
 	 * @param string $field Name of the field
-	 * @return boolean True if the given field exists
+	 * @return SS_Boolean True if the given field exists
 	 */
 	public function hasField($field) {
 		return (
@@ -2247,7 +2247,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 *
 	 * @param string $field Name of the field
 	 *
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function hasDatabaseField($field) {
 		// Add base fields which are not defined in static $db
@@ -2345,7 +2345,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * @param Member $member The member whose permissions need checking.  Defaults to the currently logged
 	 * in user.
 	 *
-	 * @return boolean True if the the member is allowed to do the given action
+	 * @return SS_Boolean True if the the member is allowed to do the given action
 	 */
 	function can($perm, $member = null) {
 		if(!isset($member)) {
@@ -2422,8 +2422,8 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * </code>
 	 * 
 	 * @param String $methodName Method on the same object, e.g. {@link canEdit()}
-	 * @param Member|int $member
-	 * @return boolean|null
+	 * @param Member|SS_Int $member
+	 * @return SS_Boolean|null
 	 */
 	public function extendedCan($methodName, $member) {
 		$results = $this->extend($methodName, $member);
@@ -2441,7 +2441,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * Helper functon for extendedCan
 	 * 
 	 * @param Mixed $value
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	private function isNotNull($value) {
 		return !is_null($value);
@@ -2449,7 +2449,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 
 	/**
 	 * @param Member $member
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function canView($member = null) {
 		return Permission::check('ADMIN', 'any', $member);
@@ -2457,7 +2457,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 
 	/**
 	 * @param Member $member
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function canEdit($member = null) {
 		return Permission::check('ADMIN', 'any', $member);
@@ -2465,7 +2465,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 
 	/**
 	 * @param Member $member
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function canDelete($member = null) {
 		return Permission::check('ADMIN', 'any', $member);
@@ -2475,7 +2475,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * @todo Should canCreate be a static method?
 	 *
 	 * @param Member $member
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function canCreate($member = null) {
 		return Permission::check('ADMIN', 'any', $member);
@@ -2516,6 +2516,10 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 			
 		// General casting information for items in $db or $casting
 		} else if($helper = $this->castingHelper($fieldName)) {
+			// PHP 7.0 reserves the Int type name,
+			// How can this be done better?
+			//if ($helper == 'Int') $helper = 'Smith';
+
 			$obj = Object::create_from_string($helper, $fieldName);
 			$obj->setValue($this->$fieldName, $this->record, false);
 			return $obj;
@@ -2594,7 +2598,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * @param string|array $sort A sort expression to be inserted into the ORDER BY clause. If omitted, self::$default_sort will be used.
 	 * @param string|array $limit A limit expression to be inserted into the LIMIT clause.
 	 * @param string $join A single join clause. This can be used for filtering, only 1 instance of each DataObject will be returned.
-	 * @param boolean $restictClasses Restrict results to only objects of either this class of a subclass of this class
+	 * @param SS_Boolean $restictClasses Restrict results to only objects of either this class of a subclass of this class
 	 * @param string $having A filter to be inserted into the HAVING clause.
 	 *
 	 * @return SQLQuery Query built.
@@ -2855,7 +2859,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 *
 	 * @param string $callerClass The class of objects to be returned
 	 * @param string $filter A filter to be inserted into the WHERE clause
-	 * @param boolean $cache Use caching
+	 * @param SS_Boolean $cache Use caching
 	 * @param string $orderby A sort expression to be inserted into the ORDER BY clause.
 	 *
 	 * @return DataObject The first item matching the query
@@ -2890,7 +2894,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * Flush the cached results for all relations (has_one, has_many, many_many)
 	 * Also clears any cached aggregate data
 	 * 
-	 * @param boolean $persistant When true will also clear persistant data stored in the Cache system.
+	 * @param SS_Boolean $persistant When true will also clear persistant data stored in the Cache system.
 	 *                            When false will just clear session-local cached data 
 	 * 
 	 */
@@ -2974,8 +2978,8 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * Return the given element, searching by ID
 	 *
 	 * @param string $callerClass The class of the object to be returned
-	 * @param int $id The id of the element
-	 * @param boolean $cache See {@link get_one()}
+	 * @param SS_Int $id The id of the element
+	 * @param SS_Boolean $cache See {@link get_one()}
 	 *
 	 * @return DataObject The element
 	 */
@@ -3253,7 +3257,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * @uses $field_labels
 	 * @uses FormField::name_to_label()
 	 *
-	 * @param boolean $includerelations a boolean value to indicate if the labels returned include relation fields
+	 * @param SS_Boolean $includerelations a boolean value to indicate if the labels returned include relation fields
 	 * 
 	 * @return array|string Array of all element labels if no argument given, otherwise the label of the field
 	 */
@@ -3360,7 +3364,7 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	}
 
 	/**
-	 * @return boolean True if the object is in the database
+	 * @return SS_Boolean True if the object is in the database
 	 */
 	public function isInDB() {
 		return is_numeric( $this->ID ) && $this->ID > 0;
@@ -3643,12 +3647,12 @@ class DataObject extends ViewableData implements DataObjectInterface, i18nEntity
 	 * @param string $field The field name
 	 * @param array $arguments
 	 * @param bool $cache
- 	 * @return boolean
+ 	 * @return SS_Boolean
  	 */
  	function hasValue($field, $arguments = null, $cache = true) {
  		$obj = $this->dbObject($field);
  		if($obj) {
- 			return $obj->hasValue();
+ 			return $obj->hasValue($field, $arguments, $cache);
  		} else {
  			return parent::hasValue($field, $arguments, $cache);
  		}

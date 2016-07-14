@@ -171,7 +171,7 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
      * Test if a cache is available for the given id and (if yes) return it (false else)
      *
      * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  SS_Boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
      * @return string|false cached datas
      */
     public function load($id, $doNotTestCacheValidity = false)
@@ -207,8 +207,8 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
      * @param  string $data             Datas to cache
      * @param  string $id               Cache id
      * @param  array  $tags             Array of strings, the cache record will be tagged by each string entry
-     * @param  int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
-     * @return boolean True if no problem
+     * @param  SS_Int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @return SS_Boolean True if no problem
      */
     public function save($data, $id, $tags = array(), $specificLifetime = false)
     {
@@ -232,7 +232,7 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
      * Remove a cache record
      *
      * @param  string $id Cache id
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     public function remove($id)
     {
@@ -252,7 +252,7 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
      * @throws Zend_Cache_Exception
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {
@@ -277,7 +277,7 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
     /**
      * Return true if the automatic cleaning is available for the backend
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isAutomaticCleaningAvailable()
     {
@@ -373,7 +373,7 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
      * Return the filling percentage of the backend storage
      *
      * @throws Zend_Cache_Exception
-     * @return int integer between 0 and 100
+     * @return SS_Int integer between 0 and 100
      */
     public function getFillingPercentage()
     {
@@ -439,8 +439,8 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
      * Give (if possible) an extra lifetime to the given cache id
      *
      * @param string $id cache id
-     * @param int $extraLifetime
-     * @return boolean true if ok
+     * @param SS_Int $extraLifetime
+     * @return SS_Boolean true if ok
      */
     public function touch($id, $extraLifetime)
     {

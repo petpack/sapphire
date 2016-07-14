@@ -135,7 +135,7 @@ it is a good starting point, for choosing your customisation.
 		}
 	
 		function getCMSFields() {
-			$fields = parent::getCMSFields();
+			$fields = parent::getCMSFields($params);
 			return $fields;
 		}
 

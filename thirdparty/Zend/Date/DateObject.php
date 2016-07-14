@@ -139,8 +139,8 @@ abstract class Zend_Date_DateObject {
      * @param  integer  $month
      * @param  integer  $day
      * @param  integer  $year
-     * @param  boolean  $gmt     OPTIONAL true = other arguments are for UTC time, false = arguments are for local time/date
-     * @return  integer|float  timestamp (number of seconds elapsed relative to 1970/01/01 00:00:00 GMT/UTC)
+     * @param  SS_Boolean  $gmt     OPTIONAL true = other arguments are for UTC time, false = arguments are for local time/date
+     * @return  integer|SS_Float  timestamp (number of seconds elapsed relative to 1970/01/01 00:00:00 GMT/UTC)
      */
     protected function mktime($hour, $minute, $second, $month, $day, $year, $gmt = false)
     {
@@ -265,7 +265,7 @@ abstract class Zend_Date_DateObject {
      * Returns true, if given $year is a leap year.
      *
      * @param  integer  $year
-     * @return boolean  true, if year is leap year
+     * @return SS_Boolean  true, if year is leap year
      */
     protected static function isYearLeapYear($year)
     {
@@ -291,7 +291,7 @@ abstract class Zend_Date_DateObject {
      *
      * @param  string   $format     format for output
      * @param  mixed    $timestamp
-     * @param  boolean  $gmt        OPTIONAL true = other arguments are for UTC time, false = arguments are for local time/date
+     * @param  SS_Boolean  $gmt        OPTIONAL true = other arguments are for UTC time, false = arguments are for local time/date
      * @return string
      */
     protected function date($format, $timestamp = null, $gmt = false)
@@ -651,7 +651,7 @@ abstract class Zend_Date_DateObject {
      * Default is false, and excludes $dayofweek, weekday, month and timestamp from parts returned.
      *
      * @param   mixed    $timestamp
-     * @param   boolean  $fast   OPTIONAL defaults to fast (false), resulting in fewer date parts
+     * @param   SS_Boolean  $fast   OPTIONAL defaults to fast (false), resulting in fewer date parts
      * @return  array
      */
     protected function getDateParts($timestamp = null, $fast = null)
@@ -869,8 +869,8 @@ abstract class Zend_Date_DateObject {
      * Internal _range function
      * Sets the value $a to be in the range of [0, $b]
      *
-     * @param float $a - value to correct
-     * @param float $b - maximum range to set
+     * @param SS_Float $a - value to correct
+     * @param SS_Float $b - maximum range to set
      */
     private function _range($a, $b) {
         while ($a < 0) {

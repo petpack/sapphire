@@ -41,7 +41,7 @@ class SiteConfig extends DataObject implements PermissionProvider {
 	 *
 	 * @return Fieldset
 	 */
-	function getCMSFields() {
+	function getCMSFields($params = null) {
 		Requirements::javascript(CMS_DIR . "/javascript/SitetreeAccess.js");
 
 		$fields = new FieldSet(
@@ -214,7 +214,7 @@ class SiteConfig extends DataObject implements PermissionProvider {
 	 * to inherit from.
 	 *
 	 * @param mixed $member 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function canView($member = null) {
 		if(!$member) $member = Member::currentUserID();
@@ -237,7 +237,7 @@ class SiteConfig extends DataObject implements PermissionProvider {
 	 * to inherit from.
 	 *
 	 * @param mixed $member 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function canEdit($member = null) {
 		if(!$member) $member = Member::currentUserID();
@@ -267,7 +267,7 @@ class SiteConfig extends DataObject implements PermissionProvider {
 	 * Can a user create pages in the root of this site?
 	 *
 	 * @param mixed $member 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function canCreateTopLevel($member = null) {
 		if(!$member || !(is_a($member, 'Member')) || is_numeric($member)) {

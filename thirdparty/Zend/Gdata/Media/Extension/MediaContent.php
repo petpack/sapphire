@@ -49,7 +49,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
     protected $_url = null;
 
     /**
-     * @var int
+     * @var SS_Int
      */
     protected $_fileSize = null;
 
@@ -74,37 +74,37 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
     protected $_expression = null;
 
     /**
-     * @var int
+     * @var SS_Int
      */
     protected $_bitrate = null;
 
     /**
-     * @var int
+     * @var SS_Int
      */
     protected $_framerate = null;
 
     /**
-     * @var int
+     * @var SS_Int
      */
     protected $_samplingrate = null;
 
     /**
-     * @var int
+     * @var SS_Int
      */
     protected $_channels = null;
 
     /**
-     * @var int
+     * @var SS_Int
      */
     protected $_duration = null;
 
     /**
-     * @var int
+     * @var SS_Int
      */
     protected $_height = null;
 
     /**
-     * @var int
+     * @var SS_Int
      */
     protected $_width = null;
 
@@ -285,7 +285,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
     }
 
     /**
-     * @return int  The size of the media in bytes
+     * @return SS_Int  The size of the media in bytes
      */
     public function getFileSize()
     {
@@ -293,7 +293,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
     }
 
     /**
-     * @param int $value
+     * @param SS_Int $value
      * @return Zend_Gdata_Media_Extension_MediaContent  Provides a fluent interface
      */
     public function setFileSize($value)
@@ -375,7 +375,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
     }
 
     /**
-     * @return int
+     * @return SS_Int
      */
     public function getBitrate()
     {
@@ -393,7 +393,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
     }
 
     /**
-     * @return int
+     * @return SS_Int
      */
     public function getFramerate()
     {
@@ -411,7 +411,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
     }
 
     /**
-     * @return int
+     * @return SS_Int
      */
     public function getSamplingrate()
     {
@@ -429,7 +429,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
     }
 
     /**
-     * @return int
+     * @return SS_Int
      */
     public function getChannels()
     {
@@ -447,7 +447,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
     }
 
     /**
-     * @return int
+     * @return SS_Int
      */
     public function getDuration()
     {
@@ -466,7 +466,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
     }
 
     /**
-     * @return int
+     * @return SS_Int
      */
     public function getHeight()
     {
@@ -484,7 +484,7 @@ class Zend_Gdata_Media_Extension_MediaContent extends Zend_Gdata_Extension
     }
 
     /**
-     * @return int
+     * @return SS_Int
      */
     public function getWidth()
     {

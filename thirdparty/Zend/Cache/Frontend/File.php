@@ -154,8 +154,8 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
      * Test if a cache is available for the given id and (if yes) return it (false else)
      *
      * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
-     * @param  boolean $doNotUnserialize       Do not serialize (even if automatic_serialization is true) => for internal use
+     * @param  SS_Boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  SS_Boolean $doNotUnserialize       Do not serialize (even if automatic_serialization is true) => for internal use
      * @return mixed|false Cached datas
      */
     public function load($id, $doNotTestCacheValidity = false, $doNotUnserialize = false)
@@ -173,7 +173,7 @@ class Zend_Cache_Frontend_File extends Zend_Cache_Core
      * Test if a cache is available for the given id
      *
      * @param  string $id Cache id
-     * @return boolean True is a cache is available, false else
+     * @return SS_Boolean True is a cache is available, false else
      */
     public function test($id)
     {

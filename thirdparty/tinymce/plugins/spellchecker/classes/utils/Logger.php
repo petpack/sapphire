@@ -4,7 +4,7 @@
  *
  * @package MCFileManager.filesystems
  * @author Moxiecode
- * @copyright Copyright © 2005, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright ï¿½ 2005, Moxiecode Systems AB, All rights reserved.
  */
 
 // File type contstants
@@ -31,7 +31,7 @@ class Moxiecode_Logger {
 	/**
 	 * Constructs a new logger instance.
 	 */
-	function Moxiecode_Logger() {
+	function __construct() {
 		$this->_path = "";
 		$this->_filename = "{level}.log";
 		$this->setMaxSize("100k");
@@ -43,7 +43,7 @@ class Moxiecode_Logger {
 	/**
 	 * Sets the current log level, use the MC_LOGGER constants.
 	 *
-	 * @param int $level Log level instance for example MC_LOGGER_DEBUG.
+	 * @param SS_Int $level Log level instance for example MC_LOGGER_DEBUG.
 	 */
 	function setLevel($level) {
 		if (is_string($level)) {
@@ -80,7 +80,7 @@ class Moxiecode_Logger {
 	/**
 	 * Returns the current log level for example MC_LOGGER_DEBUG.
 	 *
-	 * @return int Current log level for example MC_LOGGER_DEBUG.
+	 * @return SS_Int Current log level for example MC_LOGGER_DEBUG.
 	 */
 	function getLevel() {
 		return $this->_level;

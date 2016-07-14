@@ -35,7 +35,7 @@ class LoginAttempt extends DataObject {
 	
 	/**
 	 *
-	 * @param boolean $includerelations a boolean value to indicate if the labels returned include relation fields
+	 * @param SS_Boolean $includerelations a boolean value to indicate if the labels returned include relation fields
 	 * 
 	 */
 	function fieldLabels($includerelations = true) {

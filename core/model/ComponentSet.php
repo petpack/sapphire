@@ -106,7 +106,7 @@ class ComponentSet extends DataObjectSet {
 		
 	/**
 	 * Add an item to this set.
-	 * @param DataObject|int|string $item Item to add, either as a DataObject or as the ID.
+	 * @param DataObject|SS_Int|string $item Item to add, either as a DataObject or as the ID.
 	 * @param array $extraFields A map of extra fields to add.
 	 */
 	function add($item, $extraFields = null) {
@@ -140,7 +140,7 @@ class ComponentSet extends DataObjectSet {
 	/**
 	 * Method to save many-many join data into the database for the given $item.
 	 * Used by add() and write().
-	 * @param DataObject|string|int The item to save, as either a DataObject or the ID.
+	 * @param DataObject|string|SS_Int The item to save, as either a DataObject or the ID.
 	 * @param array $extraFields Map of extra fields.
 	 */
 	protected function loadChildIntoDatabase($item, $extraFields = null) {
@@ -238,7 +238,7 @@ class ComponentSet extends DataObjectSet {
 	/**
 	 * Remove an item from this set.
 	 *
-	 * @param DataObject|string|int $item Item to remove, either as a DataObject or as the ID.
+	 * @param DataObject|string|SS_Int $item Item to remove, either as a DataObject or as the ID.
 	 */
 	function remove($item) {
 		if(is_object($item)) {
@@ -357,7 +357,7 @@ class ComponentSet extends DataObjectSet {
 	/**
 	 * Write this set to the database.
 	 * Called by DataObject::write().
-	 * @param boolean $firstWrite This should be set to true if it the first time the set is being written.
+	 * @param SS_Boolean $firstWrite This should be set to true if it the first time the set is being written.
 	 */
 	function write($firstWrite = false) {
 		if($firstWrite) {

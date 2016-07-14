@@ -71,7 +71,7 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
      *
      * @param  string|array $callback
      * @param  mixed   $max
-     * @param  boolean $inclusive
+     * @param  SS_Boolean $inclusive
      * @return void
      */
     public function __construct($callback = null)
@@ -148,7 +148,7 @@ class Zend_Validate_Callback extends Zend_Validate_Abstract
      * for the provided $value
      *
      * @param  mixed $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

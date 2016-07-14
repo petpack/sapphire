@@ -69,7 +69,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
     /**
      * Boolean to store if the structure has benn checked or not
      *
-     * @var boolean $_structureChecked
+     * @var SS_Boolean $_structureChecked
      */
     private $_structureChecked = false;
 
@@ -106,7 +106,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
      * Test if a cache is available for the given id and (if yes) return it (false else)
      *
      * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  SS_Boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
      * @return string|false Cached datas
      */
     public function load($id, $doNotTestCacheValidity = false)
@@ -151,9 +151,9 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
      * @param  string $data             Datas to cache
      * @param  string $id               Cache id
      * @param  array  $tags             Array of strings, the cache record will be tagged by each string entry
-     * @param  int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @param  SS_Int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
      * @throws Zend_Cache_Exception
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     public function save($data, $id, $tags = array(), $specificLifetime = false)
     {
@@ -184,7 +184,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
      * Remove a cache record
      *
      * @param  string $id Cache id
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     public function remove($id)
     {
@@ -212,7 +212,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
      *
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {
@@ -363,7 +363,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
      * Return the filling percentage of the backend storage
      *
      * @throws Zend_Cache_Exception
-     * @return int integer between 0 and 100
+     * @return SS_Int integer between 0 and 100
      */
     public function getFillingPercentage()
     {
@@ -418,8 +418,8 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
      * Give (if possible) an extra lifetime to the given cache id
      *
      * @param string $id cache id
-     * @param int $extraLifetime
-     * @return boolean true if ok
+     * @param SS_Int $extraLifetime
+     * @return SS_Boolean true if ok
      */
     public function touch($id, $extraLifetime)
     {
@@ -539,7 +539,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
      *
      * @param  string $id  Cache id
      * @param  string $tag Tag
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     private function _registerTag($id, $tag) {
         $res = $this->_query("DELETE FROM TAG WHERE name='$tag' AND id='$id'");
@@ -576,7 +576,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
     /**
      * Check if the database structure is ok (with the good version)
      *
-     * @return boolean True if ok
+     * @return SS_Boolean True if ok
      */
     private function _checkStructureVersion()
     {
@@ -609,7 +609,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
      *
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     private function _clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {
@@ -659,7 +659,7 @@ class Zend_Cache_Backend_Sqlite extends Zend_Cache_Backend implements Zend_Cache
      * Check if the database structure is ok (with the good version), if no : build it
      *
      * @throws Zend_Cache_Exception
-     * @return boolean True if ok
+     * @return SS_Boolean True if ok
      */
     private function _checkAndBuildStructure()
     {

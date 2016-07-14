@@ -25,9 +25,9 @@
  */
 class SS_Datetime extends Date {
 	
-	function setValue($value) {
+	function setValue($value, $record = null) {
 		// Default to NZ date format - strtotime expects a US date
-		if(ereg('^([0-9]+)/([0-9]+)/([0-9]+)$', $value, $parts)) {
+		if(preg_match('/^([0-9]+)\/([0-9]+)\/([0-9]+)$/', $value, $parts)) {
 			$value = "$parts[2]/$parts[1]/$parts[3]";
 		}
 		
@@ -41,7 +41,7 @@ class SS_Datetime extends Date {
 	/**
 	 * Returns the date in the raw SQL-format, e.g. “2006-01-18 16:32:04”
 	 */
-	function Nice() {
+	function Nice($value = null) {
 		return date('d/m/Y g:ia', strtotime($this->value));
 	}
 	function Nice24() {

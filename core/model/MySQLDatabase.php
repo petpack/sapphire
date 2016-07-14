@@ -16,7 +16,7 @@ class MySQLDatabase extends SS_Database {
 	
 	/**
 	 * True if we are connected to a database.
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	private $active;
 	
@@ -92,7 +92,7 @@ class MySQLDatabase extends SS_Database {
 	
 	/**
 	 * Returns true if this database supports collations
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function supportsCollations() {
 		return $this->getVersion() >= 4.1;
@@ -335,7 +335,7 @@ class MySQLDatabase extends SS_Database {
 	/**
 	 * Checks a table's integrity and repairs it if necessary.
 	 * @var string $tableName The name of the table.
-	 * @return boolean Return true if the table has integrity after the method is complete.
+	 * @return SS_Boolean Return true if the table has integrity after the method is complete.
 	 */
 	public function checkAndRepairTable($tableName) {
 		if(!$this->runTableCheckCommand("CHECK TABLE \"$tableName\"")) {
@@ -354,7 +354,7 @@ class MySQLDatabase extends SS_Database {
 	/**
 	 * Helper function used by checkAndRepairTable.
 	 * @param string $sql Query to run.
-	 * @return boolean Returns if the query returns a successful result.
+	 * @return SS_Boolean Returns if the query returns a successful result.
 	 */
 	protected function runTableCheckCommand($sql) {
 		$testResults = $this->query($sql);
@@ -577,7 +577,7 @@ class MySQLDatabase extends SS_Database {
 	
 	/**
 	 * Return the number of rows affected by the previous operation.
-	 * @return int 
+	 * @return SS_Int 
 	 */
 	public function affectedRows() {
 		return $this->dbConn->affected_rows;

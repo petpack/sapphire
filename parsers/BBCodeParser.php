@@ -18,13 +18,13 @@ class BBCodeParser extends TextParser {
 
 	/**
 	 * Set whether phrases starting with http:// or www. are automatically linked
-	 * @var Boolean
+	 * @var SS_Boolean
 	 */
 	protected static $autolinkUrls = true;
 	
 	/**
 	 * Set whether similies :), :(, :P are converted to images
-	 * @var Boolean
+	 * @var SS_Boolean
 	 */
 	protected static $allowSimilies = false;
 	 

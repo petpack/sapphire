@@ -155,7 +155,7 @@ class Zend_Gdata_Query
     }
 
     /**
-     * @param int $value
+     * @param SS_Int $value
      * @return Zend_Gdata_Query Provides a fluent interface
      */
     public function setMaxResults($value)
@@ -183,7 +183,7 @@ class Zend_Gdata_Query
     }
 
     /**
-     * @param int $value
+     * @param SS_Int $value
      * @return Zend_Gdata_Query Provides a fluent interface
      */
     public function setStartIndex($value)
@@ -279,7 +279,7 @@ class Zend_Gdata_Query
     }
 
     /**
-     * @return int maxResults
+     * @return SS_Int maxResults
      */
     public function getMaxResults()
     {
@@ -303,7 +303,7 @@ class Zend_Gdata_Query
     }
 
     /**
-     * @return int startIndex
+     * @return SS_Int startIndex
      */
     public function getStartIndex()
     {

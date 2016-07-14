@@ -187,7 +187,7 @@ class SearchContext extends Object {
 	 * being included in the search expression.
 	 *
 	 * @param unknown_type $value
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function clearEmptySearchFields($value) {
 		return ($value != '');

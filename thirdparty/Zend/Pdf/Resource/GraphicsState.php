@@ -81,7 +81,7 @@ class Zend_Pdf_Resource_GraphicsState extends Zend_Pdf_Resource
      * Normal (default), Multiply, Screen, Overlay, Darken, Lighten, ColorDodge, ColorBurn, HardLight,
      * SoftLight, Difference, Exclusion
      *
-     * @param float $alpha
+     * @param SS_Float $alpha
      * @param string $mode
      * @throws Zend_Pdf_Exception
      * @return Zend_Pdf_Canvas_Interface

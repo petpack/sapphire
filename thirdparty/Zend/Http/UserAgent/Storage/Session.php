@@ -126,7 +126,7 @@ class Zend_Http_UserAgent_Storage_Session implements Zend_Http_UserAgent_Storage
     /**
      * Defined by Zend_Http_UserAgent_Storage
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isEmpty()
     {

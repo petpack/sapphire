@@ -125,14 +125,14 @@ class Zend_Locale
      * Defines if old behaviour should be supported
      * Old behaviour throws notices and will be deleted in future releases
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     public static $compatibilityMode = false;
 
     /**
      * Internal variable
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     private static $_breakChain = false;
 
@@ -253,7 +253,7 @@ class Zend_Locale
      * requested within HTTP
      *
      * @param  string|Zend_Locale $locale  Locale to set
-     * @param  float              $quality The quality to set from 0 to 1
+     * @param  SS_Float              $quality The quality to set from 0 to 1
      * @throws Zend_Locale_Exception When a autolocale was given
      * @throws Zend_Locale_Exception When a unknown locale was given
      * @return void
@@ -500,7 +500,7 @@ class Zend_Locale
      * Returns true if both locales are equal
      *
      * @param  Zend_Locale $object Locale to check for equality
-     * @return boolean
+     * @return SS_Boolean
      */
     public function equals(Zend_Locale $object)
     {
@@ -722,9 +722,9 @@ class Zend_Locale
      * "XX_yy" refers to "root", which returns false
      *
      * @param  string|Zend_Locale $locale     Locale to check for
-     * @param  boolean            $strict     (Optional) If true, no rerouting will be done when checking
-     * @param  boolean            $compatible (DEPRECIATED) Only for internal usage, brakes compatibility mode
-     * @return boolean If the locale is known dependend on the settings
+     * @param  SS_Boolean            $strict     (Optional) If true, no rerouting will be done when checking
+     * @param  SS_Boolean            $compatible (DEPRECIATED) Only for internal usage, brakes compatibility mode
+     * @return SS_Boolean If the locale is known dependend on the settings
      */
     public static function isLocale($locale, $strict = false, $compatible = true)
     {
@@ -843,7 +843,7 @@ class Zend_Locale
     /**
      * Returns true when a cache is set
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function hasCache()
     {
@@ -877,7 +877,7 @@ class Zend_Locale
      * Internal function, returns a single locale on detection
      *
      * @param  string|Zend_Locale $locale (Optional) Locale to work on
-     * @param  boolean            $strict (Optional) Strict preparation
+     * @param  SS_Boolean            $strict (Optional) Strict preparation
      * @throws Zend_Locale_Exception When no locale is set which is only possible when the class was wrong extended
      * @return string
      */

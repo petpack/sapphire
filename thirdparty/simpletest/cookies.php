@@ -34,9 +34,9 @@ class SimpleCookie {
      *    @param string $value           Value of cookie.
      *    @param string $path            Cookie path if not host wide.
      *    @param string $expiry          Expiry date as string.
-     *    @param boolean $is_secure      Currently ignored.
+     *    @param SS_Boolean $is_secure      Currently ignored.
      */
-    function SimpleCookie($name, $value = false, $path = false, $expiry = false, $is_secure = false) {
+    function __construct($name, $value = false, $path = false, $expiry = false, $is_secure = false) {
         $this->_host = false;
         $this->_name = $name;
         $this->_value = $value;
@@ -57,7 +57,7 @@ class SimpleCookie {
      *    new host does not match these rules then the
      *    call will fail.
      *    @param string $host       New hostname.
-     *    @return boolean           True if hostname is valid.
+     *    @return SS_Boolean           True if hostname is valid.
      *    @access public
      */
     function setHost($host) {
@@ -81,7 +81,7 @@ class SimpleCookie {
     /**
      *    Test for a cookie being valid for a host name.
      *    @param string $host    Host to test against.
-     *    @return boolean        True if the cookie would be valid
+     *    @return SS_Boolean        True if the cookie would be valid
      *                           here.
      */
     function isValidHost($host) {
@@ -138,7 +138,7 @@ class SimpleCookie {
      *    there. The test path must be longer or
      *    equal to the cookie path.
      *    @param string $path       Path to test against.
-     *    @return boolean           True if cookie valid here.
+     *    @return SS_Boolean           True if cookie valid here.
      *    @access public
      */
     function isValidPath($path) {
@@ -195,7 +195,7 @@ class SimpleCookie {
     
     /**
      *    Accessor for the secure flag.
-     *    @return boolean       True if cookie needs SSL.
+     *    @return SS_Boolean       True if cookie needs SSL.
      *    @access public
      */
     function isSecure() {
@@ -232,7 +232,7 @@ class SimpleCookieJar {
      *    Constructor. Jar starts empty.
      *    @access public
      */
-    function SimpleCookieJar() {
+    function __construct() {
         $this->_cookies = array();
     }
     
@@ -344,7 +344,7 @@ class SimpleCookieJar {
      *    @param string $path          Cookie path must be shorter than
      *                                 this path.
      *    @param string $name          Name must match.
-     *    @return boolean              True if matched.
+     *    @return SS_Boolean              True if matched.
      *    @access private
      */
     function _isMatch($cookie, $host, $path, $name) {

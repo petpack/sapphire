@@ -143,7 +143,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * Set the cache_dir (particular case of setOption() method)
      *
      * @param  string  $value
-     * @param  boolean $trailingSeparator If true, add a trailing separator is necessary
+     * @param  SS_Boolean $trailingSeparator If true, add a trailing separator is necessary
      * @throws Zend_Cache_Exception
      * @return void
      */
@@ -166,7 +166,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * Test if a cache is available for the given id and (if yes) return it (false else)
      *
      * @param string $id cache id
-     * @param boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
+     * @param SS_Boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
      * @return string|false cached datas
      */
     public function load($id, $doNotTestCacheValidity = false)
@@ -212,8 +212,8 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * @param  string $data             Datas to cache
      * @param  string $id               Cache id
      * @param  array  $tags             Array of strings, the cache record will be tagged by each string entry
-     * @param  int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
-     * @return boolean true if no problem
+     * @param  SS_Int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @return SS_Boolean true if no problem
      */
     public function save($data, $id, $tags = array(), $specificLifetime = false)
     {
@@ -253,7 +253,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * Remove a cache record
      *
      * @param  string $id cache id
-     * @return boolean true if no problem
+     * @return SS_Boolean true if no problem
      */
     public function remove($id)
     {
@@ -276,7 +276,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      *
      * @param string $mode clean mode
      * @param tags array $tags array of tags
-     * @return boolean true if no problem
+     * @return SS_Boolean true if no problem
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {
@@ -348,7 +348,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * Return the filling percentage of the backend storage
      *
      * @throws Zend_Cache_Exception
-     * @return int integer between 0 and 100
+     * @return SS_Int integer between 0 and 100
      */
     public function getFillingPercentage()
     {
@@ -395,8 +395,8 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * Give (if possible) an extra lifetime to the given cache id
      *
      * @param string $id cache id
-     * @param int $extraLifetime
-     * @return boolean true if ok
+     * @param SS_Int $extraLifetime
+     * @return SS_Boolean true if ok
      */
     public function touch($id, $extraLifetime)
     {
@@ -487,8 +487,8 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      *
      * @param  string $id        Cache id
      * @param  array  $metadatas Associative array of metadatas
-     * @param  boolean $save     optional pass false to disable saving to file
-     * @return boolean True if no problem
+     * @param  SS_Boolean $save     optional pass false to disable saving to file
+     * @return SS_Boolean True if no problem
      */
     private function _setMetadatas($id, $metadatas, $save = true)
     {
@@ -510,7 +510,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * Drop a metadata record
      *
      * @param  string $id Cache id
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     private function _delMetadatas($id)
     {
@@ -553,7 +553,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      *
      * @param  string $id        Cache id
      * @param  array  $metadatas Associative array
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     private function _saveMetadatas($id, $metadatas)
     {
@@ -582,7 +582,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * Check if the given filename is a metadatas one
      *
      * @param  string $fileName File name
-     * @return boolean True if it's a metadatas one
+     * @return SS_Boolean True if it's a metadatas one
      */
     private function _isMetadatasFile($fileName)
     {
@@ -601,7 +601,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * the file to invalidate it
      *
      * @param  string $file Complete file path
-     * @return boolean True if ok
+     * @return SS_Boolean True if ok
      */
     private function _remove($file)
     {
@@ -633,7 +633,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
      * @throws Zend_Cache_Exception
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     private function _clean($dir, $mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {
@@ -808,7 +808,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
     /**
      * Compute & return the expire time
      *
-     * @return int expire time (unix timestamp)
+     * @return SS_Int expire time (unix timestamp)
      */
     private function _expireTime($lifetime)
     {
@@ -872,7 +872,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * Return the complete directory path of a filename (including hashedDirectoryStructure)
      *
      * @param  string $id Cache id
-     * @param  boolean $parts if true, returns array of directory parts instead of single string
+     * @param  SS_Boolean $parts if true, returns array of directory parts instead of single string
      * @return string Complete directory path
      */
     private function _path($id, $parts = false)
@@ -898,7 +898,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * Make the directory strucuture for the given id
      *
      * @param string $id cache id
-     * @return boolean true
+     * @return SS_Boolean true
      */
     private function _recursiveMkdirAndChmod($id)
     {
@@ -919,8 +919,8 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      * Test if the given cache id is available (and still valid as a cache record)
      *
      * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
-     * @return boolean|mixed false (a cache is not available) or "last modified" timestamp (int) of the available cache record
+     * @param  SS_Boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @return SS_Boolean|mixed false (a cache is not available) or "last modified" timestamp (int) of the available cache record
      */
     private function _test($id, $doNotTestCacheValidity)
     {
@@ -946,9 +946,11 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
         if (!is_file($file)) {
             return false;
         }
-        if (function_exists('get_magic_quotes_runtime')) {
+        if (function_exists('get_magic_quotes_runtime') &&
+			version_compare(PHP_VERSION, '5.3.0', '<')) {
             $mqr = @get_magic_quotes_runtime();
-            @set_magic_quotes_runtime(0);
+            if (function_exists('set_magic_quotes_runtime'))
+                @set_magic_quotes_runtime(0);
         }
         $f = @fopen($file, 'rb');
         if ($f) {
@@ -957,7 +959,8 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
             if ($this->_options['file_locking']) @flock($f, LOCK_UN);
             @fclose($f);
         }
-        if (function_exists('set_magic_quotes_runtime')) {
+        if (function_exists('set_magic_quotes_runtime') &&
+			version_compare(PHP_VERSION, '5.3.0', '<')) {
             @set_magic_quotes_runtime($mqr);
         }
         return $result;
@@ -968,7 +971,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      *
      * @param  string $file   File complete path
      * @param  string $string String to put in file
-     * @return boolean true if no problem
+     * @return SS_Boolean true if no problem
      */
     private function _filePutContents($file, $string)
     {

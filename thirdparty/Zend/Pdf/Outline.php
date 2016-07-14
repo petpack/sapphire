@@ -36,7 +36,7 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     /**
      * True if outline is open.
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_open = false;
 
@@ -66,7 +66,7 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     /**
      * Returns true if outline item is open by default
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isOpen()
     {
@@ -76,7 +76,7 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     /**
      * Sets 'isOpen' outline flag
      *
-     * @param boolean $isOpen
+     * @param SS_Boolean $isOpen
      * @return Zend_Pdf_Outline
      */
     public function setIsOpen($isOpen)
@@ -88,14 +88,14 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     /**
      * Returns true if outline item is displayed in italic
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     abstract public function isItalic();
 
     /**
      * Sets 'isItalic' outline flag
      *
-     * @param boolean $isItalic
+     * @param SS_Boolean $isItalic
      * @return Zend_Pdf_Outline
      */
     abstract public function setIsItalic($isItalic);
@@ -103,14 +103,14 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     /**
      * Returns true if outline item is displayed in bold
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     abstract public function isBold();
 
     /**
      * Sets 'isBold' outline flag
      *
-     * @param boolean $isBold
+     * @param SS_Boolean $isBold
      * @return Zend_Pdf_Outline
      */
     abstract public function setIsBold($isBold);
@@ -273,7 +273,7 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
      * Returns dictionary indirect object or reference
      *
      * @param Zend_Pdf_ElementFactory    $factory object factory for newly created indirect objects
-     * @param boolean $updateNavigation  Update navigation flag
+     * @param SS_Boolean $updateNavigation  Update navigation flag
      * @param Zend_Pdf_Element $parent   Parent outline dictionary reference
      * @param Zend_Pdf_Element $prev     Previous outline dictionary reference
      * @param SplObjectStorage $processedOutlines  List of already processed outlines
@@ -329,7 +329,7 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     /**
      * Check if current position is valid
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function valid()
     {
@@ -364,7 +364,7 @@ abstract class Zend_Pdf_Outline implements RecursiveIterator, Countable
     /**
      * count()
      *
-     * @return int
+     * @return SS_Int
      */
     public function count()
     {

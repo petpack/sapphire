@@ -136,7 +136,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 
 	/**
 	 * If this is false, the class cannot be created in the CMS.
-	 * @var boolean
+	 * @var SS_Boolean
 	*/
 	static $can_create = true;
 
@@ -519,7 +519,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * Check if this page is in the given current section.
 	 *
 	 * @param string $sectionName Name of the section to check.
-	 * @return boolean True if we are in the given section.
+	 * @return SS_Boolean True if we are in the given section.
 	 */
 	public function InSection($sectionName) {
 		$page = Director::get_current_page();
@@ -596,7 +596,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * Duplicate this node and its children as a child of the node with the
 	 * given ID
 	 *
-	 * @param int $id ID of the new node's new parent
+	 * @param SS_Int $id ID of the new node's new parent
 	 */
 	public function duplicateAsChild($id) {
 		$newSiteTree = $this->duplicate();
@@ -609,10 +609,10 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * Return a breadcrumb trail to this page. Excludes "hidden" pages
 	 * (with ShowInMenus=0).
 	 *
-	 * @param int $maxDepth The maximum depth to traverse.
-	 * @param boolean $unlinked Do not make page names links
+	 * @param SS_Int $maxDepth The maximum depth to traverse.
+	 * @param SS_Boolean $unlinked Do not make page names links
 	 * @param string $stopAtPageType ClassName of a page to stop the upwards traversal.
-	 * @param boolean $showHidden Include pages marked with the attribute ShowInMenus = 0 
+	 * @param SS_Boolean $showHidden Include pages marked with the attribute ShowInMenus = 0 
 	 * @return string The breadcrumb trail.
 	 */
 	public function Breadcrumbs($maxDepth = 20, $unlinked = false, $stopAtPageType = false, $showHidden = false) {
@@ -644,7 +644,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * If the parent page does not exist, resolve it to a valid ID
 	 * before updating this page's reference.
 	 *
-	 * @param SiteTree|int $item Either the parent object, or the parent ID
+	 * @param SiteTree|SS_Int $item Either the parent object, or the parent ID
 	 */
 	public function setParent($item) {
 		if(is_object($item)) {
@@ -670,7 +670,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * Return a string of the form "parent - page" or
 	 * "grandparent - parent - page".
 	 *
-	 * @param int $level The maximum amount of levels to traverse.
+	 * @param SS_Int $level The maximum amount of levels to traverse.
 	 * @param string $seperator Seperating string
 	 * @return string The resulting string
 	 */
@@ -700,7 +700,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * @param Member $member The member whose permissions need checking.
 	 *                       Defaults to the currently logged in user.
 	 *
-	 * @return boolean True if the the member is allowed to do the given
+	 * @return SS_Boolean True if the the member is allowed to do the given
 	 *                 action.
 	 *
 	 * @todo Check we get a endless recursion if we use parent::can()
@@ -738,7 +738,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * @uses canEdit()
 	 * @uses $allowed_children
 	 *
-	 * @return boolean True if the current user can add children.
+	 * @return SS_Boolean True if the current user can add children.
 	 */
 	public function canAddChildren($member = null) {
 		if(!$member || !(is_a($member, 'Member')) || is_numeric($member)) {
@@ -769,7 +769,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * @uses DataObjectDecorator->canView()
 	 * @uses ViewerGroups()
 	 *
-	 * @return boolean True if the current user can view this page.
+	 * @return SS_Boolean True if the current user can view this page.
 	 */
 	public function canView($member = null) {
 		if(!$member || !(is_a($member, 'Member')) || is_numeric($member)) {
@@ -823,7 +823,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * @uses canEdit()
 	 *
 	 * @param Member $member
-	 * @return boolean True if the current user can delete this page.
+	 * @return SS_Boolean True if the current user can delete this page.
 	 */
 	public function canDelete($member = null) {
 		if($member instanceof Member) $memberID = $member->ID;
@@ -866,7 +866,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * @uses DataObjectDecorator->canCreate()
 	 *
 	 * @param Member $member
-	 * @return boolean True if the current user can create pages on this class.
+	 * @return SS_Boolean True if the current user can create pages on this class.
 	 */
 	public function canCreate($member = null) {
 		if(!$member || !(is_a($member, 'Member')) || is_numeric($member)) {
@@ -900,7 +900,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * @uses DataObjectDecorator->canEdit()
 	 *
 	 * @param Member $member Set to FALSE if you want to explicitly test permissions without a valid user (useful for unit tests)
-	 * @return boolean True if the current user can edit this page.
+	 * @return SS_Boolean True if the current user can edit this page.
 	 */
 	public function canEdit($member = null) {
 		if($member instanceof Member) $memberID = $member->ID;
@@ -944,7 +944,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * @uses SiteTreeDecorator->canPublish()
 	 *
 	 * @param Member $member
-	 * @return boolean True if the current user can publish this page.
+	 * @return SS_Boolean True if the current user can publish this page.
 	 */
 	public function canPublish($member = null) {
 		if(!$member || !(is_a($member, 'Member')) || is_numeric($member)) $member = Member::currentUser();
@@ -1232,8 +1232,8 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * 
 	 * @todo Move <title> tag in separate getter for easier customization and more obvious usage
 	 * 
-	 * @param boolean|string $includeTitle Show default <title>-tag, set to false for custom templating
-	 * @param boolean $includeTitle Show default <title>-tag, set to false for
+	 * @param SS_Boolean|string $includeTitle Show default <title>-tag, set to false for custom templating
+	 * @param SS_Boolean $includeTitle Show default <title>-tag, set to false for
 	 *                              custom templating
 	 * @return string The XHTML metatags
 	 */
@@ -1652,7 +1652,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 *
 	 * @return FieldSet The fields to be displayed in the CMS.
 	 */
-	function getCMSFields() {
+	function getCMSFields($params = null) {
 		require_once("forms/Form.php");
 		Requirements::javascript(SAPPHIRE_DIR . "/thirdparty/prototype/prototype.js");
 		Requirements::javascript(SAPPHIRE_DIR . "/thirdparty/behaviour/behaviour.js");
@@ -1905,7 +1905,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	
 	/**
 	 *
-	 * @param boolean $includerelations a boolean value to indicate if the labels returned include relation fields
+	 * @param SS_Boolean $includerelations a boolean value to indicate if the labels returned include relation fields
 	 * 
 	 */
 	function fieldLabels($includerelations = true) {
@@ -2211,7 +2211,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * Check if this page is new - that is, if it has yet to have been written
 	 * to the database.
 	 *
-	 * @return boolean True if this page is new.
+	 * @return SS_Boolean True if this page is new.
 	 */
 	function isNew() {
 		/**
@@ -2231,7 +2231,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	/**
 	 * Check if this page has been published.
 	 *
-	 * @return boolean True if this page has been published.
+	 * @return SS_Boolean True if this page has been published.
 	 */
 	function isPublished() {
 		if($this->isNew())
@@ -2472,7 +2472,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * and returns TRUE if no draft version of this page exists,
 	 * but the page is still published (after triggering "Delete from draft site" in the CMS).
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function getIsDeletedFromStage() {
 		if(!$this->ID) return true;
@@ -2496,7 +2496,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * and returns TRUE if these versions differ,
 	 * meaning there have been unpublished changes to the draft site.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function getIsModifiedOnStage() {
 		// new unsaved pages could be never be published
@@ -2513,7 +2513,7 @@ class SiteTree extends DataObject implements PermissionProvider,i18nEntityProvid
 	 * and returns true if no live version exists,
 	 * meaning the page was never published.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function getIsAddedToStage() {
 		// new unsaved pages could be never be published

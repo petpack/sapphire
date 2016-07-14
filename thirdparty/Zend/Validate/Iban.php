@@ -172,7 +172,7 @@ class Zend_Validate_Iban extends Zend_Validate_Abstract
      * Returns true if $value is a valid IBAN
      *
      * @param  string $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

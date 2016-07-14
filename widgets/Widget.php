@@ -34,7 +34,7 @@ class Widget extends DataObject {
 	static $cmsTitle = "Name of this widget";
 	static $description = "Description of what this widget does.";
 	
-	function getCMSFields() {
+	function getCMSFields($params = null) {
 		$fields = new FieldSet();
 		$this->extend('updateCMSFields', $fields);
 		return $fields;
@@ -94,8 +94,8 @@ class Widget extends DataObject {
 			$name = $field->Name();
 			$field->setValue($this->getField($name));
 			$renderedField = $field->FieldHolder();
-			$renderedField = ereg_replace("name=\"([A-Za-z0-9\-_]+)\"", "name=\"Widget[" . $this->ID . "][\\1]\"", $renderedField);
-			$renderedField = ereg_replace("id=\"([A-Za-z0-9\-_]+)\"", "id=\"Widget[" . $this->ID . "][\\1]\"", $renderedField);
+			$renderedField = preg_replace("/name=\"([A-Za-z0-9\-_]+)\"/", "name=\"Widget[" . $this->ID . "][\\1]\"", $renderedField);
+			$renderedField = preg_replace("/id=\"([A-Za-z0-9\-_]+)\"/", "id=\"Widget[" . $this->ID . "][\\1]\"", $renderedField);
 			$output .= $renderedField;
 		}
 		return $output;

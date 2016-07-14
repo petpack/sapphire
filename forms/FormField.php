@@ -48,7 +48,7 @@ class FormField extends RequestHandler {
 	/**
 	 * Set the "tabindex" HTML attribute on the field.
 	 *
-	 * @var int
+	 * @var SS_Int
 	 */
 	protected $tabIndex;
 
@@ -59,12 +59,12 @@ class FormField extends RequestHandler {
 	protected $containerFieldSet;
 	
 	/**
-	 * @var $readonly boolean
+	 * @var $readonly SS_Boolean
 	 */
 	protected $readonly = false;
 
 	/**
-	 * @var $disabled boolean
+	 * @var $disabled SS_Boolean
 	 */
 	protected $disabled = false;
 	
@@ -104,7 +104,7 @@ class FormField extends RequestHandler {
 	 * that this ID is included in the field.
 	 */
 	function id() { 
-		$name = ereg_replace('(^-)|(-$)','',ereg_replace('[^A-Za-z0-9_-]+','-',$this->name));
+		$name = preg_replace('/(^-)|(-$)/','',preg_replace('/[^A-Za-z0-9_-]+/','-',$this->name));
 		if($this->form) return $this->form->FormName() . '_' . $name;
 		else return $name;
 	}
@@ -199,7 +199,7 @@ class FormField extends RequestHandler {
 	 * Set tabindex HTML attribute
 	 * (defaults to none).
 	 *
-	 * @param int $index
+	 * @param SS_Int $index
 	 */
 	public function setTabIndex($index) {
 		$this->tabIndex = $index;
@@ -208,7 +208,7 @@ class FormField extends RequestHandler {
 	/**
 	 * Get tabindex (if previously set)
 	 *
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function getTabIndex() {
 		return $this->tabIndex;
@@ -217,7 +217,7 @@ class FormField extends RequestHandler {
 	/**
 	 * Get tabindex HTML string
 	 *
-	 * @param int $increment Increase current tabindex by this value
+	 * @param SS_Int $increment Increase current tabindex by this value
 	 * @return string
 	 */
 	protected function getTabIndexHTML($increment = 0) {
@@ -457,7 +457,7 @@ HTML;
 	function hasData() { return true; }
 
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function isReadonly() { 
 		return $this->readonly; 
@@ -466,14 +466,14 @@ HTML;
 	/**
 	 * Sets readonly-flag on form-field. Please use performReadonlyTransformation()
 	 * to actually transform this instance.
-	 * @param $bool boolean Setting "false" has no effect on the field-state.
+	 * @param $bool SS_Boolean Setting "false" has no effect on the field-state.
 	 */
 	function setReadonly($bool) { 
 		$this->readonly = $bool; 
 	}
 	
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function isDisabled() { 
 		return $this->disabled; 
@@ -482,7 +482,7 @@ HTML;
 	/**
 	 * Sets disabed-flag on form-field. Please use performDisabledTransformation()
 	 * to actually transform this instance.
-	 * @param $bool boolean Setting "false" has no effect on the field-state.
+	 * @param $bool SS_Boolean Setting "false" has no effect on the field-state.
 	 */
 	function setDisabled($bool) { 
 		$this->disabled = $bool; 
@@ -501,7 +501,7 @@ HTML;
 	/**
 	 * Return a disabled version of this field
 	 */
-	function performDisabledTransformation() {
+	function performDisabledTransformation($trans) {
 		$clone = clone $this;
 		$disabledClassName = $clone->class . '_Disabled';
 		if( ClassInfo::exists( $disabledClassName ) )
@@ -529,7 +529,7 @@ HTML;
 	 * The field type is the class name with the word Field dropped off the end, all lowercase.
 	 * It's handy for assigning HTML classes.
 	 */
-	function Type() {return strtolower(ereg_replace('Field$','',$this->class)); }
+	function Type() {return strtolower(preg_replace('/Field$/','',$this->class)); }
 	
 	/**
 	 * Construct and return HTML tag.
@@ -562,7 +562,7 @@ HTML;
 	 * 
 	 * @todo shouldn't this be an abstract method?
 	 */
-	function validate() {
+	function validate($validator) {
 		return true;
 	}
 
@@ -590,7 +590,7 @@ HTML;
 	
 	/**
 	 * @uses Validator->fieldIsRequired()
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function Required() {
 		if($this->form && ($validator = $this->form->Validator)) {

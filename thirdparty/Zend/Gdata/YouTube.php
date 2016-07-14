@@ -269,7 +269,7 @@ class Zend_Gdata_YouTube extends Zend_Gdata_Media
      * @param mixed $videoId The ID of the video to retrieve.
      * @param mixed $location (optional) The URL to query or a
      *         Zend_Gdata_Query object from which a URL can be determined.
-     * @param boolean $fullEntry (optional) Retrieve the full metadata for the
+     * @param SS_Boolean $fullEntry (optional) Retrieve the full metadata for the
      *         entry. Only possible if entry belongs to currently authenticated
      *         user. An exception will be thrown otherwise.
      * @throws Zend_Gdata_App_HttpException

@@ -121,7 +121,8 @@ HTML;
 	 * Calls function $record->onChange($items) before saving to the assummed 
 	 * Component set.
 	 */
-	function saveInto(DataObject $record) {
+	function saveInto(DataObjectInterface $record) {
+		// @fixme: is this right?
 		// Detect whether this field has actually been updated
 		if($this->value !== 'unchanged') {
 			$items = array();

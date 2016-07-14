@@ -115,7 +115,7 @@ class Zend_Memory_Container_Movable extends Zend_Memory_Container {
     /**
      * Return true if object is locked
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isLocked()
     {
@@ -263,7 +263,7 @@ class Zend_Memory_Container_Movable extends Zend_Memory_Container {
      * Check if object is marked as swapped
      *
      * @internal
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isSwapped()
     {

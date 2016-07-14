@@ -109,7 +109,7 @@ class Zend_Cache_Core
     /**
      * True if the backend implements Zend_Cache_Backend_ExtendedInterface
      *
-     * @var boolean $_extendedBackend
+     * @var SS_Boolean $_extendedBackend
      */
     protected $_extendedBackend = false;
 
@@ -241,7 +241,7 @@ class Zend_Cache_Core
      *
      * The new value is set for the core/frontend but for the backend too (directive)
      *
-     * @param  int $newLifetime New lifetime (in seconds)
+     * @param  SS_Int $newLifetime New lifetime (in seconds)
      * @return void
      */
     public function setLifetime($newLifetime)
@@ -256,8 +256,8 @@ class Zend_Cache_Core
      * Test if a cache is available for the given id and (if yes) return it (false else)
      *
      * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
-     * @param  boolean $doNotUnserialize       Do not serialize (even if automatic_serialization is true) => for internal use
+     * @param  SS_Boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  SS_Boolean $doNotUnserialize       Do not serialize (even if automatic_serialization is true) => for internal use
      * @return mixed|false Cached datas
      */
     public function load($id, $doNotTestCacheValidity = false, $doNotUnserialize = false)
@@ -284,7 +284,7 @@ class Zend_Cache_Core
      * Test if a cache is available for the given id
      *
      * @param  string $id Cache id
-     * @return boolean True is a cache is available, false else
+     * @return SS_Boolean True is a cache is available, false else
      */
     public function test($id)
     {
@@ -303,10 +303,10 @@ class Zend_Cache_Core
      * @param  mixed $data           Data to put in cache (can be another type than string if automatic_serialization is on)
      * @param  string $id             Cache id (if not set, the last cache id will be used)
      * @param  array $tags           Cache tags
-     * @param  int $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
-     * @param  int   $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
+     * @param  SS_Int $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @param  SS_Int   $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
      * @throws Zend_Cache_Exception
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     public function save($data, $id = null, $tags = array(), $specificLifetime = false, $priority = 8)
     {
@@ -383,7 +383,7 @@ class Zend_Cache_Core
      * Remove a cache
      *
      * @param  string $id Cache id to remove
-     * @return boolean True if ok
+     * @return SS_Boolean True if ok
      */
     public function remove($id)
     {
@@ -411,7 +411,7 @@ class Zend_Cache_Core
      * @param  string       $mode
      * @param  array|string $tags
      * @throws Zend_Cache_Exception
-     * @return boolean True if ok
+     * @return SS_Boolean True if ok
      */
     public function clean($mode = 'all', $tags = array())
     {
@@ -510,7 +510,7 @@ class Zend_Cache_Core
     /**
      * Return the filling percentage of the backend storage
      *
-     * @return int integer between 0 and 100
+     * @return SS_Int integer between 0 and 100
      */
     public function getFillingPercentage()
     {
@@ -524,8 +524,8 @@ class Zend_Cache_Core
      * Give (if possible) an extra lifetime to the given cache id
      *
      * @param string $id cache id
-     * @param int $extraLifetime
-     * @return boolean true if ok
+     * @param SS_Int $extraLifetime
+     * @return SS_Boolean true if ok
      */
     public function touch($id, $extraLifetime)
     {

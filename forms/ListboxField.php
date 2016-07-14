@@ -29,7 +29,7 @@ class ListboxField extends DropdownField {
 
 	/**
 	 * The size of the field in rows.
-	 * @var int
+	 * @var SS_Int
 	 */
 	protected $size;
 
@@ -37,7 +37,7 @@ class ListboxField extends DropdownField {
 	 * Should the user be able to select multiple
 	 * items on this dropdown field?
 	 * 
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected $multiple = false;
 	
@@ -48,7 +48,7 @@ class ListboxField extends DropdownField {
 	 * @param string $title The field title
 	 * @param array $source An map of the dropdown items
 	 * @param string|array $value You can pass an array of values or a single value like a drop down to be selected
-	 * @param int $size Optional size of the select element
+	 * @param SS_Int $size Optional size of the select element
 	 * @param form The parent form
 	 */
 	function __construct($name, $title = '', $source = array(), $value = '', $size = null, $multiple = false, $form = null) {
@@ -102,7 +102,7 @@ class ListboxField extends DropdownField {
 	
 	/** 
 	 * Sets the size of this dropdown in rows.
-	 * @param int $size The height in rows (e.g. 3)
+	 * @param SS_Int $size The height in rows (e.g. 3)
 	 */
 	function setSize($size) {
 		$this->size = $size;
@@ -110,7 +110,7 @@ class ListboxField extends DropdownField {
 	
 	/** 
 	 * Sets this field to have a muliple select attribute
-	 * @param boolean $bool
+	 * @param SS_Boolean $bool
 	 */
 	function setMultiple($bool) {
 		$this->multiple = $bool;

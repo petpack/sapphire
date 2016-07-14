@@ -37,7 +37,7 @@ class Zend_Pdf_Element_Boolean extends Zend_Pdf_Element
     /**
      * Object value
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     public $value;
 
@@ -45,7 +45,7 @@ class Zend_Pdf_Element_Boolean extends Zend_Pdf_Element
     /**
      * Object constructor
      *
-     * @param boolean $val
+     * @param SS_Boolean $val
      * @throws Zend_Pdf_Exception
      */
     public function __construct($val)

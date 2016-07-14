@@ -498,7 +498,7 @@ class Zend_Locale_Format
      *
      * @param   string  $input    Localized number string
      * @param   array   $options  Options: locale. See {@link setOptions()} for details.
-     * @return  boolean           Returns true if a number was found
+     * @return  SS_Boolean           Returns true if a number was found
      */
     public static function isNumber($input, array $options = array())
     {
@@ -524,7 +524,7 @@ class Zend_Locale_Format
      *
      * @param   string  $value    Number to localize
      * @param   array   $options  Options: locale, precision. See {@link setOptions()} for details.
-     * @return  float
+     * @return  SS_Float
      */
     public static function getFloat($input, array $options = array())
     {
@@ -551,7 +551,7 @@ class Zend_Locale_Format
      *
      * @param   string  $input    Localized number string
      * @param   array   $options  Options: locale. See {@link setOptions()} for details.
-     * @return  boolean           Returns true if a number was found
+     * @return  SS_Boolean           Returns true if a number was found
      */
     public static function isFloat($value, array $options = array())
     {
@@ -599,7 +599,7 @@ class Zend_Locale_Format
      *
      * @param   string  $input    Localized number string
      * @param   array   $options  Options: locale. See {@link setOptions()} for details.
-     * @return  boolean           Returns true if a integer was found
+     * @return  SS_Boolean           Returns true if a integer was found
      */
     public static function isInteger($value, array $options = array())
     {
@@ -930,7 +930,7 @@ class Zend_Locale_Format
      * @param  string  $number     Date string (modified)
      * @param  array   $monthlist  List of month names
      *
-     * @return int|false           Position of replaced string (false if nothing replaced)
+     * @return SS_Int|false           Position of replaced string (false if nothing replaced)
      */
     protected static function _replaceMonth(&$number, $monthlist)
     {
@@ -997,7 +997,7 @@ class Zend_Locale_Format
      *
      * @param   string  $date     Date string
      * @param   array   $options  Options: format_type, fix_date, locale, date_format. See {@link setOptions()} for details.
-     * @return  boolean
+     * @return  SS_Boolean
      */
     public static function checkDateFormat($date, array $options = array())
     {

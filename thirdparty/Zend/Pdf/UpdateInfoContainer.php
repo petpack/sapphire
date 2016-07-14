@@ -47,7 +47,7 @@ class Zend_Pdf_UpdateInfoContainer
     /**
      * Flag, which signals, that object is free
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     private $_isFree;
 
@@ -103,7 +103,7 @@ class Zend_Pdf_UpdateInfoContainer
     /**
      * Check, that object is free
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isFree()
     {

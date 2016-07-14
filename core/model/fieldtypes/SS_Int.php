@@ -5,7 +5,7 @@
  * @package sapphire
  * @subpackage model
  */
-class Int extends DBField {
+class SS_Int extends DBField {
 
 	function __construct($name, $defaultVal = 0) {
 		$this->defaultVal = is_int($defaultVal) ? $defaultVal : 0;

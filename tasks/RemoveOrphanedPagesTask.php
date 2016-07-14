@@ -318,7 +318,7 @@ in the other stage:<br />
 	 * @param string $filter
 	 * @param string $sort
 	 * @param string $join
-	 * @param int|array $limit
+	 * @param SS_Int|array $limit
 	 * @return DataObjectSet
 	 */
 	function getOrphanedPages($class = 'SiteTree', $filter = '', $sort = null, $join = null, $limit = null) {

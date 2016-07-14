@@ -30,7 +30,7 @@ class Filesystem extends Object {
 	 * Remove a directory and all subdirectories and files.
 	 * 
 	 * @param String $folder Absolute folder path
-	 * @param Boolean $contentsOnly If this is true then the contents of the folder will be removed but not the folder itself
+	 * @param SS_Boolean $contentsOnly If this is true then the contents of the folder will be removed but not the folder itself
 	 */
 	static function removeFolder($folder, $contentsOnly = false) {
 
@@ -105,7 +105,7 @@ class Filesystem extends Object {
 	 * Works on Linux and Windows.
 	 * 
 	 * @param String $filename Absolute or relative filename, with or without path.
-	 * @return Boolean
+	 * @return SS_Boolean
 	 */
 	static function isAbsolute($filename) {
 		if($_ENV['OS'] == "Windows_NT" || $_SERVER['WINDIR']) return $filename[1] == ':' && $filename[2] == '/';
@@ -122,7 +122,7 @@ class Filesystem extends Object {
 	 * See {@link File->updateFilesystem()} to sync properties of a single database record 
 	 * back to the equivalent filesystem record.
 	 * 
-	 * @param int $folderID Folder ID to sync along with all it's children
+	 * @param SS_Int $folderID Folder ID to sync along with all it's children
 	 */
 	static function sync($folderID = null) {
 		$folder = DataObject::get_by_id('Folder', (int) $folderID);

@@ -16,7 +16,7 @@
 class Minify_Source {
 
     /**
-     * @var int time of last modification
+     * @var SS_Int time of last modification
      */
     public $lastModified = null;
     

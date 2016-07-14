@@ -5,7 +5,7 @@
  * @package sapphire
  * @subpackage model
  */
-class Float extends DBField {
+class SS_Float extends DBField {
 
 	function __construct($name, $defaultVal = 0) {
 		$this->defaultVal = is_float($defaultVal) ? $defaultVal : (float) 0;

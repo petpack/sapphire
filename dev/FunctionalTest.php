@@ -155,7 +155,7 @@ class FunctionalTest extends SapphireTest {
 	 * @param string $selector A basic CSS selector, e.g. 'li.jobs h3'
 	 * @param array|string $expectedMatches The content of at least one of the matched tags
 	 * @throws PHPUnit_Framework_AssertionFailedError
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function assertPartialMatchBySelector($selector, $expectedMatches) {
 		if(is_string($expectedMatches)) $expectedMatches = array($expectedMatches);
@@ -188,7 +188,7 @@ class FunctionalTest extends SapphireTest {
 	 * @param string $selector A basic CSS selector, e.g. 'li.jobs h3'
 	 * @param array|string $expectedMatches The content of *all* matching tags as an array
 	 * @throws PHPUnit_Framework_AssertionFailedError
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function assertExactMatchBySelector($selector, $expectedMatches) {
 		if(is_string($expectedMatches)) $expectedMatches = array($expectedMatches);
@@ -219,7 +219,7 @@ class FunctionalTest extends SapphireTest {
 	 * @param string $selector A basic CSS selector, e.g. 'li.jobs h3'
 	 * @param array|string $expectedMatches The content of at least one of the matched tags
 	 * @throws PHPUnit_Framework_AssertionFailedError
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function assertPartialHTMLMatchBySelector($selector, $expectedMatches) {
 		if(is_string($expectedMatches)) $expectedMatches = array($expectedMatches);
@@ -252,7 +252,7 @@ class FunctionalTest extends SapphireTest {
 	 * @param string $selector A basic CSS selector, e.g. 'li.jobs h3'
 	 * @param array|string $expectedMatches The content of *all* matched tags as an array
 	 * @throws PHPUnit_Framework_AssertionFailedError
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function assertExactHTMLMatchBySelector($selector, $expectedMatches) {
 		$items = $this->cssParser()->getBySelector($selector);

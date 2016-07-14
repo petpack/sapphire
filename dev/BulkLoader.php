@@ -119,7 +119,7 @@ abstract class BulkLoader extends ViewableData {
 	public $duplicateChecks = array();
 	
 	/**
-	 * @var Boolean $clearBeforeImport Delete ALL records before importing.
+	 * @var SS_Boolean $clearBeforeImport Delete ALL records before importing.
 	 */
 	public $deleteExistingRecords = false;
 	
@@ -172,7 +172,7 @@ abstract class BulkLoader extends ViewableData {
 	 * Process every record in the file
 	 * 
 	 * @param string $filepath Absolute path to the file we're importing (with UTF8 content)
-	 * @param boolean $preview If true, we'll just output a summary of changes but not actually do anything
+	 * @param SS_Boolean $preview If true, we'll just output a summary of changes but not actually do anything
 	 * @return BulkLoader_Result A collection of objects which are either created, updated or deleted.
 	 * 'message': free-text string that can optionally provide some more information about what changes have
 	 */
@@ -185,7 +185,7 @@ abstract class BulkLoader extends ViewableData {
 	 * @param array $record An map of the data, keyed by the header field defined in {@link self::$columnMap}
 	 * @param array $columnMap
 	 * @param $result BulkLoader_Result (passed as reference)
-	 * @param boolean $preview
+	 * @param SS_Boolean $preview
 	 */
 	abstract protected function processRecord($record, $columnMap, &$result, $preview = false);
 	
@@ -246,7 +246,7 @@ abstract class BulkLoader extends ViewableData {
 	 *
 	 * @param mixed $val
 	 * @param string $field Name of the field as specified in the array-values for {@link self::$columnMap}.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	protected function isNullValue($val, $fieldName = null) {
 		return (empty($val) && $val !== '0');
@@ -303,28 +303,28 @@ class BulkLoader_Result extends Object {
 	 * Returns the count of all objects which were
 	 * created or updated.
 	 *
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function Count() {
 		return count($this->created) + count($this->updated);
 	}
 	
 	/**
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function CreatedCount() {
 		return count($this->created);
 	}
 	
 	/**
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function UpdatedCount() {
 		return count($this->updated);
 	}
 	
 	/**
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function DeletedCount() {
 		return count($this->deleted);

@@ -286,9 +286,9 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
     /**
      * Updates an existing cell.
      *
-     * @param int $row The row containing the cell to update
-     * @param int $col The column containing the cell to update
-     * @param int $inputValue The new value for the cell
+     * @param SS_Int $row The row containing the cell to update
+     * @param SS_Int $col The column containing the cell to update
+     * @param SS_Int $inputValue The new value for the cell
      * @param string $key The key for the spreadsheet to be updated
      * @param string $wkshtId (optional) The worksheet to be updated
      * @return CellEntry The updated cell entry.
@@ -397,7 +397,7 @@ class Zend_Gdata_Spreadsheets extends Zend_Gdata
      *
      * @param mixed $location A CellQuery, WorksheetEntry or a URL (w/o query string) specifying the feed location.
      * @param string $range The range of cells to retrieve
-     * @param boolean $empty Whether to retrieve empty cells
+     * @param SS_Boolean $empty Whether to retrieve empty cells
      * @return array An associative array of cells
      */
     public function getSpreadsheetCellFeedContents($location, $range = null, $empty = false)

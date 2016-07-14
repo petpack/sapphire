@@ -66,19 +66,19 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
 
     /**
      * Flag indicating whether or not this font is bold.
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_isBold = false;
 
     /**
      * Flag indicating whether or not this font is italic.
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_isItalic = false;
 
     /**
      * Flag indicating whether or not this font is monospaced.
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_isMonospace = false;
 
@@ -266,7 +266,7 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
     /**
      * Returns true if font is bold.
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isBold()
     {
@@ -276,7 +276,7 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
     /**
      * Returns true if font is italic.
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isItalic()
     {
@@ -286,7 +286,7 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
     /**
      * Returns true if font is monospace.
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isMonospace()
     {
@@ -456,7 +456,7 @@ abstract class Zend_Pdf_Resource_Font extends Zend_Pdf_Resource
      * @param string $string
      * @param string $charEncoding (optional) Character encoding of source text.
      *   If omitted, uses 'current locale'.
-     * @return float
+     * @return SS_Float
      */
     abstract public function getCoveredPercentage($string, $charEncoding = '');
 

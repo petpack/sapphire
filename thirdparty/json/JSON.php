@@ -117,7 +117,7 @@ class Services_JSON
    /**
     * constructs a new JSON instance
     *
-    * @param    int     $use    object behavior flags; combine with boolean-OR
+    * @param    SS_Int     $use    object behavior flags; combine with boolean-OR
     *
     *                           possible values:
     *                           - SERVICES_JSON_LOOSE_TYPE:  loose typing.
@@ -130,7 +130,7 @@ class Services_JSON
     *                                   bubble up with an error, so all return values
     *                                   from encode() should be checked with isError()
     */
-    function Services_JSON($use = 0)
+    function __construct($use = 0)
     {
         $this->use = $use;
     }

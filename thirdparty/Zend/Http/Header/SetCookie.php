@@ -78,7 +78,7 @@ class Zend_Http_Header_SetCookie
     /**
      * Cookie expiry date
      *
-     * @var int
+     * @var SS_Int
      */
     protected $expires = null;
 
@@ -99,7 +99,7 @@ class Zend_Http_Header_SetCookie
     /**
      * Whether the cookie is secure or not
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $secure = null;
 
@@ -172,13 +172,13 @@ class Zend_Http_Header_SetCookie
      *
      * @param string $name
      * @param string $value
-     * @param int $expires
+     * @param SS_Int $expires
      * @param string $path
      * @param string $domain
      * @param bool $secure
      * @param bool $httponly
      * @param string $maxAge
-     * @param int $version
+     * @param SS_Int $version
      * @return SetCookie
      */
     public function __construct($name = null, $value = null, $expires = null, $path = null, $domain = null, $secure = false, $httponly = false, $maxAge = null, $version = null)
@@ -370,7 +370,7 @@ class Zend_Http_Header_SetCookie
     }
 
     /**
-     * @param int $expires
+     * @param SS_Int $expires
      * @return SetCookie
      */
     public function setExpires($expires)
@@ -387,7 +387,7 @@ class Zend_Http_Header_SetCookie
     }
 
     /**
-     * @return int
+     * @return SS_Int
      */
     public function getExpires($inSeconds = false)
     {
@@ -435,7 +435,7 @@ class Zend_Http_Header_SetCookie
     }
 
     /**
-     * @param boolean $secure
+     * @param SS_Boolean $secure
      */
     public function setSecure($secure)
     {
@@ -444,7 +444,7 @@ class Zend_Http_Header_SetCookie
     }
 
     /**
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isSecure()
     {
@@ -473,8 +473,8 @@ class Zend_Http_Header_SetCookie
      *
      * Always returns false if the cookie is a session cookie (has no expiry time)
      *
-     * @param int $now Timestamp to consider as "now"
-     * @return boolean
+     * @param SS_Int $now Timestamp to consider as "now"
+     * @return SS_Boolean
      */
     public function isExpired($now = null)
     {
@@ -492,7 +492,7 @@ class Zend_Http_Header_SetCookie
     /**
      * Check whether the cookie is a session cookie (has no expiry time set)
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isSessionCookie()
     {

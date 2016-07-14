@@ -76,7 +76,7 @@ class MemoryLimitTest extends SapphireTest {
 	 * Determines wether the environment generally allows
 	 * to change the memory limits, which is not always the case.
 	 * 
-	 * @return Boolean
+	 * @return SS_Boolean
 	 */
 	protected function canChangeMemory() {
 		$exts = get_loaded_extensions();

@@ -19,7 +19,7 @@ class Requirements {
 	
 	/**
 	 * Enable combining of css/javascript files.
-	 * @param boolean $enable
+	 * @param SS_Boolean $enable
 	 */
 	public static function set_combined_files_enabled($enable) {
 		self::backend()->set_combined_files_enabled($enable);
@@ -27,7 +27,7 @@ class Requirements {
 
 	/**
 	 * Checks whether combining of css/javascript files is enabled.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public static function get_combined_files_enabled() {
 	  return self::backend()->get_combined_files_enabled();
@@ -136,7 +136,7 @@ class Requirements {
 	 * See {@link Requirements_Backend::customCSS()}
 	 *
 	 * @param string $script CSS selectors as a string (without <style> tag enclosing selectors).
-	 * @param int $uniquenessID Group CSS by a unique ID as to avoid duplicate custom CSS in header
+	 * @param SS_Int $uniquenessID Group CSS by a unique ID as to avoid duplicate custom CSS in header
 	 */
 	static function customCSS($script, $uniquenessID = null) {
 		self::backend()->customCSS($script, $uniquenessID);
@@ -352,7 +352,7 @@ class Requirements_Backend {
 	/**
 	 * Enable combining of css/javascript files.
 	 *
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected $combined_files_enabled = true;
 
@@ -424,7 +424,7 @@ class Requirements_Backend {
 	 * Using the Minify library to minify any
 	 * CSS file passed to {@link combine_files()}.
 	 *
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public $combine_css_with_minify = true;
 
@@ -432,7 +432,7 @@ class Requirements_Backend {
 	 * Using the JSMin library to minify any
 	 * javascript file passed to {@link combine_files()}.
 	 *
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public $combine_js_with_jsmin = true;
 
@@ -453,7 +453,7 @@ class Requirements_Backend {
 	 *
 	 * @see http://developer.yahoo.com/performance/rules.html#js_bottom
 	 *
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public $write_js_to_body = true;
 
@@ -569,7 +569,7 @@ class Requirements_Backend {
 	 * Include custom CSS styling to the header of the page.
 	 *
 	 * @param string $script CSS selectors as a string (without <style> tag enclosing selectors).
-	 * @param int $uniquenessID Group CSS by a unique ID as to avoid duplicate custom CSS in header
+	 * @param SS_Int $uniquenessID Group CSS by a unique ID as to avoid duplicate custom CSS in header
 	 */
 	function customCSS($script, $uniquenessID = null) {
 		if($uniquenessID) $this->customCSS[$uniquenessID] = $script;
@@ -823,7 +823,7 @@ class Requirements_Backend {
 	 * Finds the path for specified file.
 	 *
 	 * @param string $fileOrUrl
-	 * @return string|boolean
+	 * @return string|SS_Boolean
 	 */
 	protected function path_for_file($fileOrUrl) {
 		if(preg_match('/^http[s]?/', $fileOrUrl)) {

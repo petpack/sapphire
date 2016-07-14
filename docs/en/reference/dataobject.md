@@ -18,7 +18,7 @@ which returns a `[api:FieldSet]`''.
 	:::php
 	class MyPage extends Page {
 	  function getCMSFields() {
-	    $fields = parent::getCMSFields();
+	    $fields = parent::getCMSFields($params);
 	    $fields->addFieldToTab('Root.Content',new CheckboxField('CustomProperty'));
 	    return $fields;
 	  }

@@ -51,7 +51,7 @@ class Zend_Pdf_Destination_FitBoundingBoxHorizontally extends Zend_Pdf_Destinati
      * Create destination object
      *
      * @param Zend_Pdf_Page|integer $page  Page object or page number
-     * @param float $top   Top edge of displayed page
+     * @param SS_Float $top   Top edge of displayed page
      * @return Zend_Pdf_Destination_FitBoundingBoxHorizontally
      * @throws Zend_Pdf_Exception
      */
@@ -77,7 +77,7 @@ class Zend_Pdf_Destination_FitBoundingBoxHorizontally extends Zend_Pdf_Destinati
     /**
      * Get top edge of the displayed page
      *
-     * @return float
+     * @return SS_Float
      */
     public function getTopEdge()
     {
@@ -87,7 +87,7 @@ class Zend_Pdf_Destination_FitBoundingBoxHorizontally extends Zend_Pdf_Destinati
     /**
      * Set top edge of the displayed page
      *
-     * @param float $top
+     * @param SS_Float $top
      * @return Zend_Pdf_Action_FitBoundingBoxHorizontally
      */
     public function setTopEdge($top)

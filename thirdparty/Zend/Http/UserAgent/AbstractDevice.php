@@ -804,7 +804,7 @@ abstract class Zend_Http_UserAgent_AbstractDevice
     /**
      * Get maximum image height supported by this device
      *
-     * @return int
+     * @return SS_Int
      */
     public function getMaxImageHeight()
     {
@@ -814,7 +814,7 @@ abstract class Zend_Http_UserAgent_AbstractDevice
     /**
      * Get maximum image width supported by this device
      *
-     * @return int
+     * @return SS_Int
      */
     public function getMaxImageWidth()
     {
@@ -824,7 +824,7 @@ abstract class Zend_Http_UserAgent_AbstractDevice
     /**
      * Get physical screen height of this device
      *
-     * @return int
+     * @return SS_Int
      */
     public function getPhysicalScreenHeight()
     {
@@ -834,7 +834,7 @@ abstract class Zend_Http_UserAgent_AbstractDevice
     /**
      * Get physical screen width of this device
      *
-     * @return int
+     * @return SS_Int
      */
     public function getPhysicalScreenWidth()
     {
@@ -854,7 +854,7 @@ abstract class Zend_Http_UserAgent_AbstractDevice
     /**
      * Get supported X/HTML version
      *
-     * @return int
+     * @return SS_Int
      */
     public function getXhtmlSupportLevel()
     {

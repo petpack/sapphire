@@ -56,13 +56,13 @@ class SQLQuery {
 	
 	/**
 	 * If this is true DISTINCT will be added to the SQL.
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public $distinct = false;
 	
 	/**
 	 * If this is true, this statement will delete rather than select.
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public $delete = false;
 	
@@ -446,7 +446,7 @@ class SQLQuery {
 	 * 
 	 * @todo Doesn't work with combined statements (e.g. "Foo='bar' AND ID=5")
 	 *
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function filtersOnID() {
 		$regexp = '/^(.*\.)?("|`)?ID("|`)?\s?=/';
@@ -463,7 +463,7 @@ class SQLQuery {
 	 * 
 	 * @todo Doesn't work with combined statements (e.g. "Foo='bar' AND ParentID=5")
 	 *
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function filtersOnFK() { 
 		return (
@@ -480,7 +480,7 @@ class SQLQuery {
 	
 	/**
 	 * Return the number of rows in this query if the limit were removed.  Useful in paged data sets. 
-	 * @return int 
+	 * @return SS_Int 
 	 */ 
 	function _unlimitedRowCount( $column = null) {
 		// we can't clear the select if we're relying on its output by a HAVING clause

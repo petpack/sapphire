@@ -50,7 +50,7 @@ class Zend_Memory_Value implements ArrayAccess {
     /**
      * Boolean flag which signals to trace value modifications
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     private $_trace;
 
@@ -84,7 +84,7 @@ class Zend_Memory_Value implements ArrayAccess {
      * returns true if string offset exists
      *
      * @param integer $offset
-     * @return boolean
+     * @return SS_Boolean
      */
     public function offsetExists($offset)
     {

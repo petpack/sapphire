@@ -70,7 +70,7 @@ class i18n extends Object {
 	protected static $default_locale = 'en_US';
 	
 	/**
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected static $js_i18n = true;
 	
@@ -1475,7 +1475,7 @@ class i18n extends Object {
 	/**
 	 * Get a list of commonly used languages
 	 *
-	 * @param boolean $native Use native names for languages instead of English ones
+	 * @param SS_Boolean $native Use native names for languages instead of English ones
 	 * @return list of languages in the form 'code' => 'name'
 	 */
 	static function get_common_languages($native = false) {
@@ -1489,7 +1489,7 @@ class i18n extends Object {
 	/**
 	 * Get a list of commonly used locales
 	 *
-	 * @param boolean $native Use native names for locale instead of English ones
+	 * @param SS_Boolean $native Use native names for locale instead of English ones
 	 * @return list of languages in the form 'code' => 'name'
 	 */
 	static function get_common_locales($native = false) {
@@ -1550,7 +1550,7 @@ class i18n extends Object {
 	 * @see get_locale_name()
 	 *
 	 * @param mixed $code Language code
-	 * @param boolean $native If true, the native name will be returned
+	 * @param SS_Boolean $native If true, the native name will be returned
 	 * @return Name of the language
 	 */
 	static function get_language_name($code, $native = false) {
@@ -1727,7 +1727,7 @@ class i18n extends Object {
 	 * 
 	 * Note: Does not check for {@link $allowed_locales}.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	static function validate_locale($locale) {
 		// Convert en-US to en_US
@@ -1840,8 +1840,8 @@ class i18n extends Object {
 	 * Includes all available language files for a certain defined locale
 	 * 
 	 * @param string $locale All resources from any module in locale $locale will be loaded
-	 * @param boolean $load_plugins		If true (default), load extra translations from registered plugins
-	 * @param boolean $force_load		If true (not default), we force the inclusion. Generally this should be off
+	 * @param SS_Boolean $load_plugins		If true (default), load extra translations from registered plugins
+	 * @param SS_Boolean $force_load		If true (not default), we force the inclusion. Generally this should be off
 	 * 									for performance, but enabling this is useful for interfaces like
 	 * 									CustomTranslationAdmin which need to load more than the usual locales,
 	 * 									and may need to reload them. 
@@ -1957,7 +1957,7 @@ class i18n extends Object {
 	 * @param  $name		String		A unique name for the translation plug-in. If the plug-in is already registered,
 	 * 									it is replaced, including if its a different priority.
 	 * @param  $callback				A callback function as given to call_user_func_array.
-	 * @param int $priority				An integer priority, default 10.
+	 * @param SS_Int $priority				An integer priority, default 10.
 	 * @return void
 	 */
 	static function register_plugin($name, $callback, $priority = 10) {
@@ -1975,7 +1975,7 @@ class i18n extends Object {
 	 * Unregister a plugin by name.
 	 * @static
 	 * @param  $name	String		Name of previously registered plugin
-	 * @return Boolean				Returns true if remove, false if not.
+	 * @return SS_Boolean				Returns true if remove, false if not.
 	 */
 	static function unregister_plugin($name) {
 		foreach (self::$plugins as $priority => $plugins) {

@@ -30,8 +30,8 @@ class Year extends DBField {
 	 * input values. Starts by default at the current year,
 	 * and counts back to 1900.
 	 *
-	 * @param int $start starting date to count down from
-	 * @param int $end end date to count down to
+	 * @param SS_Int $start starting date to count down from
+	 * @param SS_Int $end end date to count down to
 	 * @return array
 	 */
 	private function getDefaultOptions($start=false, $end=false) {

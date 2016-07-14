@@ -579,7 +579,7 @@ class Email extends ViewableData {
 	 * Checks for RFC822-valid email format.
 	 * 
 	 * @param string $str
-	 * @return boolean
+	 * @return SS_Boolean
 	 * 
 	 * @see http://code.iamcal.com/php/rfc822/rfc822.phps
 	 * @copyright Cal Henderson <cal@iamcal.com> 

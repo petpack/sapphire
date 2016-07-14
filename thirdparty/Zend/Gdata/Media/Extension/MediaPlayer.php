@@ -47,12 +47,12 @@ class Zend_Gdata_Media_Extension_MediaPlayer extends Zend_Gdata_Extension
     protected $_url = null;
 
     /**
-     * @var int
+     * @var SS_Int
      */
     protected $_width = null;
 
     /**
-     * @var int
+     * @var SS_Int
      */
     protected $_height = null;
 
@@ -60,8 +60,8 @@ class Zend_Gdata_Media_Extension_MediaPlayer extends Zend_Gdata_Extension
      * Constructs a new MediaPlayer element
      *
      * @param string $url
-     * @param int $width
-     * @param int $height
+     * @param SS_Int $width
+     * @param SS_Int $height
      */
     public function __construct($url = null, $width = null, $height = null)
     {
@@ -140,7 +140,7 @@ class Zend_Gdata_Media_Extension_MediaPlayer extends Zend_Gdata_Extension
     }
 
     /**
-     * @return int
+     * @return SS_Int
      */
     public function getWidth()
     {
@@ -148,7 +148,7 @@ class Zend_Gdata_Media_Extension_MediaPlayer extends Zend_Gdata_Extension
     }
 
     /**
-     * @param int $value
+     * @param SS_Int $value
      * @return Zend_Gdata_Media_Extension_MediaPlayer Provides a fluent interface
      */
     public function setWidth($value)
@@ -158,7 +158,7 @@ class Zend_Gdata_Media_Extension_MediaPlayer extends Zend_Gdata_Extension
     }
 
     /**
-     * @return int
+     * @return SS_Int
      */
     public function getHeight()
     {
@@ -166,7 +166,7 @@ class Zend_Gdata_Media_Extension_MediaPlayer extends Zend_Gdata_Extension
     }
 
     /**
-     * @param int $value
+     * @param SS_Int $value
      * @return Zend_Gdata_Media_Extension_MediaPlayer Provides a fluent interface
      */
     public function setHeight($value)

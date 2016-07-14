@@ -19,7 +19,7 @@ class HTMLText extends Text {
 	 * This makes use of strip_tags() to avoid malforming the
 	 * HTML tags in the string of text.
 	 *
-	 * @param int $limit Number of characters to limit by
+	 * @param SS_Int $limit Number of characters to limit by
 	 * @param string $add Ellipsis to add to the end of truncated string
 	 * @return string
 	 */
@@ -53,8 +53,8 @@ class HTMLText extends Text {
 	 * 
 	 * This is sort of the HTML aware equivilent to Text#Summary, although the logic for summarising is not exactly the same
 	 * 
-	 * @param int $maxWords Maximum number of words to return - may return less, but never more. Pass -1 for no limit
-	 * @param int $flex Number of words to search through when looking for a nice cut point 
+	 * @param SS_Int $maxWords Maximum number of words to return - may return less, but never more. Pass -1 for no limit
+	 * @param SS_Int $flex Number of words to search through when looking for a nice cut point 
 	 * @param string $add What to add to the end of the summary if we cut at a less-than-ideal cut point
 	 * @return string A nice(ish) summary with no html tags (but possibly still some html entities)
 	 * 
@@ -138,7 +138,7 @@ class HTMLText extends Text {
 		return ShortcodeParser::get_active()->parse($this->value);
 	}
 	
-	public function hasValue() {
+	public function hasValue($field = null, $arguments = null, $cache = true) {
 		return parent::hasValue() && $this->value != '<p></p>';
 	}
 	
@@ -146,7 +146,7 @@ class HTMLText extends Text {
 		return new HtmlEditorField($this->name, $title);
 	}
 	
-	public function scaffoldSearchField($title = null) {
+	public function scaffoldSearchField($title = null, $params = null) {
 		return new TextField($this->name, $title);
 	}
 

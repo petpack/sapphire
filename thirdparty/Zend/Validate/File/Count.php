@@ -237,7 +237,7 @@ class Zend_Validate_File_Count extends Zend_Validate_Abstract
      *
      * @param  string|array $value Filenames to check for count
      * @param  array        $file  File data from Zend_File_Transfer
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value, $file = null)
     {

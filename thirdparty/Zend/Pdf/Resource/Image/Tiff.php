@@ -98,7 +98,7 @@ class Zend_Pdf_Resource_Image_Tiff extends Zend_Pdf_Resource_Image
      *
      * Makes it possible to unpack bytes in one statement for enhanced logic readability.
      *
-     * @param int $type
+     * @param SS_Int $type
      * @param string $bytes
      * @throws Zend_Pdf_Exception
      */

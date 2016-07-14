@@ -52,7 +52,7 @@ Widget Form to manage the widgets. An example of this is below
 	    );
 		
 	    function getCMSFields() {
-		$fields = parent::getCMSFields();
+		$fields = parent::getCMSFields($params);
 		$fields->addFieldToTab("Root.Content.Widgets", new WidgetAreaEditor("Sidebar"));
 		return $fields;
 	    }
@@ -302,7 +302,7 @@ Page class). One way to fix this is to comment out line 30 in BlogHolder.php and
 			'Newsletter' => 'NewsletterType'
 	      .......
 		function getCMSFields() {
-			$fields = parent::getCMSFields();
+			$fields = parent::getCMSFields($params);
 			$fields->removeFieldFromTab("Root.Content.Main","Content");
 		//	$fields->addFieldToTab("Root.Content.Widgets", new WidgetAreaEditor("SideBar")); COMMENT OUT
 	

@@ -38,7 +38,7 @@ class HTTP {
 	 */
 	static function absoluteURLs($html, $preserveInternalLinks = false) {
 		$html = str_replace('$CurrentPageURL', $_SERVER['REQUEST_URI'], $html);
-		$code = '(substr($URL,0,1) == "/") ? ( Director::protocolAndHost() . $URL ) : ( (ereg("^[A-Za-z]+:", $URL)) ? $URL : Director::absoluteBaseURL() . $URL )';
+		$code = '(substr($URL,0,1) == "/") ? ( Director::protocolAndHost() . $URL ) : ( (preg_match("/^[A-Za-z]+:/", $URL)) ? $URL : Director::absoluteBaseURL() . $URL )';
 		if ($preserveInternalLinks) {
 			$code = '(substr($URL,0,1) == "#") ? $URL : ('.$code.')';
 		}
@@ -60,18 +60,30 @@ class HTTP {
 			if(!is_numeric($tag)) $tagPrefix = "$tag ";
 			else $tagPrefix = "";
 
-			$regExps[] = "/(<{$tagPrefix}[^>]*$attrib *= *\")([^\"]*)(\")/ie";
-			$regExps[] = "/(<{$tagPrefix}[^>]*$attrib *= *')([^']*)(')/ie";
-			$regExps[] = "/(<{$tagPrefix}[^>]*$attrib *= *)([^\"' ]*)( )/ie";
+			$regExps[] = "/(<{$tagPrefix}[^>]*$attrib *= *\")([^\"]*)(\")/i";
+			$regExps[] = "/(<{$tagPrefix}[^>]*$attrib *= *')([^']*)(')/i";
+			$regExps[] = "/(<{$tagPrefix}[^>]*$attrib *= *)([^\"' ]*)( )/i";
 		}
-		$regExps[] = '/(background-image:[^;]*url *\()([^)]+)(\))/ie';
-		$regExps[] = '/(background:[^;]*url *\()([^)]+)(\))/ie';
+		$regExps[] = '/(background-image:[^;]*url *\()([^)]+)(\))/i';
+		$regExps[] = '/(background:[^;]*url *\()([^)]+)(\))/i';
 
-		// Make
-		$code = 'stripslashes("$1") . (' . str_replace('$URL', 'stripslashes("$2")', $code) . ') . stripslashes("$3")';
+		// Callback for regexp replacement
+		// @see: https://github.com/spekulatius/silverstripe-framework/blob/bd4fc4afcb61ad6f69ddb96334abf851dd88d75d/control/HTTP.php
+		$callback = function($matches) use($code) {
+			if(is_callable($code)) {
+				$rewritten = $code($matches[2]);
+			}
+			else {
+				// Expose the $URL variable to be used by the $code expression
+				$URL = $matches[2];
+				$rewritten = eval("return ($code);");
+			}
+
+			return $matches[1] . $rewritten . $matches[3];
+		};
 
 		foreach($regExps as $regExp) {
-			$content = preg_replace($regExp, $code, $content);
+			$content = preg_replace_callback($regExp, $callback, $content);
 		}
 
 		return $content;

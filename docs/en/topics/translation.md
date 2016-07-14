@@ -165,7 +165,7 @@ attach this behaviour to custom fields by using Translatable_Transformation as s
 		);
 		
 		function getCMSFields() {
-			$fields = parent::getCMSFields();
+			$fields = parent::getCMSFields($params);
 	
 			// Add fields as usual
 			$additionalField = new TextField('AdditionalProperty');

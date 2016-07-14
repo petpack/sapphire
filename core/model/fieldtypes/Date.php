@@ -45,7 +45,7 @@ class Date extends DBField {
 		return $value;
 	}
 	
-	function setValue($value) {
+	function setValue($value, $record = null) {
 		// @todo This needs tidy up (what if you only specify a month and a year, for example?)
 		if(is_array($value)) {
 			if(!empty($value['Day']) && !empty($value['Month']) && !empty($value['Year'])) {
@@ -55,7 +55,8 @@ class Date extends DBField {
 		}
 		
 		// Default to NZ date format - strtotime expects a US date
-		if(ereg('^([0-9]+)/([0-9]+)/([0-9]+)$', $value, $parts)) {
+		$expr = preg_quote('^([0-9]+)/([0-9]+)/([0-9]+)$', '/');
+		if(preg_match("/$expr/", $value, $parts)) {
 			$value = "$parts[2]/$parts[1]/$parts[3]";			
 		}
 
@@ -67,7 +68,7 @@ class Date extends DBField {
 
 	/**
 	 * Returns the date in the format dd/mm/yy
-	 * @param int $value date in int format (e.g. return value of strtotime)
+	 * @param SS_Int $value date in int format (e.g. return value of strtotime)
 	 */	 
 	function Nice( $value = NULL ) {
 		if($value || $this->value) return date('d/m/Y', ($value ? $value : strtotime($this->value)));
@@ -75,7 +76,7 @@ class Date extends DBField {
 	
 	/**
 	 * Returns the date in US format: “01/18/2006”
-	 * @param int $value date in int format (e.g. return value of strtotime)
+	 * @param SS_Int $value date in int format (e.g. return value of strtotime)
 	 */
 	function NiceUS( $value = NULL ) {
 		if($value || $this->value) return date('m/d/Y', ($value ? $value : strtotime($this->value)));
@@ -300,7 +301,7 @@ class Date extends DBField {
 	
 	/**
 	 * Returns true if date is in the past.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function InPast() {
 		return strtotime($this->value) < time();
@@ -308,7 +309,7 @@ class Date extends DBField {
 	
 	/**
 	 * Returns true if date is in the future.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function InFuture() {
 		return strtotime($this->value) > time();
@@ -316,7 +317,7 @@ class Date extends DBField {
 	
 	/**
 	 * Returns true if date is today.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function IsToday() {
 		return (date('Y-m-d', strtotime($this->value)) == date('Y-m-d', time()));
@@ -356,9 +357,9 @@ class Date extends DBField {
 	 * 
 	 * This is useful for determining a financial year start or end date.
 	 * 
-	 * @param $fmonth int The number of the month (e.g. 3 is March, 4 is April)
-	 * @param $fday int The day of the month
-	 * @param $fyear int Determine historical value
+	 * @param $fmonth SS_Int The number of the month (e.g. 3 is March, 4 is April)
+	 * @param $fday SS_Int The day of the month
+	 * @param $fyear SS_Int Determine historical value
 	 * @return string Date in YYYY-MM-DD format
 	 */
 	static function past_date($fmonth, $fday = 1, $fyear = null) {

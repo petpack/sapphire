@@ -144,7 +144,7 @@ class Session {
 
 	/**
 	 * Secure cookie, tells the browser to only send it over SSL.
-	 * @param boolean $secure
+	 * @param SS_Boolean $secure
 	 */
 	public static function set_cookie_secure($secure) {
 		self::$cookie_secure = (bool) $secure;
@@ -152,7 +152,7 @@ class Session {
 
 	/**
 	 * Get if the cookie is secure
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public static function get_cookie_secure() {
 		return (bool) self::$cookie_secure;
@@ -488,7 +488,7 @@ class Session {
 	/**
 	 * Set the timeout of a Session value
 	 *
-	 * @param int $timeout Time until a session expires in seconds. Defaults to expire when browser is closed.
+	 * @param SS_Int $timeout Time until a session expires in seconds. Defaults to expire when browser is closed.
 	 */
 	public static function set_timeout($timeout) {
 		self::$timeout = intval($timeout);

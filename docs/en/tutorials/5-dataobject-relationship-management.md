@@ -120,7 +120,7 @@ The second step is to add the table in the method *getCMSFields* which will allo
 		...
 	
 		function getCMSFields() {
-			$fields = parent::getCMSFields();
+			$fields = parent::getCMSFields($params);
 			
 			$tablefield = new HasOneComplexTableField(
 				$this,
@@ -257,7 +257,7 @@ The first step is to create the mentor object and set the relation with the *Stu
 		);
 		
 		function getCMSFields() {
-			$fields = parent::getCMSFields();
+			$fields = parent::getCMSFields($params);
 			
 			$fields->addFieldToTab( 'Root.Content.Main', new TextField( 'FirstName' ) );
 			$fields->addFieldToTab( 'Root.Content.Main', new TextField( 'Lastname' ) );
@@ -296,7 +296,7 @@ The second step is to add the table in the method *getCMSFields* which will allo
 		...
 	
 		function getCMSFields() {
-			$fields = parent::getCMSFields();
+			$fields = parent::getCMSFields($params);
 		
 			...
 		
@@ -414,7 +414,7 @@ relation.
 	   ...
 	
 	   function getCMSFields() {
-	      $fields = parent::getCMSFields();
+	      $fields = parent::getCMSFields($params);
 	
 	      ...
 	

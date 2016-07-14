@@ -177,7 +177,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
     /**
      * Direct setter for cURL adapter related options.
      *
-     * @param  string|int $option
+     * @param  string|SS_Int $option
      * @param  mixed $value
      * @return Zend_Http_Adapter_Curl
      */
@@ -194,8 +194,8 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
      * Initialize curl
      *
      * @param  string  $host
-     * @param  int     $port
-     * @param  boolean $secure
+     * @param  SS_Int     $port
+     * @param  SS_Boolean $secure
      * @return void
      * @throws Zend_Http_Client_Adapter_Exception if unable to connect
      */
@@ -253,7 +253,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
      *
      * @param  string        $method
      * @param  Zend_Uri_Http $uri
-     * @param  float         $http_ver
+     * @param  SS_Float         $http_ver
      * @param  array         $headers
      * @param  string        $body
      * @return string        $request
@@ -500,7 +500,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
      *
      * @param resource $curl
      * @param string $header
-     * @return int
+     * @return SS_Int
      */
     public function readHeader($curl, $header)
     {

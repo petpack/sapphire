@@ -120,7 +120,7 @@ class Zend_Currency
     /**
      * Returns a localized currency string
      *
-     * @param  integer|float $value   Currency value
+     * @param  integer|SS_Float $value   Currency value
      * @param  array         $options OPTIONAL options to set temporary
      * @throws Zend_Currency_Exception When the value is not a number
      * @return string
@@ -204,7 +204,7 @@ class Zend_Currency
      * when a choice is given based on the given value
      *
      * @param  string $pattern
-     * @param  float|integer $value
+     * @param  SS_Float|integer $value
      * @return string
      */
     private function _extractPattern($pattern, $value)
@@ -468,7 +468,7 @@ class Zend_Currency
     /**
      * Returns true when a cache is set
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function hasCache()
     {

@@ -54,7 +54,7 @@ class Zend_Cache_Backend_ZendServer_ShMem extends Zend_Cache_Backend_ZendServer 
      *
      * @var mixed  $data        Object to store
      * @var string $id          Cache id
-     * @var int    $timeToLive  Time to live in seconds
+     * @var SS_Int    $timeToLive  Time to live in seconds
      *
      */
     protected function _store($data, $id, $timeToLive)
@@ -73,7 +73,7 @@ class Zend_Cache_Backend_ZendServer_ShMem extends Zend_Cache_Backend_ZendServer 
      *
      * @var mixed  $data        Object to store
      * @var string $id          Cache id
-     * @var int    $timeToLive  Time to live in seconds
+     * @var SS_Int    $timeToLive  Time to live in seconds
      */
     protected function _fetch($id)
     {
@@ -84,7 +84,7 @@ class Zend_Cache_Backend_ZendServer_ShMem extends Zend_Cache_Backend_ZendServer 
      * Unset data
      *
      * @var string $id          Cache id
-     * @return boolean true if no problem
+     * @return SS_Boolean true if no problem
      */
     protected function _unset($id)
     {

@@ -64,7 +64,7 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
     
     /**
      * Flag indicating whether the log writer is enabled
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_enabled = true;
     
@@ -83,8 +83,8 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
     /**
      * Enable or disable the log writer.
      * 
-     * @param boolean $enabled Set to TRUE to enable the log writer 
-     * @return boolean The previous value.
+     * @param SS_Boolean $enabled Set to TRUE to enable the log writer 
+     * @return SS_Boolean The previous value.
      */
     public function setEnabled($enabled)
     {
@@ -96,7 +96,7 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
     /**
      * Determine if the log writer is enabled.
      * 
-     * @return boolean Returns TRUE if the log writer is enabled.
+     * @return SS_Boolean Returns TRUE if the log writer is enabled.
      */
     public function getEnabled()
     {
@@ -129,9 +129,9 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
     /**
      * Set a display style for a logging priority
      * 
-     * @param int $priority The logging priority
+     * @param SS_Int $priority The logging priority
      * @param string $style The logging display style
-     * @return string|boolean The previous logging display style if defined or TRUE otherwise
+     * @return string|SS_Boolean The previous logging display style if defined or TRUE otherwise
      */
     public function setPriorityStyle($priority, $style)
     {
@@ -146,8 +146,8 @@ class Zend_Log_Writer_Firebug extends Zend_Log_Writer_Abstract
     /**
      * Get a display style for a logging priority
      * 
-     * @param int $priority The logging priority
-     * @return string|boolean The logging display style if defined or FALSE otherwise
+     * @param SS_Int $priority The logging priority
+     * @return string|SS_Boolean The logging display style if defined or FALSE otherwise
      */
     public function getPriorityStyle($priority)
     {

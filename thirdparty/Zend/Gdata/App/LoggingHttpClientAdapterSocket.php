@@ -67,9 +67,9 @@ class Zend_Gdata_App_LoggingHttpClientAdapterSocket extends Zend_Http_Client_Ada
      * Connect to the remote server
      *
      * @param string  $host
-     * @param int     $port
-     * @param boolean $secure
-     * @param int     $timeout
+     * @param SS_Int     $port
+     * @param SS_Boolean $secure
+     * @param SS_Int     $timeout
      */
     public function connect($host, $port = 80, $secure = false)
     {

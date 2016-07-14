@@ -45,7 +45,7 @@
 class Form extends RequestHandler {
 	
 	/**
-	 * @var boolean $includeFormTag Accessed by Form.ss; modified by {@link formHtmlContent()}.
+	 * @var SS_Boolean $includeFormTag Accessed by Form.ss; modified by {@link formHtmlContent()}.
 	 * A performance enhancement over the generate-the-form-tag-and-then-remove-it code that was there previously
 	 */
 	public $IncludeFormTag = true;
@@ -130,7 +130,7 @@ class Form extends RequestHandler {
 	 * HACK This is a temporary hack to allow multiple calls to includeJavascriptValidation on
 	 * the validator (if one is present).
 	 *
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public $jsValidationIncluded = false;
 	
@@ -915,7 +915,7 @@ class Form extends RequestHandler {
 	 * Note that CSRF protection takes place in {@link httpSubmission()},
 	 * if it fails the form data will never reach this method.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	 function validate(){
 		if($this->validator){
@@ -966,7 +966,7 @@ class Form extends RequestHandler {
 	 * @uses FormField->setValue()
 	 * 
 	 * @param array|DataObject $data
-	 * @param boolean $clearMissingFields By default, fields which don't match
+	 * @param SS_Boolean $clearMissingFields By default, fields which don't match
 	 *  a property or array-key of the passed {@link $data} argument are "left alone",
 	 *  meaning they retain any previous values (if present). If this flag is set to true,
 	 *  those fields are overwritten with null regardless if they have a match in {@link $data}.

@@ -41,7 +41,7 @@ class SecurityToken extends Object {
 	protected static $inst = null;
 	
 	/**
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected static $enabled = true;
 	
@@ -90,7 +90,7 @@ class SecurityToken extends Object {
 	}
 	
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	static function is_enabled() {
 		return self::$enabled;
@@ -143,7 +143,7 @@ class SecurityToken extends Object {
 	 * Typically you'll want to check {@link Form->securityTokenEnabled()} before calling this method.
 	 * 
 	 * @param String $compare
-	 * @return Boolean
+	 * @return SS_Boolean
 	 */
 	function check($compare) {
 		return ($compare && $this->getValue() && $compare == $this->getValue());
@@ -153,7 +153,7 @@ class SecurityToken extends Object {
 	 * See {@link check()}.
 	 * 
 	 * @param SS_HTTPRequest $request
-	 * @return Boolean
+	 * @return SS_Boolean
 	 */
 	function checkRequest($request) {
 		return $this->check($request->requestVar($this->getName()));
@@ -193,7 +193,7 @@ class SecurityToken extends Object {
 	 * $new = SecurityToken::inst(); // isEnabled() returns false
 	 * </code>
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function isEnabled() {
 		return !($this instanceof NullSecurityToken);
@@ -219,7 +219,7 @@ class NullSecurityToken extends SecurityToken {
 	
 	/**
 	 * @param String
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function check($compare) {
 		return true;
@@ -227,7 +227,7 @@ class NullSecurityToken extends SecurityToken {
 	
 	/**
 	 * @param SS_HTTPRequest $request
-	 * @return Boolean
+	 * @return SS_Boolean
 	 */
 	function checkRequest($request) {
 		return true;

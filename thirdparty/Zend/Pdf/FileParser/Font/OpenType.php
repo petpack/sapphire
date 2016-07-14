@@ -1010,9 +1010,9 @@ abstract class Zend_Pdf_FileParser_Font_OpenType extends Zend_Pdf_FileParser_Fon
      * If the version is incompatible, throws an exception. If it is compatible,
      * returns the version number.
      *
-     * @param float $minVersion Minimum compatible version number.
-     * @param float $maxVertion Maximum compatible version number.
-     * @return float Table version number.
+     * @param SS_Float $minVersion Minimum compatible version number.
+     * @param SS_Float $maxVertion Maximum compatible version number.
+     * @return SS_Float Table version number.
      * @throws Zend_Pdf_Exception
      */
     protected function _readTableVersion($minVersion, $maxVersion)

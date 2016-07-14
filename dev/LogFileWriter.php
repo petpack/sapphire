@@ -27,7 +27,7 @@ class SS_LogFileWriter extends Zend_Log_Writer_Abstract {
 	/**
 	 * Message type to pass to error_log()
 	 * @see http://us3.php.net/manual/en/function.error-log.php
-	 * @var int
+	 * @var SS_Int
 	 */
 	protected $messageType;
 	

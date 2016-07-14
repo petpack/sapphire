@@ -79,7 +79,7 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
      * Test if a cache is available for the given id and (if yes) return it (false else)
      *
      * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  SS_Boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
      * @return string Cached data (or false)
      */
     public function load($id, $doNotTestCacheValidity = false)
@@ -123,8 +123,8 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
      * @param  string $data             Data to cache
      * @param  string $id               Cache id
      * @param  array  $tags             Array of strings, the cache record will be tagged by each string entry
-     * @param  int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
-     * @return boolean true if no problem
+     * @param  SS_Int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @return SS_Boolean true if no problem
      */
     public function save($data, $id, $tags = array(), $specificLifetime = false)
     {
@@ -155,7 +155,7 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
      * Remove a cache record
      *
      * @param  string $id Cache id
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     public function remove($id)
     {
@@ -179,7 +179,7 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
      * @throws Zend_Cache_Exception
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {
@@ -254,7 +254,7 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
      *
      * @param  string $dir  Path of directory ot clean
      * @param  string $mode The same parameter as in Zend_Cache_Backend_ZendPlatform::clean()
-     * @return boolean True if ok
+     * @return SS_Boolean True if ok
      */
     private function _clean($dir, $mode)
     {
@@ -294,7 +294,7 @@ class Zend_Cache_Backend_ZendPlatform extends Zend_Cache_Backend implements Zend
      * the file to invalidate it
      *
      * @param  string $file Complete file path
-     * @return boolean True if ok
+     * @return SS_Boolean True if ok
      */
     private function _remove($file)
     {

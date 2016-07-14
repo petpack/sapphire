@@ -7,7 +7,7 @@
 class TextField extends PlaceholderField {
 
 	/**
-	 * @var Int
+	 * @var SS_Int
 	 */
 	protected $maxLength;
 	
@@ -21,14 +21,14 @@ class TextField extends PlaceholderField {
 	}
 	
 	/**
-	 * @param Int $length
+	 * @param SS_Int $length
 	 */
 	function setMaxLength($length) {
 		$this->maxLength = $length;
 	}
 	
 	/**
-	 * @return Int
+	 * @return SS_Int
 	 */
 	function getMaxLength() {
 		return $this->maxLength;

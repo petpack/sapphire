@@ -12,7 +12,7 @@ class Hierarchy extends DataObjectDecorator {
 	protected $markingFilter;
 	
 	/**
-	 * @var Int
+	 * @var SS_Int
 	 */
 	protected $_cache_numChildren;
 	
@@ -40,10 +40,10 @@ class Hierarchy extends DataObjectDecorator {
 	 * @param string $attributes Attributes to add to the UL.
 	 * @param string $titleEval PHP code to evaluate to start each child - this should include '<li>'
 	 * @param string $extraArg Extra arguments that will be passed on to children, for if they overload this function.
-	 * @param boolean $limitToMarked Display only marked children.
+	 * @param SS_Boolean $limitToMarked Display only marked children.
 	 * @param string $childrenMethod The name of the method used to get children from each object
-	 * @param boolean $rootCall Set to true for this first call, and then to false for calls inside the recursion. You should not change this.
-	 * @param int $minNodeCount
+	 * @param SS_Boolean $rootCall Set to true for this first call, and then to false for calls inside the recursion. You should not change this.
+	 * @param SS_Int $minNodeCount
 	 * @return string
 	 */
 	public function getChildrenAsUL($attributes = "", $titleEval = '"<li>" . $child->Title', $extraArg = null, $limitToMarked = false, $childrenMethod = "AllChildrenIncludingDeleted", $numChildrenMethod = "numChildren", $rootCall = true, $minNodeCount = 30) {
@@ -89,8 +89,8 @@ class Hierarchy extends DataObjectDecorator {
 	 * This method returns the number of nodes marked.  After this method is called other methods 
 	 * can check isExpanded() and isMarked() on individual nodes.
 	 * 
-	 * @param int $minNodeCount The minimum amount of nodes to mark.
-	 * @return int The actual number of nodes marked.
+	 * @param SS_Int $minNodeCount The minimum amount of nodes to mark.
+	 * @return SS_Int The actual number of nodes marked.
 	 */
 	public function markPartialTree($minNodeCount = 30, $context = null, $childrenMethod = "AllChildrenIncludingDeleted", $numChildrenMethod = "numChildren") {
 		if(!is_numeric($minNodeCount)) $minNodeCount = 30;
@@ -134,7 +134,7 @@ class Hierarchy extends DataObjectDecorator {
 	/**
 	 * Returns true if the marking filter matches on the given node.
 	 * @param DataObject $node Node to check.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function markingFilterMatches($node) {
 		if(!$this->markingFilter) {
@@ -218,8 +218,8 @@ class Hierarchy extends DataObjectDecorator {
 	
 	/**
 	 * Mark the children of the DataObject with the given ID.
-	 * @param int $id ID of parent node.
-	 * @param boolean $open If this is true, mark the parent node as opened.
+	 * @param SS_Int $id ID of parent node.
+	 * @param SS_Boolean $open If this is true, mark the parent node as opened.
 	 */
 	public function markById($id, $open = false) {
 		if(isset($this->markedNodes[$id])) {
@@ -270,19 +270,19 @@ class Hierarchy extends DataObjectDecorator {
 	
 	/**
 	 * True if this DataObject is marked.
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected static $marked = array();
 	
 	/**
 	 * True if this DataObject is expanded.
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected static $expanded = array();
 	
 	/**
 	 * True if this DataObject is opened.
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected static $treeOpened = array();
 	
@@ -312,7 +312,7 @@ class Hierarchy extends DataObjectDecorator {
 	
 	/**
 	 * Check if this DataObject is marked.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function isMarked() {
 		$baseClass = ClassInfo::baseDataClass($this->owner->class);
@@ -322,7 +322,7 @@ class Hierarchy extends DataObjectDecorator {
 	
 	/**
 	 * Check if this DataObject is expanded.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function isExpanded() {
 		$baseClass = ClassInfo::baseDataClass($this->owner->class);
@@ -359,7 +359,7 @@ class Hierarchy extends DataObjectDecorator {
 	
 	/**
 	 * Get a list of this DataObject's and all it's descendants IDs.
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function getDescendantIDList() {
 		$idList = array();
@@ -486,8 +486,8 @@ class Hierarchy extends DataObjectDecorator {
 	 * By default, values are cached after the first invocation.
 	 * Can be augumented by {@link augmentNumChildrenCountQuery()}.
 	 * 
-	 * @param Boolean $cache
-	 * @return int
+	 * @param SS_Boolean $cache
+	 * @return SS_Int
 	 */
 	public function numChildren($cache = true) {
 		$baseClass = ClassInfo::baseDataClass($this->owner->class);
@@ -538,9 +538,9 @@ class Hierarchy extends DataObjectDecorator {
 	/**
 	 * Return children from the live site, if it exists.
 	 * 
-	 * @param boolean $showAll Include all of the elements, even those not shown in the menus.
+	 * @param SS_Boolean $showAll Include all of the elements, even those not shown in the menus.
 	 *   (only applicable when extension is applied to {@link SiteTree}).
-	 * @param boolean $onlyDeletedFromStage Only return items that have been deleted from stage
+	 * @param SS_Boolean $onlyDeletedFromStage Only return items that have been deleted from stage
 	 * @return DataObjectSet
 	 */
 	public function liveChildren($showAll = false, $onlyDeletedFromStage = false) {
@@ -625,7 +625,7 @@ class Hierarchy extends DataObjectDecorator {
 	 * Get the next node in the tree of the type. If there is no instance of the className descended from this node,
 	 * then search the parents.
 	 * @param string $className Class name of the node to find.
-	 * @param string|int $root ID/ClassName of the node to limit the search to
+	 * @param string|SS_Int $root ID/ClassName of the node to limit the search to
 	 * @param DataObject afterNode Used for recursive calls to this function
 	 * @return DataObject
 	 */

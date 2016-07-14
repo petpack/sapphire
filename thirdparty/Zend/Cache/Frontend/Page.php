@@ -114,7 +114,7 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
     /**
      * If true, the page won't be cached
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_cancel = false;
 
@@ -122,7 +122,7 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
      * Constructor
      *
      * @param  array   $options                Associative array of options
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  SS_Boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
      * @throws Zend_Cache_Exception
      * @return void
      */
@@ -178,7 +178,7 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
     /**
      * Set the deprecated contentTypeMemorization option
      *
-     * @param boolean $value value
+     * @param SS_Boolean $value value
      * @return void
      * @deprecated
      */
@@ -235,8 +235,8 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
      * Start the cache
      *
      * @param  string  $id       (optional) A cache id (if you set a value here, maybe you have to use Output frontend instead)
-     * @param  boolean $doNotDie For unit testing only !
-     * @return boolean True if the cache is hit (false else)
+     * @param  SS_Boolean $doNotDie For unit testing only !
+     * @return SS_Boolean True if the cache is hit (false else)
      */
     public function start($id = false, $doNotDie = false)
     {

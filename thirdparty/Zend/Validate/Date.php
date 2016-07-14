@@ -157,7 +157,7 @@ class Zend_Validate_Date extends Zend_Validate_Abstract
      * according to Zend_Date, see Zend_Date::isDate()
      *
      * @param  string|array|Zend_Date $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {
@@ -203,7 +203,7 @@ class Zend_Validate_Date extends Zend_Validate_Abstract
      * Check if the given date fits the given format
      *
      * @param  string $value  Date to check
-     * @return boolean False when date does not fit the format
+     * @return SS_Boolean False when date does not fit the format
      */
     private function _checkFormat($value)
     {

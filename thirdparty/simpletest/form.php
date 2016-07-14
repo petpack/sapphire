@@ -36,7 +36,7 @@ class SimpleForm {
      *    @param SimpleTag $tag        Form tag to read.
      *    @param SimplePage $page      Holding page.
      */
-    function SimpleForm($tag, &$page) {
+    function __construct($tag, &$page) {
         $this->_method = $tag->getAttribute('method');
         $this->_action = $this->_createAction($tag->getAttribute('action'), $page);
         $this->_encoding = $this->_setEncodingClass($tag);
@@ -172,7 +172,7 @@ class SimpleForm {
      */
     function _addRadioButton(&$tag) {
         if (! isset($this->_radios[$tag->getName()])) {
-            $this->_widgets[] = &new SimpleRadioGroup();
+            $this->_widgets[] = new SimpleRadioGroup();
             $this->_radios[$tag->getName()] = count($this->_widgets) - 1;
         }
         $this->_widgets[$this->_radios[$tag->getName()]]->addWidget($tag);
@@ -191,7 +191,7 @@ class SimpleForm {
             $index = $this->_checkboxes[$tag->getName()];
             if (! SimpleTestCompatibility::isA($this->_widgets[$index], 'SimpleCheckboxGroup')) {
                 $previous = &$this->_widgets[$index];
-                $this->_widgets[$index] = &new SimpleCheckboxGroup();
+                $this->_widgets[$index] = new SimpleCheckboxGroup();
                 $this->_widgets[$index]->addWidget($previous);
             }
             $this->_widgets[$index]->addWidget($tag);
@@ -223,7 +223,7 @@ class SimpleForm {
      *    Sets a widget value within the form.
      *    @param SimpleSelector $selector   Criteria to apply.
      *    @param string $value              Value to input into the widget.
-     *    @return boolean                   True if value is legal, false
+     *    @return SS_Boolean                   True if value is legal, false
      *                                      otherwise. If the field is not
      *                                      present, nothing will be set.
      *    @access public
@@ -264,7 +264,7 @@ class SimpleForm {
     /**
      *    Test to see if a form has a submit button.
      *    @param SimpleSelector $selector   Criteria to apply.
-     *    @return boolean                   True if present.
+     *    @return SS_Boolean                   True if present.
      *    @access public
      */
     function hasSubmit($selector) {
@@ -279,7 +279,7 @@ class SimpleForm {
     /**
      *    Test to see if a form has an image control.
      *    @param SimpleSelector $selector   Criteria to apply.
-     *    @return boolean                   True if present.
+     *    @return SS_Boolean                   True if present.
      *    @access public
      */
     function hasImage($selector) {

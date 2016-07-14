@@ -43,14 +43,14 @@ class Zend_Pdf_Canvas extends Zend_Pdf_Canvas_Abstract
     /**
      * Canvas width expressed in default user space units (1/72 inch)
      *
-     * @var float
+     * @var SS_Float
      */
     protected $_width;
 
     /**
      * Canvas height expressed in default user space units (1/72 inch)
      *
-     * @var float
+     * @var SS_Float
      */
     protected $_height;
 
@@ -61,8 +61,8 @@ class Zend_Pdf_Canvas extends Zend_Pdf_Canvas_Abstract
     /**
      * Object constructor
      *
-     * @param float $width
-     * @param float $height
+     * @param SS_Float $width
+     * @param SS_Float $height
      */
     public function __construct($width, $height)
     {
@@ -163,7 +163,7 @@ class Zend_Pdf_Canvas extends Zend_Pdf_Canvas_Abstract
     /**
      * Return the height of this page in points.
      *
-     * @return float
+     * @return SS_Float
      */
     public function getHeight()
     {
@@ -173,7 +173,7 @@ class Zend_Pdf_Canvas extends Zend_Pdf_Canvas_Abstract
     /**
      * Return the width of this page in points.
      *
-     * @return float
+     * @return SS_Float
      */
     public function getWidth()
     {

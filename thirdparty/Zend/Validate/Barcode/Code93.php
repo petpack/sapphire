@@ -80,7 +80,7 @@ class Zend_Validate_Barcode_Code93 extends Zend_Validate_Barcode_AdapterAbstract
      * Validates the checksum (Modulo CK)
      *
      * @param  string $value The barcode to validate
-     * @return boolean
+     * @return SS_Boolean
      */
     protected function _code93($value)
     {

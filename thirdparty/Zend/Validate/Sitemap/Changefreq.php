@@ -71,7 +71,7 @@ class Zend_Validate_Sitemap_Changefreq extends Zend_Validate_Abstract
      * @link http://www.sitemaps.org/protocol.php#changefreqdef <changefreq>
      *
      * @param  string  $value  value to validate
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

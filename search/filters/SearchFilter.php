@@ -254,7 +254,7 @@ abstract class SearchFilter extends Object {
 	 * Relies on the field being populated with
 	 * {@link setValue()}
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function isEmpty() {
 		return false;

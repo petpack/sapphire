@@ -95,7 +95,7 @@ class TextareaField extends FormField {
 	 * form it's attached to.
 	 * The element shouldn't be both disabled and readonly at the same time.
 	 */
-	function performDisabledTransformation() {
+	function performDisabledTransformation($trans) {
 		$clone = clone $this;
 		$clone->setDisabled(true);
 		$clone->setReadonly(false);
@@ -118,7 +118,7 @@ class TextareaField extends FormField {
 	/**
 	 * Set the number of columns in the textarea
 	 *
-	 * @return int
+	 * @return SS_Int
 	 */
 	function setColumns($cols) {
 		$this->cols = $cols;

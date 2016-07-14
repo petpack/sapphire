@@ -84,7 +84,20 @@ abstract class Object {
 	public static function create() {
 		$args  = func_get_args();
 		$class = self::getCustomClass(array_shift($args));
-		
+
+		// @fixme: make sure that i've covered all fieldtypes
+		if ($class == "Int") 		$class 	= "SS_Int";
+		if ($class == "int") 		$class 	= "SS_Int";
+
+		if ($class == "Boolean") 	$class 	= "SS_Boolean";
+		if ($class == "bool") 		$class 	= "SS_Boolean";
+
+		if ($class == "String") 	$class 	= "SS_String";
+		if ($class == "string") 	$class 	= "SS_String";
+
+		if ($class == "Float") 		$class 	= "SS_Float";
+		if ($class == "float") 		$class 	= "SS_Float";
+
 		if(version_compare(PHP_VERSION, '5.1.3', '>=')) {
 			$reflector = new ReflectionClass($class);
 			return $reflector->newInstanceArgs($args);
@@ -785,7 +798,7 @@ abstract class Object {
 	 * Add all the methods from an object property (which is an {@link Extension}) to this object.
 	 *
 	 * @param string $property the property name
-	 * @param string|int $index an index to use if the property is an array
+	 * @param string|SS_Int $index an index to use if the property is an array
 	 */
 	protected function addMethodsFrom($property, $index = null) {
 		$extension = ($index !== null) ? $this->{$property}[$index] : $this->$property;
@@ -1017,7 +1030,7 @@ abstract class Object {
 	 * results
 	 *
 	 * @param string $method the method name to cache
-	 * @param int $lifetime the cache lifetime in seconds
+	 * @param SS_Int $lifetime the cache lifetime in seconds
 	 * @param string $ID custom cache ID to use
 	 * @param array $arguments an optional array of arguments
 	 * @return mixed the cached data
@@ -1073,7 +1086,7 @@ abstract class Object {
 	 * Loads a cache from the filesystem if a valid on is present and within the specified lifetime
 	 *
 	 * @param string $cache the cache name
-	 * @param int $lifetime the lifetime (in seconds) of the cache before it is invalid
+	 * @param SS_Int $lifetime the lifetime (in seconds) of the cache before it is invalid
 	 * @return mixed
 	 */
 	protected function loadCache($cache, $lifetime = 3600) {

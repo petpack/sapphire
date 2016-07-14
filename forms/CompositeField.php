@@ -20,12 +20,12 @@ class CompositeField extends FormField {
 	
 	/**
 	 * Whether or not to force showing an overall title for the composite field.
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public $ShowTitle = true;
 	
 	/**
-	 * @var $columnCount int Toggle different css-rendering for multiple columns 
+	 * @var $columnCount SS_Int Toggle different css-rendering for multiple columns 
 	 * ("onecolumn", "twocolumns", "threecolumns"). The content is determined
 	 * by the $children-array, so wrap all items you want to have grouped in a
 	 * column inside a CompositeField.
@@ -198,7 +198,7 @@ class CompositeField extends FormField {
 	 * The field could also be inside a CompositeField.
 	 * 
 	 * @param string $fieldName The name of the field
-	 * @param boolean $dataFieldOnly If this is true, then a field will only
+	 * @param SS_Boolean $dataFieldOnly If this is true, then a field will only
 	 * be removed if it's a data field.  Dataless fields, such as tabs, will
 	 * be left as-is.
 	 */

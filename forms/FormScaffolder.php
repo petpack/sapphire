@@ -16,13 +16,13 @@ class FormScaffolder extends Object {
 	protected $obj;
 	
 	/**
-	 * @var boolean $tabbed Return fields in a tabset, with all main fields in the path "Root.Main", 
+	 * @var SS_Boolean $tabbed Return fields in a tabset, with all main fields in the path "Root.Main", 
 	 * relation fields in "Root.<relationname>" (if {@link $includeRelations} is enabled).
 	 */
 	public $tabbed = false;
 	
 	/**
-	 * @var boolean $ajaxSafe 
+	 * @var SS_Boolean $ajaxSafe 
 	 */
 	public $ajaxSafe = false;
 	
@@ -43,7 +43,7 @@ class FormScaffolder extends Object {
 	public $fieldClasses;
 	
 	/**
-	 * @var boolean $includeRelations Include has_one, has_many and many_many relations
+	 * @var SS_Boolean $includeRelations Include has_one, has_many and many_many relations
 	 */
 	public $includeRelations = false;
 	

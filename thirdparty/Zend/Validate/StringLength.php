@@ -220,7 +220,7 @@ class Zend_Validate_StringLength extends Zend_Validate_Abstract
      * no greater than the max option (when the max option is not null).
      *
      * @param  string $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

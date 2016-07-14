@@ -123,7 +123,7 @@ class Zend_Http_CookieJar implements Countable, IteratorAggregate
      *
      * @param Zend_Http_Cookie|string $cookie
      * @param Zend_Uri_Http|string    $ref_uri Optional reference URI (for domain, path, secure)
-     * @param boolean $encodeValue
+     * @param SS_Boolean $encodeValue
      */
     public function addCookie($cookie, $ref_uri = null, $encodeValue = true)
     {
@@ -150,7 +150,7 @@ class Zend_Http_CookieJar implements Countable, IteratorAggregate
      *
      * @param Zend_Http_Response $response
      * @param Zend_Uri_Http|string $ref_uri Requested URI
-     * @param boolean $encodeValue
+     * @param SS_Boolean $encodeValue
      */
     public function addCookiesFromResponse($response, $ref_uri, $encodeValue = true)
     {
@@ -174,7 +174,7 @@ class Zend_Http_CookieJar implements Countable, IteratorAggregate
     /**
      * Get all cookies in the cookie jar as an array
      *
-     * @param int $ret_as Whether to return cookies as objects of Zend_Http_Cookie or as strings
+     * @param SS_Int $ret_as Whether to return cookies as objects of Zend_Http_Cookie or as strings
      * @return array|string
      */
     public function getAllCookies($ret_as = self::COOKIE_OBJECT)
@@ -192,9 +192,9 @@ class Zend_Http_CookieJar implements Countable, IteratorAggregate
      * checking cookie expiry time.
      *
      * @param string|Zend_Uri_Http $uri URI to check against (secure, domain, path)
-     * @param boolean $matchSessionCookies Whether to send session cookies
-     * @param int $ret_as Whether to return cookies as objects of Zend_Http_Cookie or as strings
-     * @param int $now Override the current time when checking for expiry time
+     * @param SS_Boolean $matchSessionCookies Whether to send session cookies
+     * @param SS_Int $ret_as Whether to return cookies as objects of Zend_Http_Cookie or as strings
+     * @param SS_Int $now Override the current time when checking for expiry time
      * @return array|string
      */
     public function getMatchingCookies($uri, $matchSessionCookies = true,
@@ -231,7 +231,7 @@ class Zend_Http_CookieJar implements Countable, IteratorAggregate
      *
      * @param Zend_Uri_Http|string $uri The uri (domain and path) to match
      * @param string $cookie_name The cookie's name
-     * @param int $ret_as Whether to return cookies as objects of Zend_Http_Cookie or as strings
+     * @param SS_Int $ret_as Whether to return cookies as objects of Zend_Http_Cookie or as strings
      * @return Zend_Http_Cookie|string
      */
     public function getCookie($uri, $cookie_name, $ret_as = self::COOKIE_OBJECT)
@@ -282,7 +282,7 @@ class Zend_Http_CookieJar implements Countable, IteratorAggregate
      * cookies array (or parts of it)
      *
      * @param Zend_Http_Cookie|array $ptr
-     * @param int $ret_as What value to return
+     * @param SS_Int $ret_as What value to return
      * @return array|string
      */
     protected function _flattenCookiesArray($ptr, $ret_as = self::COOKIE_OBJECT) {
@@ -388,7 +388,7 @@ class Zend_Http_CookieJar implements Countable, IteratorAggregate
     /**
      * Required by Countable interface
      *
-     * @return int
+     * @return SS_Int
      */
     public function count()
     {

@@ -367,7 +367,7 @@ class Director {
 	/**
 	 * Returns the part of the URL, 'http://www.mysite.com'.
 	 * 
-	 * @return boolean|string The domain from the PHP environment. Returns FALSE is this environment variable isn't set.
+	 * @return SS_Boolean|string The domain from the PHP environment. Returns FALSE is this environment variable isn't set.
 	 */
 	static function protocolAndHost() {
 		if(self::$alternateBaseURL) {
@@ -534,7 +534,7 @@ class Director {
 	 * Checks if a given URL is absolute (e.g. starts with 'http://' etc.).
 	 * 
 	 * @param string $url
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public static function is_absolute_url($url) {
 		$url = trim($url);
@@ -549,7 +549,7 @@ class Director {
 	 * {@link is_absolute_url()}.
 	 * 
 	 * @param string $url
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public static function is_relative_url($url) {
 		return (!Director::is_absolute_url($url));
@@ -563,7 +563,7 @@ class Director {
 	 * to an attackers server.
 	 * 
 	 * @param string $url
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public static function is_site_url($url) {
 		$relativeUrl = Director::makeRelative($url);
@@ -629,7 +629,7 @@ class Director {
 	 * CAUTION: This does not respect the site environment mode. You should check this
 	 * as per the above examples using Director::isLive() or Director::isTest() for example.
 	 * 
-	 * @return boolean|string String of URL when unit tests running, boolean FALSE if patterns don't match request URI
+	 * @return SS_Boolean|string String of URL when unit tests running, boolean FALSE if patterns don't match request URI
 	 */
 	static function forceSSL($patterns = null) {
 		$matched = false;
@@ -680,7 +680,7 @@ class Director {
 	 * by checking for a custom header set by prototype.js or
 	 * wether a manually set request-parameter 'ajax' is present.
 	 *
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	static function is_ajax() {
 		if(Controller::has_curr()) {
@@ -696,7 +696,7 @@ class Director {
 	/**
 	 * Returns true if this script is being run from the command line rather than the webserver.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public static function is_cli() {
 		return (php_sapi_name() == "cli");

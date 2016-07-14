@@ -84,7 +84,7 @@ class OptionsetField extends DropdownField {
 		$odd = 0;
 		$source = $this->getSource();
 		foreach($source as $key => $value) {
-			$itemID = $this->id() . "_" . ereg_replace('[^a-zA-Z0-9]+','',$key);
+			$itemID = $this->id() . "_" . preg_replace('/[^a-zA-Z0-9]+/','',$key);
 		
 			if($key == $this->value/* || $useValue */) {
 				$useValue = false;
@@ -105,7 +105,7 @@ class OptionsetField extends DropdownField {
 	}
 	
 	protected $disabled = false;
-	function setDisabled($val) {
+	function setDisabled($disabled = true) {
 		$this->disabled = $val;
 	}
 	

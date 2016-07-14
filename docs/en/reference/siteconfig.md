@@ -47,7 +47,7 @@ Create a mysite/code/CustomSiteConfig.php file.
 			);
 		}
 	
-		public function updateCMSFields(FieldSet $fields) {
+		public ::updateCMSFields(FieldSet &$fields) {
 			$fields->addFieldToTab("Root.Main", new HTMLEditorField("FooterContent", "Footer Content"));
 		}
 	}

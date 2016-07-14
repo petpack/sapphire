@@ -52,9 +52,9 @@ class Zend_Pdf_Destination_Zoom extends Zend_Pdf_Destination_Explicit
      * Create destination object
      *
      * @param Zend_Pdf_Page|integer $page  Page object or page number
-     * @param float $left  Left edge of displayed page
-     * @param float $top   Top edge of displayed page
-     * @param float $zoom  Zoom factor
+     * @param SS_Float $left  Left edge of displayed page
+     * @param SS_Float $top   Top edge of displayed page
+     * @param SS_Float $zoom  Zoom factor
      * @return Zend_Pdf_Destination_Zoom
      * @throws Zend_Pdf_Exception
      */
@@ -97,7 +97,7 @@ class Zend_Pdf_Destination_Zoom extends Zend_Pdf_Destination_Explicit
     /**
      * Get left edge of the displayed page (null means viewer application 'current value')
      *
-     * @return float
+     * @return SS_Float
      */
     public function getLeftEdge()
     {
@@ -107,7 +107,7 @@ class Zend_Pdf_Destination_Zoom extends Zend_Pdf_Destination_Explicit
     /**
      * Set left edge of the displayed page (null means viewer application 'current value')
      *
-     * @param float $left
+     * @param SS_Float $left
      * @return Zend_Pdf_Action_Zoom
      */
     public function setLeftEdge($left)
@@ -124,7 +124,7 @@ class Zend_Pdf_Destination_Zoom extends Zend_Pdf_Destination_Explicit
     /**
      * Get top edge of the displayed page (null means viewer application 'current value')
      *
-     * @return float
+     * @return SS_Float
      */
     public function getTopEdge()
     {
@@ -134,7 +134,7 @@ class Zend_Pdf_Destination_Zoom extends Zend_Pdf_Destination_Explicit
     /**
      * Set top edge of the displayed page (null means viewer application 'current viewer')
      *
-     * @param float $top
+     * @param SS_Float $top
      * @return Zend_Pdf_Action_Zoom
      */
     public function setTopEdge($top)
@@ -151,7 +151,7 @@ class Zend_Pdf_Destination_Zoom extends Zend_Pdf_Destination_Explicit
     /**
      * Get ZoomFactor of the displayed page (null or 0 means viewer application 'current value')
      *
-     * @return float
+     * @return SS_Float
      */
     public function getZoomFactor()
     {
@@ -161,7 +161,7 @@ class Zend_Pdf_Destination_Zoom extends Zend_Pdf_Destination_Explicit
     /**
      * Set ZoomFactor of the displayed page (null or 0 means viewer application 'current viewer')
      *
-     * @param float $zoom
+     * @param SS_Float $zoom
      * @return Zend_Pdf_Action_Zoom
      */
     public function setZoomFactor($zoom)

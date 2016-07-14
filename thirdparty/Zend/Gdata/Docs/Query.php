@@ -163,7 +163,7 @@ class Zend_Gdata_Docs_Query extends Zend_Gdata_Query
      * in an exact match. Only documents with a title identical to the
      * title parameter will be returned.
      *
-     * @param boolean $value Use either true or false
+     * @param SS_Boolean $value Use either true or false
      * @return Zend_Gdata_Docs_Query Provides a fluent interface
      */
     public function setTitleExact($value)

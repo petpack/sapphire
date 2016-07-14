@@ -34,7 +34,7 @@ require_once 'Zend/Log/Filter/Interface.php';
 class Zend_Log_Filter_Suppress implements Zend_Log_Filter_Interface
 {
     /**
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_accept = true;
 
@@ -44,7 +44,7 @@ class Zend_Log_Filter_Suppress implements Zend_Log_Filter_Interface
      * Call suppress(true) to suppress all log events.
      * Call suppress(false) to accept all log events.
      *
-     * @param  boolean  $suppress  Should all log events be suppressed?
+     * @param  SS_Boolean  $suppress  Should all log events be suppressed?
      * @return  void
      */
     public function suppress($suppress)
@@ -56,7 +56,7 @@ class Zend_Log_Filter_Suppress implements Zend_Log_Filter_Interface
      * Returns TRUE to accept the message, FALSE to block it.
      *
      * @param  array    $event    event data
-     * @return boolean            accepted?
+     * @return SS_Boolean            accepted?
      */
     public function accept($event)
     {

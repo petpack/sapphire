@@ -61,7 +61,7 @@ class Zend_Validate_Sitemap_Priority extends Zend_Validate_Abstract
      * @link http://www.sitemaps.org/protocol.php#prioritydef <priority>
      *
      * @param  string  $value  value to validate
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

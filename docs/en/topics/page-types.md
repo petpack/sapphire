@@ -85,7 +85,7 @@ want the MenuTitle field to show on your page, which is inherited from `[api:Sit
 	class StaffPage extends Page {
 	
 	   function getCMSFields() {
-	      $fields = parent::getCMSFields();
+	      $fields = parent::getCMSFields($params);
 	      $fields->removeFieldFromTab('Root.Content.Main', 'MenuTitle');
 	      return $fields;
 	   }

@@ -116,8 +116,8 @@ class Zend_Cache_Backend
      * if $specificLifetime is not false, the given specific life time is used
      * else, the global lifetime is used
      *
-     * @param  int $specificLifetime
-     * @return int Cache life time
+     * @param  SS_Int $specificLifetime
+     * @return SS_Int Cache life time
      */
     public function getLifetime($specificLifetime)
     {
@@ -133,7 +133,7 @@ class Zend_Cache_Backend
      * DEPRECATED : use getCapabilities() instead
      *
      * @deprecated
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isAutomaticCleaningAvailable()
     {

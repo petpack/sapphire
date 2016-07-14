@@ -117,7 +117,7 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
      * Returns true if and only if $value is a valid IP address
      *
      * @param  mixed $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {
@@ -155,7 +155,7 @@ class Zend_Validate_Ip extends Zend_Validate_Abstract
      * Validates an IPv6 address
      *
      * @param  string $value Value to check against
-     * @return boolean True when $value is a valid ipv6 address
+     * @return SS_Boolean True when $value is a valid ipv6 address
      *                 False otherwise
      */
     protected function _validateIPv6($value) {

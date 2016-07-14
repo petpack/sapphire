@@ -276,7 +276,7 @@ class Geoip {
 	 * $codeOnly parameter.
 	 * 
 	 * @param string $address The IP address to get the country of
-	 * @param boolean $codeOnly Returns just the country code
+	 * @param SS_Boolean $codeOnly Returns just the country code
 	 */
 	static function ip2country($address, $codeOnly = false) {
 

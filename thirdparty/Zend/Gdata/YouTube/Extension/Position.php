@@ -56,7 +56,7 @@ class Zend_Gdata_YouTube_Extension_Position extends Zend_Gdata_Extension
     /**
      * Get the value for the position in the playlist
      *
-     * @return int The 1-based position in the playlist
+     * @return SS_Int The 1-based position in the playlist
      */
     public function getValue()
     {
@@ -66,7 +66,7 @@ class Zend_Gdata_YouTube_Extension_Position extends Zend_Gdata_Extension
     /**
      * Set the value for the position in the playlist
      *
-     * @param int $value The 1-based position in the playlist
+     * @param SS_Int $value The 1-based position in the playlist
      * @return Zend_Gdata_Extension_Visibility The element being modified
      */
     public function setValue($value)

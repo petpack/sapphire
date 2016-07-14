@@ -106,7 +106,7 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
     /**
      * Cache for the fast backend filling percentage
      *
-     * @var int
+     * @var SS_Int
      */
     private $_fastBackendFillingPercentage = null;
 
@@ -163,9 +163,9 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
      * @param  string $data            Datas to cache
      * @param  string $id              Cache id
      * @param  array $tags             Array of strings, the cache record will be tagged by each string entry
-     * @param  int   $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
-     * @param  int   $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
-     * @return boolean true if no problem
+     * @param  SS_Int   $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @param  SS_Int   $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
+     * @return SS_Boolean true if no problem
      */
     public function save($data, $id, $tags = array(), $specificLifetime = false, $priority = 8)
     {
@@ -187,7 +187,7 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
      * Note : return value is always "string" (unserialization is done by the core not by the backend)
      *
      * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  SS_Boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
      * @return string|false cached datas
      */
     public function load($id, $doNotTestCacheValidity = false)
@@ -223,7 +223,7 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
      * Remove a cache record
      *
      * @param  string $id Cache id
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     public function remove($id)
     {
@@ -247,7 +247,7 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
      * @throws Zend_Cache_Exception
-     * @return boolean true if no problem
+     * @return SS_Boolean true if no problem
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {
@@ -352,7 +352,7 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
     /**
      * Return the filling percentage of the backend storage
      *
-     * @return int integer between 0 and 100
+     * @return SS_Int integer between 0 and 100
      */
     public function getFillingPercentage()
     {
@@ -379,8 +379,8 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
      * Give (if possible) an extra lifetime to the given cache id
      *
      * @param string $id cache id
-     * @param int $extraLifetime
-     * @return boolean true if ok
+     * @param SS_Int $extraLifetime
+     * @return SS_Boolean true if ok
      */
     public function touch($id, $extraLifetime)
     {
@@ -418,8 +418,8 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
      * Prepare a serialized array to store datas and metadatas informations
      *
      * @param string $data data to store
-     * @param int $lifetime original lifetime
-     * @param int $priority priority
+     * @param SS_Int $lifetime original lifetime
+     * @param SS_Int $priority priority
      * @return string serialize array to store into cache
      */
     private function _prepareData($data, $lifetime, $priority)
@@ -439,10 +439,10 @@ class Zend_Cache_Backend_TwoLevels extends Zend_Cache_Backend implements Zend_Ca
     /**
      * Compute and return the lifetime for the fast backend
      *
-     * @param int $lifetime original lifetime
-     * @param int $priority priority
-     * @param int $maxLifetime maximum lifetime
-     * @return int lifetime for the fast backend
+     * @param SS_Int $lifetime original lifetime
+     * @param SS_Int $priority priority
+     * @param SS_Int $maxLifetime maximum lifetime
+     * @return SS_Int lifetime for the fast backend
      */
     private function _getFastLifetime($lifetime, $priority, $maxLifetime = null)
     {

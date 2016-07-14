@@ -64,7 +64,7 @@ class Zend_Pdf_Outline_Created extends Zend_Pdf_Outline
      * True if outline item is displayed in italic.
      * Default value is false.
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_italic = false;
 
@@ -72,7 +72,7 @@ class Zend_Pdf_Outline_Created extends Zend_Pdf_Outline
      * True if outline item is displayed in bold.
      * Default value is false.
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_bold = false;
 
@@ -112,7 +112,7 @@ class Zend_Pdf_Outline_Created extends Zend_Pdf_Outline
     /**
      * Returns true if outline item is displayed in italic
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isItalic()
     {
@@ -122,7 +122,7 @@ class Zend_Pdf_Outline_Created extends Zend_Pdf_Outline
     /**
      * Sets 'isItalic' outline flag
      *
-     * @param boolean $isItalic
+     * @param SS_Boolean $isItalic
      * @return Zend_Pdf_Outline
      */
     public function setIsItalic($isItalic)
@@ -134,7 +134,7 @@ class Zend_Pdf_Outline_Created extends Zend_Pdf_Outline
     /**
      * Returns true if outline item is displayed in bold
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isBold()
     {
@@ -144,7 +144,7 @@ class Zend_Pdf_Outline_Created extends Zend_Pdf_Outline
     /**
      * Sets 'isBold' outline flag
      *
-     * @param boolean $isBold
+     * @param SS_Boolean $isBold
      * @return Zend_Pdf_Outline
      */
     public function setIsBold($isBold)
@@ -236,7 +236,7 @@ class Zend_Pdf_Outline_Created extends Zend_Pdf_Outline
      *
      * @internal
      * @param Zend_Pdf_ElementFactory    $factory object factory for newly created indirect objects
-     * @param boolean $updateNavigation  Update navigation flag
+     * @param SS_Boolean $updateNavigation  Update navigation flag
      * @param Zend_Pdf_Element $parent   Parent outline dictionary reference
      * @param Zend_Pdf_Element $prev     Previous outline dictionary reference
      * @param SplObjectStorage $processedOutlines  List of already processed outlines

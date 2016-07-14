@@ -57,13 +57,13 @@ abstract class Zend_Pdf_FileParser
 
     /**
      * Flag indicating that the file has passed a cursory validation check.
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_isScreened = false;
 
     /**
      * Flag indicating that the file has been sucessfully parsed.
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_isParsed = false;
 
@@ -136,7 +136,7 @@ abstract class Zend_Pdf_FileParser
     /**
      * Returns true if the file has passed a cursory validation check.
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isScreened()
     {
@@ -146,7 +146,7 @@ abstract class Zend_Pdf_FileParser
     /**
      * Returns true if the file has been successfully parsed.
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isParsed()
     {
@@ -334,7 +334,7 @@ abstract class Zend_Pdf_FileParser
      *
      * @param integer $bit Bit number to test (i.e. - 0-31)
      * @param integer $bitField
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isBitSet($bit, $bitField)
     {
@@ -357,7 +357,7 @@ abstract class Zend_Pdf_FileParser
      * @param integer $byteOrder (optional) Big- or little-endian byte order.
      *   Use the BYTE_ORDER_ constants defined in {@link Zend_Pdf_FileParser}.
      *   If omitted, uses big-endian.
-     * @return float
+     * @return SS_Float
      * @throws Zend_Pdf_Exception
      */
     public function readFixed($mantissaBits, $fractionBits,

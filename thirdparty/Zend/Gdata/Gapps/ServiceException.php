@@ -137,7 +137,7 @@ class Zend_Gdata_Gapps_ServiceException extends Zend_Exception
      * server.
      *
      * @param integer $errorCode The error code to check against.
-     * @return boolean Whether or not the supplied error code was returned
+     * @return SS_Boolean Whether or not the supplied error code was returned
      *          by the server.
      */
     public function hasError($errorCode) {

@@ -38,7 +38,7 @@ abstract class Zend_Pdf_Color
      * to switch color.
      * Color set instructions differ for stroking and nonstroking operations.
      *
-     * @param boolean $stroking
+     * @param SS_Boolean $stroking
      * @return string
      */
     abstract public function instructions($stroking);

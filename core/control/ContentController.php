@@ -65,7 +65,7 @@ class ContentController extends Controller {
 	/**
 	 * Return the children of a given page. The parent reference can either be a page link or an ID.
 	 *
-	 * @param string|int $parentRef
+	 * @param string|SS_Int $parentRef
 	 * @return DataObjectSet
 	 */
 	public function ChildrenOf($parentRef) {

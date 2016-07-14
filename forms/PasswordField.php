@@ -9,7 +9,7 @@ class PasswordField extends PlaceholderField {
 	/**
 	 * maxlength of the password field
 	 *
-	 * @var int
+	 * @var SS_Int
 	 */
 	protected $maxLength;
 

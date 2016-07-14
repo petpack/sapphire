@@ -303,7 +303,7 @@ class Zend_Validate_File_ImageSize extends Zend_Validate_Abstract
      *
      * @param  string $value Real file to check for image size
      * @param  array  $file  File data from Zend_File_Transfer
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value, $file = null)
     {

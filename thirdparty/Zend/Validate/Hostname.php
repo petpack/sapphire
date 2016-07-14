@@ -327,8 +327,8 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
      * Sets validator options
      *
      * @param integer          $allow       OPTIONAL Set what types of hostname to allow (default ALLOW_DNS)
-     * @param boolean          $validateIdn OPTIONAL Set whether IDN domains are validated (default true)
-     * @param boolean          $validateTld OPTIONAL Set whether the TLD element of a hostname is validated (default true)
+     * @param SS_Boolean          $validateIdn OPTIONAL Set whether IDN domains are validated (default true)
+     * @param SS_Boolean          $validateTld OPTIONAL Set whether the TLD element of a hostname is validated (default true)
      * @param Zend_Validate_Ip $ipValidator OPTIONAL
      * @return void
      * @see http://www.iana.org/cctld/specifications-policies-cctlds-01apr02.htm  Technical Specifications for ccTLDs
@@ -445,7 +445,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
     /**
      * Returns the set idn option
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getValidateIdn()
     {
@@ -457,7 +457,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
      *
      * This only applies when DNS hostnames are validated
      *
-     * @param boolean $allowed Set allowed to true to validate IDNs, and false to not validate them
+     * @param SS_Boolean $allowed Set allowed to true to validate IDNs, and false to not validate them
      */
     public function setValidateIdn ($allowed)
     {
@@ -468,7 +468,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
     /**
      * Returns the set tld option
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getValidateTld()
     {
@@ -480,7 +480,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
      *
      * This only applies when DNS hostnames are validated
      *
-     * @param boolean $allowed Set allowed to true to validate TLDs, and false to not validate them
+     * @param SS_Boolean $allowed Set allowed to true to validate TLDs, and false to not validate them
      */
     public function setValidateTld ($allowed)
     {
@@ -495,7 +495,7 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
      *
      * @param  string $value
      * @throws Zend_Validate_Exception if a fatal error occurs for validation process
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

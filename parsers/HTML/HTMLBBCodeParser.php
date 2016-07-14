@@ -136,7 +136,7 @@ class SSHTMLBBCodeParser
      * @access   public
      * @author   Stijn de Reede  <sjr@gmx.co.uk>
      */
-    function SSHTMLBBCodeParser($options = array())
+    function __construct($options = array())
     {
         // set the already set options
         $baseoptions = &SSHTMLBBCodeParser::getStaticProperty('SSHTMLBBCodeParser', '_options');
@@ -258,7 +258,7 @@ class SSHTMLBBCodeParser
      * Add new filters
      *
      * @param mixed (array or string)
-     * @return boolean true if all ok, false if not.
+     * @return SS_Boolean true if all ok, false if not.
      * @author Lorenzo Alberton <l.alberton@quipo.it>
      */
     function addFilters($filters)
@@ -599,7 +599,7 @@ class SSHTMLBBCodeParser
      *
      * @param    array           tag that is on the outside
      * @param    array           tag that is on the inside
-     * @return   boolean         false if not needed, tag if needed, true if out
+     * @return   SS_Boolean         false if not needed, tag if needed, true if out
      *                           of  our minds
      * @access   private
      * @see      _validateTagArray()
@@ -639,7 +639,7 @@ class SSHTMLBBCodeParser
      *
      * @param    array           tag that is on the outside
      * @param    array           tag that is on the inside
-     * @return   boolean         false if not needed, tag if needed, true if out
+     * @return   SS_Boolean         false if not needed, tag if needed, true if out
      *                           of our minds
      * @access   private
      * @see      _validateTagArray()
@@ -677,7 +677,7 @@ class SSHTMLBBCodeParser
      *
      * @param    array           tag that is on the outside
      * @param    array           tag that is on the inside
-     * @return   boolean         return true if the tag is allowed, false
+     * @return   SS_Boolean         return true if the tag is allowed, false
      *                           otherwise
      * @access   private
      * @see      _validateTagArray()

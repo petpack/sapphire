@@ -20,13 +20,13 @@ class FileIFrameField extends FileField {
 	 * Flag that controls whether or not new files
 	 * can be uploaded by the user from their local computer.
 	 * 
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected $canUploadNewFile = true;	
 
 	/** 
 	 * Sets whether or not files can be uploaded into the CMS from the user's local computer 
-	 * @param boolean $can
+	 * @param SS_Boolean $can
 	 */
 	public function setCanUploadNewFile($can) {
 		$this->canUploadNewFile = $can;

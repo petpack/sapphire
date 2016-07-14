@@ -219,7 +219,7 @@ class TestRunner extends Controller {
 
 	/**
 	 * @param array $classList
-	 * @param boolean $coverage
+	 * @param SS_Boolean $coverage
 	 */
 	function runTests($classList, $coverage = false) {
 		$startTime = microtime(true);

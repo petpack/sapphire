@@ -95,7 +95,7 @@ class TableListField extends FormField {
 	protected $selectOptions = array();
 	
 	/**
-	 * @var $readOnly boolean Deprecated, please use $permssions instead
+	 * @var $readOnly SS_Boolean Deprecated, please use $permssions instead
 	 */
 	protected $readOnly;
 	
@@ -185,12 +185,12 @@ class TableListField extends FormField {
 	
 	
 	/**
-	 * @var int Shows total count regardless or pagination
+	 * @var SS_Int Shows total count regardless or pagination
 	 */
 	protected $totalCount;
 	
 	/**
-	 * @var boolean Trigger pagination
+	 * @var SS_Boolean Trigger pagination
 	 */
 	protected $showPagination = false;
 	
@@ -202,7 +202,7 @@ class TableListField extends FormField {
 	public $paginationBaseLink = null;
 	
 	/**
-	 * @var int Number of items to show on a single page (needed for pagination)
+	 * @var SS_Int Number of items to show on a single page (needed for pagination)
 	 */
 	protected $pageSize = 10;
 	
@@ -461,8 +461,9 @@ JS
 			// get query
 			$dataQuery = $this->getQuery();
 			
-			// we don't limit when doing certain actions        T
-			$methodName = isset($_REQUEST['url']) ? array_pop(explode('/', $_REQUEST['url'])) : null;
+			// we don't limit when doing certain actions
+			$arr = explode('/', $_REQUEST['url']);
+			$methodName = isset($_REQUEST['url']) ? array_pop($arr) : null;
 			if(!$methodName || !in_array($methodName,array('printall','export'))) {
 				$dataQuery->limit(array(
 					'limit' => $SQL_limit,
@@ -722,7 +723,7 @@ JS
 	 * See {@link TableListField_Item->Can()} for object-specific
 	 * permissions.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function Can($mode) {
 		if($mode == 'add' && $this->isReadonly()) {
@@ -758,7 +759,7 @@ JS
 	}
 
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function ShowPagination() {
 		if($this->showPagination && !empty($this->summaryFieldList)) {
@@ -1218,7 +1219,7 @@ JS
 	}
 	
 	/**
-	 * @return Int
+	 * @return SS_Int
 	 */
 	function sourceID() {
 		$idField = $this->form->dataFieldByName('ID');
@@ -1459,7 +1460,7 @@ class TableListField_Item extends ViewableData {
 	 * a method with "can" + $mode parameter naming, e.g. canDelete().
 	 * 
 	 * @param string $mode See {@link TableListField::$permissions} array.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function Can($mode) {
 		$canMethod = "can" . ucfirst($mode);

@@ -70,10 +70,10 @@ class Zend_Pdf_Annotation_Link extends Zend_Pdf_Annotation
     /**
      * Create link annotation object
      *
-     * @param float $x1
-     * @param float $y1
-     * @param float $x2
-     * @param float $y2
+     * @param SS_Float $x1
+     * @param SS_Float $y1
+     * @param SS_Float $x2
+     * @param SS_Float $y2
      * @param Zend_Pdf_Target|string $target
      * @return Zend_Pdf_Annotation_Link
      */

@@ -129,7 +129,7 @@ class FormResponse {
 	}
 	
 	/**
-	 * @param $id int
+	 * @param $id SS_Int
 	 */
 	static function get_page($id, $form = 'Form_EditForm', $uniquenessID = null) {
 		$JS_id = (int)$id;
@@ -184,7 +184,7 @@ class FormResponse {
 	/**
 	 * Set the title of a single page in the pagetree
 	 * 
-	 * @param $id int
+	 * @param $id SS_Int
 	 * @param $title string
 	 */
 	static function set_node_title($id, $title = "") {
@@ -222,7 +222,7 @@ class FormResponse {
 	 * 
 	 * @param $domID string The DOM-ID of an HTML-element that should be replaced
 	 * @param $domContent string The new HTML-content
-	 * @param $reapplyBehaviour boolean Applies behaviour to the given domID after refreshing it
+	 * @param $reapplyBehaviour SS_Boolean Applies behaviour to the given domID after refreshing it
 	 * @param $replaceMethod string Method for replacing - either 'replace' (=outerHTML) or 'update' (=innerHTML)
 	 *   (Caution: "outerHTML" might cause problems on the client-side, e.g. on table-tags)
 	 * 

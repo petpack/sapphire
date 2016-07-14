@@ -51,14 +51,14 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
     /**
      * Whether a strict in_array() invocation is used
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_strict = false;
 
     /**
      * Whether a recursive search should be done
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_recursive = false;
 
@@ -128,7 +128,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
     /**
      * Returns the strict option
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getStrict()
     {
@@ -138,7 +138,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
     /**
      * Sets the strict option
      *
-     * @param  boolean $strict
+     * @param  SS_Boolean $strict
      * @return Zend_Validate_InArray Provides a fluent interface
      */
     public function setStrict($strict)
@@ -150,7 +150,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
     /**
      * Returns the recursive option
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getRecursive()
     {
@@ -160,7 +160,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
     /**
      * Sets the recursive option
      *
-     * @param  boolean $recursive
+     * @param  SS_Boolean $recursive
      * @return Zend_Validate_InArray Provides a fluent interface
      */
     public function setRecursive($recursive)
@@ -176,7 +176,7 @@ class Zend_Validate_InArray extends Zend_Validate_Abstract
      * option is true, then the type of $value is also checked.
      *
      * @param  mixed $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

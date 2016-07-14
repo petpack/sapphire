@@ -10,7 +10,7 @@ interface DatabaseConfigurationHelper {
 	 * If it is, we assume the PHP module for this database has been setup correctly.
 	 * 
 	 * @param array $databaseConfig Associative array of db configuration, e.g. "server", "username" etc
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function requireDatabaseFunctions($databaseConfig);
 

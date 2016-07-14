@@ -82,7 +82,7 @@ class Zend_Validate_File_Exists extends Zend_Validate_Abstract
     /**
      * Returns the set file directories which are checked
      *
-     * @param  boolean $asArray Returns the values as array, when false an concated string is returned
+     * @param  SS_Boolean $asArray Returns the values as array, when false an concated string is returned
      * @return string
      */
     public function getDirectory($asArray = false)
@@ -154,7 +154,7 @@ class Zend_Validate_File_Exists extends Zend_Validate_Abstract
      *
      * @param  string  $value Real file to check for existance
      * @param  array   $file  File data from Zend_File_Transfer
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value, $file = null)
     {

@@ -61,7 +61,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     /**
      * Current location in $_entry array
      *
-     * @var int
+     * @var SS_Int
      */
     protected $_entryIndex = 0;
 
@@ -177,7 +177,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     /**
      * Required by the Iterator interface.
      *
-     * @return boolean Whether the iteration is valid
+     * @return SS_Boolean Whether the iteration is valid
      */
     public function valid()
     {
@@ -224,7 +224,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     /**
      * Required by the ArrayAccess interface
      *
-     * @param int $key The index to set
+     * @param SS_Int $key The index to set
      * @param Zend_Gdata_App_Entry $value The value to set
      * @return void
      */
@@ -236,7 +236,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     /**
      * Required by the ArrayAccess interface
      *
-     * @param int $key The index to get
+     * @param SS_Int $key The index to get
      * @param Zend_Gdata_App_Entry $value The value to set
      */
     public function offsetGet($key)
@@ -249,7 +249,7 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     /**
      * Required by the ArrayAccess interface
      *
-     * @param int $key The index to set
+     * @param SS_Int $key The index to set
      * @param Zend_Gdata_App_Entry $value The value to set
      */
     public function offsetUnset($key)
@@ -262,8 +262,8 @@ class Zend_Gdata_App_Feed extends Zend_Gdata_App_FeedSourceParent
     /**
      * Required by the ArrayAccess interface
      *
-     * @param int $key The index to check for existence
-     * @return boolean
+     * @param SS_Int $key The index to check for existence
+     * @return SS_Boolean
      */
     public function offsetExists($key)
     {

@@ -146,7 +146,7 @@ class SimpleImageField extends FileField {
 	}
 
 
-	public function saveInto(DataObject $record) {
+	public function saveInto(DataObjectInterface $record) {
 		if(!isset($_FILES[$this->name])) return false;
 		
 		if($this->relationAutoSetting) {

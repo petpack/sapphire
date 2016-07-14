@@ -72,7 +72,7 @@ class Zend_Validate_Barcode_Royalmail extends Zend_Validate_Barcode_AdapterAbstr
      * Validates the checksum ()
      *
      * @param  string $value The barcode to validate
-     * @return boolean
+     * @return SS_Boolean
      */
     protected function _royalmail($value)
     {
@@ -102,7 +102,7 @@ class Zend_Validate_Barcode_Royalmail extends Zend_Validate_Barcode_AdapterAbstr
      * Allows start and stop tag within checked chars
      *
      * @param  string $value The barcode to check for allowed characters
-     * @return boolean
+     * @return SS_Boolean
      */
     public function checkChars($value)
     {

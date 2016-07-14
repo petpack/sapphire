@@ -57,7 +57,7 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
     /**
      * Validate case sensitive
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_case = false;
 
@@ -96,7 +96,7 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
     /**
      * Returns the case option
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getCase()
     {
@@ -106,7 +106,7 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
     /**
      * Sets the case to use
      *
-     * @param  boolean $case
+     * @param  SS_Boolean $case
      * @return Zend_Validate_File_Extension Provides a fluent interface
      */
     public function setCase($case)
@@ -182,7 +182,7 @@ class Zend_Validate_File_Extension extends Zend_Validate_Abstract
      *
      * @param  string  $value Real file to check for extension
      * @param  array   $file  File data from Zend_File_Transfer
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value, $file = null)
     {

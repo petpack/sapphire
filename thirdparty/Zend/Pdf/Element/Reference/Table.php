@@ -87,7 +87,7 @@ class Zend_Pdf_Element_Reference_Table
      *
      * @param string $ref
      * @param integer $offset
-     * @param boolean $inuse
+     * @param SS_Boolean $inuse
      */
     public function addReference($ref, $offset, $inuse = true)
     {

@@ -685,7 +685,7 @@ class Zend_Http_UserAgent implements Serializable
     /**
      * Set a server value
      *
-     * @param  string|int|float $key
+     * @param  string|SS_Int|SS_Float $key
      * @param  mixed $value
      * @return void
      */

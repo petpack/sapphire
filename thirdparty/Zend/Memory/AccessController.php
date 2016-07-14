@@ -113,7 +113,7 @@ class Zend_Memory_AccessController implements Zend_Memory_Container_Interface
     /**
      * Return true if object is locked
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isLocked()
     {

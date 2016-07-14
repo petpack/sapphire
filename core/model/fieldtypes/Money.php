@@ -30,12 +30,12 @@ class Money extends DBField implements CompositeDBField {
 	protected $currency;
 
 	/**
-	 * @var float $currencyAmount
+	 * @var SS_Float $currencyAmount
 	 */
 	protected $amount;
 
 	/**
-	 * @var boolean $isChanged
+	 * @var SS_Boolean $isChanged
 	 */
 	protected $isChanged = false;
 	
@@ -173,14 +173,14 @@ class Money extends DBField implements CompositeDBField {
 	/**
 	 * @todo Return casted Float DBField?
 	 * 
-	 * @return float
+	 * @return SS_Float
 	 */
 	function getAmount() {
 		return $this->amount;
 	}
 	
 	/**
-	 * @param float $amount
+	 * @param SS_Float $amount
 	 */
 	function setAmount($amount, $markChanged = true) {
 		$this->amount = (float)$amount;
@@ -188,14 +188,14 @@ class Money extends DBField implements CompositeDBField {
 	}
 	
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function hasValue() {
 		return ($this->getCurrency() && is_numeric($this->getAmount()));
 	}
 	
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function hasAmount() {
 		return (int)$this->getAmount() != '0';

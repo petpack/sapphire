@@ -107,7 +107,7 @@ class Zend_Validate_LessThan extends Zend_Validate_Abstract
      * Returns true if and only if $value is less than max option
      *
      * @param  mixed $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

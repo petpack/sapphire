@@ -48,7 +48,7 @@ class Zend_Pdf_Color_GrayScale extends Zend_Pdf_Color
     /**
      * Object constructor
      *
-     * @param float $grayLevel
+     * @param SS_Float $grayLevel
      */
     public function __construct($grayLevel)
     {
@@ -63,7 +63,7 @@ class Zend_Pdf_Color_GrayScale extends Zend_Pdf_Color
      * to switch color.
      * Color set instructions differ for stroking and nonstroking operations.
      *
-     * @param boolean $stroking
+     * @param SS_Boolean $stroking
      * @return string
      */
     public function instructions($stroking)

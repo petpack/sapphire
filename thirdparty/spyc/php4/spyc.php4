@@ -179,8 +179,8 @@ class Spyc {
      * @access public
      * @return string
      * @param array $array PHP array
-     * @param int $indent Pass in false to use the default, which is 2
-     * @param int $wordwrap Pass in 0 for no wordwrap, false for default (40)
+     * @param SS_Int $indent Pass in false to use the default, which is 2
+     * @param SS_Int $wordwrap Pass in 0 for no wordwrap, false for default (40)
      */
   function YAMLDump($array,$indent = false,$wordwrap = false) {
     $spyc = new Spyc;
@@ -205,8 +205,8 @@ class Spyc {
      * @access public
      * @return string
      * @param array $array PHP array
-     * @param int $indent Pass in false to use the default, which is 2
-     * @param int $wordwrap Pass in 0 for no wordwrap, false for default (40)
+     * @param SS_Int $indent Pass in false to use the default, which is 2
+     * @param SS_Int $wordwrap Pass in 0 for no wordwrap, false for default (40)
      */
   function dump($array,$indent = false,$wordwrap = false) {
     // Dumps to some very clean YAML.  We'll have to add some more features
@@ -332,7 +332,7 @@ class Spyc {
      * @access private
      * @return string
      * @param $value
-     * @param $indent int The value of the indent
+     * @param $indent SS_Int The value of the indent
      */
   function _doLiteralBlock($value,$indent) {
     if (strpos($value, "\n") === false && strpos($value, "'") === false) {

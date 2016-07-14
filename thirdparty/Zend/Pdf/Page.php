@@ -127,7 +127,7 @@ class Zend_Pdf_Page extends Zend_Pdf_Canvas_Abstract
      * Flag which signals, that page is created separately from any PDF document or
      * attached to anyone.
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_attached;
 
@@ -138,7 +138,7 @@ class Zend_Pdf_Page extends Zend_Pdf_Canvas_Abstract
      * context of previous contents stream (ex. drawing coordinate system may be rotated).
      * We should encompass existing content with save/restore GS operators
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_safeGS;
 
@@ -453,7 +453,7 @@ class Zend_Pdf_Page extends Zend_Pdf_Canvas_Abstract
     /**
      * Return the height of this page in points.
      *
-     * @return float
+     * @return SS_Float
      */
     public function getHeight()
     {
@@ -464,7 +464,7 @@ class Zend_Pdf_Page extends Zend_Pdf_Canvas_Abstract
     /**
      * Return the width of this page in points.
      *
-     * @return float
+     * @return SS_Float
      */
     public function getWidth()
     {

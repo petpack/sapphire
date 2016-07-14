@@ -16,13 +16,13 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	
 	/**
 	 * True if the current DataObject is the first in this set.
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected $first = true;
 	
 	/**
 	 * True if the current DataObject is the last in this set.
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected $last = false;
 	
@@ -34,19 +34,19 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 
 	/**
 	 * The number object the current page starts at.
-	 * @var int
+	 * @var SS_Int
 	 */
 	protected $pageStart;
 	
 	/**
 	 * The number of objects per page.
-	 * @var int
+	 * @var SS_Int
 	 */
 	protected $pageLength;
 	
 	/**
 	 * Total number of DataObjects in this set.
-	 * @var int
+	 * @var SS_Int
 	 */
 	protected $totalSize;
 	
@@ -162,7 +162,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	
 	/**
 	 * Set number of objects on each page.
-	 * @param int $length Number of objects per page
+	 * @param SS_Int $length Number of objects per page
 	 */
 	public function setPageLength($length) {
 		$this->pageLength = $length;
@@ -170,9 +170,9 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	
 	/**
 	 * Set the page limits.
-	 * @param int $pageStart The start of this page.
-	 * @param int $pageLength Number of objects per page
-	 * @param int $totalSize Total number of objects.
+	 * @param SS_Int $pageStart The start of this page.
+	 * @param SS_Int $pageLength Number of objects per page
+	 * @param SS_Int $totalSize Total number of objects.
 	 */
 	public function setPageLimits($pageStart, $pageLength, $totalSize) {
 		$this->pageStart = $pageStart;
@@ -219,7 +219,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	
 	/**
 	 * Returns the number of the current page.
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function CurrentPage() {
 		return floor($this->pageStart / $this->pageLength) + 1;
@@ -227,7 +227,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	
 	/**
 	 * Returns the total number of pages.
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function TotalPages() {
 		if($this->totalSize == 0) {
@@ -244,7 +244,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	 * Return a datafeed of page-links, good for use in search results, etc.
 	 * $maxPages will put an upper limit on the number of pages to return.  It will
 	 * show the pages surrounding the current page, so you can still get to the deeper pages.
-	 * @param int $maxPages The maximum number of pages to return
+	 * @param SS_Int $maxPages The maximum number of pages to return
 	 * @return DataObjectSet
 	 */
 	public function Pages($maxPages = 0){
@@ -363,7 +363,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	
 	/**
 	 * Returns true if the current page is not the first page.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function NotFirstPage(){
 		return $this->CurrentPage() != 1;
@@ -371,7 +371,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	
 	/**
 	 * Returns true if the current page is not the last page.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function NotLastPage(){
 		return $this->CurrentPage() != $this->TotalPages();
@@ -379,7 +379,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	
 	/**
 	 * Returns true if there is more than one page.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function MoreThanOnePage(){
 		return $this->TotalPages() > 1;
@@ -529,8 +529,8 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	/**
 	 * Gets a specific slice of an existing set.
 	 * 
-	 * @param int $offset
-	 * @param int $length
+	 * @param SS_Int $offset
+	 * @param SS_Int $length
 	 * @return DataObjectSet
 	 */
 	public function getRange($offset, $length) {
@@ -549,7 +549,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	
 	/**
 	 * Returns false if the set is empty.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function exists() {
 		return (bool)$this->items;
@@ -581,7 +581,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 
 	/**
 	 * Return the total number of items in this dataset.
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function TotalItems() {
 		return $this->totalSize ? $this->totalSize : sizeof($this->items);
@@ -589,7 +589,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	
 	/**
 	 * Returns the actual number of items in this dataset.
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function Count() {
 		return sizeof($this->items);
@@ -743,7 +743,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	 * Gets called recursively on the child-objects of the chain.
 	 * 
 	 * @param array $nestingLevels see {@buildNestedUL}
-	 * @param int $level Current nesting level
+	 * @param SS_Int $level Current nesting level
 	 * @param string $template Template for list item
 	 * @param string $ulExtraAttributes Extra attributes
 	 * @return string
@@ -849,7 +849,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
 	 * @param string $groupClassName Classname.
 	 * @param string $sortParents SORT clause to insert into the parents SQL.
 	 * @param string $parentField Parent field.
-	 * @param boolean $collapse Collapse up until an ancestor with the given class is found.
+	 * @param SS_Boolean $collapse Collapse up until an ancestor with the given class is found.
 	 * @param string $requiredParents Required parents
 	 * @return DataObjectSet
 	 */
@@ -980,7 +980,7 @@ class DataObjectSet extends ViewableData implements IteratorAggregate, Countable
  * @param array $data The array to sort.
  * @param string $column The name of the column you wish to sort by.
  * @param string $direction Direction to sort by, either "ASC" or "DESC".
- * @param boolean $preserveIndexes Preserve indexes
+ * @param SS_Boolean $preserveIndexes Preserve indexes
  */
 function column_sort(&$data, $column, $direction = "ASC", $preserveIndexes = true) {
 	global $column_sort_field, $column_sort_multiplier;
@@ -1099,7 +1099,7 @@ class DataObjectSet_Iterator implements Iterator {
 	
 	/**
 	 * Check the iterator is pointing to a valid item in the set.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function valid() {
 	 	return $this->current !== false;
@@ -1123,8 +1123,8 @@ class DataObjectSet_Iterator implements Iterator {
 	
 	/**
 	 * Return the object in this set offset by $offset from the iterator pointer.
-	 * @param int $offset The offset.
-	 * @return DataObject|boolean DataObject of offset item, or boolean FALSE if not found
+	 * @param SS_Int $offset The offset.
+	 * @return DataObject|SS_Boolean DataObject of offset item, or boolean FALSE if not found
 	 */
 	public function getOffset($offset) {
 		$keys = array_keys($this->items);

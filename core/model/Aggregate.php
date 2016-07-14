@@ -87,7 +87,16 @@ class Aggregate extends ViewableData {
 	 * This gets the aggregate function 
 	 * 
 	 */
-	public function XML_val($name, $args) {
+	public function XML_val($field, $arguments = null, $cache = false) {
+		$func_args = func_get_args();
+
+		if (!isset($func_args[0]) || !isset($func_args[1])) {
+			user_error('Aggregate::XML_val requires  $name and $args argument');
+		}
+
+		$name = $func_args[0];
+		$args = $func_args[1];
+
 		$func = strtoupper( strpos($name, 'get') === 0 ? substr($name, 3) : $name );
 		$attribute = $args ? $args[0] : 'ID';
 		

@@ -50,7 +50,7 @@ HTML;
 	/**
 	 * Save the results into the form
 	 */
-	function saveInto(DataObject $record) {
+	function saveInto(DataObjectInterface $record) {
 		$fieldName = $this->name;
 		$saveDest = $record->$fieldName();
 

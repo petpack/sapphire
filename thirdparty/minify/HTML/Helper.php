@@ -138,7 +138,7 @@ class Minify_HTML_Helper {
      * a particular index
      *
      * @param array $arr array of strings
-     * @param int $pos index to check
+     * @param SS_Int $pos index to check
      * @return mixed a common char or '' if any do not match
      */
     protected static function _getCommonCharAtPos($arr, $pos) {

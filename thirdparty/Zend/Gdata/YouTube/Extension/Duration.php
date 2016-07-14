@@ -93,7 +93,7 @@ class Zend_Gdata_YouTube_Extension_Duration extends Zend_Gdata_Extension
     /**
      * Get the value for this element's seconds attribute.
      *
-     * @return int The value associated with this attribute.
+     * @return SS_Int The value associated with this attribute.
      */
     public function getSeconds()
     {
@@ -103,7 +103,7 @@ class Zend_Gdata_YouTube_Extension_Duration extends Zend_Gdata_Extension
     /**
      * Set the value for this element's seconds attribute.
      *
-     * @param int $value The desired value for this attribute.
+     * @param SS_Int $value The desired value for this attribute.
      * @return Zend_Gdata_YouTube_Extension_Duration The element being modified.
      */
     public function setSeconds($value)

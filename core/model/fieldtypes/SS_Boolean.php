@@ -5,7 +5,7 @@
  * @package sapphire
  * @subpackage model
  */
-class Boolean extends DBField {
+class SS_Boolean extends DBField {
 	
 	function __construct($name, $defaultVal = 0) {
 		$this->defaultVal = ($defaultVal) ? 1 : 0;

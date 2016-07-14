@@ -12,14 +12,14 @@ class ConfirmedPasswordField extends FormField {
 	/**
 	 * Minimum character length of the password.
 	 *
-	 * @var int
+	 * @var SS_Int
 	 */
 	public $minLength = null;
 	
 	/**
 	 * Maximum character length of the password.
 	 *
-	 * @var int
+	 * @var SS_Int
 	 */
 	public $maxLength = null;
 	
@@ -27,14 +27,14 @@ class ConfirmedPasswordField extends FormField {
 	 * Enforces at least one digit and one alphanumeric
 	 * character (in addition to {$minLength} and {$maxLength}
 	 *
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public $requireStrongPassword = false;
 	
 	/**
 	 * Allow empty fields in serverside validation
 	 *
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public $canBeEmpty = false;
 	
@@ -47,7 +47,7 @@ class ConfirmedPasswordField extends FormField {
 	 * This behaviour works unobtrusively, without JavaScript enabled
 	 * the fields show, validate and save by default.
 	 * 
-	 * @param boolean $showOnClick
+	 * @param SS_Boolean $showOnClick
 	 */
 	protected $showOnClick = false;
 	
@@ -64,7 +64,7 @@ class ConfirmedPasswordField extends FormField {
 	 * @param string $title
 	 * @param mixed $value
 	 * @param Form $form
-	 * @param boolean $showOnClick
+	 * @param SS_Boolean $showOnClick
 	 * @param string $titleConfirmField Alternate title (not localizeable)
 	 */
 	function __construct($name, $title = null, $value = "", $form = null, $showOnClick = false, $titleConfirmField = null) {
@@ -302,7 +302,7 @@ JS;
 		return (!$this->showOnClick || ($this->showOnClick && $isVisible && $isVisible->Value()));
 	}
 	
-	function validate() {
+	function validate($validator = null) {
 		$validator = $this->form->getValidator();
 		$name = $this->name;
 		
@@ -372,7 +372,8 @@ JS;
 	 * @param DataObject $record
 	 * @return bool
 	 */
-	function saveInto(DataObject $record) {
+	function saveInto(DataObjectInterface $record) {
+		// @fixme: can this be a DataObjectInterface?
 		if(!$this->isSaveable()) return false;
 		
 		if(!($this->canBeEmpty && !$this->value)) {

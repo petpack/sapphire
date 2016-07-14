@@ -53,7 +53,7 @@ abstract class Zend_Pdf_FileParser_Font extends Zend_Pdf_FileParser
 
     /**
      * Flag indicating whether or not debug logging is active.
-     * @var boolean
+     * @var SS_Boolean
      */
     private $_debug = false;
 

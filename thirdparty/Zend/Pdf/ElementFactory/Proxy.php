@@ -225,7 +225,7 @@ class Zend_Pdf_ElementFactory_Proxy implements Zend_Pdf_ElementFactory_Interface
     /**
      * Check if PDF file was modified
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isModified()
     {

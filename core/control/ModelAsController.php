@@ -165,7 +165,7 @@ class ModelAsController extends Controller implements NestedController {
 	
 	/**
 	 * @param string $URLSegment A subset of the url. i.e in /home/contact/ home and contact are URLSegment.
-	 * @param int $parentID The ID of the parent of the page the URLSegment belongs to. 
+	 * @param SS_Int $parentID The ID of the parent of the page the URLSegment belongs to. 
 	 * @return SiteTree
 	 */
 	static function find_old_page($URLSegment,$parentID = 0, $ignoreNestedURLs = false) {

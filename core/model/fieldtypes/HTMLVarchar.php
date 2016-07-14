@@ -14,7 +14,7 @@ class HTMLVarchar extends Varchar {
 		return ShortcodeParser::get_active()->parse($this->value);
 	}
 	
-	public function hasValue() {
+	public function hasValue($field = null, $arguments = null, $cache = true) {
 		return parent::hasValue() && $this->value != '<p></p>';
 	}
 	

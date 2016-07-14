@@ -63,7 +63,7 @@ class Debug {
 	 * rather than printing them directly to the page.
 	 * This can be useful for AJAX requests, or if the output of an error message will 
 	 * mess up the layout.
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public static $use_log_for_debug = false;
 	
@@ -72,7 +72,7 @@ class Debug {
 	 * Enables Debug output in live environments. USE WITH CAUTION!
 	 * You really shouldn't be debugging on live!
 	 * 	Added for use in CLI Scripts (PetPackScript turns this on)
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	public static $live_debugging = false;
 
@@ -355,7 +355,7 @@ class Debug {
 	 *
 	 * @uses ErrorPage
 	 *
-	 * @param int $statusCode HTTP Status Code (Default: 500)
+	 * @param SS_Int $statusCode HTTP Status Code (Default: 500)
 	 * @param string $friendlyErrorMessage User-focused error message. Should not contain code pointers or "tech-speak".
 	 *    Used in the HTTP Header and ajax responses.
 	 * @param string $friendlyErrorDetail Detailed user-focused message. Is just used if no {@link ErrorPage} is found
@@ -461,7 +461,7 @@ class Debug {
 	 * and highlighting the given line number.
 	 *
 	 * @param string $errfile
-	 * @param int $errline
+	 * @param SS_Int $errline
 	 */
 	static function showLines($errfile, $errline) {
 		$lines = file($errfile);
@@ -494,10 +494,10 @@ class Debug {
 	 * @param string $errno
 	 * @param string $errstr
 	 * @param string $errfile
-	 * @param int $errline
+	 * @param SS_Int $errline
 	 * @param string $errcontext
 	 * @param string $errorType "warning" or "error"
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	static function emailError($emailAddress, $errno, $errstr, $errfile, $errline, $errcontext, $errorType = "Error") {
 		user_error('Debug::send_errors_to() and Debug::emailError() is deprecated. Please use SS_Log instead.
@@ -612,7 +612,7 @@ class Debug {
 
 	/**
 	 * Whether or not to use the log for debug messages.
-	 * @param boolean $on
+	 * @param SS_Boolean $on
 	 */
 	static function use_log_for_debug($on = true) {
 		self::$use_log_for_debug = $on;
@@ -737,10 +737,10 @@ function exceptionHandler($exception) {
  * Caution: The error levels default to E_ALL is the site is in dev-mode (set in main.php).
  *
  * @ignore
- * @param int $errno
+ * @param SS_Int $errno
  * @param string $errstr
  * @param string $errfile
- * @param int $errline
+ * @param SS_Int $errline
  */
 function errorHandler($errno, $errstr, $errfile, $errline) {
 	switch($errno) {

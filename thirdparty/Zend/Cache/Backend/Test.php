@@ -62,7 +62,7 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
     /**
      * Current index for log array
      *
-     * @var int $_index
+     * @var SS_Int $_index
      */
     private $_index = 0;
 
@@ -96,7 +96,7 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
      * ('foo' else)
      *
      * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param  SS_Boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
      * @return string Cached datas (or false)
      */
     public function load($id, $doNotTestCacheValidity = false)
@@ -153,8 +153,8 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
      * @param  string $data             Datas to cache
      * @param  string $id               Cache id
      * @param  array  $tags             Array of strings, the cache record will be tagged by each string entry
-     * @param  int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
-     * @return boolean True if no problem
+     * @param  SS_Int    $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @return SS_Boolean True if no problem
      */
     public function save($data, $id, $tags = array(), $specificLifetime = false)
     {
@@ -172,7 +172,7 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
      * (true else)
      *
      * @param  string $id Cache id
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     public function remove($id)
     {
@@ -199,7 +199,7 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
      *
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
-     * @return boolean True if no problem
+     * @return SS_Boolean True if no problem
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {
@@ -223,7 +223,7 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
     /**
      * Get the log index
      *
-     * @return int Log index
+     * @return SS_Int Log index
      */
     public function getLogIndex()
     {
@@ -243,7 +243,7 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
     /**
      * Return true if the automatic cleaning is available for the backend
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isAutomaticCleaningAvailable()
     {

@@ -356,7 +356,7 @@ class Zend_Pdf_Parser
      *
      * @param mixed $source
      * @param Zend_Pdf_ElementFactory_Interface $factory
-     * @param boolean $load
+     * @param SS_Boolean $load
      * @throws Zend_Exception
      */
     public function __construct($source, Zend_Pdf_ElementFactory_Interface $factory, $load)

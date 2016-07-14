@@ -7,7 +7,7 @@
 class ToggleCompositeField extends CompositeField {
 	
 	/**
-	 * @var $headingLevel int
+	 * @var $headingLevel SS_Int
 	 */
 	public $headingLevel = 2;
 	

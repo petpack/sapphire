@@ -360,7 +360,7 @@ abstract class Zend_Pdf_Action extends Zend_Pdf_Target implements RecursiveItera
     /**
      * Check if current position is valid
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function valid()
     {
@@ -395,7 +395,7 @@ abstract class Zend_Pdf_Action extends Zend_Pdf_Target implements RecursiveItera
     /**
      * count()
      *
-     * @return int
+     * @return SS_Int
      */
     public function count()
     {

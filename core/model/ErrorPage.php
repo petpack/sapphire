@@ -29,7 +29,7 @@ class ErrorPage extends Page {
 	/**
 	 * Get a {@link SS_HTTPResponse} to response to a HTTP error code if an {@link ErrorPage} for that code is present.
 	 *
-	 * @param int $statusCode
+	 * @param SS_Int $statusCode
 	 * @return SS_HTTPResponse
 	 */
 	public static function response_for($statusCode) {
@@ -122,8 +122,8 @@ class ErrorPage extends Page {
 		}
 	}
 
-	function getCMSFields() {
-		$fields = parent::getCMSFields();
+	function getCMSFields($params = null) {
+		$fields = parent::getCMSFields($params);
 		
 		$fields->addFieldToTab(
 			"Root.Content.Main", 
@@ -166,9 +166,9 @@ class ErrorPage extends Page {
 	 * When an error page is published, create a static HTML page with its
 	 * content, so the page can be shown even when SilverStripe is not
 	 * functioning correctly before publishing this page normally.
-	 * @param string|int $fromStage Place to copy from. Can be either a stage name or a version number.
+	 * @param string|SS_Int $fromStage Place to copy from. Can be either a stage name or a version number.
 	 * @param string $toStage Place to copy to. Must be a stage name.
-	 * @param boolean $createNewVersion Set this to true to create a new version number.  By default, the existing version number will be copied over.
+	 * @param SS_Boolean $createNewVersion Set this to true to create a new version number.  By default, the existing version number will be copied over.
 	 */
 	function doPublish() {
 		parent::doPublish();
@@ -212,7 +212,7 @@ class ErrorPage extends Page {
 	
 	/**
 	 *
-	 * @param boolean $includerelations a boolean value to indicate if the labels returned include relation fields
+	 * @param SS_Boolean $includerelations a boolean value to indicate if the labels returned include relation fields
 	 * 
 	 */
 	function fieldLabels($includerelations = true) {
@@ -226,7 +226,7 @@ class ErrorPage extends Page {
 	 * Returns an absolute filesystem path to a static error file
 	 * which is generated through {@link publish()}.
 	 * 
-	 * @param int $statusCode A HTTP Statuscode, mostly 404 or 500
+	 * @param SS_Int $statusCode A HTTP Statuscode, mostly 404 or 500
 	 * @param String $locale A locale, e.g. 'de_DE' (Optional)
 	 * @return String
 	 */

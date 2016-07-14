@@ -22,7 +22,7 @@ class Varchar extends StringField {
  	 * Construct a new short text field
  	 * 
  	 * @param $name string The name of the field
- 	 * @param $size int The maximum size of the field, in terms of characters
+ 	 * @param $size SS_Int The maximum size of the field, in terms of characters
  	 * @param $options array Optional parameters, e.g. array("nullifyEmpty"=>false). See {@link StringField::setOptions()} for information on the available options
  	 * @return unknown_type
  	 */
@@ -77,7 +77,7 @@ class Varchar extends StringField {
 
 	/**
 	 * Returns the value of the string, limited to the specified number of characters
-	 * @param $limit int Character limit
+	 * @param $limit SS_Int Character limit
 	 * @param $add string Extra string to add to the end of the limited string
 	 * @return string
 	 */

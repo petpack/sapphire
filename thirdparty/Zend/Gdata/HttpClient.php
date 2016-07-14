@@ -280,7 +280,7 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      * Set the streamingRequest variable which controls whether we are
      * sending the raw (already encoded) POST data from a stream source.
      *
-     * @param boolean $value The value to set.
+     * @param SS_Boolean $value The value to set.
      * @return void
      */
     public function setStreamingRequest($value)
@@ -291,7 +291,7 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
     /**
      * Check whether the client is set to perform streaming requests.
      *
-     * @return boolean True if yes, false otherwise.
+     * @return SS_Boolean True if yes, false otherwise.
      */
     public function getStreamingRequest()
     {

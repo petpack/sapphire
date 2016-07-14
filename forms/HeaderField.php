@@ -8,7 +8,7 @@
 class HeaderField extends DatalessField {
 	
 	/**
-	 * @var int $headingLevel The level of the <h1> to <h6> HTML tag. Default: 2
+	 * @var SS_Int $headingLevel The level of the <h1> to <h6> HTML tag. Default: 2
 	 */
 	protected $headingLevel = 2;
 	

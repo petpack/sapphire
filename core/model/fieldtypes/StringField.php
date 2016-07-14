@@ -47,7 +47,7 @@ abstract class StringField extends DBField {
 	
 	/**
 	 * Set whether this field stores empty strings rather than converting them to null
-	 * @param $value boolean True if empty strings are to be converted to null
+	 * @param $value SS_Boolean True if empty strings are to be converted to null
 	 */
 	function setNullifyEmpty($value) {
 		$this->nullifyEmpty = ($value ? true : false);
@@ -64,7 +64,7 @@ abstract class StringField extends DBField {
 	 * (non-PHPdoc)
 	 * @see core/model/fieldtypes/DBField#hasValue()
 	 */
-	function hasValue() {
+	function hasValue($field = null, $arguments = null, $cache = true) {
 		return ($this->value || $this->value == '0') || ( !$this->nullifyEmpty && $this->value === '');
 	}
 

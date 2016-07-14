@@ -150,7 +150,7 @@ class Zend_Validate_Isbn extends Zend_Validate_Abstract
      * Returns true if and only if $value is a valid ISBN.
      *
      * @param  string $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

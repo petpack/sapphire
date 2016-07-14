@@ -7,14 +7,14 @@
 interface CurrentPageIdentifier {
 	/**
 	 * Get the current page ID.
-	 * @return int
+	 * @return SS_Int
 	 */
 	function currentPageID();
 	
 	/**
 	 * Check if the given DataObject is the current page.
 	 * @param DataObject $page The page to check.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function isCurrentPage(DataObject $page);
 }

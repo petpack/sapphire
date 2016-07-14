@@ -40,7 +40,7 @@ class SS_TestListener implements PHPUnit_Framework_TestListener {
 	
 	/**
 	 * @param String Classname
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	protected function isValidClass($name) {
 		return (class_exists($name) && is_subclass_of($name, 'SapphireTest'));

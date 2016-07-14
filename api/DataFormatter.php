@@ -13,7 +13,7 @@ abstract class DataFormatter extends Object {
 	 * If multiple formatters for the same extension exist,
 	 * we select the one with highest priority.
 	 *
-	 * @var int
+	 * @var SS_Int
 	 */
 	public static $priority = 50;
 	
@@ -24,7 +24,7 @@ abstract class DataFormatter extends Object {
 	 * 
 	 * @todo Support more than one nesting level
 	 *
-	 * @var int
+	 * @var SS_Int
 	 */
 	public $relationDepth = 1;
 	
@@ -78,7 +78,7 @@ abstract class DataFormatter extends Object {
 	 * total number of records without the "limit" and "offset"
 	 * GET parameters. Useful to implement pagination.
 	 * 
-	 * @var int
+	 * @var SS_Int
 	 */
 	protected $totalSize;
 	
@@ -217,14 +217,14 @@ abstract class DataFormatter extends Object {
 	}
 	
 	/**
-	 * @param int $size
+	 * @param SS_Int $size
 	 */
 	public function setTotalSize($size) {
 		$this->totalSize = (int)$size;
 	}
 	
 	/**
-	 * @return int
+	 * @return SS_Int
 	 */
 	public function getTotalSize() {
 		return $this->totalSize;

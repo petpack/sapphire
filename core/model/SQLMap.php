@@ -32,7 +32,7 @@ class SQLMap extends Object implements IteratorAggregate {
 	
 	/**
 	 * Get the name of an item.
-	 * @param string|int $id The id of the item.
+	 * @param string|SS_Int $id The id of the item.
 	 * @return string
 	 */
 	public function getItem($id) {

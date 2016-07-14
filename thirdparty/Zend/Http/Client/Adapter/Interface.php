@@ -46,8 +46,8 @@ interface Zend_Http_Client_Adapter_Interface
      * Connect to the remote server
      *
      * @param string  $host
-     * @param int     $port
-     * @param boolean $secure
+     * @param SS_Int     $port
+     * @param SS_Boolean $secure
      */
     public function connect($host, $port = 80, $secure = false);
 

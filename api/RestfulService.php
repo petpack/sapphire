@@ -22,10 +22,10 @@ class RestfulService extends ViewableData {
 	 * Sets default proxy settings for outbound RestfulService connections
 	 *
 	 * @param string $proxy The URL of the proxy to use.
-	 * @param int $port Proxy port
+	 * @param SS_Int $port Proxy port
 	 * @param string $user The proxy auth user name
 	 * @param string $password The proxy auth password
-	 * @param boolean $socks Set true to use socks5 proxy instead of http
+	 * @param SS_Boolean $socks Set true to use socks5 proxy instead of http
 	 */
 	static function set_default_proxy($proxy, $port = 80, $user = "", $password = "", $socks = false) {
 		self::$default_proxy = array(
@@ -39,7 +39,7 @@ class RestfulService extends ViewableData {
 	/**
  	* Creates a new restful service.
  	* @param string $base Base URL of the web service eg: api.example.com 
- 	* @param int $expiry Set the cache expiry interva. Defaults to 1 hour (3600 seconds)
+ 	* @param SS_Int $expiry Set the cache expiry interva. Defaults to 1 hour (3600 seconds)
  	*/
 	function __construct($base, $expiry=3600){
 		$this->baseURL = $base;
@@ -60,10 +60,10 @@ class RestfulService extends ViewableData {
 	 * Set proxy settings for this RestfulService instance
 	 *
 	 * @param string $proxy The URL of the proxy to use.
-	 * @param int $port Proxy port
+	 * @param SS_Int $port Proxy port
 	 * @param string $user The proxy auth user name
 	 * @param string $password The proxy auth password
-	 * @param boolean $socks Set true to use socks5 proxy instead of http
+	 * @param SS_Boolean $socks Set true to use socks5 proxy instead of http
 	 */
 	 function setProxy($proxy, $port = 80, $user = "", $password = "", $socks = false) {
 		$this->proxy = array(
@@ -403,7 +403,7 @@ class RestfulService_Response extends SS_HTTPResponse {
 	protected $simpleXML;
 	
 	/**
-	 * @var boolean It should be populated with cached content 
+	 * @var SS_Boolean It should be populated with cached content 
 	 * when a request referring to this response was unsuccessful
 	 */
 	protected $cachedBody = false;  

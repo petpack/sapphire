@@ -79,7 +79,7 @@ class Zend_Validate_Barcode_Code39 extends Zend_Validate_Barcode_AdapterAbstract
      * Validates the checksum (Modulo 43)
      *
      * @param  string $value The barcode to validate
-     * @return boolean
+     * @return SS_Boolean
      */
     protected function _code39($value)
     {

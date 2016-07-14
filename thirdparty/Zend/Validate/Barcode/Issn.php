@@ -54,7 +54,7 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
      * Allows X on length of 8 chars
      *
      * @param  string $value The barcode to check for allowed characters
-     * @return boolean
+     * @return SS_Boolean
      */
     public function checkChars($value)
     {
@@ -71,7 +71,7 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
      * Validates the checksum
      *
      * @param  string $value The barcode to check the checksum for
-     * @return boolean
+     * @return SS_Boolean
      */
     public function checksum($value)
     {
@@ -89,7 +89,7 @@ class Zend_Validate_Barcode_Issn extends Zend_Validate_Barcode_AdapterAbstract
      * ISSN implementation (reversed mod11)
      *
      * @param  string $value The barcode to validate
-     * @return boolean
+     * @return SS_Boolean
      */
     protected function _issn($value)
     {

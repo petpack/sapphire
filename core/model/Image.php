@@ -25,7 +25,7 @@ class Image extends File {
 	 * 
 	 * @see suggestMaxPixels() 
 	 * @see ensureNotInsanelyHuge()
-	 * @var int
+	 * @var SS_Int
 	 */
 	static public $maxPixels = -1;
 	
@@ -33,7 +33,7 @@ class Image extends File {
 	 * Whether to dump messages like 'image is insanely huge, resizing 
 	 * 	from <x>x<y> to <x>x<y>' to the error log when a large image is 
 	 * 	resized
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	static public $logHugeImages = False;
 	
@@ -43,9 +43,9 @@ class Image extends File {
 	 * 	(i.e 8/16/24/32 bit images. We default to 32 bit - 24bit + alpha).
 	 * Note that the return from this is pretty damn unpredictable due to the
 	 * 	highly variable nature of current memory usage
-	 * @param int $bitsPerPixel		number of bits per pixel in image
-	 * @param float $safetyBuffer	fraction of memory to be used (0-1)
-	 * @return int
+	 * @param SS_Int $bitsPerPixel		number of bits per pixel in image
+	 * @param SS_Float $safetyBuffer	fraction of memory to be used (0-1)
+	 * @return SS_Int
 	 */
 	static public function suggestMaxPixels($bitsPerPixel = 32,$safetyBuffer = 0.75) {
 		$usage = memory_get_usage();
@@ -87,7 +87,7 @@ class Image extends File {
 	
 	/**
 	 * Returns the number of pixels in the image
-	 * @return int
+	 * @return SS_Int
 	 */
 	function pixelCount() {
 		$dim = $this->getDimensions("Array");
@@ -104,7 +104,7 @@ class Image extends File {
 	/**
 	 * Returns a boolean indicating whether the image is too large
 	 * 	(i.e pixelCount() > $maxPixels)
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function isTooBig() {
 		return (self::$maxPixels > 0 && 
@@ -119,7 +119,7 @@ class Image extends File {
 	 * You should call this before the image is displayed - it's painful
 	 * 	to handle this when the file is uploaded.
 	 * WILL DIE HORRIBLY IF IMAGICK IS NOT INSTALLED!
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function ensureNotInsanelyHuge() {
 		
@@ -160,7 +160,7 @@ class Image extends File {
 	 * Duplicates both the dataobject and file.
 	 * @see DataObject::duplicate()
 	 */
-	public function duplicate() {
+	public function duplicate($doWrite = true) {
 		$c=0;
 		$src = $this->getFullPath();
 		
@@ -219,19 +219,19 @@ class Image extends File {
 
 	/**
 	 * The width of an image thumbnail in a strip.
-	 * @var int
+	 * @var SS_Int
 	 */
 	public static $strip_thumbnail_width = 50;
 	
 	/**
 	 * The height of an image thumbnail in a strip.
-	 * @var int
+	 * @var SS_Int
 	 */
 	public static $strip_thumbnail_height = 50;
 	
 	/**
 	 * The width of an image thumbnail in the CMS.
-	 * @var int
+	 * @var SS_Int
 	 */
 	public static $cms_thumbnail_width = 100;
 	
@@ -279,9 +279,9 @@ class Image extends File {
 	 * 
 	 * An image exists if it has a filename. Does not do any filesystem checks.
 	 * 
-	 * @param boolean $existsInDB     If true then parent::exists() is called rather than just checking if the 
+	 * @param SS_Boolean $existsInDB     If true then parent::exists() is called rather than just checking if the 
 	 *                                Filename attribute has been set (which honestly, is useless).
-	 * @return boolean
+	 * @return SS_Boolean
 	 * 
 	 * @author Alex Hayes <alex.hayes@dimension27.com> (added support to check if database record exists)
 	 * @ffs How is this vaguely useful to just check if a field is set! Adding support so that access to 
@@ -548,7 +548,7 @@ class Image extends File {
 	
 	/**
 	 * Remove all of the formatted cached images for this image.
-	 * @return int The number of formatted images deleted
+	 * @return SS_Int The number of formatted images deleted
 	 */
 	public function deleteFormattedImages() {
 		if(!$this->Filename) return 0;
@@ -594,7 +594,7 @@ class Image extends File {
 	 * Get the dimensions of this Image.
 	 * @param string $dim If this is equal to "string", return the dimensions in string form,
 	 * if it is 1 return the height, if it is 0 return the width.
-	 * @return string|int
+	 * @return string|SS_Int
 	 */
 	function getDimensions($dim = "string") {
 		if (!is_numeric($dim)) $dim = strtolower($dim);
@@ -623,7 +623,7 @@ class Image extends File {
 
 	/**
 	 * Get the width of this image.
-	 * @return int
+	 * @return SS_Int
 	 */
 	function getWidth() {
 		return $this->getDimensions(0);
@@ -631,7 +631,7 @@ class Image extends File {
 	
 	/**
 	 * Get the height of this image.
-	 * @return int
+	 * @return SS_Int
 	 */
 	function getHeight() {
 		return $this->getDimensions(1);
@@ -699,7 +699,7 @@ class Image_Cached extends Image {
 	/**
 	 * Create a new cached image.
 	 * @param string $filename The filename of the image.
-	 * @param boolean $isSingleton This this to true if this is a singleton() object, a stub for calling methods.  Singletons
+	 * @param SS_Boolean $isSingleton This this to true if this is a singleton() object, a stub for calling methods.  Singletons
 	 * don't have their defaults set.
 	 */
 	public function __construct($filename = null, $isSingleton = false) {

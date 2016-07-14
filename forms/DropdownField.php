@@ -78,26 +78,26 @@
 class DropdownField extends FormField {
 	
 	/**
-	 * @var boolean $source Associative or numeric array of all dropdown items,
+	 * @var SS_Boolean $source Associative or numeric array of all dropdown items,
 	 * with array key as the submitted field value, and the array value as a
 	 * natural language description shown in the interface element.
 	 */
 	protected $source;
 	
 	/**
-	 * @var boolean $isSelected Determines if the field was selected
+	 * @var SS_Boolean $isSelected Determines if the field was selected
 	 * at the time it was rendered, so if {@link $value} matches on of the array
 	 * values specified in {@link $source}
 	 */
 	protected $isSelected;
 	
 	/**
-	 * @var boolean $disabled
+	 * @var SS_Boolean $disabled
 	 */
 	protected $disabled;
 	
 	/**
-	 * @var boolean $hasEmptyDefault Show the first <option> element as
+	 * @var SS_Boolean $hasEmptyDefault Show the first <option> element as
 	 * empty (not having a value), with an optional label defined through
 	 * {@link $emptyString}. By default, the <select> element will be
 	 * rendered with the first option from {@link $source} selected.
@@ -188,7 +188,7 @@ class DropdownField extends FormField {
 	}
 	
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function isSelected(){
 		return $this->isSelected;
@@ -215,14 +215,14 @@ class DropdownField extends FormField {
 	}
 	
 	/**
-	 * @param boolean $bool
+	 * @param SS_Boolean $bool
 	 */
 	function setHasEmptyDefault($bool) {
 		$this->hasEmptyDefault = $bool;
 	}
 	
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function getHasEmptyDefault() {
 		return $this->hasEmptyDefault;

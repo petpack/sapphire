@@ -68,7 +68,7 @@ class Zend_Pdf_Style
     /**
      * Line dashing phase
      *
-     * @var float
+     * @var SS_Float
      */
     private $_lineDashingPhase;
 
@@ -82,7 +82,7 @@ class Zend_Pdf_Style
     /**
      * Font size
      *
-     * @var float
+     * @var SS_Float
      */
     private $_fontSize;
 
@@ -130,7 +130,7 @@ class Zend_Pdf_Style
     /**
      * Set line width.
      *
-     * @param float $width
+     * @param SS_Float $width
      */
     public function setLineWidth($width)
     {
@@ -143,7 +143,7 @@ class Zend_Pdf_Style
      * Set line dashing pattern
      *
      * @param array $pattern
-     * @param float $phase
+     * @param SS_Float $phase
      */
     public function setLineDashingPattern($pattern, $phase = 0)
     {
@@ -163,7 +163,7 @@ class Zend_Pdf_Style
      * Set current font.
      *
      * @param Zend_Pdf_Resource_Font $font
-     * @param float $fontSize
+     * @param SS_Float $fontSize
      */
     public function setFont(Zend_Pdf_Resource_Font $font, $fontSize)
     {
@@ -174,7 +174,7 @@ class Zend_Pdf_Style
     /**
      * Modify current font size
      *
-     * @param float $fontSize
+     * @param SS_Float $fontSize
      */
     public function setFontSize($fontSize)
     {
@@ -204,7 +204,7 @@ class Zend_Pdf_Style
     /**
      * Get line width.
      *
-     * @return float
+     * @return SS_Float
      */
     public function getLineWidth()
     {
@@ -235,7 +235,7 @@ class Zend_Pdf_Style
     /**
      * Get current font size
      *
-     * @return float $fontSize
+     * @return SS_Float $fontSize
      */
     public function getFontSize()
     {
@@ -245,7 +245,7 @@ class Zend_Pdf_Style
     /**
      * Get line dashing phase
      *
-     * @return float
+     * @return SS_Float
      */
     public function getLineDashingPhase()
     {

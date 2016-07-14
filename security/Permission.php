@@ -63,7 +63,7 @@ class Permission extends DataObject {
 	protected static $declared_permissions_list = null;
 
 	/**
-	 * @var $strict_checking Boolean Method to globally disable "strict" checking,
+	 * @var $strict_checking SS_Boolean Method to globally disable "strict" checking,
 	 * which means a permission will be granted if the key does not exist at all.
 	 */
 	static $strict_checking = true;
@@ -95,11 +95,11 @@ class Permission extends DataObject {
 	 * 
 	 * @param string $code Code of the permission to check (case-sensitive)
 	 * @param string $arg Optional argument (e.g. a permissions for a specific page)
-	 * @param int|Member $member Optional member instance or ID. If set to NULL, the permssion
+	 * @param SS_Int|Member $member Optional member instance or ID. If set to NULL, the permssion
 	 *  will be checked for the current user
 	 * @param bool $strict Use "strict" checking (which means a permission
 	 *  will be granted if the key does not exist at all)?
-	 * @return int|bool The ID of the permission record if the permission
+	 * @return SS_Int|bool The ID of the permission record if the permission
 	 *  exists; FALSE otherwise. If "strict" checking is
 	 *  disabled, TRUE will be returned if the permission does not exist at all.
 	 */
@@ -131,13 +131,13 @@ class Permission extends DataObject {
 	/**
 	 * Check that the given member has the given permission.
 	 * 
-	 * @param int|Member memberID The ID of the member to check. Leave blank for the current member. 
+	 * @param SS_Int|Member memberID The ID of the member to check. Leave blank for the current member. 
 	 *  Alternatively you can use a member object.
 	 * @param string|array $code Code of the permission to check (case-sensitive)
 	 * @param string $arg Optional argument (e.g. a permissions for a specific page)
 	 * @param bool $strict Use "strict" checking (which means a permission
 	 *  will be granted if the key does not exist at all)?
-	 * @return int|bool The ID of the permission record if the permission
+	 * @return SS_Int|bool The ID of the permission record if the permission
 	 *  exists; FALSE otherwise. If "strict" checking is
 	 *  disabled, TRUE will be returned if the permission does not exist at all.
 	 */
@@ -264,7 +264,7 @@ class Permission extends DataObject {
 	 * Call without an argument to get the groups that the current member
 	 * belongs to. In this case, the results will be session-cached.
 	 *
-	 * @param int $memberID The ID of the member. Leave blank for the current
+	 * @param SS_Int $memberID The ID of the member. Leave blank for the current
 	 *                      member.
 	 * @return array Returns a list of group IDs to which the member belongs
 	 *               to or NULL.
@@ -306,7 +306,7 @@ class Permission extends DataObject {
 	/**
 	 * Grant the given permission code/arg to the given group
 	 *
-	 * @param int $groupID The ID of the group
+	 * @param SS_Int $groupID The ID of the group
 	 * @param string $code The permission code
 	 * @param string Optional: The permission argument (e.g. a page ID).
 	 * @returns Permission Returns the new permission object.
@@ -340,7 +340,7 @@ class Permission extends DataObject {
 	/**
 	 * Deny the given permission code/arg to the given group
 	 *
-	 * @param int $groupID The ID of the group
+	 * @param SS_Int $groupID The ID of the group
 	 * @param string $code The permission code
 	 * @param string Optional: The permission argument (e.g. a page ID).
 	 * @returns Permission Returns the new permission object.

@@ -17,7 +17,7 @@ class DatalessField extends FormField {
 	 * @param string $name
 	 * @param string $title The label itslef
 	 * @param string $class An HTML class to apply to the label (Deprecated: use addExtraClass())
-	 * @param boolean $allowHTML Determine if the tag content needs to be escaped (Deprecated: use setAllowHTML())
+	 * @param SS_Boolean $allowHTML Determine if the tag content needs to be escaped (Deprecated: use setAllowHTML())
 	 * @param Form $form
 	 */
 	function __construct($name, $title = null, $className = "", $allowHTML = false, $form = null) {

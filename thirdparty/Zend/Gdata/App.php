@@ -89,14 +89,14 @@ class Zend_Gdata_App
     /**
      * Override HTTP PUT and DELETE request methods?
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected static $_httpMethodOverride = false;
 
     /**
      * Enable gzipped responses?
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected static $_gzipEnabled = false;
 
@@ -104,7 +104,7 @@ class Zend_Gdata_App
      * Use verbose exception messages.  In the case of HTTP errors,
      * use the body of the HTTP response in the exception message.
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected static $_verboseExceptionMessages = true;
 
@@ -127,7 +127,7 @@ class Zend_Gdata_App
     /**
      * Maximum number of redirects to follow during HTTP operations
      *
-     * @var int
+     * @var SS_Int
      */
     protected static $_maxRedirects = 5;
 
@@ -163,7 +163,7 @@ class Zend_Gdata_App
     /**
      * Whether we want to use XML to object mapping when fetching data.
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_useObjectMapping = true;
 
@@ -309,7 +309,7 @@ class Zend_Gdata_App
      * X-Method-Override header will be sent with a value of PUT or
      * DELETE as appropriate.
      *
-     * @param  boolean $override Whether to override PUT and DELETE with POST.
+     * @param  SS_Boolean $override Whether to override PUT and DELETE with POST.
      * @return void
      */
     public static function setHttpMethodOverride($override = true)
@@ -320,7 +320,7 @@ class Zend_Gdata_App
     /**
      * Get the HTTP override state
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function getHttpMethodOverride()
     {
@@ -330,7 +330,7 @@ class Zend_Gdata_App
     /**
      * Toggle requesting gzip encoded responses
      *
-     * @param  boolean $enabled Whether or not to enable gzipped responses
+     * @param  SS_Boolean $enabled Whether or not to enable gzipped responses
      * @return void
      */
     public static function setGzipEnabled($enabled = false)
@@ -348,7 +348,7 @@ class Zend_Gdata_App
     /**
      * Get the HTTP override state
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function getGzipEnabled()
     {
@@ -361,7 +361,7 @@ class Zend_Gdata_App
      * In the case of HTTP errors,  use the body of the HTTP response
      * in the exception message.
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function getVerboseExceptionMessages()
     {
@@ -374,7 +374,7 @@ class Zend_Gdata_App
      * In the case of HTTP errors, use the body of the HTTP response
      * in the exception message.
      *
-     * @param boolean $verbose Whether to use verbose exception messages
+     * @param SS_Boolean $verbose Whether to use verbose exception messages
      */
     public static function setVerboseExceptionMessages($verbose)
     {
@@ -384,7 +384,7 @@ class Zend_Gdata_App
     /**
      * Set the maximum number of redirects to follow during HTTP operations
      *
-     * @param int $maxRedirects Maximum number of redirects to follow
+     * @param SS_Int $maxRedirects Maximum number of redirects to follow
      * @return void
      */
     public static function setMaxRedirects($maxRedirects)
@@ -395,7 +395,7 @@ class Zend_Gdata_App
     /**
      * Get the maximum number of redirects to follow during HTTP operations
      *
-     * @return int Maximum number of redirects to follow
+     * @return SS_Int Maximum number of redirects to follow
      */
     public static function getMaxRedirects()
     {
@@ -407,7 +407,7 @@ class Zend_Gdata_App
      * cause a Zend_Gdata_App_InvalidArgumentException to be thrown.
      *
      * @see _majorProtocolVersion
-     * @param int $value The major protocol version to use.
+     * @param SS_Int $value The major protocol version to use.
      * @throws Zend_Gdata_App_InvalidArgumentException
      */
     public function setMajorProtocolVersion($value)
@@ -424,7 +424,7 @@ class Zend_Gdata_App
      * Get the major protocol version that is in use.
      *
      * @see _majorProtocolVersion
-     * @return int The major protocol version in use.
+     * @return SS_Int The major protocol version in use.
      */
     public function getMajorProtocolVersion()
     {
@@ -587,7 +587,7 @@ class Zend_Gdata_App
      * @param string $body The body of the HTTP request
      * @param string $contentType The value for the content type
      *                                of the request body
-     * @param int $remainingRedirects Number of redirects to follow if request
+     * @param SS_Int $remainingRedirects Number of redirects to follow if request
      *                              s results in one
      * @return Zend_Http_Response The response object
      */
@@ -1191,7 +1191,7 @@ class Zend_Gdata_App
      * property. If Etags are not supported by the server or cannot be
      * extracted from the data, then null will be returned.
      *
-     * @param boolean $allowWeak If false, then if a weak Etag is detected,
+     * @param SS_Boolean $allowWeak If false, then if a weak Etag is detected,
      *        then return null rather than the Etag.
      * @return string|null $data
      */
@@ -1213,7 +1213,7 @@ class Zend_Gdata_App
     /**
      * Determine whether service object is using XML to object mapping.
      *
-     * @return boolean True if service object is using XML to object mapping,
+     * @return SS_Boolean True if service object is using XML to object mapping,
      *                 false otherwise.
      */
     public function usingObjectMapping()
@@ -1224,7 +1224,7 @@ class Zend_Gdata_App
     /**
      * Enable/disable the use of XML to object mapping.
      *
-     * @param boolean $value Pass in true to use the XML to object mapping.
+     * @param SS_Boolean $value Pass in true to use the XML to object mapping.
      *                       Pass in false or null to disable it.
      * @return void
      */

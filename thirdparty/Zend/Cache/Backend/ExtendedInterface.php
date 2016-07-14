@@ -80,7 +80,7 @@ interface Zend_Cache_Backend_ExtendedInterface extends Zend_Cache_Backend_Interf
     /**
      * Return the filling percentage of the backend storage
      *
-     * @return int integer between 0 and 100
+     * @return SS_Int integer between 0 and 100
      */
     public function getFillingPercentage();
 
@@ -101,8 +101,8 @@ interface Zend_Cache_Backend_ExtendedInterface extends Zend_Cache_Backend_Interf
      * Give (if possible) an extra lifetime to the given cache id
      *
      * @param string $id cache id
-     * @param int $extraLifetime
-     * @return boolean true if ok
+     * @param SS_Int $extraLifetime
+     * @return SS_Boolean true if ok
      */
     public function touch($id, $extraLifetime);
     

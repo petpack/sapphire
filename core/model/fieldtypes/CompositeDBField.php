@@ -117,7 +117,7 @@ interface CompositeDBField {
 	 * 
 	 * @param DBField|array $value
 	 * @param array $record Map of values loaded from the database
-	 * @param boolean $markChanged Indicate wether this field should be marked changed. 
+	 * @param SS_Boolean $markChanged Indicate wether this field should be marked changed. 
 	 *  Set to FALSE if you are initializing this field after construction, rather
 	 *  than setting a new value.
 	 */
@@ -167,7 +167,7 @@ interface CompositeDBField {
 	 * Most likely relies on an internal flag thats changed when calling
 	 * {@link setValue()} or any other custom setters on the object.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function isChanged();
 	
@@ -175,8 +175,8 @@ interface CompositeDBField {
 	 * Determines if any of the properties in this field have a value,
 	 * meaning at least one of them is not NULL.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
-	function hasValue();
+	function hasValue($field, $arguments = null, $cache = true);
 	
 }

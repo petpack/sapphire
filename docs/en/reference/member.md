@@ -65,11 +65,11 @@ Note that if you want to look this class-name up, you can call Object::getCustom
 
 If you overload the built-in function getCMSFields(), then you can change the form that is used to view & edit member
 details in the newsletter system.  This function returns a `[api:FieldSet]` object.  You should generally start by calling
-parent::getCMSFields() and manipulate the `[api:FieldSet]` from there.
+parent::getCMSFields($params) and manipulate the `[api:FieldSet]` from there.
 
 	:::php
 	function getCMSFields() {
-		$fields = parent::getCMSFields();
+		$fields = parent::getCMSFields($params);
 		$fields->insertBefore(new TextField("Age"), "HTMLEmail");
 		$fields->removeByName("JobTitle");
 		$fields->removeByName("Organisation");

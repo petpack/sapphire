@@ -65,9 +65,9 @@ class Zend_Pdf_Color_Rgb extends Zend_Pdf_Color
     /**
      * Object constructor
      *
-     * @param float $r
-     * @param float $g
-     * @param float $b
+     * @param SS_Float $r
+     * @param SS_Float $g
+     * @param SS_Float $b
      */
     public function __construct($r, $g, $b)
     {
@@ -91,7 +91,7 @@ class Zend_Pdf_Color_Rgb extends Zend_Pdf_Color
      * to switch color.
      * Color set instructions differ for stroking and nonstroking operations.
      *
-     * @param boolean $stroking
+     * @param SS_Boolean $stroking
      * @return string
      */
     public function instructions($stroking)

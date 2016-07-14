@@ -116,7 +116,7 @@ class Zend_Gdata_YouTube_Extension_State extends Zend_Gdata_Extension
     /**
      * Get the value for this element's name attribute.
      *
-     * @return int The value associated with this attribute.
+     * @return SS_Int The value associated with this attribute.
      */
     public function getName()
     {
@@ -126,7 +126,7 @@ class Zend_Gdata_YouTube_Extension_State extends Zend_Gdata_Extension
     /**
      * Set the value for this element's name attribute.
      *
-     * @param int $value The desired value for this attribute.
+     * @param SS_Int $value The desired value for this attribute.
      * @return Zend_Gdata_YouTube_Extension_State The element being modified.
      */
     public function setName($value)
@@ -138,7 +138,7 @@ class Zend_Gdata_YouTube_Extension_State extends Zend_Gdata_Extension
     /**
      * Get the value for this element's reasonCode attribute.
      *
-     * @return int The value associated with this attribute.
+     * @return SS_Int The value associated with this attribute.
      */
     public function getReasonCode()
     {
@@ -148,7 +148,7 @@ class Zend_Gdata_YouTube_Extension_State extends Zend_Gdata_Extension
     /**
      * Set the value for this element's reasonCode attribute.
      *
-     * @param int $value The desired value for this attribute.
+     * @param SS_Int $value The desired value for this attribute.
      * @return Zend_Gdata_YouTube_Extension_State The element being modified.
      */
     public function setReasonCode($value)
@@ -160,7 +160,7 @@ class Zend_Gdata_YouTube_Extension_State extends Zend_Gdata_Extension
     /**
      * Get the value for this element's helpUrl attribute.
      *
-     * @return int The value associated with this attribute.
+     * @return SS_Int The value associated with this attribute.
      */
     public function getHelpUrl()
     {
@@ -170,7 +170,7 @@ class Zend_Gdata_YouTube_Extension_State extends Zend_Gdata_Extension
     /**
      * Set the value for this element's helpUrl attribute.
      *
-     * @param int $value The desired value for this attribute.
+     * @param SS_Int $value The desired value for this attribute.
      * @return Zend_Gdata_YouTube_Extension_State The element being modified.
      */
     public function setHelpUrl($value)

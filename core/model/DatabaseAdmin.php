@@ -154,8 +154,8 @@ class DatabaseAdmin extends Controller {
 	/**
 	 * Updates the database schema, creating tables & fields as necessary.
 	 *
-	 * @param boolean $quiet Don't show messages
-	 * @param boolean $populate Populate the database, as well as setting up its schema
+	 * @param SS_Boolean $quiet Don't show messages
+	 * @param SS_Boolean $populate Populate the database, as well as setting up its schema
 	 */
 	function doBuild($quiet = false, $populate = true, $testMode = false) {
 		if($quiet) {

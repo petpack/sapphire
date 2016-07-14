@@ -66,8 +66,19 @@ abstract class DBField extends ViewableData {
 	/**
 	 * Create a DBField object that's not bound to any particular field.
 	 * Useful for accessing the classes behaviour for other parts of your code.
+	 *
+	 * @param $ClassName	the class name. Required.
+	 * @param $value		the value. Required.
+	 * @param $name 		Name. Optional (default null)
+	 * @param $object		Object. Optional (default null).
+	 * @return DBField		the database field.
 	 */
-	static function create($className, $value, $name = null, $object = null) {
+	static function create($className = null, $value = null, $name = null, $object = null) {
+
+		// @fixme: DataObject L:2530 passes null value
+		if ($className === null /*|| $value === null*/)
+			user_error('DBField::create requires $className!');
+
 		$dbField = Object::create($className, $name, $object);
 		$dbField->setValue($value, null, false);
 		return $dbField;
@@ -118,9 +129,9 @@ abstract class DBField extends ViewableData {
 	 * is not considered to be 'null' in
 	 * a database context.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
-	function hasValue() {
+	function hasValue($field = null, $arguments = null, $cache = true) {
 		return ($this->value);
 	}
 	
@@ -128,7 +139,7 @@ abstract class DBField extends ViewableData {
 	 * @return bool
 	 */
 	public function exists() {
-		return $this->hasValue();
+		return $this->hasValue(null);
 	}
 	
 	/**

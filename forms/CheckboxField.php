@@ -86,7 +86,7 @@ HTML;
 		return $field;	
 	}
 	
-	function performDisabledTransformation() {
+	function performDisabledTransformation($trans = null) {
 		$clone = clone $this;
 		$clone->setDisabled(true);
 		return $clone;

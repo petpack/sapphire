@@ -51,7 +51,7 @@ class Zend_Validate_Ldap_Dn extends Zend_Validate_Abstract
      *
      * @param string $value The value to be validated.
      * 
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value) 
     {

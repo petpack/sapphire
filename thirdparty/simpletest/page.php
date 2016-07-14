@@ -126,7 +126,7 @@ class SimplePageBuilder extends SimpleSaxListener {
      *    Sets the builder up empty.
      *    @access public
      */
-    function SimplePageBuilder() {
+    function __construct() {
         $this->SimpleSaxListener();
     }
     
@@ -163,7 +163,7 @@ class SimplePageBuilder extends SimpleSaxListener {
      *    @access protected
      */
     function &_createPage($response) {
-        $page = &new SimplePage($response);
+        $page = new SimplePage($response);
         return $page;
     }
 
@@ -175,7 +175,7 @@ class SimplePageBuilder extends SimpleSaxListener {
      *    @access protected
      */
     function &_createParser(&$listener) {
-        $parser = &new SimpleHtmlSaxParser($listener);
+        $parser = new SimpleHtmlSaxParser($listener);
         return $parser;
     }
     
@@ -184,11 +184,11 @@ class SimplePageBuilder extends SimpleSaxListener {
      *    @param string $name         Element name.
      *    @param hash $attributes     Attributes without content
      *                                are marked as true.
-     *    @return boolean             False on parse error.
+     *    @return SS_Boolean             False on parse error.
      *    @access public
      */
     function startElement($name, $attributes) {
-        $factory = &new SimpleTagBuilder();
+        $factory = new SimpleTagBuilder();
         $tag = $factory->createTag($name, $attributes);
         if (! $tag) {
             return true;
@@ -224,7 +224,7 @@ class SimplePageBuilder extends SimpleSaxListener {
     /**
      *    End of element event.
      *    @param string $name        Element name.
-     *    @return boolean            False on parse error.
+     *    @return SS_Boolean            False on parse error.
      *    @access public
      */
     function endElement($name) {
@@ -256,7 +256,7 @@ class SimplePageBuilder extends SimpleSaxListener {
      *    Test to see if there are any open tags awaiting
      *    closure that match the tag name.
      *    @param string $name        Element name.
-     *    @return boolean            True if any are still open.
+     *    @return SS_Boolean            True if any are still open.
      *    @access private
      */
     function _hasNamedTagOnOpenTagStack($name) {
@@ -267,7 +267,7 @@ class SimplePageBuilder extends SimpleSaxListener {
      *    Unparsed, but relevant data. The data is added
      *    to every open tag.
      *    @param string $text        May include unparsed tags.
-     *    @return boolean            False on parse error.
+     *    @return SS_Boolean            False on parse error.
      *    @access public
      */
     function addContent($text) {
@@ -357,7 +357,7 @@ class SimplePage {
      *    @param SimpleHttpResponse $response     Result of HTTP fetch.
      *    @access public
      */
-    function SimplePage($response = false) {
+    function __construct($response = false) {
         $this->_links = array();
         $this->_title = false;
         $this->_left_over_labels = array();
@@ -554,7 +554,7 @@ class SimplePage {
     /**
      *    Sets the focus by index. The integer index starts from 1.
      *    @param integer $choice    Chosen frame.
-     *    @return boolean           Always false.
+     *    @return SS_Boolean           Always false.
      *    @access public
      */
     function setFrameFocusByIndex($choice) {
@@ -564,7 +564,7 @@ class SimplePage {
     /**
      *    Sets the focus by name. Always fails for a leaf page.
      *    @param string $name    Chosen frame.
-     *    @return boolean        False as no frames.
+     *    @return SS_Boolean        False as no frames.
      *    @access public
      */
     function setFrameFocus($name) {
@@ -628,7 +628,7 @@ class SimplePage {
      *    Tests to see if a tag is a possible form
      *    element.
      *    @param string $name     HTML element name.
-     *    @return boolean         True if form element.
+     *    @return SS_Boolean         True if form element.
      *    @access private
      */
     function _isFormElement($name) {
@@ -641,7 +641,7 @@ class SimplePage {
      *    @access public
      */
     function acceptFormStart(&$tag) {
-        $this->_open_forms[] = &new SimpleForm($tag, $this);
+        $this->_open_forms[] = new SimpleForm($tag, $this);
     }
 
     /**
@@ -694,7 +694,7 @@ class SimplePage {
     /**
      *    Test to see if in the middle of reading
      *    a frameset.
-     *    @return boolean        True if inframeset.
+     *    @return SS_Boolean        True if inframeset.
      *    @access private
      */
     function _isLoadingFrames() {
@@ -707,7 +707,7 @@ class SimplePage {
     /**
      *    Test to see if link is an absolute one.
      *    @param string $url     Url to test.
-     *    @return boolean        True if absolute.
+     *    @return SS_Boolean        True if absolute.
      *    @access protected
      */
     function _linkIsAbsolute($url) {
@@ -744,7 +744,7 @@ class SimplePage {
 
     /**
      *    Test for the presence of a frameset.
-     *    @return boolean        True if frameset.
+     *    @return SS_Boolean        True if frameset.
      *    @access public
      */
     function hasFrames() {
@@ -754,7 +754,7 @@ class SimplePage {
     /**
      *    Accessor for frame name and source URL for every frame that
      *    will need to be loaded. Immediate children only.
-     *    @return boolean/array     False if no frameset or
+     *    @return SS_Boolean/array     False if no frameset or
      *                              otherwise a hash of frame URLs.
      *                              The key is either a numerical
      *                              base one index or the name attribute.
@@ -949,7 +949,7 @@ class SimplePage {
      *    available.
      *    @param SimpleSelector $selector    Field finder.
      *    @param string $value               Value to set field to.
-     *    @return boolean                    True if value is valid.
+     *    @return SS_Boolean                    True if value is valid.
      *    @access public
      */
     function setField($selector, $value, $position=false) {

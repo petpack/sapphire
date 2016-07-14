@@ -103,7 +103,7 @@ class Zend_Http_Response
     /**
      * The HTTP response code
      *
-     * @var int
+     * @var SS_Int
      */
     protected $code;
 
@@ -141,7 +141,7 @@ class Zend_Http_Response
      *
      * If no message is passed, the message will be guessed according to the response code.
      *
-     * @param int    $code Response code (200, 404, ...)
+     * @param SS_Int    $code Response code (200, 404, ...)
      * @param array  $headers Headers array
      * @param string $body Response body
      * @param string $version HTTP version
@@ -196,7 +196,7 @@ class Zend_Http_Response
     /**
      * Check whether the response is an error
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isError()
     {
@@ -211,7 +211,7 @@ class Zend_Http_Response
     /**
      * Check whether the response in successful
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isSuccessful()
     {
@@ -226,7 +226,7 @@ class Zend_Http_Response
     /**
      * Check whether the response is a redirection
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isRedirect()
     {
@@ -315,7 +315,7 @@ class Zend_Http_Response
     /**
      * Get the HTTP response status code
      *
-     * @return int
+     * @return SS_Int
      */
     public function getStatus()
     {
@@ -360,7 +360,7 @@ class Zend_Http_Response
     /**
      * Get all headers as string
      *
-     * @param boolean $status_line Whether to return the first status line (IE "HTTP 200 OK")
+     * @param SS_Boolean $status_line Whether to return the first status line (IE "HTTP 200 OK")
      * @param string $br Line breaks (eg. "\n", "\r\n", "<br />")
      * @return string
      */
@@ -417,8 +417,8 @@ class Zend_Http_Response
      * Conforms to HTTP/1.1 as defined in RFC 2616 (except for 'Unknown')
      * See http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10 for reference
      *
-     * @param int $code HTTP response code
-     * @param boolean $http11 Use HTTP version 1.1
+     * @param SS_Int $code HTTP response code
+     * @param SS_Boolean $http11 Use HTTP version 1.1
      * @return string
      */
     public static function responseCodeAsText($code = null, $http11 = true)
@@ -439,7 +439,7 @@ class Zend_Http_Response
      * Extract the response code from a response string
      *
      * @param string $response_str
-     * @return int
+     * @return SS_Int
      */
     public static function extractCode($response_str)
     {

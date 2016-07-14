@@ -32,7 +32,7 @@ class FormAction extends FormField {
 	 * Enables the use of <button> instead of <input>
 	 * in {@link Field()} - for more customizeable styling.
 	 * 
-	 * @var boolean $useButtonTag
+	 * @var SS_Boolean $useButtonTag
 	 */
 	public $useButtonTag = false;
 	
@@ -63,7 +63,11 @@ class FormAction extends FormField {
 		parent::__construct($this->action, $title, null, $form);
 	}
 	
-	static function create($action, $title = "", $extraData = null, $extraClass = null) {
+	static function create($action = null, $title = "", $extraData = null, $extraClass = null) {
+
+		if ($action === null)
+			user_error('FormAction::create requires $action!');
+
 		return new FormAction($action, $title, null, $extraData, $extraClass);
 	}
 	

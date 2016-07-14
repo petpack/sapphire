@@ -319,7 +319,7 @@ JS;
 	 * Used because Zend_Date::isDate() doesn't provide this.
 	 * 
 	 * @param Array $val
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function validateArrayValue($val) {
 		if(!is_array($val)) return false;
@@ -337,7 +337,7 @@ JS;
 	}
 
 	/**
-	 * @return Boolean
+	 * @return SS_Boolean
 	 */
 	function validate($validator) {
 		$valid = true;

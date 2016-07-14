@@ -89,7 +89,7 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
 
     /**
      * Is translation disabled?
-     * @var Boolean
+     * @var SS_Boolean
      */
     protected $_translatorDisabled = false;
 
@@ -405,7 +405,7 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
     /**
      * Is there a default translation object set?
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function hasDefaultTranslator()
     {

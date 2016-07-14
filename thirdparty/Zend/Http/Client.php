@@ -242,21 +242,21 @@ class Zend_Http_Client
     /**
      * Redirection counter
      *
-     * @var int
+     * @var SS_Int
      */
     protected $redirectCounter = 0;
 
     /**
      * Status for unmasking GET array params
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_unmaskStatus = false;
 
     /**
      * Status if the http_build_query function escapes brackets
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_queryBracketsEscaped = true;
 
@@ -329,7 +329,7 @@ class Zend_Http_Client
     /**
      * Get the URI for the next request
      *
-     * @param boolean $as_string If true, will return the URI as a string
+     * @param SS_Boolean $as_string If true, will return the URI as a string
      * @return Zend_Uri_Http|string
      */
     public function getUri($as_string = false)
@@ -555,7 +555,7 @@ class Zend_Http_Client
     /**
      * Get the number of redirections done on the last request
      *
-     * @return int
+     * @return SS_Int
      */
     public function getRedirectionsCount()
     {
@@ -621,7 +621,7 @@ class Zend_Http_Client
      * A cookie jar is an object that holds and maintains cookies across HTTP requests
      * and responses.
      *
-     * @param Zend_Http_CookieJar|boolean $cookiejar Existing cookiejar object, true to create a new one, false to disable
+     * @param Zend_Http_CookieJar|SS_Boolean $cookiejar Existing cookiejar object, true to create a new one, false to disable
      * @return Zend_Http_Client
      * @throws Zend_Http_Client_Exception
      */
@@ -816,7 +816,7 @@ class Zend_Http_Client
      *
      * This is usefull for some services
      *
-     * @param boolean $status
+     * @param SS_Boolean $status
      * @return Zend_Http_Client
      */
     public function setUnmaskStatus($status = true)
@@ -828,7 +828,7 @@ class Zend_Http_Client
     /**
      * Returns the currently configured unmask status
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getUnmaskStatus()
     {
@@ -949,7 +949,7 @@ class Zend_Http_Client
     /**
      * Set streaming for received data
      *
-     * @param string|boolean $streamfile Stream file, true for temp file, false/null for no streaming
+     * @param string|SS_Boolean $streamfile Stream file, true for temp file, false/null for no streaming
      * @return Zend_Http_Client
      */
     public function setStream($streamfile = true)
@@ -960,7 +960,7 @@ class Zend_Http_Client
 
     /**
      * Get status of streaming for received data
-     * @return boolean|string
+     * @return SS_Boolean|string
      */
     public function getStream()
     {

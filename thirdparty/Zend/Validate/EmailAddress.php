@@ -233,7 +233,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
 
     /**
      * @param Zend_Validate_Hostname $hostnameValidator OPTIONAL
-     * @param int                    $allow             OPTIONAL
+     * @param SS_Int                    $allow             OPTIONAL
      * @return void
      */
     public function setHostnameValidator(Zend_Validate_Hostname $hostnameValidator = null, $allow = Zend_Validate_Hostname::ALLOW_DNS)
@@ -252,7 +252,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      *
      * This currently only works on UNIX systems
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function validateMxSupported()
     {
@@ -262,7 +262,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
     /**
      * Returns the set validateMx option
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getValidateMx()
     {
@@ -274,7 +274,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      *
      * This only applies when DNS hostnames are validated
      *
-     * @param boolean $mx Set allowed to true to validate for MX records, and false to not validate them
+     * @param SS_Boolean $mx Set allowed to true to validate for MX records, and false to not validate them
      * @return Zend_Validate_EmailAddress Fluid Interface
      */
     public function setValidateMx($mx)
@@ -291,7 +291,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
     /**
      * Returns the set deepMxCheck option
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getDeepMxCheck()
     {
@@ -301,7 +301,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
     /**
      * Set whether we check MX record should be a deep validation
      *
-     * @param boolean $deep Set deep to true to perform a deep validation process for MX records
+     * @param SS_Boolean $deep Set deep to true to perform a deep validation process for MX records
      * @return Zend_Validate_EmailAddress Fluid Interface
      */
     public function setDeepMxCheck($deep)
@@ -324,7 +324,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      * Sets if the domain should also be checked
      * or only the local part of the email address
      *
-     * @param boolean $domain
+     * @param SS_Boolean $domain
      * @return Zend_Validate_EmailAddress Fluid Interface
      */
     public function setDomainCheck($domain = true)
@@ -337,7 +337,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      * Returns if the given host is reserved
      *
      * @param string $host
-     * @return boolean
+     * @return SS_Boolean
      */
     private function _isReserved($host){
         if (!preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/', $host)) {
@@ -402,7 +402,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
     /**
      * Internal method to validate the local part of the email address
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     private function _validateLocalPart()
     {
@@ -439,7 +439,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
     /**
      * Internal method to validate the servers MX records
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     private function _validateMXRecords()
     {
@@ -481,7 +481,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
     /**
      * Internal method to validate the hostname part of the email address
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     private function _validateHostnamePart()
     {
@@ -515,7 +515,7 @@ class Zend_Validate_EmailAddress extends Zend_Validate_Abstract
      * @link   http://www.ietf.org/rfc/rfc2822.txt RFC2822
      * @link   http://www.columbia.edu/kermit/ascii.html US-ASCII characters
      * @param  string $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

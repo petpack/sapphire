@@ -102,7 +102,7 @@ class Zend_Http_UserAgent_Text extends Zend_Http_UserAgent_AbstractDevice
     /**
      * Get supported X/HTML markup level
      *
-     * @return int
+     * @return SS_Int
      */
     public function getXhtmlSupportLevel()
     {

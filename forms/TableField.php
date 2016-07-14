@@ -16,7 +16,7 @@
  * @param $fieldTypes array An array of field types of fieldname => fieldType (eg. formfield). Do not use for extra data/hiddenfields.
  * @param $filterField string The field to filter by.  Give the filter value in $sourceFilter.  The value will automatically be set on new records.
  * @param $sourceFilter string If $filterField has a value, then this is the value to filter by.  Otherwise, it is a SQL filter expression.
- * @param $editExisting boolean (Note: Has to stay on this position for legacy reasons)
+ * @param $editExisting SS_Boolean (Note: Has to stay on this position for legacy reasons)
  * @param $sourceSort string
  * @param $sourceJoin string
  * 
@@ -95,7 +95,7 @@ class TableField extends TableListField {
 	 * Please use {@link TableField::$permissions} to control
 	 * if the "add"-functionality incl. button is shown at all.
 	 * 
-	 * @param boolean $showAddRow
+	 * @param SS_Boolean $showAddRow
 	 */
 	public $showAddRow = true;
 	
@@ -103,7 +103,7 @@ class TableField extends TableListField {
 	 * Automatically detect a has-one relationship
 	 * in the popup (=child-class) and save the relation ID.
 	 *
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected $relationAutoSetting = true;
 
@@ -145,7 +145,7 @@ class TableField extends TableListField {
 	 * Calculates the number of columns needed for colspans
 	 * used in template
 	 * 
-	 * @return int
+	 * @return SS_Int
 	 */
 	function ItemCount() {
 		return count($this->fieldList);
@@ -241,7 +241,7 @@ class TableField extends TableListField {
 	/** 
 	 * Saves the Dataobjects contained in the field
 	 */
-	function saveInto(DataObject $record) {
+	function saveInto(DataObjectInterface $record) {
 		// CMS sometimes tries to set the value to one.
 		if(is_array($this->value)){
 			$newFields = array();
@@ -355,7 +355,7 @@ class TableField extends TableListField {
 	 * to the database.
 	 * 
 	 * @param DataObjectSet $dataObjects
-	 * @param boolean $existingValues If set to TRUE, it tries to find existing objects
+	 * @param SS_Boolean $existingValues If set to TRUE, it tries to find existing objects
 	 *  based on the database IDs passed as array keys in $dataObjects parameter.
 	 *  If set to FALSE, it will always create new object (default: TRUE)
 	 * @return array Array of saved object IDs in the key, and the status ("Updated") in the value
@@ -436,7 +436,7 @@ class TableField extends TableListField {
 	 * Organises the data in the appropriate manner for saving
 	 * 
 	 * @param array $data 
-	 * @param int $recordID
+	 * @param SS_Int $recordID
 	 * @return array Collection of maps suitable to construct DataObjects
 	 */
 	function sortData($data, $recordID = null) {
@@ -493,7 +493,7 @@ class TableField extends TableListField {
 	}
 	
 	/**
-	 * @return Int
+	 * @return SS_Int
 	 */
 	function sourceID() {
 		return $this->filterField;
@@ -604,14 +604,14 @@ JS;
 	}
 	
 	/**
-	 * @param boolean $value 
+	 * @param SS_Boolean $value 
 	 */
 	function setRelationAutoSetting($value) {
 		$this->relationAutoSetting = $value;
 	}
 	
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function getRelationAutoSetting() {
 		return $this->relationAutoSetting;
@@ -641,7 +641,7 @@ class TableField_Item extends TableListField_Item {
 	
 	/** 
 	 * Each row contains a dataobject with any number of attributes
-	 * @param $ID int The ID of the record
+	 * @param $ID SS_Int The ID of the record
 	 * @param $form Form A Form object containing all of the fields for this item.  The data should be loaded in
 	 * @param $fieldTypes array An array of name => fieldtype for use when creating a new field
 	 * @param $parent TableListField The parent table for quick reference of names, and id's for storing values.
@@ -780,7 +780,7 @@ class TableField_Item extends TableListField_Item {
 	 * Get the flag isAddRow of this item, 
 	 * to indicate if the item is that blank last row in the table which is not in the database
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function IsAddRow(){
 		return $this->isAddRow;

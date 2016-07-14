@@ -88,7 +88,7 @@ decorator:
 The $fields parameter is passed by reference, as it is an object.
 
 	:::php
-	public function updateCMSFields(FieldSet $fields) {
+	public ::updateCMSFields(FieldSet &$fields) {
 	   $fields->push(new TextField('Position', 'Position Title'));
 	   $fields->push(new ImageField('Image', 'Profile Image'));
 	}

@@ -377,7 +377,7 @@ class Controller extends RequestHandler {
 	
 	/**
 	 * Tests whether we have a currently active controller or not
-	 * @return boolean True if there is at least 1 controller in the stack.
+	 * @return SS_Boolean True if there is at least 1 controller in the stack.
 	 */
 	public static function has_curr() {
 		return Controller::$controller_stack ? true : false;
@@ -388,7 +388,7 @@ class Controller extends RequestHandler {
 	 * @param perm The permission to be checked, such as 'View'.
 	 * @param member The member whose permissions need checking.  Defaults to the currently logged
 	 * in user.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function can($perm, $member = null) {
 		if(!$member) $member = Member::currentUser();
@@ -424,7 +424,7 @@ class Controller extends RequestHandler {
 
 	/**
 	 * Returns true if the visitor has been here before
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function PastVisitor() {
 		user_error("Controller::PastVisitor() is deprecated", E_USER_NOTICE);
@@ -433,7 +433,7 @@ class Controller extends RequestHandler {
 
 	/**
 	 * Return true if the visitor has signed up for a login account before
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function PastMember() {
 		return Cookie::get("PastMember") ? true : false;
@@ -538,7 +538,7 @@ class Controller extends RequestHandler {
 	
 	/**
 	 * Returns true if this controller is processing an ajax request
-	 * @return boolean True if this controller is processing an ajax request
+	 * @return SS_Boolean True if this controller is processing an ajax request
 	 */
 	function isAjax() {
 		return (

@@ -52,7 +52,7 @@ class Zend_Http_Response_Stream extends Zend_Http_Response
     /**
      * Should we clean up the stream file when this response is closed?
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_cleanup;
 
@@ -81,7 +81,7 @@ class Zend_Http_Response_Stream extends Zend_Http_Response
     /**
      * Get the cleanup trigger
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getCleanup() {
         return $this->_cleanup;
@@ -129,7 +129,7 @@ class Zend_Http_Response_Stream extends Zend_Http_Response
      *
      * If no message is passed, the message will be guessed according to the response code.
      *
-     * @param int $code Response code (200, 404, ...)
+     * @param SS_Int $code Response code (200, 404, ...)
      * @param array $headers Headers array
      * @param string $body Response body
      * @param string $version HTTP version

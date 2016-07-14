@@ -66,7 +66,7 @@ class Zend_Validate_Sitemap_Loc extends Zend_Validate_Abstract
      * @link http://www.sitemaps.org/protocol.php#locdef <loc>
      *
      * @param  string  $value  value to validate
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

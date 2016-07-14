@@ -73,7 +73,7 @@ class Zend_Memory_Container_Locked extends Zend_Memory_Container
     /**
      * Return true if object is locked
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isLocked()
     {

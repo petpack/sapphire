@@ -12,11 +12,11 @@ class Cookie {
 	 * 
 	 * @param string $name The variable name
 	 * @param string $value The variable value.  May be an array or object if you wish.
-	 * @param int $expiryDays The expiry time, in days.  Defaults to 90.
+	 * @param SS_Int $expiryDays The expiry time, in days.  Defaults to 90.
 	 * @param string $path See http://php.net/set_session
 	 * @param string $domain See http://php.net/set_session
-	 * @param boolean $secure See http://php.net/set_session
-	 * @param boolean $httpOnly See http://php.net/set_session (PHP 5.2+ only)
+	 * @param SS_Boolean $secure See http://php.net/set_session
+	 * @param SS_Boolean $httpOnly See http://php.net/set_session (PHP 5.2+ only)
 	 */
 	static function set($name, $value, $expiryDays = 90, $path = null, $domain = null, $secure = false, $httpOnly = false) {
 		if(!headers_sent($file, $line)) {

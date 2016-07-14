@@ -82,7 +82,7 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
      * If false, then strict comparisons are done, and the value may equal neither
      * the min nor max options
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_inclusive;
 
@@ -175,7 +175,7 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
     /**
      * Returns the inclusive option
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getInclusive()
     {
@@ -185,7 +185,7 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
     /**
      * Sets the inclusive option
      *
-     * @param  boolean $inclusive
+     * @param  SS_Boolean $inclusive
      * @return Zend_Validate_Between Provides a fluent interface
      */
     public function setInclusive($inclusive)
@@ -201,7 +201,7 @@ class Zend_Validate_Between extends Zend_Validate_Abstract
      * if inclusive option is true.
      *
      * @param  mixed $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

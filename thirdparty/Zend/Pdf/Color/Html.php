@@ -61,7 +61,7 @@ class Zend_Pdf_Color_Html extends Zend_Pdf_Color
      * to switch color.
      * Color set instructions differ for stroking and nonstroking operations.
      *
-     * @param boolean $stroking
+     * @param SS_Boolean $stroking
      * @return string
      */
     public function instructions($stroking)

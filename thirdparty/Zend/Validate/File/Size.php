@@ -85,7 +85,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
     /**
      * Use bytestring ?
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_useByteString = true;
 
@@ -136,7 +136,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
     /**
      * Returns the minimum filesize
      *
-     * @param  boolean $byteString Use bytestring ?
+     * @param  SS_Boolean $byteString Use bytestring ?
      * @return integer
      */
     public function setUseByteString($byteString = true)
@@ -148,7 +148,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
     /**
      * Will bytestring be used?
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function useByteString()
     {
@@ -242,7 +242,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
     /**
      * Retrieve current detected file size
      *
-     * @return int
+     * @return SS_Int
      */
     protected function _getSize()
     {
@@ -252,7 +252,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
     /**
      * Set current size
      *
-     * @param  int $size
+     * @param  SS_Int $size
      * @return Zend_Validate_File_Size
      */
     protected function _setSize($size)
@@ -269,7 +269,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
      *
      * @param  string $value Real file to check for size
      * @param  array  $file  File data from Zend_File_Transfer
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value, $file = null)
     {

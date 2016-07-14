@@ -52,7 +52,7 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
      *
      * @var mixed  $data        Object to store
      * @var string $id          Cache id
-     * @var int    $timeToLive  Time to live in seconds
+     * @var SS_Int    $timeToLive  Time to live in seconds
      * @throws Zend_Cache_Exception
      */
     abstract protected function _store($data, $id, $timeToLive);
@@ -62,7 +62,7 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
      *
      * @var mixed  $data        Object to store
      * @var string $id          Cache id
-     * @var int    $timeToLive  Time to live in seconds
+     * @var SS_Int    $timeToLive  Time to live in seconds
      * @throws Zend_Cache_Exception
      */
     abstract protected function _fetch($id);
@@ -83,7 +83,7 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
      * Test if a cache is available for the given id and (if yes) return it (false else)
      *
      * @param  string  $id                     cache id
-     * @param  boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
+     * @param  SS_Boolean $doNotTestCacheValidity if set to true, the cache validity won't be tested
      * @return string cached datas (or false)
      */
     public function load($id, $doNotTestCacheValidity = false)
@@ -117,7 +117,7 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
     /**
      * Compute & return the expire time
      *
-     * @return int expire time (unix timestamp)
+     * @return SS_Int expire time (unix timestamp)
      */
     private function _expireTime($lifetime)
     {
@@ -136,8 +136,8 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
      * @param string $data datas to cache
      * @param string $id cache id
      * @param array $tags array of strings, the cache record will be tagged by each string entry
-     * @param int $specificLifetime if != false, set a specific lifetime for this cache record (null => infinite lifetime)
-     * @return boolean true if no problem
+     * @param SS_Int $specificLifetime if != false, set a specific lifetime for this cache record (null => infinite lifetime)
+     * @return SS_Boolean true if no problem
      */
     public function save($data, $id, $tags = array(), $specificLifetime = false)
     {
@@ -159,7 +159,7 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
      * Remove a cache record
      *
      * @param  string $id cache id
-     * @return boolean true if no problem
+     * @return SS_Boolean true if no problem
      */
     public function remove($id)
     {
@@ -182,7 +182,7 @@ abstract class Zend_Cache_Backend_ZendServer extends Zend_Cache_Backend implemen
      * @param  string $mode clean mode
      * @param  array  $tags array of tags
      * @throws Zend_Cache_Exception
-     * @return boolean true if no problem
+     * @return SS_Boolean true if no problem
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = array())
     {

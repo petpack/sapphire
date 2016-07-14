@@ -91,7 +91,7 @@ class idna_convert
     var $_strict_mode    =  false;  // Behave strict or not
 
     // The constructor
-    function idna_convert($options = false)
+    function __construct($options = false)
     {
         $this->slast = $this->_sbase + $this->_lcount * $this->_vcount * $this->_tcount;
         if (function_exists('file_get_contents')) {
@@ -119,7 +119,7 @@ class idna_convert
      *
      * @param    mixed     Parameter to set (string: single parameter; array of Parameter => Value pairs)
      * @param    string    Value to use (if parameter 1 is a string)
-     * @return   boolean   true on success, false otherwise
+     * @return   SS_Boolean   true on success, false otherwise
      * @access   public
      */
     function set_parameter($option, $value = false)
@@ -957,7 +957,7 @@ class Net_IDNA_php4 extends idna_convert
      *
      * @param    mixed     Parameter to set (string: single parameter; array of Parameter => Value pairs)
      * @param    string    Value to use (if parameter 1 is a string)
-     * @return   boolean   true on success, false otherwise
+     * @return   SS_Boolean   true on success, false otherwise
      * @access   public
      */
     function setParams($option, $param = false)

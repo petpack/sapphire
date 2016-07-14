@@ -118,7 +118,7 @@ class Member extends DataObject {
 	 * This doesn't always work, especially if you're trying to set session cookies
 	 * across an entire site using the domain parameter to session_set_cookie_params()
 	 * 
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected static $session_regenerate_id = true;
 
@@ -359,7 +359,7 @@ class Member extends DataObject {
 	 * has a database record of the same ID. If there is
 	 * no logged in user, FALSE is returned anyway.
 	 * 
-	 * @return boolean TRUE record found FALSE no record found
+	 * @return SS_Boolean TRUE record found FALSE no record found
 	 */
 	static function logged_in_session_exists() {
 		if($id = Member::currentUserID()) {
@@ -437,7 +437,7 @@ class Member extends DataObject {
 	 *
 	 * This creates an auto login hash that can be used to reset the password.
 	 *
-	 * @param int $lifetime The lifetime of the auto login hash in days (by default 2 days)
+	 * @param SS_Int $lifetime The lifetime of the auto login hash in days (by default 2 days)
 	 *
 	 * @todo Make it possible to handle database errors such as a "duplicate key" error
 	 */
@@ -564,7 +564,7 @@ class Member extends DataObject {
 	/**
 	 * Get the ID of the current logged in user
 	 *
-	 * @return int Returns the ID of the current logged in user or 0.
+	 * @return SS_Int Returns the ID of the current logged in user or 0.
 	 */
 	static function currentUserID() {
 		$id = Session::get("loggedInAs");
@@ -706,7 +706,7 @@ class Member extends DataObject {
 	/**
 	 * If any admin groups are requested, deny unless the current user is an admin
 	 * @param Array $ids Database IDs of Group records
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function onChangeGroups($ids) {
 		// Filter out admin groups to avoid privilege escalation, 
@@ -725,7 +725,7 @@ class Member extends DataObject {
 	 * Check if the member is in one of the given groups.
 	 *
 	 * @param array|DataObjectSet $groups Collection of {@link Group} DataObjects to check
-	 * @param boolean $strict Only determine direct group membership if set to true (Default: false)
+	 * @param SS_Boolean $strict Only determine direct group membership if set to true (Default: false)
 	 * @return bool Returns TRUE if the member is in one of the given groups, otherwise FALSE.
 	 */
 	public function inGroups($groups, $strict = false) {
@@ -740,8 +740,8 @@ class Member extends DataObject {
 	/**
 	 * Check if the member is in the given group or any parent groups.
 	 *
-	 * @param int|Group|string $group Group instance, Group Code or ID
-	 * @param boolean $strict Only determine direct group membership if set to TRUE (Default: FALSE)
+	 * @param SS_Int|Group|string $group Group instance, Group Code or ID
+	 * @param SS_Boolean $strict Only determine direct group membership if set to TRUE (Default: FALSE)
 	 * @return bool Returns TRUE if the member is in the given group, otherwise FALSE.
 	 */
 	public function inGroup($group, $strict = false) {
@@ -1126,10 +1126,10 @@ class Member extends DataObject {
 	 * @return FieldSet Return a FieldSet of fields that would appropriate for
 	 *                  editing this member.
 	 */
-	public function getCMSFields() {
+	public function getCMSFields($params = null) {
 		require_once('Zend/Date.php');
 		
-		$fields = parent::getCMSFields();
+		$fields = parent::getCMSFields($params);
 
 		$mainFields = $fields->fieldByName("Root")->fieldByName("Main")->Children;
 
@@ -1245,7 +1245,7 @@ class Member extends DataObject {
 	
 	/**
 	 *
-	 * @param boolean $includerelations a boolean value to indicate if the labels returned include relation fields
+	 * @param SS_Boolean $includerelations a boolean value to indicate if the labels returned include relation fields
 	 * 
 	 */
 	function fieldLabels($includerelations = true) {
@@ -1963,16 +1963,16 @@ class Member_DatetimeOptionsetField extends OptionsetField {
 		return $output;
 	}
 
-	function setValue($value) {
+	function setValue($value, $data = null) {
 		if($value == '__custom__') {
 			$value = isset($_REQUEST[$this->name . '_custom']) ? $_REQUEST[$this->name . '_custom'] : null;
 		}
 		if($value) {
-			parent::setValue($value);
+			parent::setValue($value, $data);
 		}
 	}
 
-	function validate() {
+	function validate($validator) {
 		$value = isset($_POST[$this->name . '_custom']) ? $_POST[$this->name . '_custom'] : null;
 		if(!$value) return true; // no custom value, don't validate
 

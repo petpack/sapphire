@@ -44,8 +44,8 @@ class RedirectorPage extends Page {
 	 * destination, to prevent unnecessary 30x redirections.  However, if it's misconfigured, then
 	 * it will return a link to itself, which will then display an error message. 
 	 */
-	function Link() {
-		if($link = $this->redirectionLink()) return $link;
+	function Link($action = NULL) {
+		if($link = $this->redirectionLink($action)) return $link;
 		else return $this->regularLink();
 	}
 	
@@ -113,10 +113,10 @@ class RedirectorPage extends Page {
 		}
 	}
 
-	function getCMSFields() {
+	function getCMSFields($params = null) {
 		Requirements::javascript(SAPPHIRE_DIR . "/javascript/RedirectorPage.js");
 		
-		$fields = parent::getCMSFields();
+		$fields = parent::getCMSFields($params);
 		$fields->removeByName('Content', true);
 		$fields->addFieldsToTab('Root.Content.Main',
 			array(

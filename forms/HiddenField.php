@@ -26,7 +26,12 @@ class HiddenField extends FormField {
 		return true;
 	}
 
-	static function create($name) { return new HiddenField($name); }
+	static function create($name = null) {
+		if ($name === null) {
+			user_error('HiddenField::create requires $name');
+		}
+		return new HiddenField($name);
+	}
 }
 
 ?>

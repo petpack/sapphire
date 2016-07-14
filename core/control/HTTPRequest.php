@@ -238,7 +238,7 @@ class SS_HTTPRequest implements ArrayAccess {
 	 * array syntax, so isset($request['title']) will check for $_POST['title'] and $_GET['title']
 	 *
 	 * @param unknown_type $offset
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function offsetExists($offset) {
 		if(isset($this->postVars[$offset])) return true;
@@ -453,7 +453,7 @@ class SS_HTTPRequest implements ArrayAccess {
 	 * Shift one or more parts off the beginning of the URL.
 	 * If you specify shifting more than 1 item off, then the items will be returned as an array
 	 *
-	 * @param int $count Shift Count
+	 * @param SS_Int $count Shift Count
 	 *
 	 * @return String|Array
 	 */
@@ -503,7 +503,7 @@ class SS_HTTPRequest implements ArrayAccess {
 	 * Returns all mimetypes from the HTTP "Accept" header
 	 * as an array.
 	 * 
-	 * @param boolean $includeQuality Don't strip away optional "quality indicators", e.g. "application/xml;q=0.9" (Default: false)
+	 * @param SS_Boolean $includeQuality Don't strip away optional "quality indicators", e.g. "application/xml;q=0.9" (Default: false)
 	 * @return array
 	 */
 	function getAcceptMimetypes($includeQuality = false) {

@@ -50,7 +50,7 @@ class Zend_Pdf_Destination_FitVertically extends Zend_Pdf_Destination_Explicit
      * Create destination object
      *
      * @param Zend_Pdf_Page|integer $page  Page object or page number
-     * @param float $left  Left edge of displayed page
+     * @param SS_Float $left  Left edge of displayed page
      * @return Zend_Pdf_Destination_FitVertically
      * @throws Zend_Pdf_Exception
      */
@@ -76,7 +76,7 @@ class Zend_Pdf_Destination_FitVertically extends Zend_Pdf_Destination_Explicit
     /**
      * Get left edge of the displayed page
      *
-     * @return float
+     * @return SS_Float
      */
     public function getLeftEdge()
     {
@@ -86,7 +86,7 @@ class Zend_Pdf_Destination_FitVertically extends Zend_Pdf_Destination_Explicit
     /**
      * Set left edge of the displayed page
      *
-     * @param float $left
+     * @param SS_Float $left
      * @return Zend_Pdf_Action_FitVertically
      */
     public function setLeftEdge($left)

@@ -64,7 +64,7 @@
 class SSViewer {
 	
 	/**
-	 * @var boolean $source_file_comments
+	 * @var SS_Boolean $source_file_comments
 	 */
 	protected static $source_file_comments = false;
 	
@@ -72,14 +72,14 @@ class SSViewer {
 	 * Set whether HTML comments indicating the source .SS file used to render this page should be
 	 * included in the output.  This is enabled by default
 	 *
-	 * @param boolean $val
+	 * @param SS_Boolean $val
 	 */
 	static function set_source_file_comments($val) {
 		self::$source_file_comments = $val;
 	}
 	
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	static function get_source_file_comments() {
 		return self::$source_file_comments;
@@ -92,7 +92,7 @@ class SSViewer {
 	private $chosenTemplates = array();
 	
 	/**
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected $rewriteHashlinks = true;
 	
@@ -326,7 +326,7 @@ class SSViewer {
 		// Adds an i18n namespace to all _t(...) calls without an existing one
 		// to avoid confusion when using the include in different contexts.
 		// Entities without a namespace are deprecated, but widely used.
-		$content = ereg_replace('<' . '% +_t\((\'([^\.\']*)\'|"([^\."]*)")(([^)]|\)[^ ]|\) +[^% ])*)\) +%' . '>', '<?= _t(\''. $identifier . '.ss' . '.\\2\\3\'\\4) ?>', $content);
+		$content = preg_replace('/<' . '% +_t\((\'([^\.\']*)\'|"([^\."]*)")(([^)]|\)[^ ]|\) +[^% ])*)\) +%' . '>/', '<?= _t(\''. $identifier . '.ss' . '.\\2\\3\'\\4) ?>', $content);
 
 		// Remove UTF-8 byte order mark
 		// This is only necessary if you don't have zend-multibyte enabled.
@@ -378,7 +378,8 @@ class SSViewer {
 		if(isset($this->chosenTemplates['main'])) {
 			$template = $this->chosenTemplates['main'];
 		} else {
-			$template = $this->chosenTemplates[ reset($dummy = array_keys($this->chosenTemplates)) ];
+			$dummy = array_keys($this->chosenTemplates);
+			$template = $this->chosenTemplates[ reset($dummy) ];
 		}
 		
 		if (!file_exists($template)) {
@@ -522,98 +523,98 @@ class SSViewer {
 		$content = SSViewer_PartialParser::process($template, $content);
 
 		// legacy
-		$content = ereg_replace('<!-- +pc +([A-Za-z0-9_(),]+) +-->', '<' . '% control \\1 %' . '>', $content);
-		$content = ereg_replace('<!-- +pc_end +-->', '<' . '% end_control %' . '>', $content);
+		$content = preg_replace('/<!-- +pc +([A-Za-z0-9_(),]+) +-->/', '<' . '% control \\1 %' . '>', $content);
+		$content = preg_replace('/<!-- +pc_end +-->/', '<' . '% end_control %' . '>', $content);
 		
 		// < % control Foo % >
-		$content = ereg_replace('<' . '% +control +([A-Za-z0-9_]+) +%' . '>', '<? array_push($itemStack, $item); if($loop = $item->obj("\\1")) foreach($loop as $key => $item) { ?>', $content);
+		$content = preg_replace('/<' . '% +control +([A-Za-z0-9_]+) +%' . '>/', '<? array_push($itemStack, $item); if($loop = $item->obj("\\1")) foreach($loop as $key => $item) { ?>', $content);
 		// < % control Foo.Bar % >
-		$content = ereg_replace('<' . '% +control +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+) +%' . '>', '<? array_push($itemStack, $item); if(($loop = $item->obj("\\1")) && ($loop = $loop->obj("\\2"))) foreach($loop as $key => $item) { ?>', $content);
+		$content = preg_replace('/<' . '% +control +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+) +%' . '>/', '<? array_push($itemStack, $item); if(($loop = $item->obj("\\1")) && ($loop = $loop->obj("\\2"))) foreach($loop as $key => $item) { ?>', $content);
 		// < % control Foo.Bar(Baz) % >
-		$content = ereg_replace('<' . '% +control +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+)\\(([^),]+)\\) +%' . '>', '<? array_push($itemStack, $item); if(($loop = $item->obj("\\1")) && ($loop = $loop->obj("\\2", array("\\3")))) foreach($loop as $key => $item) { ?>', $content);
+		$content = preg_replace('/<' . '% +control +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+)\\(([^),]+)\\) +%' . '>/', '<? array_push($itemStack, $item); if(($loop = $item->obj("\\1")) && ($loop = $loop->obj("\\2", array("\\3")))) foreach($loop as $key => $item) { ?>', $content);
 		// < % control Foo(Bar) % >
-		$content = ereg_replace('<' . '% +control +([A-Za-z0-9_]+)\\(([^),]+)\\) +%' . '>', '<? array_push($itemStack, $item); if($loop = $item->obj("\\1", array("\\2"))) foreach($loop as $key => $item) { ?>', $content);
+		$content = preg_replace('/<' . '% +control +([A-Za-z0-9_]+)\\(([^),]+)\\) +%' . '>/', '<? array_push($itemStack, $item); if($loop = $item->obj("\\1", array("\\2"))) foreach($loop as $key => $item) { ?>', $content);
 		// < % control Foo(Bar, Baz) % >
-		$content = ereg_replace('<' . '% +control +([A-Za-z0-9_]+)\\(([^),]+), *([^),]+)\\) +%' . '>', '<? array_push($itemStack, $item); if($loop = $item->obj("\\1", array("\\2","\\3"))) foreach($loop as $key => $item) { ?>', $content);
+		$content = preg_replace('/<' . '% +control +([A-Za-z0-9_]+)\\(([^),]+), *([^),]+)\\) +%' . '>/', '<? array_push($itemStack, $item); if($loop = $item->obj("\\1", array("\\2","\\3"))) foreach($loop as $key => $item) { ?>', $content);
 		// < % control Foo(Bar, Baz, Buz) % >
-		$content = ereg_replace('<' . '% +control +([A-Za-z0-9_]+)\\(([^),]+), *([^),]+), *([^),]+)\\) +%' . '>', '<? array_push($itemStack, $item); if($loop = $item->obj("\\1", array("\\2", "\\3", "\\4"))) foreach($loop as $key => $item) { ?>', $content);
-		$content = ereg_replace('<' . '% +end_control +%' . '>', '<? } $item = array_pop($itemStack); ?>', $content);
-		$content = ereg_replace('<' . '% +debug +%' . '>', '<? Debug::show($item) ?>', $content);
-		$content = ereg_replace('<' . '% +debug +([A-Za-z0-9_]+) +%' . '>', '<? Debug::show($item->cachedCall("\\1")) ?>', $content);
+		$content = preg_replace('/<' . '% +control +([A-Za-z0-9_]+)\\(([^),]+), *([^),]+), *([^),]+)\\) +%' . '>/', '<? array_push($itemStack, $item); if($loop = $item->obj("\\1", array("\\2", "\\3", "\\4"))) foreach($loop as $key => $item) { ?>', $content);
+		$content = preg_replace('/<' . '% +end_control +%' . '>/', '<? } $item = array_pop($itemStack); ?>', $content);
+		$content = preg_replace('/<' . '% +debug +%' . '>/', '<? Debug::show($item) ?>', $content);
+		$content = preg_replace('/<' . '% +debug +([A-Za-z0-9_]+) +%' . '>/', '<? Debug::show($item->cachedCall("\\1")) ?>', $content);
 
 		// < % if val1.property % >
-		$content = ereg_replace('<' . '% +if +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+) +%' . '>', '<? if($item->obj("\\1",null,true)->hasValue("\\2")) {  ?>', $content);
+		$content = preg_replace('/<' . '% +if +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+) +%' . '>/', '<? if($item->obj("\\1",null,true)->hasValue("\\2")) {  ?>', $content);
 		
 		// < % if val1(parameter) % >
-		$content = ereg_replace('<' . '% +if +([A-Za-z0-9_]+)\\(([A-Za-z0-9_-]+)\\) +%' . '>', '<? if($item->hasValue("\\1",array("\\2"))) {  ?>', $content);
+		$content = preg_replace('/<' . '% +if +([A-Za-z0-9_]+)\\(([A-Za-z0-9_-]+)\\) +%' . '>/', '<? if($item->hasValue("\\1",array("\\2"))) {  ?>', $content);
 
 		// < % if val1 % >
-		$content = ereg_replace('<' . '% +if +([A-Za-z0-9_]+) +%' . '>', '<? if($item->hasValue("\\1")) {  ?>', $content);
-		$content = ereg_replace('<' . '% +else_if +([A-Za-z0-9_]+) +%' . '>', '<? } else if($item->hasValue("\\1")) {  ?>', $content);
+		$content = preg_replace('/<' . '% +if +([A-Za-z0-9_]+) +%' . '>/', '<? if($item->hasValue("\\1")) {  ?>', $content);
+		$content = preg_replace('/<' . '% +else_if +([A-Za-z0-9_]+) +%' . '>/', '<? } else if($item->hasValue("\\1")) {  ?>', $content);
 
 		// < % if val1 || val2 % >
-		$content = ereg_replace('<' . '% +if +([A-Za-z0-9_]+) *\\|\\|? *([A-Za-z0-9_]+) +%' . '>', '<? if($item->hasValue("\\1") || $item->hasValue("\\2")) { ?>', $content);
-		$content = ereg_replace('<' . '% +else_if +([A-Za-z0-9_]+) *\\|\\|? *([A-Za-z0-9_]+) +%' . '>', '<? else_if($item->hasValue("\\1") || $item->hasValue("\\2")) { ?>', $content);
+		$content = preg_replace('/<' . '% +if +([A-Za-z0-9_]+) *\\|\\|? *([A-Za-z0-9_]+) +%' . '>/', '<? if($item->hasValue("\\1") || $item->hasValue("\\2")) { ?>', $content);
+		$content = preg_replace('/<' . '% +else_if +([A-Za-z0-9_]+) *\\|\\|? *([A-Za-z0-9_]+) +%' . '>/', '<? else_if($item->hasValue("\\1") || $item->hasValue("\\2")) { ?>', $content);
 
 		// < % if val1 && val2 % >
-		$content = ereg_replace('<' . '% +if +([A-Za-z0-9_]+) *&&? *([A-Za-z0-9_]+) +%' . '>', '<? if($item->hasValue("\\1") && $item->hasValue("\\2")) { ?>', $content);
-		$content = ereg_replace('<' . '% +else_if +([A-Za-z0-9_]+) *&&? *([A-Za-z0-9_]+) +%' . '>', '<? else_if($item->hasValue("\\1") && $item->hasValue("\\2")) { ?>', $content);
+		$content = preg_replace('/<' . '% +if +([A-Za-z0-9_]+) *&&? *([A-Za-z0-9_]+) +%' . '>/', '<? if($item->hasValue("\\1") && $item->hasValue("\\2")) { ?>', $content);
+		$content = preg_replace('/<' . '% +else_if +([A-Za-z0-9_]+) *&&? *([A-Za-z0-9_]+) +%' . '>/', '<? else_if($item->hasValue("\\1") && $item->hasValue("\\2")) { ?>', $content);
 
 		// < % if val1 == val2 % >
-		$content = ereg_replace('<' . '% +if +([A-Za-z0-9_]+) *==? *"?([A-Za-z0-9_-]+)"? +%' . '>', '<? if($item->XML_val("\\1",null,true) == "\\2") {  ?>', $content);
-		$content = ereg_replace('<' . '% +else_if +([A-Za-z0-9_]+) *==? *"?([A-Za-z0-9_-]+)"? +%' . '>', '<? } else if($item->XML_val("\\1",null,true) == "\\2") {  ?>', $content);
+		$content = preg_replace('/<' . '% +if +([A-Za-z0-9_]+) *==? *"?([A-Za-z0-9_-]+)"? +%' . '>/', '<? if($item->XML_val("\\1",null,true) == "\\2") {  ?>', $content);
+		$content = preg_replace('<' . '% +else_if +([A-Za-z0-9_]+) *==? *"?([A-Za-z0-9_-]+)"? +%' . '>', '<? } else if($item->XML_val("\\1",null,true) == "\\2") {  ?>', $content);
 		
 		// < % if val1 != val2 % >
-		$content = ereg_replace('<' . '% +if +([A-Za-z0-9_]+) *!= *"?([A-Za-z0-9_-]+)"? +%' . '>', '<? if($item->XML_val("\\1",null,true) != "\\2") {  ?>', $content);
-		$content = ereg_replace('<' . '% +else_if +([A-Za-z0-9_]+) *!= *"?([A-Za-z0-9_-]+)"? +%' . '>', '<? } else if($item->XML_val("\\1",null,true) != "\\2") {  ?>', $content);
+		$content = preg_replace('/<' . '% +if +([A-Za-z0-9_]+) *!= *"?([A-Za-z0-9_-]+)"? +%' . '>/', '<? if($item->XML_val("\\1",null,true) != "\\2") {  ?>', $content);
+		$content = preg_replace('/<' . '% +else_if +([A-Za-z0-9_]+) *!= *"?([A-Za-z0-9_-]+)"? +%' . '>/', '<? } else if($item->XML_val("\\1",null,true) != "\\2") {  ?>', $content);
 
-		$content = ereg_replace('<' . '% +else_if +([A-Za-z0-9_]+) +%' . '>', '<? } else if(($test = $item->cachedCall("\\1")) && ((!is_object($test) && $test) || ($test && $test->exists()) )) {  ?>', $content);
+		$content = preg_replace('/<' . '% +else_if +([A-Za-z0-9_]+) +%' . '>/', '<? } else if(($test = $item->cachedCall("\\1")) && ((!is_object($test) && $test) || ($test && $test->exists()) )) {  ?>', $content);
 
-		$content = ereg_replace('<' . '% +if +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+) +%' . '>', '<? $test = $item->obj("\\1",null,true)->cachedCall("\\2"); if((!is_object($test) && $test) || ($test && $test->exists())) {  ?>', $content);
-		$content = ereg_replace('<' . '% +else_if +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+) +%' . '>', '<? } else if(($test = $item->obj("\\1",null,true)->cachedCall("\\2")) && ((!is_object($test) && $test) || ($test && $test->exists()) )) {  ?>', $content);
+		$content = preg_replace('/<' . '% +if +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+) +%' . '>/', '<? $test = $item->obj("\\1",null,true)->cachedCall("\\2"); if((!is_object($test) && $test) || ($test && $test->exists())) {  ?>', $content);
+		$content = preg_replace('/<' . '% +else_if +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+) +%' . '>/', '<? } else if(($test = $item->obj("\\1",null,true)->cachedCall("\\2")) && ((!is_object($test) && $test) || ($test && $test->exists()) )) {  ?>', $content);
 
-		$content = ereg_replace('<' . '% +if +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+) +%' . '>', '<? $test = $item->obj("\\1",null,true)->obj("\\2",null,true)->cachedCall("\\3"); if((!is_object($test) && $test) || ($test && $test->exists())) {  ?>', $content);
-		$content = ereg_replace('<' . '% +else_if +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+) +%' . '>', '<? } else if(($test = $item->obj("\\1",null,true)->obj("\\2",null,true)->cachedCall("\\3")) && ((!is_object($test) && $test) || ($test && $test->exists()) )) {  ?>', $content);
+		$content = preg_replace('/<' . '% +if +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+) +%' . '>/', '<? $test = $item->obj("\\1",null,true)->obj("\\2",null,true)->cachedCall("\\3"); if((!is_object($test) && $test) || ($test && $test->exists())) {  ?>', $content);
+		$content = preg_replace('/<' . '% +else_if +([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+)\\.([A-Za-z0-9_]+) +%' . '>/', '<? } else if(($test = $item->obj("\\1",null,true)->obj("\\2",null,true)->cachedCall("\\3")) && ((!is_object($test) && $test) || ($test && $test->exists()) )) {  ?>', $content);
 		
-		$content = ereg_replace('<' . '% +else +%' . '>', '<? } else { ?>', $content);
-		$content = ereg_replace('<' . '% +end_if +%' . '>', '<? }  ?>', $content);
+		$content = preg_replace('/<' . '% +else +%' . '>/', '<? } else { ?>', $content);
+		$content = preg_replace('/<' . '% +end_if +%' . '>/', '<? }  ?>', $content);
 
 		// i18n - get filename of currently parsed template
 		// CAUTION: No spaces allowed between arguments for all i18n calls!
-		ereg('.*[\/](.*)',$template,$path);
+		preg_match('/.*[\/](.*)/',$template,$path);
 		
 		// i18n _t(...) - with entity only (no dots in namespace), 
 		// meaning the current template filename will be added as a namespace. 
 		// This applies only to "root" templates, not includes which should always have their namespace set already.
 		// See getTemplateContent() for more information.
-		$content = ereg_replace('<' . '% +_t\((\'([^\.\']*)\'|"([^\."]*)")(([^)]|\)[^ ]|\) +[^% ])*)\) +%' . '>', '<?= _t(\''. $path[1] . '.\\2\\3\'\\4) ?>', $content);
+		$content = preg_replace('/<' . '% +_t\((\'([^\.\']*)\'|"([^\."]*)")(([^)]|\)[^ ]|\) +[^% ])*)\) +%' . '>/', '<?= _t(\''. $path[1] . '.\\2\\3\'\\4) ?>', $content);
 		// i18n _t(...)
-		$content = ereg_replace('<' . '% +_t\((\'([^\']*)\'|"([^"]*)")(([^)]|\)[^ ]|\) +[^% ])*)\) +%' . '>', '<?= _t(\'\\2\\3\'\\4) ?>', $content);
+		$content = preg_replace('/<' . '% +_t\((\'([^\']*)\'|"([^"]*)")(([^)]|\)[^ ]|\) +[^% ])*)\) +%' . '>/', '<?= _t(\'\\2\\3\'\\4) ?>', $content);
 
 		// i18n sprintf(_t(...),$argument) with entity only (no dots in namespace), meaning the current template filename will be added as a namespace
-		$content = ereg_replace('<' . '% +sprintf\(_t\((\'([^\.\']*)\'|"([^\."]*)")(([^)]|\)[^ ]|\) +[^% ])*)\),\<\?= +([^\?]*) +\?\>) +%' . '>', '<?= sprintf(_t(\''. $path[1] . '.\\2\\3\'\\4),\\6) ?>', $content);
+		$content = preg_replace('/<' . '% +sprintf\(_t\((\'([^\.\']*)\'|"([^\."]*)")(([^)]|\)[^ ]|\) +[^% ])*)\),\<\?= +([^\?]*) +\?\>\) +%' . '>/', '<?= sprintf(_t(\''. $path[1] . '.\\2\\3\'\\4),\\6) ?>', $content);
 		// i18n sprintf(_t(...),$argument)
-		$content = ereg_replace('<' . '% +sprintf\(_t\((\'([^\']*)\'|"([^"]*)")(([^)]|\)[^ ]|\) +[^% ])*)\),\<\?= +([^\?]*) +\?\>) +%' . '>', '<?= sprintf(_t(\'\\2\\3\'\\4),\\6) ?>', $content);
+		$content = preg_replace('/<' . '% +sprintf\(_t\((\'([^\']*)\'|"([^"]*)")(([^)]|\)[^ ]|\) +[^% ])*)\),\<\?= +([^\?]*) +\?\>\) +%' . '>/', '<?= sprintf(_t(\'\\2\\3\'\\4),\\6) ?>', $content);
 
 		// </base> isnt valid html? !? 
-		$content = ereg_replace('<' . '% +base_tag +%' . '>', '<?= SSViewer::get_base_tag($val); ?>', $content);
+		$content = preg_replace('/<' . '% +base_tag +%' . '>/', '<?= SSViewer::get_base_tag($val); ?>', $content);
 
-		$content = ereg_replace('<' . '% +current_page +%' . '>', '<?= $_SERVER[SCRIPT_URL] ?>', $content);
+		$content = preg_replace('/<' . '% +current_page +%' . '>/', '<?= $_SERVER[SCRIPT_URL] ?>', $content);
 		
 		// change < % require x() % > calls to corresponding Requirement::x() ones, including 0, 1 or 2 options
 		$content = preg_replace('/<% +require +([a-zA-Z]+)(?:\(([^),]+)\))? +%>/', '<? Requirements::\\1("\\2"); ?>', $content);
 		$content = preg_replace('/<% +require +([a-zA-Z]+)\(([^),]+), *([^),]+)\) +%>/', '<? Requirements::\\1("\\2", "\\3"); ?>', $content);
 		
 		// legacy
-		$content = ereg_replace('<!-- +if +([A-Za-z0-9_]+) +-->', '<? if($item->cachedCall("\\1")) { ?>', $content);
-		$content = ereg_replace('<!-- +else +-->', '<? } else { ?>', $content);
-		$content = ereg_replace('<!-- +if_end +-->', '<? }  ?>', $content);
+		$content = preg_replace('/<!-- +if +([A-Za-z0-9_]+) +-->/', '<? if($item->cachedCall("\\1")) { ?>', $content);
+		$content = preg_replace('/<!-- +else +-->/', '<? } else { ?>', $content);
+		$content = preg_replace('/<!-- +if_end +-->/', '<? }  ?>', $content);
 			
 		// Fix link stuff
-		$content = ereg_replace('href *= *"#', 'href="<?= SSViewer::$options[\'rewriteHashlinks\'] ? strip_tags( $_SERVER[\'REQUEST_URI\'] ) : "" ?>#', $content);
+		$content = preg_replace('/href *= *"#/', 'href="<?= SSViewer::$options[\'rewriteHashlinks\'] ? strip_tags( $_SERVER[\'REQUEST_URI\'] ) : "" ?>#', $content);
 	
 		// Protect xml header
-		$content = ereg_replace('<\?xml([^>]+)\?' . '>', '<##xml\\1##>', $content);
+		$content = preg_replace('/<\?xml([^>]+)\?' . '>/', '<##xml\\1##>', $content);
 
 		// Turn PHP file into string definition
 		$content = str_replace('<?=',"\nSSVIEWER;\n\$val .= ", $content);
@@ -624,7 +625,7 @@ class SSViewer {
 		$output .= '$val .= <<<SSVIEWER' . "\n" . $content . "\nSSVIEWER;\n"; 
 		
 		// Protect xml header @sam why is this run twice ?
-		$output = ereg_replace('<##xml([^>]+)##>', '<' . '?xml\\1?' . '>', $output);
+		$output = preg_replace('/<##xml([^>]+)##>/', '<' . '?xml\\1?' . '>', $output);
 	
 		return $output;
 	}

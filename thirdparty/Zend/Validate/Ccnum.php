@@ -70,7 +70,7 @@ class Zend_Validate_Ccnum extends Zend_Validate_Abstract
      * Returns true if and only if $value follows the Luhn algorithm (mod-10 checksum)
      *
      * @param  string $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

@@ -47,7 +47,7 @@ class Minify_Cache_File {
      *
      * @param string $id cache id (e.g. a filename)
      * 
-     * @return int size in bytes
+     * @return SS_Int size in bytes
      */
     public function getSize($id)
     {
@@ -59,7 +59,7 @@ class Minify_Cache_File {
      *
      * @param string $id cache id (e.g. a filename)
      * 
-     * @param int $srcMtime mtime of the original source file(s)
+     * @param SS_Int $srcMtime mtime of the original source file(s)
      * 
      * @return bool exists
      */

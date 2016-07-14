@@ -186,8 +186,8 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
      * Connect to the remote server
      *
      * @param string  $host
-     * @param int     $port
-     * @param boolean $secure
+     * @param SS_Int     $port
+     * @param SS_Boolean $secure
      */
     public function connect($host, $port = 80, $secure = false)
     {

@@ -392,7 +392,7 @@ class SimplePie
 	var $raw_data;
 
 	/**
-	 * @var int Timeout for fetching remote files
+	 * @var SS_Int Timeout for fetching remote files
 	 * @see SimplePie::set_timeout()
 	 * @access private
 	 */
@@ -421,14 +421,14 @@ class SimplePie
 	var $cache = true;
 
 	/**
-	 * @var int Cache duration (in seconds)
+	 * @var SS_Int Cache duration (in seconds)
 	 * @see SimplePie::set_cache_duration()
 	 * @access private
 	 */
 	var $cache_duration = 3600;
 
 	/**
-	 * @var int Auto-discovery cache duration (in seconds)
+	 * @var SS_Int Auto-discovery cache duration (in seconds)
 	 * @see SimplePie::set_autodiscovery_cache_duration()
 	 * @access private
 	 */
@@ -464,7 +464,7 @@ class SimplePie
 	var $input_encoding = false;
 
 	/**
-	 * @var int Feed Autodiscovery Level
+	 * @var SS_Int Feed Autodiscovery Level
 	 * @see SimplePie::set_autodiscovery_level()
 	 * @access private
 	 */
@@ -570,7 +570,7 @@ class SimplePie
 	var $javascript = 'js';
 
 	/**
-	 * @var int Maximum number of feeds to check with autodiscovery
+	 * @var SS_Int Maximum number of feeds to check with autodiscovery
 	 * @see SimplePie::set_max_checked_feeds()
 	 * @access private
 	 */
@@ -643,7 +643,7 @@ class SimplePie
 	 * @since 1.0 Preview Release
 	 * @param string $feed_url This is the URL you want to parse.
 	 * @param string $cache_location This is where you want the cache to be stored.
-	 * @param int $cache_duration This is the number of seconds that you want to store the cache file for.
+	 * @param SS_Int $cache_duration This is the number of seconds that you want to store the cache file for.
 	 */
 	function SimplePie($feed_url = null, $cache_location = null, $cache_duration = null)
 	{
@@ -752,7 +752,7 @@ class SimplePie
 	 *
 	 * @access public
 	 * @since 1.0 Beta 3
-	 * @param int $timeout The maximum number of seconds to spend waiting to retrieve a feed.
+	 * @param SS_Int $timeout The maximum number of seconds to spend waiting to retrieve a feed.
 	 */
 	function set_timeout($timeout = 10)
 	{
@@ -812,7 +812,7 @@ class SimplePie
 	 * will be cached.
 	 *
 	 * @access public
-	 * @param int $seconds The feed content cache duration.
+	 * @param SS_Int $seconds The feed content cache duration.
 	 */
 	function set_cache_duration($seconds = 3600)
 	{
@@ -824,7 +824,7 @@ class SimplePie
 	 * URL will be cached.
 	 *
 	 * @access public
-	 * @param int $seconds The autodiscovered feed URL cache duration.
+	 * @param SS_Int $seconds The autodiscovered feed URL cache duration.
 	 */
 	function set_autodiscovery_cache_duration($seconds = 604800)
 	{
@@ -882,7 +882,7 @@ class SimplePie
 	 * @see SIMPLEPIE_LOCATOR_REMOTE_EXTENSION
 	 * @see SIMPLEPIE_LOCATOR_REMOTE_BODY
 	 * @see SIMPLEPIE_LOCATOR_ALL
-	 * @param int $level Feed Autodiscovery Level (level can be a
+	 * @param SS_Int $level Feed Autodiscovery Level (level can be a
 	 * combination of the above constants, see bitwise OR operator)
 	 */
 	function set_autodiscovery_level($level = SIMPLEPIE_LOCATOR_ALL)
@@ -1223,7 +1223,7 @@ class SimplePie
 	 * Set maximum number of feeds to check with autodiscovery
 	 *
 	 * @access public
-	 * @param int $max Maximum number of feeds to check
+	 * @param SS_Int $max Maximum number of feeds to check
 	 */
 	function set_max_checked_feeds($max = 10)
 	{
@@ -6744,7 +6744,7 @@ class SimplePie_HTTP_Parser
 	 * Input data length (to avoid calling strlen() everytime this is needed)
 	 *
 	 * @access private
-	 * @var int
+	 * @var SS_Int
 	 */
 	var $data_length = 0;
 
@@ -6752,7 +6752,7 @@ class SimplePie_HTTP_Parser
 	 * Current position of the pointer
 	 *
 	 * @access private
-	 * @var int
+	 * @var SS_Int
 	 */
 	var $position = 0;
 
@@ -9609,7 +9609,7 @@ class SimplePie_Misc
 	 *
 	 * @static
 	 * @access public
-	 * @param int $codepoint Unicode codepoint
+	 * @param SS_Int $codepoint Unicode codepoint
 	 * @return string UTF-8 character
 	 */
 	function codepoint_to_utf8($codepoint)
@@ -9688,7 +9688,7 @@ class SimplePie_Misc
 	 * @param string $needle Note that the needle may be a string of one or more
 	 *     characters. If needle is not a string, it is converted to an integer
 	 *     and applied as the ordinal value of a character.
-	 * @param int $offset The optional offset parameter allows you to specify which
+	 * @param SS_Int $offset The optional offset parameter allows you to specify which
 	 *     character in haystack to start searching. The position returned is still
 	 *     relative to the beginning of haystack.
 	 * @return bool If needle is not found, stripos() will return boolean false.
@@ -9749,7 +9749,7 @@ class SimplePie_Decode_HTML_Entities
 	 * Position of the current byte being parsed
 	 *
 	 * @access private
-	 * @var int
+	 * @var SS_Int
 	 */
 	var $position = 0;
 

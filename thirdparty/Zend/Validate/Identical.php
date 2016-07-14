@@ -110,7 +110,7 @@ class Zend_Validate_Identical extends Zend_Validate_Abstract
     /**
      * Returns the strict parameter
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getStrict()
     {
@@ -136,7 +136,7 @@ class Zend_Validate_Identical extends Zend_Validate_Abstract
      *
      * @param  mixed $value
      * @param  array $context
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value, $context = null)
     {

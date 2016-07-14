@@ -124,7 +124,7 @@ class Minify_Lines {
      * @param bool $inComment was the parser in a comment at the
      * beginning of the line?
      *
-     * @param int $padTo minimum width of comment
+     * @param SS_Int $padTo minimum width of comment
      * 
      * @return string
      */

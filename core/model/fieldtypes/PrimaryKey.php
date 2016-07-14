@@ -7,7 +7,7 @@
  * @package sapphire
  * @subpackage model
  */
-class PrimaryKey extends Int {
+class PrimaryKey extends SS_Int {
 	/**
 	 * @var DataObject 
 	 */

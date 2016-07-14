@@ -208,7 +208,7 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
     }
 
     /**
-     * @param int $value
+     * @param SS_Int $value
      * @return Zend_Gdata_Calendar_EventQuery Provides a fluent interface
      */
     public function setStartMax($value)
@@ -222,7 +222,7 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
     }
 
     /**
-     * @param int $value
+     * @param SS_Int $value
      * @return Zend_Gdata_Calendar_EventQuery Provides a fluent interface
      */
     public function setStartMin($value)
@@ -250,7 +250,7 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
     }
 
     /**
-     * @return int start-max
+     * @return SS_Int start-max
      */
     public function getStartMax()
     {
@@ -262,7 +262,7 @@ class Zend_Gdata_Calendar_EventQuery extends Zend_Gdata_Query
     }
 
     /**
-     * @return int start-min
+     * @return SS_Int start-min
      */
     public function getStartMin()
     {

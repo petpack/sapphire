@@ -133,7 +133,7 @@ class Zend_Gdata_Calendar_Extension_WebContent extends Zend_Gdata_App_Extension
     /**
      * Get the value for this element's height attribute.
      *
-     * @return int The desired value for this attribute.
+     * @return SS_Int The desired value for this attribute.
      */
     public function getHeight()
     {
@@ -143,7 +143,7 @@ class Zend_Gdata_Calendar_Extension_WebContent extends Zend_Gdata_App_Extension
     /**
      * Set the value for this element's height attribute.
      *
-     * @param int $value The desired value for this attribute.
+     * @param SS_Int $value The desired value for this attribute.
      * @return Zend_Gdata_Calendar_Extension_WebContent The element being modified.
      */
     public function setHeight($value)
@@ -155,7 +155,7 @@ class Zend_Gdata_Calendar_Extension_WebContent extends Zend_Gdata_App_Extension
     /**
      * Get the value for this element's height attribute.
      *
-     * @return int The desired value for this attribute.
+     * @return SS_Int The desired value for this attribute.
      */
     public function getWidth()
     {
@@ -165,7 +165,7 @@ class Zend_Gdata_Calendar_Extension_WebContent extends Zend_Gdata_App_Extension
     /**
      * Set the value for this element's height attribute.
      *
-     * @param int $value The desired value for this attribute.
+     * @param SS_Int $value The desired value for this attribute.
      * @return Zend_Gdata_Calendar_Extension_WebContent The element being modified.
      */
     public function setWidth($value)

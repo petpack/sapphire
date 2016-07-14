@@ -171,7 +171,7 @@ class Zend_Gdata_YouTube_UserProfileEntry extends Zend_Gdata_Entry
     /**
      * The age of the user
      *
-     * @var int
+     * @var SS_Int
      */
     protected $_age = null;
 

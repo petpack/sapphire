@@ -86,7 +86,7 @@ class Upload extends Controller {
 	 * 
 	 * @param $tmpFile array Indexed array that PHP generated for every file it uploads.
 	 * @param $folderPath string Folder path relative to /assets
-	 * @return Boolean|string Either success or error-message.
+	 * @return SS_Boolean|string Either success or error-message.
 	 */
 	function load($tmpFile, $folderPath = false) {
 		$this->clearErrors();
@@ -163,7 +163,7 @@ class Upload extends Controller {
 	 *
 	 * @param array $tmpFile
 	 * @param File $file
-	 * @return Boolean
+	 * @return SS_Boolean
 	 */
 	public function loadIntoFile($tmpFile, $file, $folderPath = false) {
 		$this->file = $file;
@@ -178,7 +178,7 @@ class Upload extends Controller {
 	 * for an example implementation of external validation.
 	 *
 	 * @param array $tmpFile
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function validate($tmpFile) {
 		$validator = $this->validator;
@@ -215,7 +215,7 @@ class Upload extends Controller {
 	 * @deprecated 2.5 Please use Upload_Validator::getAllowedMaxFileSize() instead
 	 * 
 	 * @param string $ext
-	 * @return int Filesize in bytes
+	 * @return SS_Int Filesize in bytes
 	 */
 	public function getAllowedMaxFileSize($ext = null) {
 		user_error('Upload::getAllowedMaxFileSize() is deprecated. Please use Upload_Validator::getAllowedMaxFileSize() instead', E_USER_NOTICE);
@@ -234,7 +234,7 @@ class Upload extends Controller {
 	 *
 	 * @deprecated 2.5 Please use Upload_Validator::setAllowedMaxFileSize() instead
 	 *
-	 * @param array|int $rules
+	 * @param array|SS_Int $rules
 	 */
 	public function setAllowedMaxFileSize($rules) {
 		user_error('Upload::setAllowedMaxFileSize() is deprecated. Please use Upload_Validator::setAllowedMaxFileSize() instead', E_USER_NOTICE);
@@ -267,7 +267,7 @@ class Upload extends Controller {
 	 * @deprecated 2.5 Please use Upload_Validator::isValidExtension() instead
 	 *
 	 * @param array $tmpFile
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function isValidSize($tmpFile) {
 		user_error('Upload::isValidSize() is deprecated. Please use Upload_Validator::isValidSize() instead', E_USER_NOTICE);
@@ -282,7 +282,7 @@ class Upload extends Controller {
 	 * @deprecated 2.5 Please use Upload_Validator::isValidExtension() instead
 	 * 
 	 * @param array $tmpFile
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function isValidExtension($tmpFile) {
 		user_error('Upload::isValidExtension() is deprecated. Please use Upload_Validator::isValidExtension() instead', E_USER_NOTICE);
@@ -301,7 +301,7 @@ class Upload extends Controller {
 	/**
 	 * Determines wether previous operations caused an error.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function isError() {
 		return (count($this->errors));		
@@ -377,7 +377,7 @@ class Upload_Validator {
 	 * Get maximum file size for all or specified file extension.
 	 *
 	 * @param string $ext
-	 * @return int Filesize in bytes
+	 * @return SS_Int Filesize in bytes
 	 */
 	public function getAllowedMaxFileSize($ext = null) {
 		$ext = strtolower($ext);
@@ -398,7 +398,7 @@ class Upload_Validator {
 	 * array('*' => 200, 'jpg' => 1000)
 	 * </code>
 	 *
-	 * @param array|int $rules
+	 * @param array|SS_Int $rules
 	 */
 	public function setAllowedMaxFileSize($rules) {
 		if(is_array($rules) && count($rules)) {
@@ -440,7 +440,7 @@ class Upload_Validator {
 	 * file is valid - can be defined on an
 	 * extension-by-extension basis in {@link $allowedMaxFileSize}
 	 *
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function isValidSize() {
 		$pathInfo = pathinfo($this->tmpFile['name']);
@@ -452,7 +452,7 @@ class Upload_Validator {
 	/**
 	 * Determines if the temporary file has a valid extension
 	 * An empty string in the validation map indicates files without an extension.
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function isValidExtension() {
 		$pathInfo = pathinfo($this->tmpFile['name']);
@@ -470,7 +470,7 @@ class Upload_Validator {
 	 * the temporary file set by {@link setTmpFile()} to see if
 	 * the file is deemed valid or not.
 	 * 
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function validate() {
 		// we don't validate for empty upload fields yet

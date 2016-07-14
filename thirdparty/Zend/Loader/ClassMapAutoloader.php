@@ -233,7 +233,7 @@ class Zend_Loader_ClassMapAutoloader implements Zend_Loader_SplAutoloader
      * Helper callback to resolve a parent path in a Phar archive
      * 
      * @param  string $value 
-     * @param  int $key 
+     * @param  SS_Int $key 
      * @param  array $parts 
      * @return void
      */

@@ -16,7 +16,7 @@ class GD extends Object {
 
 	/**
 	 * Set the default image quality.
-	 * @param quality int A number from 0 to 100, 100 being the best quality.
+	 * @param quality SS_Int A number from 0 to 100, 100 being the best quality.
 	 */
 	static function set_default_quality($quality) {
 		if(is_numeric($quality) && (int) $quality >= 0 && (int) $quality <= 100) {

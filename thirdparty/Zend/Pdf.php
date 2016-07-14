@@ -213,7 +213,7 @@ class Zend_Pdf
      * True if the object is a newly created PDF document (affects save() method behavior)
      * False otherwise
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_isNewDocument = true;
 
@@ -274,7 +274,7 @@ class Zend_Pdf
      * appends new section to the end of file.
      *
      * @param string $filename
-     * @param boolean $updateOnly
+     * @param SS_Boolean $updateOnly
      * @throws Zend_Pdf_Exception
      */
     public function save($filename, $updateOnly = false)
@@ -976,7 +976,7 @@ class Zend_Pdf
      * Returns Zend_Pdf_Page page object or null if destination is not found within PDF document.
      *
      * @param Zend_Pdf_Destination $destination  Destination to resolve
-     * @param boolean $refreshPagesHash  Refresh page collection hashes before processing
+     * @param SS_Boolean $refreshPagesHash  Refresh page collection hashes before processing
      * @return Zend_Pdf_Page|null
      * @throws Zend_Pdf_Exception
      */
@@ -1034,7 +1034,7 @@ class Zend_Pdf
      * @todo Give appropriate name and make method public
      *
      * @param Zend_Pdf_Action $action
-     * @param boolean $refreshPagesHash  Refresh page collection hashes before processing
+     * @param SS_Boolean $refreshPagesHash  Refresh page collection hashes before processing
      * @return Zend_Pdf_Action|null
      */
     protected function _cleanUpAction(Zend_Pdf_Action $action, $refreshPageCollectionHashes = true)
@@ -1188,7 +1188,7 @@ class Zend_Pdf
      * If $newSegmentOnly is true and it's not a new document,
      * then only appended part of PDF is returned.
      *
-     * @param boolean $newSegmentOnly
+     * @param SS_Boolean $newSegmentOnly
      * @param resource $outputStream
      * @return string
      * @throws Zend_Pdf_Exception

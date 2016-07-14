@@ -53,7 +53,7 @@ class Group extends DataObject {
 	 *
 	 * @return FieldSet
 	 */
-	public function getCMSFields() {
+	public function getCMSFields($params = null) {
 		$fields = new FieldSet(
 			new TabSet("Root",
 				new Tab('Members', _t('SecurityAdmin.MEMBERS', 'Members'),
@@ -158,7 +158,7 @@ class Group extends DataObject {
 	
 	/**
 	 *
-	 * @param boolean $includerelations a boolean value to indicate if the labels returned include relation fields
+	 * @param SS_Boolean $includerelations a boolean value to indicate if the labels returned include relation fields
 	 * 
 	 */
 	function fieldLabels($includerelations = true) {
@@ -193,7 +193,7 @@ class Group extends DataObject {
 	 * @TODO Where is this used, why is this overloaded?
 	 * 
 	 * @param $limit string SQL
-	 * @param $offset int
+	 * @param $offset SS_Int
 	 * @param $filter string SQL
 	 * @param $sort string SQL
 	 * @param $join string SQL
@@ -341,7 +341,7 @@ class Group extends DataObject {
 	 * If the group has ADMIN permissions, it requires the user to have ADMIN permissions as well.
 	 * 
 	 * @param $member Member
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function canEdit($member = null) {
 		if(!$member || !(is_a($member, 'Member')) || is_numeric($member)) $member = Member::currentUser();
@@ -371,7 +371,7 @@ class Group extends DataObject {
 	 * Checks for permission-code CMS_ACCESS_SecurityAdmin.
 	 * 
 	 * @param $member Member
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function canView($member = null) {
 		if(!$member || !(is_a($member, 'Member')) || is_numeric($member)) $member = Member::currentUser();

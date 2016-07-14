@@ -33,7 +33,7 @@ class SimpleTestCompatibility {
      *    stronger reference constraint.
      *    @param mixed $first    Test subject.
      *    @param mixed $second   Comparison object.
-     *    @return boolean        True if identical.
+     *    @return SS_Boolean        True if identical.
      *    @access public
      *    @static
      */
@@ -51,7 +51,7 @@ class SimpleTestCompatibility {
      *    Recursive type test.
      *    @param mixed $first    Test subject.
      *    @param mixed $second   Comparison object.
-     *    @return boolean        True if same type.
+     *    @return SS_Boolean        True if same type.
      *    @access private
      *    @static
      */
@@ -80,7 +80,7 @@ class SimpleTestCompatibility {
      *    Recursive type test for each element of an array.
      *    @param mixed $first    Test subject.
      *    @param mixed $second   Comparison object.
-     *    @return boolean        True if identical.
+     *    @return SS_Boolean        True if identical.
      *    @access private
      *    @static
      */
@@ -103,7 +103,7 @@ class SimpleTestCompatibility {
      *    Test for two variables being aliases.
      *    @param mixed $first    Test subject.
      *    @param mixed $second   Comparison object.
-     *    @return boolean        True if same.
+     *    @return SS_Boolean        True if same.
      *    @access public
      *    @static
      */
@@ -130,7 +130,7 @@ class SimpleTestCompatibility {
      *    class hiearchy.
      *    @param object $object    Object to test.
      *    @param string $class     Root name of hiearchy.
-     *    @return boolean         True if class in hiearchy.
+     *    @return SS_Boolean         True if class in hiearchy.
      *    @access public
      *    @static
      */

@@ -1135,7 +1135,7 @@ class Zend_Date extends Zend_Date_DateObject
      * @param  string                    $calc  Calculation to make
      * @param  string|integer            $date  Date for calculation
      * @param  string|integer            $comp  Second date for calculation
-     * @param  boolean|integer           $dst   Use dst correction if option is set
+     * @param  SS_Boolean|integer           $dst   Use dst correction if option is set
      * @return integer|string|Zend_Date  new timestamp or Zend_Date depending on calculation
      */
     private function _assign($calc, $date, $comp = 0, $dst = false)
@@ -2418,7 +2418,7 @@ class Zend_Date extends Zend_Date_DateObject
      * @param  string|integer|array|Zend_Date  $date    Date or datepart to equal with
      * @param  string                          $part    OPTIONAL Part of the date to compare, if null the timestamp is used
      * @param  string|Zend_Locale              $locale  OPTIONAL Locale for parsing input
-     * @return boolean
+     * @return SS_Boolean
      * @throws Zend_Date_Exception
      */
     public function equals($date, $part = null, $locale = null)
@@ -2439,7 +2439,7 @@ class Zend_Date extends Zend_Date_DateObject
      * @param  string|integer|array|Zend_Date  $date    Date or datepart to compare with
      * @param  string                          $part    OPTIONAL Part of the date to compare, if null the timestamp is used
      * @param  string|Zend_Locale              $locale  OPTIONAL Locale for parsing input
-     * @return boolean
+     * @return SS_Boolean
      * @throws Zend_Date_Exception
      */
     public function isEarlier($date, $part = null, $locale = null)
@@ -2461,7 +2461,7 @@ class Zend_Date extends Zend_Date_DateObject
      * @param  string|integer|array|Zend_Date  $date    Date or datepart to compare with
      * @param  string                          $part    OPTIONAL Part of the date to compare, if null the timestamp is used
      * @param  string|Zend_Locale              $locale  OPTIONAL Locale for parsing input
-     * @return boolean
+     * @return SS_Boolean
      * @throws Zend_Date_Exception
      */
     public function isLater($date, $part = null, $locale = null)
@@ -3054,7 +3054,7 @@ class Zend_Date extends Zend_Date_DateObject
      * Check a given year for leap year.
      *
      * @param  integer|array|Zend_Date  $year  Year to check
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function checkLeapYear($year)
     {
@@ -3081,7 +3081,7 @@ class Zend_Date extends Zend_Date_DateObject
     /**
      * Returns true, if the year is a leap year.
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isLeapYear()
     {
@@ -3092,7 +3092,7 @@ class Zend_Date extends Zend_Date_DateObject
     /**
      * Returns if the set date is todays date
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isToday()
     {
@@ -3105,7 +3105,7 @@ class Zend_Date extends Zend_Date_DateObject
     /**
      * Returns if the set date is yesterdays date
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isYesterday()
     {
@@ -3120,7 +3120,7 @@ class Zend_Date extends Zend_Date_DateObject
     /**
      * Returns if the set date is tomorrows date
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isTomorrow()
     {
@@ -4361,7 +4361,7 @@ class Zend_Date extends Zend_Date_DateObject
      * @param  string             $date   Date to parse for correctness
      * @param  string             $format (Optional) Format for parsing the date string
      * @param  string|Zend_Locale $locale (Optional) Locale for parsing date parts
-     * @return boolean            True when all date parts are correct
+     * @return SS_Boolean            True when all date parts are correct
      */
     public static function isDate($date, $format = null, $locale = null)
     {

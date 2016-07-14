@@ -368,7 +368,7 @@ class Folder extends File {
 	 * You can modify this fieldset by subclassing folder, or by creating a {@link DataObjectDecorator}
 	 * and implemeting updateCMSFields(FieldSet $fields) on that decorator.	
 	 */
-	function getCMSFields() {
+	function getCMSFields($params = null) {
 		$fileList = new AssetTableField(
 			$this,
 			"Files",

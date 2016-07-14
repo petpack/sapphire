@@ -13,7 +13,7 @@
  */
 class BasicAuth {
 	/**
-	 * @var Boolean Flag set by {@link self::protect_entire_site()}
+	 * @var SS_Boolean Flag set by {@link self::protect_entire_site()}
 	 */
 	private static $entire_site_protected = false;
 	
@@ -39,7 +39,7 @@ class BasicAuth {
 	 * 
 	 * @param string $realm
 	 * @param string|array $permissionCode Optional
-	 * @param boolean $tryUsingSessionLogin If true, then the method with authenticate against the
+	 * @param SS_Boolean $tryUsingSessionLogin If true, then the method with authenticate against the
 	 *  session log-in if those credentials are disabled.
 	 * @return Member $member 
 	 */
@@ -103,7 +103,7 @@ class BasicAuth {
 	 * 
 	 * define('SS_USE_BASIC_AUTH', true);
 	 * 
-	 * @param boolean $protect Set this to false to disable protection.
+	 * @param SS_Boolean $protect Set this to false to disable protection.
 	 * @param String $code {@link Permission} code that is required from the user.
 	 *  Defaults to "ADMIN". Set to NULL to just require a valid login, regardless
 	 *  of the permission codes a user has.

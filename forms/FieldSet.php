@@ -165,7 +165,7 @@ class FieldSet extends DataObjectSet {
 	 * The field could also be inside a CompositeField.
 	 * 
 	 * @param string $fieldName The name of the field or tab
-	 * @param boolean $dataFieldOnly If this is true, then a field will only
+	 * @param SS_Boolean $dataFieldOnly If this is true, then a field will only
 	 * be removed if it's a data field.  Dataless fields, such as tabs, will
 	 * be left as-is.
 	 */
@@ -192,7 +192,7 @@ class FieldSet extends DataObjectSet {
 	 *
 	 * @param string $fieldName The name of the field to replace
 	 * @param FormField $newField The field object to replace with
-	 * @return boolean TRUE field was successfully replaced
+	 * @return SS_Boolean TRUE field was successfully replaced
 	 * 					 FALSE field wasn't found, nothing changed
 	 */
 	public function replaceField($fieldName, $newField) {
@@ -216,7 +216,7 @@ class FieldSet extends DataObjectSet {
 	 *
 	 * @param string $fieldName Name of field to rename title of
 	 * @param string $newFieldTitle New title of field
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function renameField($fieldName, $newFieldTitle) {
 		$field = $this->dataFieldByName($fieldName);
@@ -228,7 +228,7 @@ class FieldSet extends DataObjectSet {
 	}
 	
 	/**
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	public function hasTabSet() {
 		foreach($this->items as $i => $field) {

@@ -70,7 +70,7 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
      *
      * false => no specific life time
      *
-     * @var int
+     * @var SS_Int
      */
     private $_specificLifetime = false;
 
@@ -93,7 +93,7 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
     /**
      * Priority (used by some particular backends)
      *
-     * @var int
+     * @var SS_Int
      */
     private $_priority = 8;
 
@@ -119,7 +119,7 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
     /**
      * Set a specific life time
      *
-     * @param  int $specificLifetime
+     * @param  SS_Int $specificLifetime
      * @return void
      */
     public function setSpecificLifetime($specificLifetime = false)
@@ -130,7 +130,7 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
     /**
      * Set the priority (used by some particular backends)
      *
-     * @param int $priority integer between 0 (very low priority) and 10 (maximum priority)
+     * @param SS_Int $priority integer between 0 (very low priority) and 10 (maximum priority)
      */
     public function setPriority($priority)
     {

@@ -39,7 +39,7 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
     /**
      * Whether to allow white space characters; off by default
      *
-     * @var boolean
+     * @var SS_Boolean
      * @deprecated
      */
     public $allowWhiteSpace;
@@ -65,7 +65,7 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
     /**
      * Sets default option values for this instance
      *
-     * @param  boolean|Zend_Config $allowWhiteSpace
+     * @param  SS_Boolean|Zend_Config $allowWhiteSpace
      * @return void
      */
     public function __construct($allowWhiteSpace = false)
@@ -88,7 +88,7 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
     /**
      * Returns the allowWhiteSpace option
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function getAllowWhiteSpace()
     {
@@ -98,7 +98,7 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
     /**
      * Sets the allowWhiteSpace option
      *
-     * @param boolean $allowWhiteSpace
+     * @param SS_Boolean $allowWhiteSpace
      * @return Zend_Filter_Alpha Provides a fluent interface
      */
     public function setAllowWhiteSpace($allowWhiteSpace)
@@ -113,7 +113,7 @@ class Zend_Validate_Alpha extends Zend_Validate_Abstract
      * Returns true if and only if $value contains only alphabetic characters
      *
      * @param  string $value
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isValid($value)
     {

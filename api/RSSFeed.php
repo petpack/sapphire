@@ -69,7 +69,7 @@ class RSSFeed extends ViewableData {
 	/**
 	 * Last modification of the RSS feed
 	 *
-	 * @var int Unix timestamp of the last modification
+	 * @var SS_Int Unix timestamp of the last modification
 	 */
 	protected $lastModified;
 
@@ -94,7 +94,7 @@ class RSSFeed extends ViewableData {
 	 *                                 entries
 	 * @param string $authorField Name of the field that should be used for
 	 *                            the author for the feed entries
-	 * @param int $lastModified Unix timestamp of the latest modification
+	 * @param SS_Int $lastModified Unix timestamp of the latest modification
 	 *                          (latest posting)
 	 * @param string $etag The ETag is an unique identifier that is changed
 	 *                         every time the representation does

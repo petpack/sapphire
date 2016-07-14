@@ -169,7 +169,7 @@ abstract class Zend_Pdf_Resource_Font_Simple extends Zend_Pdf_Resource_Font
      * @param string $string
      * @param string $charEncoding (optional) Character encoding of source text.
      *   If omitted, uses 'current locale'.
-     * @return float
+     * @return SS_Float
      */
     public function getCoveredPercentage($string, $charEncoding = '')
     {

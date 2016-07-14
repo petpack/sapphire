@@ -36,7 +36,7 @@ class RequestHandler extends ViewableData {
 	 * was called or not. Useful for checking if subclasses have
 	 * called parent::__construct()
 	 *
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected $brokenOnConstruct = true;
 	
@@ -306,7 +306,7 @@ class RequestHandler extends ViewableData {
 	 * Throws a HTTP error response encased in a {@link SS_HTTPResponse_Exception}, which is later caught in
 	 * {@link RequestHandler::handleAction()} and returned to the user.
 	 *
-	 * @param int $errorCode
+	 * @param SS_Int $errorCode
 	 * @param string $errorMessage Plaintext error message
 	 * @uses SS_HTTPResponse_Exception
 	 */

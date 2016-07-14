@@ -461,7 +461,7 @@ class Versioned extends DataObjectDecorator {
 	 * Determine if a table is supporting the Versioned extensions (e.g. $table_versions does exists)
 	 *
 	 * @param string $table Table name
-	 * @return boolean
+	 * @return SS_Boolean
 	 */
 	function canBeVersioned($table) {
 		return ClassInfo::exists($table) 
@@ -473,7 +473,7 @@ class Versioned extends DataObjectDecorator {
 	 * Check if a certain table has the 'Version' field
 	 *
 	 * @param string $table Table name
-	 * @return boolean Returns false if the field isn't in the table, true otherwise
+	 * @return SS_Boolean Returns false if the field isn't in the table, true otherwise
 	 */
 	function hasVersionField($table) {
 		$rPos = strrpos($table,'_');
@@ -750,7 +750,7 @@ class Versioned extends DataObjectDecorator {
 	 * @param string $class The name of the class.
 	 * @param string $stage The name of the stage.
 	 * @param string $filter A filter to be inserted into the WHERE clause.
-	 * @param boolean $cache Use caching.
+	 * @param SS_Boolean $cache Use caching.
 	 * @param string $orderby A sort expression to be inserted into the ORDER BY clause.
 	 * @return DataObject
 	 */
@@ -771,9 +771,9 @@ class Versioned extends DataObjectDecorator {
 	 * 
 	 * @param string $class
 	 * @param string $stage
-	 * @param int $id
-	 * @param boolean $cache
-	 * @return int
+	 * @param SS_Int $id
+	 * @param SS_Boolean $cache
+	 * @return SS_Int
 	 */
 	static function get_versionnumber_by_stage($class, $stage, $id, $cache = true) {
 		$baseClass = ClassInfo::baseDataClass($class);
@@ -826,7 +826,7 @@ class Versioned extends DataObjectDecorator {
 	 * @param string $filter A filter to be inserted into the WHERE clause.
 	 * @param string $sort A sort expression to be inserted into the ORDER BY clause.
 	 * @param string $join A join expression, such as LEFT JOIN or INNER JOIN
-	 * @param int $limit A limit on the number of records returned from the database.
+	 * @param SS_Int $limit A limit on the number of records returned from the database.
 	 * @param string $containerClass The container class for the result set (default is DataObjectSet)
 	 * @return DataObjectSet
 	 */

@@ -3,7 +3,7 @@ require_once 'PHPUnit/Framework/TestResult.php';
 require_once 'PHPUnit/Framework/TestListener.php';
 
 /**#@+
- * @var int
+ * @var SS_Int
  */
 /**
  * Failure test status constant
@@ -57,7 +57,7 @@ class SapphireTestReporter implements PHPUnit_Framework_TestListener {
 	protected $currentTest;
 	/**
 	 * Whether PEAR Benchmark_Timer is available for timing
-	 * @var boolean
+	 * @var SS_Boolean
 	 */
 	protected $hasTimer;
 	/**

@@ -72,10 +72,10 @@ class Zend_Pdf_Color_Cmyk extends Zend_Pdf_Color
     /**
      * Object constructor
      *
-     * @param float $c
-     * @param float $m
-     * @param float $y
-     * @param float $k
+     * @param SS_Float $c
+     * @param SS_Float $m
+     * @param SS_Float $y
+     * @param SS_Float $k
      */
     public function __construct($c, $m, $y, $k)
     {
@@ -102,7 +102,7 @@ class Zend_Pdf_Color_Cmyk extends Zend_Pdf_Color
      * to switch color.
      * Color set instructions differ for stroking and nonstroking operations.
      *
-     * @param boolean $stroking
+     * @param SS_Boolean $stroking
      * @return string
      */
     public function instructions($stroking)

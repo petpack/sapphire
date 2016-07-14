@@ -77,7 +77,7 @@ class TreeDropdownField extends FormField {
 	/**
 	 * Set the ID of the root node of the tree. This defaults to 0 - i.e. displays the whole tree.
 	 *
-	 * @param int $ID
+	 * @param SS_Int $ID
 	 */
 	public function setTreeBaseID($ID) {
 		$this->baseID = (int) $ID;
@@ -294,7 +294,7 @@ class TreeDropdownField extends FormField {
 	/**
 	 * Get the object where the $keyField is equal to a certain value
 	 *
-	 * @param string|int $key
+	 * @param string|SS_Int $key
 	 * @return DataObject
 	 */
 	protected function objectForKey($key) {

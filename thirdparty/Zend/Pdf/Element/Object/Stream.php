@@ -51,7 +51,7 @@ class Zend_Pdf_Element_Object_Stream extends Zend_Pdf_Element_Object
     /**
      * Flag which signals, that stream is decoded
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     private $_streamDecoded;
 

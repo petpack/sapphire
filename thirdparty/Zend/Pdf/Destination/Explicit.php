@@ -48,7 +48,7 @@ abstract class Zend_Pdf_Destination_Explicit extends Zend_Pdf_Destination
     /**
      * True if it's a remote destination
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_isRemote;
 
@@ -102,7 +102,7 @@ abstract class Zend_Pdf_Destination_Explicit extends Zend_Pdf_Destination
     /**
      * Returns true if it's a remote destination
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public function isRemote()
     {

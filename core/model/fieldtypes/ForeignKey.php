@@ -12,7 +12,7 @@
  * @package sapphire
  * @subpackage model
  */
-class ForeignKey extends Int {
+class ForeignKey extends SS_Int {
 
 	/**
 	 * @var DataObject 

@@ -1280,7 +1280,7 @@ class Zend_Locale_Data
     /**
      * Returns true when a cache is set
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function hasCache()
     {

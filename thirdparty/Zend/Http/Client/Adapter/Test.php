@@ -74,7 +74,7 @@ class Zend_Http_Client_Adapter_Test implements Zend_Http_Client_Adapter_Interfac
     /**
      * Wether or not the next request will fail with an exception
      *
-     * @var boolean
+     * @var SS_Boolean
      */
     protected $_nextRequestWillFail = false;
 
@@ -88,7 +88,7 @@ class Zend_Http_Client_Adapter_Test implements Zend_Http_Client_Adapter_Interfac
     /**
      * Set the nextRequestWillFail flag
      *
-     * @param boolean $flag
+     * @param SS_Boolean $flag
      * @return Zend_Http_Client_Adapter_Test
      */
     public function setNextRequestWillFail($flag)
@@ -125,9 +125,9 @@ class Zend_Http_Client_Adapter_Test implements Zend_Http_Client_Adapter_Interfac
      * Connect to the remote server
      *
      * @param string  $host
-     * @param int     $port
-     * @param boolean $secure
-     * @param int     $timeout
+     * @param SS_Int     $port
+     * @param SS_Boolean $secure
+     * @param SS_Int     $timeout
      * @throws Zend_Http_Client_Adapter_Exception
      */
     public function connect($host, $port = 80, $secure = false)

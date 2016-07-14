@@ -159,7 +159,7 @@ class ManifestBuilder {
 	 * Get themes from a particular directory.
 	 * 
 	 * @param string $baseDir Optional: Absolute path to theme directory for testing e.g. "/Users/sharvey/Sites/test24/themes"
-	 * @param boolean $includeSubThemes If set to TRUE, sub-themes such as "blackcandy_blog" are included too
+	 * @param SS_Boolean $includeSubThemes If set to TRUE, sub-themes such as "blackcandy_blog" are included too
 	 * @return array Listing of theme directories
 	 */
 	public static function get_themes($baseDir = null, $includeSubThemes = false) {
@@ -306,7 +306,7 @@ class ManifestBuilder {
 			if(@is_dir("$folder/$item") && file_exists("$folder/$item/_manifest_exclude")) continue;
 
 			// i18n: ignore language files (loaded on demand)
-			if($item == 'lang' && @is_dir("$folder/$item") && ereg_replace("/[^/]+/\\.\\.","",$folder.'/..') == Director::baseFolder()) continue;
+			if($item == 'lang' && @is_dir("$folder/$item") && preg_replace("/\/[^\/]+\/\\.\\./","",$folder.'/..') == Director::baseFolder()) continue;
 
 			if(@is_dir("$folder/$item")) {
 				// Folder exclusion - used to skip over tests/ folders
@@ -605,7 +605,7 @@ class ManifestBuilder {
 	/**
 	 * Returns if the Manifest has been included
 	 * 
-	 * @return Boolean
+	 * @return SS_Boolean
 	 */
 	static function has_been_included() {
 		global $_CLASS_MANIFEST, $_TEMPLATE_MANIFEST, $_CSS_MANIFEST, $_ALL_CLASSES;

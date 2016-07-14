@@ -67,7 +67,7 @@ abstract class Zend_Uri
      * $uri is a well-formed URI, or FALSE otherwise.
      *
      * @param  string $uri The URI to check
-     * @return boolean
+     * @return SS_Boolean
      */
     public static function check($uri)
     {
@@ -201,7 +201,7 @@ abstract class Zend_Uri
     /**
      * Returns TRUE if this URI is valid, or FALSE otherwise.
      *
-     * @return boolean
+     * @return SS_Boolean
      */
     abstract public function valid();
 }

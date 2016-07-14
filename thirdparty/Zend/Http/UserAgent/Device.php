@@ -124,28 +124,28 @@ interface Zend_Http_UserAgent_Device extends Serializable
     /**
      * Get the maximum image height supported by this device
      *
-     * @return int
+     * @return SS_Int
      */
     public function getMaxImageHeight();
 
     /**
      * Get the maximum image width supported by this device
      *
-     * @return int
+     * @return SS_Int
      */
     public function getMaxImageWidth();
 
     /**
      * Get the physical screen height of this device
      *
-     * @return int
+     * @return SS_Int
      */
     public function getPhysicalScreenHeight();
 
     /**
      * Get the physical screen width of this device
      *
-     * @return int
+     * @return SS_Int
      */
     public function getPhysicalScreenWidth();
 
@@ -166,7 +166,7 @@ interface Zend_Http_UserAgent_Device extends Serializable
     /**
      * Get supported X/HTML version
      *
-     * @return int
+     * @return SS_Int
      */
     public function getXhtmlSupportLevel();
 
