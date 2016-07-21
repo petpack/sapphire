@@ -430,9 +430,11 @@ class Email extends ViewableData {
 
 		$to = $this->to;
 		$subject = $this->subject;
-		if(self::$send_all_emails_to) {
+		
+		$dev_email = self::send_all_emails_to();
+		if($dev_email) {
 			$subject .= " [addressed to $to";
-			$to = self::$send_all_emails_to;
+			$to = $dev_email;
 			if($this->cc) $subject .= ", cc to $this->cc";
 			if($this->bcc) $subject .= ", bcc to $this->bcc";
 			$subject .= ']';
@@ -487,9 +489,10 @@ class Email extends ViewableData {
 		
 		$to = $this->to;
 		$subject = $this->subject;
-		if(self::$send_all_emails_to) {
+		$dev_email = self::send_all_emails_to(); 
+		if($dev_email) {
 			$subject .= " [addressed to ".preg_replace('/[<>]/', '', $to);
-			$to = self::$send_all_emails_to;
+			$to = $dev_email;
 			if($this->cc) $subject .= ", cc to $this->cc";
 			if($this->bcc) $subject .= ", bcc to $this->bcc";
 			$subject .= ']';
@@ -580,9 +583,21 @@ class Email extends ViewableData {
 	 * This can be used when testing, by putting a command like this in your _config.php file
 	 * 
 	 * if(!Director::isLive()) Email::send_all_emails_to("someone@example.com")
+	 * 
+	 * If called with no arguments, returns the value.
+	 * 
+	 * You can also provide an array. If an array is provided, calling this
+	 * 	with no arguments returns a random entry from the array.
 	 */
-	public static function send_all_emails_to($emailAddress) {
-		self::$send_all_emails_to = $emailAddress;
+	public static function send_all_emails_to($emailAddress = null) {
+		if ($emailAddress)
+			self::$send_all_emails_to = $emailAddress;
+		
+		if (is_array(self::$send_all_emails_to))
+			return self::$send_all_emails_to[array_rand(self::$send_all_emails_to)];
+		else
+			return self::$send_all_emails_to;
+		
 	}
 	
 	/**
