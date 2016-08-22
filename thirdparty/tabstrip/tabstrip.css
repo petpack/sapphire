@@ -19,41 +19,69 @@ ul.tabstrip {
 	ul.tabstrip li {
 		float: left;
 		list-style: none;
-		background: url(images/norm_li_bg.gif) no-repeat left 3px;
 		margin: 0 2px 0 0;
-		padding: 0 0 0 9px;
+		padding: 0px;
 		cursor: pointer;
 		position: relative;
 		top: 1px;
+		
+		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e8e8e8+0,ffffff+100 */
+		background: #e8e8e8; /* Old browsers */
+		background: -moz-linear-gradient(top,  #e8e8e8 0%, #ffffff 100%); /* FF3.6-15 */
+		background: -webkit-linear-gradient(top,  #e8e8e8 0%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to bottom,  #e8e8e8 0%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e8e8', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+		
+		
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		border: 1px solid #aaa;
+		border-bottom: none;
 	}
 		ul.tabstrip li a {
-			background: url(images/norm_a_bg.gif) no-repeat right 3px;
 			display: block;
 			float: left;
 			outline: none;
-			padding: 7px 9px 3px 0;
+			padding: 7px 9px 3px 9px;
 			text-decoration: none;
 			color: #555;
 			font-size: 11px;
 			font-weight: bold;
+			border-top-left-radius: 3px;
+			border-top-right-radius: 3px;
 		}
 		ul.tabstrip li a:hover {
 			text-decoration: none;
 			color: #000;
+			
+			/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e8e8e8+0,ffffff+100 */
+			background: #e8e8e8; /* Old browsers */
+			background: -moz-linear-gradient(top,  #e8e8e8 0%, #ffffff 100%); /* FF3.6-15 */
+			background: -webkit-linear-gradient(top,  #e8e8e8 0%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+			background: linear-gradient(to bottom,  #e8e8e8 0%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e8e8', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+			
 		}
 			ul.tabstrip li.current,
 			ul.tabstrip li.ui-tabs-selected,
 			ul.tabstrip li.sel,
 			ul.tabstrip li.over {
-				background: url(images/sel_li_bg.gif) no-repeat left top;
 				top: 1px;
+				
+				/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fff600+0,e8e8e8+23,ffffff+100 */
+				background: #fff600; /* Old browsers */
+				background: -moz-linear-gradient(top,  #fff600 0%, #e8e8e8 23%, #ffffff 100%); /* FF3.6-15 */
+				background: -webkit-linear-gradient(top,  #fff600 0%,#e8e8e8 23%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+				background: linear-gradient(to bottom,  #fff600 0%,#e8e8e8 23%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff600', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+												
+				
 			}
 				ul.tabstrip li.current a,
 				ul.tabstrip li.ui-tabs-selected a,
 				ul.tabstrip li.sel a,
 				ul.tabstrip li.over a {
-					background: url(images/sel_a_bg.gif) no-repeat right top;
-					padding: 6px 9px 5px 0;
+					padding: 6px 9px 5px 9px;
 					color: #0074c6;
 				}
 
