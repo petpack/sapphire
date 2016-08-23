@@ -54,13 +54,15 @@ ul.tabstrip {
 			text-decoration: none;
 			color: #000;
 			
-			/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e8e8e8+0,ffffff+100 */
-			background: #e8e8e8; /* Old browsers */
-			background: -moz-linear-gradient(top,  #e8e8e8 0%, #ffffff 100%); /* FF3.6-15 */
-			background: -webkit-linear-gradient(top,  #e8e8e8 0%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
-			background: linear-gradient(to bottom,  #e8e8e8 0%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e8e8', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+			/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cfdcff+0,e4e9f6+40,ffffff+100 */
+			background: #cfdcff; /* Old browsers */
+			background: -moz-linear-gradient(top,  #cfdcff 0%, #e4e9f6 40%, #ffffff 100%); /* FF3.6-15 */
+			background: -webkit-linear-gradient(top,  #cfdcff 0%,#e4e9f6 40%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+			background: linear-gradient(to bottom,  #cfdcff 0%,#e4e9f6 40%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cfdcff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 			
+			box-shadow: inset 0px 3px 3px 0px rgba(148,176,255,1);
+				
 		}
 			ul.tabstrip li.current,
 			ul.tabstrip li.ui-tabs-selected,
@@ -68,13 +70,14 @@ ul.tabstrip {
 			ul.tabstrip li.over {
 				top: 1px;
 				
-				/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fff600+0,e8e8e8+23,ffffff+100 */
-				background: #fff600; /* Old browsers */
-				background: -moz-linear-gradient(top,  #fff600 0%, #e8e8e8 23%, #ffffff 100%); /* FF3.6-15 */
-				background: -webkit-linear-gradient(top,  #fff600 0%,#e8e8e8 23%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
-				background: linear-gradient(to bottom,  #fff600 0%,#e8e8e8 23%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff600', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-												
+				background: rgba(148,176,255,1);
+				background: -moz-linear-gradient(top, rgba(148,176,255,1) 0%, rgba(196,208,236,1) 40%, rgba(255,255,255,1) 100%);
+				background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(148,176,255,1)), color-stop(40%, rgba(196,208,236,1)), color-stop(100%, rgba(255,255,255,1)));
+				background: -webkit-linear-gradient(top, rgba(148,176,255,1) 0%, rgba(196,208,236,1) 40%, rgba(255,255,255,1) 100%);
+				background: -o-linear-gradient(top, rgba(148,176,255,1) 0%, rgba(196,208,236,1) 40%, rgba(255,255,255,1) 100%);
+				background: -ms-linear-gradient(top, rgba(148,176,255,1) 0%, rgba(196,208,236,1) 40%, rgba(255,255,255,1) 100%);
+				background: linear-gradient(to bottom, rgba(148,176,255,1) 0%, rgba(196,208,236,1) 40%, rgba(255,255,255,1) 100%);
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#94b0ff', endColorstr='#ffffff', GradientType=0 );
 				
 			}
 				ul.tabstrip li.current a,
@@ -82,7 +85,7 @@ ul.tabstrip {
 				ul.tabstrip li.sel a,
 				ul.tabstrip li.over a {
 					padding: 6px 9px 5px 9px;
-					color: #0074c6;
+					color: #333;
 				}
 
 .tab {
