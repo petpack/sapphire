@@ -108,7 +108,8 @@ class RedirectorPage extends Page {
 		parent::onBeforeWrite();
 
 		// Prefix the URL with "http://" if no prefix is found
-		if($this->ExternalURL && (strpos($this->ExternalURL, '://') === false)) {
+		//	allow a hash by itself (a redirector which goes to nowhere)
+		if($this->ExternalURL && (trim($this->ExternalURL) != '#') && (strpos($this->ExternalURL, '://') === false)) {
 			$this->ExternalURL = 'http://' . $this->ExternalURL;
 		}
 	}
