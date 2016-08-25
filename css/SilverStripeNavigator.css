@@ -1,6 +1,8 @@
+/* DM: This may be required by silverstripe somewhere, but it causes issued (with e.g home and end keys) on some (all?) CMS pages:
 body {
 	margin-bottom: 22px;
 }
+*/
 
 #SilverStripeNavigator {
 	position: fixed;
