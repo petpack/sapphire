@@ -23,6 +23,13 @@ class Requirements {
 	}
 	
 	/**
+	 * Shortcut to include font awesome
+	 */
+	public static function font_awesome() {
+		self::css('pet-pack/css/font-awesome.min.css');
+	}
+	
+	/**
 	 * Enable combining of css/javascript files.
 	 * @param boolean $enable
 	 */
