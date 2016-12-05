@@ -513,5 +513,38 @@ class Convert {
 		$hms .= "s";
 		return $hms;
 	}
+	
+	/**
+	 * Convert a hex colour notation (#xxx. #xxxxxx) to an RGB value.
+	 * 
+	 * @param string $hex	the HTML hex colour (3 or 6 chars)
+	 * @param string $asHtml if true, will return something like rgb(r,g,b),
+	 * 							otherwise returns an array with keys 'r', 'g', and 'b'
+	 */
+	static function Hex2RGB($hex,$asHtml = false) {
+		
+		//trim leading hash:
+		if (substr($hex,0,1) == "#")
+			$hex = substr($hex,1);
+		
+		if (strlen($hex) == 3) {
+			//convert 3 digit to 6 digit hex code - '#f07' -> '#ff0077'
+			$hex = $hex[1] . $hex[1] . $hex[2] . $hex[2] . $hex[3] . $hex[3];
+		}
+		
+		$arr = str_split($hex,2);
+		$keys = Array('r','g','b');
+		$rgb = Array();
+		for ($k=0; $k<3; $k++) {
+			$rgb[$keys[$k]] = base_convert($arr[$k], 16, 10);
+		}
+		
+		if ($asHtml) {
+			return "rgb(" . $rgb['r'] . ',' . $rgb['g'] . "," . $rgb['b'] . ")"; 
+		}
+		
+		return $rgb;
+		
+	}
 
 }
