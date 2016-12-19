@@ -143,7 +143,7 @@ class SearchContext extends Object {
 				$filter->setModel($this->modelClass);
 				$filter->setValue($value);
 				if(! $filter->isEmpty()) {
-					$filter->apply($query);
+					$query = $filter->apply($query);
 				}
 			}
 		}
