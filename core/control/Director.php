@@ -398,8 +398,22 @@ class Director {
 	 * @return String
 	 */
 	static function protocol() {
-		if(isset($_SERVER['HTTP_X_FORWARDED_PROTOCOL']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTOCOL']) == 'https') return "https://";
-		return (isset($_SERVER['SSL']) || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off')) ? 'https://' : 'http://';
+		
+		if (Director::is_cli() || (isset($_SERVER['HTTP_HOST']) && 
+			preg_match('/^(www\.|staging\.)?petpack.com.au$/', $_SERVER['HTTP_HOST']))) {
+			//petpack.com.au, staging.petpack.com.au, and www.petpack.com.au always returns https
+			// so does CLI mode
+			return 'https://';
+		}
+		
+		if ( isset($_SERVER['HTTP_X_FORWARDED_PROTOCOL']) && 
+			strtolower($_SERVER['HTTP_X_FORWARDED_PROTOCOL']) == 'https' ) $ret =  "https://";
+		else
+			$ret = (isset($_SERVER['SSL']) || (isset($_SERVER['HTTPS']) && 
+				$_SERVER['HTTPS'] != 'off')) ? 'https://' : 'http://';
+		
+		return $ret;
+		
 	}
 
 	/**
