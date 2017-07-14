@@ -213,6 +213,12 @@ class Image extends File {
 	const ORIENTATION_PORTRAIT = 1;
 	const ORIENTATION_LANDSCAPE = 2;
 	
+	/**
+	 * CSS Class(es) to be added to <img> tag
+	 * @var string
+	 */
+	public $classes = "";
+	
 	static $casting = array(
 		'Tag' => 'HTMLText',
 	);
@@ -316,9 +322,35 @@ class Image extends File {
 			} else {
 				if(preg_match("/([^\/]*)\.[a-zA-Z0-9]{1,6}$/", $title, $matches)) $title = Convert::raw2att($matches[1]);
 			}
-			return "<img src=\"$url\" alt=\"$title\" />";
+			
+			$html = "<img src=\"$url\" alt=\"$title\" ";
+			 
+			if ($this->classes) 
+				$html .= ' class="' . $this->classes . '"';
+			
+			$html .= "/>";
+			
+			return $html;
 		}
 	}
+	
+	/**
+	 * Add a css class to the image. 
+	 * 	You can add more than one if you separate them by spaces.
+	 * returns $this, so you can chain this with another function, e.g
+	 * 	$image->addCssClass('something')->SetWidth(42);
+	 * 	(though in this example you could just use SetWidthAndClass() )
+	 * @see Image::SetWidthAndClass
+	 * @param string $class
+	 */
+	function addCssClass($class) {
+		if ($this->classes)
+			$this->classes .= " " . $class;
+		else
+			$this->classes = $class;
+		return $this;
+	}
+	
 	
 	/**
 	 * Return an XHTML img tag for this Image.
@@ -372,6 +404,17 @@ class Image extends File {
 			$this->deleteFormattedImages();
 			return true;
 		}
+	}
+	
+	/** 
+	 * Does addCssClass and SetWidth. For templates.
+	 * @param int $width
+	 * @param string $class
+	 * @return Image_Cached
+	 */
+	public function SetWidthAndClass($width,$class) {
+		$this->addCssClass($class);
+		return $this->SetWidth($width);
 	}
 	
 	public function SetWidth($width) {
@@ -479,6 +522,9 @@ class Image extends File {
 			$cached = new Image_Cached($cacheFile);
 			// Pass through the title so the templates can use it
 			$cached->Title = $this->Title;
+			//and css classes
+			$cached->classes = $this->classes;
+			
 			return $cached;
 		}
 	}

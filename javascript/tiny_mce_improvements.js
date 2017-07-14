@@ -510,9 +510,9 @@ ImageForm.prototype = {
 			// Proportionate updating of heights
 			var w = this.elements.Width.value, h = this.elements.Height.value;
 			var aspect = this.selectedImageHeight / this.selectedImageWidth;
-			if(updatedFieldName == 'Width') {
+			if(updatedFieldName == 'Width' && w) {
 				this.elements.Height.value = Math.floor(w * aspect);
-			} else if(updatedFieldName == 'Height') {
+			} else if(updatedFieldName == 'Height' && h) {
 				this.elements.Width.value = Math.floor(h / aspect);
 			}
 		}
@@ -549,8 +549,17 @@ ImageForm.prototype = {
 		
 		try {
 			var imgTag = image.getElementsByTagName('img')[0];
-			this.selectedImageWidth = $('Form_EditorToolbarImageForm_Width').value = imgTag.className.match(/destwidth=([0-9.\-]+)([, ]|$)/) ? RegExp.$1 : null;
-			this.selectedImageHeight = $('Form_EditorToolbarImageForm_Height').value = imgTag.className.match(/destheight=([0-9.\-]+)([, ]|$)/) ? RegExp.$1 : null;
+			
+			//this.selectedImageWidth = $('Form_EditorToolbarImageForm_Width').value = imgTag.className.match(/destwidth=([0-9.\-]+)([, ]|$)/) ? RegExp.$1 : null;
+			this.selectedImageWidth = imgTag.className.match(/destwidth=([0-9.\-]+)([, ]|$)/) ? RegExp.$1 : null;
+			$('Form_EditorToolbarImageForm_Width').value = "";
+			
+			//this.selectedImageHeight = $('Form_EditorToolbarImageForm_Height').value = imgTag.className.match(/destheight=([0-9.\-]+)([, ]|$)/) ? RegExp.$1 : null;
+			this.selectedImageHeight = imgTag.className.match(/destheight=([0-9.\-]+)([, ]|$)/) ? RegExp.$1 : null;
+			$('Form_EditorToolbarImageForm_Height').value = "";
+			
+			$('Form_EditorToolbarImageForm_ImageSize').innerHTML = "<em>Leave blank for default size of " + this.selectedImageWidth + 'x' + this.selectedImageHeight + ".</em>";
+			
 		} catch(er) {
 		}
 	},
@@ -627,14 +636,23 @@ ImageThumbnail.prototype = {
 		if(!tinyMCE.selectedInstance) tinyMCE.selectedInstance = tinyMCE.activeEditor;
 		if(tinyMCE.selectedInstance.contentWindow.focus) tinyMCE.selectedInstance.contentWindow.focus();
 		
-		this.ssInsertImage(tinyMCE.activeEditor, {
+		var opts = {
 			'src' : relativeHref,
 			'alt' : altText,
-			'width' : $('Form_EditorToolbarImageForm_Width').value,
-			'height' : $('Form_EditorToolbarImageForm_Height').value,
 			'title' : titleText,
 			'class' : cssClass
-		}, captionText);
+		};
+		
+		//only pass height and width if they're populated.
+		if ($('Form_EditorToolbarImageForm_Width').value && $('Form_EditorToolbarImageForm_Height').value) {
+			opts['width'] = $('Form_EditorToolbarImageForm_Width').value;
+			opts['height'] = $('Form_EditorToolbarImageForm_Height').value;
+		} else if ($('Form_EditorToolbarImageForm_Width').value || $('Form_EditorToolbarImageForm_Height').value) {
+			alert("Error: You must specify both height and width (or leave image dimensions blank for default size)");
+			return false;
+		}
+		
+		this.ssInsertImage(tinyMCE.activeEditor, opts, captionText);
 		
 		return false;
 	},
@@ -647,7 +665,14 @@ ImageThumbnail.prototype = {
 		var html;
 		
 		if(captionText) {
-			html = '<div style="width: ' + attributes.width + 'px;" class="captionImage ' + attributes['class'] + '">';
+			
+			if ('width' in attributes)
+				widthstyle = 'style="width: ' + attributes.width + 'px;"';
+			else
+				widthstyle = '';
+			
+			html = '<div ' + widthstyle + ' class="captionImage ' + attributes['class'] + '">';
+			
 			html += '<img id="__mce_tmp" />';
 			html += '<p class="caption">' + captionText + '</p>';
 			html += '</div>';

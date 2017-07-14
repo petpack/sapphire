@@ -310,8 +310,9 @@ class HtmlEditorField_Toolbar extends RequestHandler {
 				)
 			),
 			new FieldGroup(_t('HtmlEditorField.IMAGEDIMENSIONS', 'Dimensions'),
-				new TextField('Width', _t('HtmlEditorField.IMAGEWIDTHPX', 'Width'), 100),
-				new TextField('Height', " x " . _t('HtmlEditorField.IMAGEHEIGHTPX', 'Height'), 100)
+				new TextField('Width', _t('HtmlEditorField.IMAGEWIDTHPX', 'Width'), ""),
+				new TextField('Height', " x " . _t('HtmlEditorField.IMAGEHEIGHTPX', 'Height'), ""),
+				new LiteralField('imagesize', '<div id="Form_EditorToolbarImageForm_ImageSize" style="clear:both;">&nbsp;</div>')
 			)
 		);
 		

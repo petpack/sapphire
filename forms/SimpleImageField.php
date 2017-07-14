@@ -71,6 +71,13 @@ class SimpleImageField extends FileField {
 
 	public $record;
 	
+	/**
+	 * Set this to put some HTML to the right of the field.
+	 * 	(your HTML will automatically be enclosed in a div)
+	 * @var HTML
+	 */
+	public $rightHTML = "";
+	
 	function __construct($name, $title = null, $value = null, $form = null, $rightTitle = null, $folderName = null) {
 		parent::__construct($name, $title, $value, $form, $rightTitle, $folderName);
 
@@ -103,7 +110,11 @@ class SimpleImageField extends FileField {
 	    	$imageField = "";
 	    }
 	    	
-		$html = "<div class=\"simpleimage\">";
+		$html = '<div class="simpleimage" ';
+		if ($this->rightHTML)
+			$html .= 'style="float:left"';
+		$html .= '>';
+		
 		if($imageField && $imageField->exists()) {
 			$html .= '<div class="thumbnail">';
 			if($imageField->hasMethod('Thumbnail') && $imageField->Thumbnail()) {
@@ -131,6 +142,10 @@ class SimpleImageField extends FileField {
 			)
 		);
 		$html .= "</div>";
+		
+		if ($this->rightHTML) {
+			$html .= '<div style="float: left;max-width: 400px">' . $this->rightHTML . "</div>";
+		}
 		
 		return $html;
 	}
