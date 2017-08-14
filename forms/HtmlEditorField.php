@@ -335,33 +335,5 @@ class HtmlEditorField_Toolbar extends RequestHandler {
 		
 		return $form;
 	}
-
-	function FlashForm() {
-		$form = new Form(
-			$this->controller,
-			"{$this->name}/FlashForm", 
-			new FieldSet(
-				new LiteralField('Heading', '<h2><img src="cms/images/closeicon.gif" alt="'._t('HtmlEditorField.CLOSE', 'close').'" title="'._t('HtmlEditorField.CLOSE', 'close').'" />'._t('HtmlEditorField.FLASH', 'Flash').'</h2>'),
-				new TreeDropdownField("FolderID", _t('HtmlEditorField.FOLDER'), "Folder"),
-				new TextField('getflashSearch', _t('HtmlEditorField.SEARCHFILENAME', 'Search by file name')),
-				new ThumbnailStripField("Flash", "FolderID", "getflash"),
-				new FieldGroup(_t('HtmlEditorField.IMAGEDIMENSIONS', "Dimensions"),
-					new TextField("Width", _t('HtmlEditorField.IMAGEWIDTHPX', "Width"), 100),
-					new TextField("Height", "x " . _t('HtmlEditorField.IMAGEHEIGHTPX', "Height"), 100)
-				)
-			),
-			new FieldSet(
-				new FormAction("insertflash", _t('HtmlEditorField.BUTTONINSERTFLASH', 'Insert Flash'))
-			)
-		);
-
-		$form->disableSecurityToken();
-		$form->loadDataFrom($this);
-		$form->disableSecurityToken();
-		
-		$this->extend('updateFlashForm', $form);
-		
-		return $form;
-	}
 }
 

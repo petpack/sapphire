@@ -745,75 +745,6 @@ function imageEditorClosed() {
 	}
 }
 
-FlashForm = Class.extend('ToolbarForm');
-FlashForm.prototype = {
-	initialize: function() {
-	},
-	destroy: function() {
-		this.ToolbarForm = null;
-		this.onsubmit = null;
-
-	},
-	update_params: function(event) {
-		if(tinyMCE.imgElement) {
-		}
-	},
-	respondToNodeChange: function() {
-		if(tinyMCE.imgElement) {
-		} else {
-		}
-	},
-	selectFlash: function(flash) {
-		if(this.selectedFlash) {
-			this.selectedFlash.setAttribute("class", "");
-		}
-		this.selectedFlash = flash;
-		this.selectedFlash.setAttribute("class", "selectedFlash");
-	},
-	handleaction_insertflash: function() {
-		if(this.selectedFlash) {
-			this.selectedFlash.insert();
-		}
-	}
-}
-
-FlashThumbnail = Class.create();
-FlashThumbnail.prototype = {
-	destroy: function() {
-		this.onclick = null;		
-	},
-	
-	onclick: function(e) {
-		$('Form_EditorToolbarFlashForm').selectFlash(this);
-		return false;
-	},
-	
-	insert: function() {
-		var formObj = $('Form_EditorToolbarFlashForm');
-		var html = '';
-		var baseURL = document.getElementsByTagName('base')[0].href;
-		var relativeHref = this.href.substr(baseURL.length)
-		var width = formObj.elements.Width.value;
-		var height = formObj.elements.Height.value;
-		
-		if(!tinyMCE.selectedInstance) tinyMCE.selectedInstance = tinyMCE.activeEditor;
-		if(tinyMCE.selectedInstance.contentWindow.focus) tinyMCE.selectedInstance.contentWindow.focus();
-
-		if (width == "") width = 100;
-		if (height == "") height = 100;
-		
-		html = '';
-		html += '<object width="' + width +'" height="' + height +'" type="application/x-shockwave-flash" data="'+ relativeHref +'">';
-		html += '<param value="'+ relativeHref +'" name="movie">';
-		html += '</object>';
-		
-		tinyMCE.selectedInstance.execCommand("mceInsertContent", false, html);
-		tinyMCE.selectedInstance.execCommand('mceRepaint');
-	//	ed.execCommand('mceInsertContent', false, html, {skip_undo : 1}); 
-		return false;
-	}
-}
-
 LinkForm.applyTo('#Form_EditorToolbarLinkForm');
 SideFormAction.applyTo('#Form_EditorToolbarLinkForm .Actions input');
 
@@ -821,9 +752,6 @@ ImageForm.applyTo('#Form_EditorToolbarImageForm');
 ImageThumbnail.applyTo('#Form_EditorToolbarImageForm div.thumbnailstrip a');
 SideFormAction.applyTo('#Form_EditorToolbarImageForm .Actions input');
 
-FlashForm.applyTo('#Form_EditorToolbarFlashForm');
-FlashThumbnail.applyTo('#Form_EditorToolbarFlashForm div.thumbnailstrip a');
-SideFormAction.applyTo('#Form_EditorToolbarFlashForm .Actions input');
 
 /**
  * Image resizing
