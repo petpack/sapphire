@@ -105,7 +105,9 @@ class Upload extends Controller {
 		}
 		
 		$valid = $this->validate($tmpFile);
-		if(!$valid) return false;
+		if(!$valid) {
+			return false;
+		}
 		
 		// @TODO This puts a HUGE limitation on files especially when lots
 		// have been uploaded.
@@ -182,6 +184,7 @@ class Upload extends Controller {
 	 */
 	public function validate($tmpFile) {
 		$validator = $this->validator;
+		if (!$validator) return True;
 		$validator->setTmpFile($tmpFile);
 		$isValid = $validator->validate();
 		if($validator->getErrors()) {

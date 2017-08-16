@@ -15,7 +15,7 @@ function init() {
 	f = document.forms[0]
 
 	fe = ed.selection.getNode();
-	if (/mceItem(Flash|ShockWave|WindowsMedia|QuickTime|RealMedia)/.test(ed.dom.getAttrib(fe, 'class'))) {
+	if (/mceItem(WindowsMedia|QuickTime|RealMedia)/.test(ed.dom.getAttrib(fe, 'class'))) {
 		pl = fe.title;
 
 		switch (ed.dom.getAttrib(fe, 'class')) {
