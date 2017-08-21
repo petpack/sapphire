@@ -511,9 +511,17 @@ ImageForm.prototype = {
 			var w = this.elements.Width.value, h = this.elements.Height.value;
 			var aspect = this.selectedImageHeight / this.selectedImageWidth;
 			if(updatedFieldName == 'Width' && w) {
-				this.elements.Height.value = Math.floor(w * aspect);
+				nh = Math.floor(w * aspect);
+				if (!isNaN(nh))
+					this.elements.Height.value = nh;
+				else
+					this.elements.Height.value = ""
 			} else if(updatedFieldName == 'Height' && h) {
-				this.elements.Width.value = Math.floor(h / aspect);
+				nw = Math.floor(h / aspect);
+				if (!isNaN(nw))
+					this.elements.Width.value = nw;
+				else
+					this.elements.Width.value = ""
 			}
 		}
 	},
@@ -644,13 +652,11 @@ ImageThumbnail.prototype = {
 		};
 		
 		//only pass height and width if they're populated.
-		if ($('Form_EditorToolbarImageForm_Width').value && $('Form_EditorToolbarImageForm_Height').value) {
+		if ($('Form_EditorToolbarImageForm_Width').value)
 			opts['width'] = $('Form_EditorToolbarImageForm_Width').value;
+		if ( $('Form_EditorToolbarImageForm_Height').value)
 			opts['height'] = $('Form_EditorToolbarImageForm_Height').value;
-		} else if ($('Form_EditorToolbarImageForm_Width').value || $('Form_EditorToolbarImageForm_Height').value) {
-			alert("Error: You must specify both height and width (or leave image dimensions blank for default size)");
-			return false;
-		}
+		
 		
 		this.ssInsertImage(tinyMCE.activeEditor, opts, captionText);
 		
