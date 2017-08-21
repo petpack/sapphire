@@ -566,7 +566,7 @@ ImageForm.prototype = {
 			this.selectedImageHeight = imgTag.className.match(/destheight=([0-9.\-]+)([, ]|$)/) ? RegExp.$1 : null;
 			$('Form_EditorToolbarImageForm_Height').value = "";
 			
-			$('Form_EditorToolbarImageForm_ImageSize').innerHTML = "<em>Leave blank for default size of " + this.selectedImageWidth + 'x' + this.selectedImageHeight + ".</em>";
+			$('Form_EditorToolbarImageForm_ImageSize').innerHTML = "<em>Leave blank for default size of " + this.selectedImageWidth + 'x' + this.selectedImageHeight + ".<br />You can also specify width in percentage of the container width.</em>";
 			
 		} catch(er) {
 		}
