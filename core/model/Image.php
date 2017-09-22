@@ -305,6 +305,13 @@ class Image extends File {
 			return false;
 		}
 	}
+	
+	/**
+	 * Determines if width and height tags should be included in generated tags
+	 * @var unknown
+	 */
+	public $widthTag = False;
+	public $heightTag = False;
 
 	/**
 	 * Return an XHTML img tag for this Image,
@@ -324,7 +331,16 @@ class Image extends File {
 			}
 			
 			$html = "<img src=\"$url\" alt=\"$title\" ";
-			 
+			
+			if ($this->widthTag || $this->heightTag) {
+				$dimensions = $this->getDimensions("array");
+				if ($this->widthTag)
+					$html .= ' width="' . $dimensions['width'] . '"';
+				
+				if ($this->heightTag)
+					$html .= ' height="' . $dimensions['height'] . '"';
+			}
+			
 			if ($this->classes) 
 				$html .= ' class="' . $this->classes . '"';
 			
@@ -415,6 +431,24 @@ class Image extends File {
 	public function SetWidthAndClass($width,$class) {
 		$this->addCssClass($class);
 		return $this->SetWidth($width);
+	}
+	
+	/**
+	 * For embedding images in a newsletter.
+	 * All newsletter images should be scaled to 600px (i.e 100%) wide
+	 * 	(for responsive view) and they should have a 'width' attribute to 
+	 * 	set their desired width
+	 * 	(thanks, outlook. We'd prefer to just use max-width, but nooooooo)
+	 * @param string $class	css classes
+	 * @param number $widthTag	desired display width
+	 * @return mixed
+	 */
+	public function forNewsletter($class,$widthTag = 170) {
+		$ret = $this->SetWidthAndClass(600, $class);
+		
+		$ret = preg_replace('|/>$|', ' width="' . $widthTag . '" />', $this->getTag());
+		
+		return $ret;
 	}
 	
 	public function SetWidth($width) {
