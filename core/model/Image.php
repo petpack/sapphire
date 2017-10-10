@@ -360,9 +360,10 @@ class Image extends File {
 	 * @param string $class
 	 */
 	function addCssClass($class) {
-		if ($this->classes)
-			$this->classes .= " " . $class;
-		else
+		if ($this->classes) {
+			if (strpos($this->classes,$class) === false)	//don't add the same class multiple times
+				$this->classes .= " " . $class;
+		} else
 			$this->classes = $class;
 		return $this;
 	}
