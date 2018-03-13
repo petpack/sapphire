@@ -113,15 +113,70 @@ class Image extends File {
 	}
 	
 	/**
+	 * Rotate the image according to EXIF data
+	 * pass it your imagick object and it will return one which has been rotated
+	 */
+	public static function autoRotate(Imagick $magick) {
+		switch ($magick->getImageOrientation()) {
+			case Imagick::ORIENTATION_TOPLEFT:
+				break;
+			case Imagick::ORIENTATION_TOPRIGHT:
+				$magick->flopImage();
+				break;
+			case Imagick::ORIENTATION_BOTTOMRIGHT:
+				$magick->rotateImage("#000", 180);
+				break;
+			case Imagick::ORIENTATION_BOTTOMLEFT:
+				$magick->flopImage();
+				$magick->rotateImage("#000", 180);
+				break;
+			case Imagick::ORIENTATION_LEFTTOP:
+				$magick->flopImage();
+				$magick->rotateImage("#000", -90);
+				break;
+			case Imagick::ORIENTATION_RIGHTTOP:
+				$magick->rotateImage("#000", 90);
+				break;
+			case Imagick::ORIENTATION_RIGHTBOTTOM:
+				$magick->flopImage();
+				$magick->rotateImage("#000", 90);
+				break;
+			case Imagick::ORIENTATION_LEFTBOTTOM:
+				$magick->rotateImage("#000", -90);
+				break;
+			default: // Invalid orientation
+				break;
+		}
+		$magick->setImageOrientation(Imagick::ORIENTATION_TOPLEFT);
+		return $magick;
+	}
+	
+	function rotateAndStripExif() {
+		$img = new Imagick($filename = $this->absoluteFilename());
+		//auto-rotate according to exif data:
+		$img = Image::autoRotate($img);
+		$img->stripImage();
+		$img->writeImage();
+	}
+	
+	/**
 	 * Ensures the image isn't too large (according to Image::$maxPixels)
 	 * 	if it is too large, use ImageMagick to scale it down to something
 	 * 	reasonable.
+	 * This will also call rotateAndSrtipExif, which will rotate the image
+	 * 	according to exif data and then strip the exif data.
 	 * You should call this before the image is displayed - it's painful
 	 * 	to handle this when the file is uploaded.
 	 * WILL DIE HORRIBLY IF IMAGICK IS NOT INSTALLED!
 	 * @return boolean
 	 */
 	function ensureNotInsanelyHuge() {
+		
+		if (!Image::canHasImageMagick()) {
+			die('Please install the Imagick PHP extensions.');
+		}
+		
+		$this->rotateAndStripExif();
 		
 		//debugging:
 		//if (!$this->isTooBig()) error_log($this->Filename . " is not too large");
@@ -130,28 +185,25 @@ class Image extends File {
 		if (!$this->isTooBig() || !file_exists($this->absoluteFilename())) 
 			return False;
 		
-		if (Image::canHasImageMagick()) {
-			$size = $this->getDimensions("Array");
-			
-			$ar = $size['width'] / $size['height'];
-			
-			//determine new image size (use 90% of $maxPixels)
-			$newHeight = intval(sqrt((self::$maxPixels * 0.9) / $ar));
-			$newWidth = intval($newHeight * $ar);
-			
-			if (self::$logHugeImages) { 
-				error_log($this->Filename . " is insanely huge - Resizing from " . 
-					$size['width'] . 'x' . $size['height'] . 
-					" to {$newWidth}x{$newHeight}"
-				);
-			}
-			
-			$img = new Imagick($filename = $this->absoluteFilename());
-			$img->scaleImage($newWidth,$newHeight);
-			$img->writeImage($filename);
-		} else {
-			die('Please install the Imagick PECL Plugin.');
+		
+		$size = $this->getDimensions("Array");
+		
+		$ar = $size['width'] / $size['height'];
+		
+		//determine new image size (use 90% of $maxPixels)
+		$newHeight = intval(sqrt((self::$maxPixels * 0.9) / $ar));
+		$newWidth = intval($newHeight * $ar);
+		
+		if (self::$logHugeImages) { 
+			error_log($this->Filename . " is insanely huge - Resizing from " . 
+				$size['width'] . 'x' . $size['height'] . 
+				" to {$newWidth}x{$newHeight}"
+			);
 		}
+		
+		$img = new Imagick($filename = $this->absoluteFilename());
+		$img->scaleImage($newWidth,$newHeight);
+		$img->writeImage($filename);
 		
 		return true;
 	}
@@ -198,6 +250,7 @@ class Image extends File {
 		return $rec;
 		
 	}
+	
 	
 	function validate() {
 		$this->ensureNotInsanelyHuge();
