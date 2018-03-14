@@ -82,6 +82,10 @@ class Image extends File {
 	 * @return string
 	 */
 	function absoluteFilename() {
+		//it's possible that the filename field might already include the full path
+		if (file_exists($this->getField('Filename')))
+			return $this->getField('Filename');
+		
 		return Director::baseFolder() . '/' . $this->getField('Filename');
 	}
 	
@@ -152,7 +156,10 @@ class Image extends File {
 	}
 	
 	function rotateAndStripExif() {
-		$img = new Imagick($filename = $this->absoluteFilename());
+		$filename = $filename = $this->absoluteFilename();
+		if (!file_exists($filename))
+			return null;
+		$img = new Imagick($filename);
 		//auto-rotate according to exif data:
 		$img = Image::autoRotate($img);
 		$img->stripImage();
