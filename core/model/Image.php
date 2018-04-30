@@ -505,9 +505,9 @@ class Image extends File {
 	 * @return mixed
 	 */
 	public function forNewsletter($class,$widthTag = 170) {
-		$ret = $this->SetWidthAndClass(600, $class);
+		$img = $this->SetWidthAndClass(600, $class);
 		
-		$ret = preg_replace('|/>$|', ' width="' . $widthTag . '" />', $this->getTag());
+		$ret = preg_replace('|/>$|', ' width="' . $widthTag . '" />', $img->getTag());
 		
 		return $ret;
 	}
