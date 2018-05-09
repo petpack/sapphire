@@ -160,3 +160,30 @@ form .message {
 #ForgotPassword {
 	margin-top: 1em;
 }
+
+
+.right form div.CompositeField.fieldgroup {
+	margin: 1em;
+	margin-left: 0px;
+	border: 1px solid #777;
+	padding: 1em;
+	background: #dadada;
+}
+
+.right form div.CompositeField.fieldgroup label.left {
+	margin-left: 0;
+	margin-top: -1.5em;
+	background: #fff;
+	width: auto;
+	font-weight: bold;
+	color: #333;	
+}
+
+.right form div.CompositeField.fieldgroup div.fieldgroupField {
+	display: block;
+	margin-bottom: 3px;
+}
+
+.right form div.CompositeField.fieldgroup div.fieldgroupField.checkbox label {
+	margin-left: 3px;
+} 
