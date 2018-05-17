@@ -164,13 +164,13 @@ class Image extends File {
 		if (!file_exists($filename))
 			return null;
 		if (preg_match('/\.[Jj][Pp][Ee]?[Gg]$/',$filename)) {
-			try() {
+			try {
 				$img = new Imagick($filename);
 				//auto-rotate according to exif data:
 				$img = Image::autoRotate($img);
 				$img->stripImage();
 				$img->writeImage();
-			} catch ($e) {
+			} catch (Exception $e) {
 				error_log("Exception '". $e->getMessage() . "' in rotateAndStripExif. File: '" . $filename . "'.");
 			}
 		//} else {
