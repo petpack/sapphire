@@ -155,15 +155,27 @@ class Image extends File {
 		return $magick;
 	}
 	
+	/**
+	 * If the image is a jpeg, rotate it according to EXIF data and then strip the
+	 *	EXIF data.
+	 */
 	function rotateAndStripExif() {
-		$filename = $filename = $this->absoluteFilename();
+		$filename = $this->absoluteFilename();
 		if (!file_exists($filename))
 			return null;
-		$img = new Imagick($filename);
-		//auto-rotate according to exif data:
-		$img = Image::autoRotate($img);
-		$img->stripImage();
-		$img->writeImage();
+		if (preg_match('/\.[Jj][Pp][Ee]?[Gg]$/',$filename)) {
+			try() {
+				$img = new Imagick($filename);
+				//auto-rotate according to exif data:
+				$img = Image::autoRotate($img);
+				$img->stripImage();
+				$img->writeImage();
+			} catch ($e) {
+				error_log("Exception '". $e->getMessage() . "' in rotateAndStripExif. File: '" . $filename . "'.");
+			}
+		//} else {
+		//	error_log("rotateAndStripExif: skipping '" . $filename . "'.");
+		}
 	}
 	
 	/**
