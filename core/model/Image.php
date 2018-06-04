@@ -158,23 +158,45 @@ class Image extends File {
 	/**
 	 * If the image is a jpeg, rotate it according to EXIF data and then strip the
 	 *	EXIF data.
+	 * There is no return value and $this is not modified in any way, this 
+	 * 	function merely modifies the image file $this refers to 
 	 */
 	function rotateAndStripExif() {
 		$filename = $this->absoluteFilename();
 		if (!file_exists($filename))
 			return null;
+		
+		//backup filename (/path/to/filename.ext.orig)
+		$bkf = $filename.".orig";
+		
 		if (preg_match('/\.[Jj][Pp][Ee]?[Gg]$/',$filename)) {
 			try {
-				$img = new Imagick($filename);
-				//auto-rotate according to exif data:
-				$img = Image::autoRotate($img);
-				$img->stripImage();
-				$img->writeImage();
+				//error_log("rotateAndStripExif: working on '$filename'.");
+				
+				//make a backup before we let imagick near the image:
+				copy($filename,$bkf);
+				
+				$img = new Imagick();
+				if ($img->readimage($filename)) {
+					//auto-rotate according to exif data:
+					$img = Image::autoRotate($img);
+					$img->stripImage();
+					$img->writeImage();
+				}
+				
+				//if we got this far without exception, everything should be ok - delete the backup file
+				//TODO: uncomment this once we're confident that we're no longer getting corrupt images
+				//if (file_exists($bkf))
+				//	unlink($bkf);
+				
 			} catch (Exception $e) {
 				error_log("Exception '". $e->getMessage() . "' in rotateAndStripExif. File: '" . $filename . "'.");
+				//restore backup:
+				if (file_exists($bkf))
+					copy($bkf,$filename);
 			}
-		//} else {
-		//	error_log("rotateAndStripExif: skipping '" . $filename . "'.");
+		} else {
+			//error_log("rotateAndStripExif: skipping '" . $filename . "'.");
 		}
 	}
 	
@@ -194,8 +216,6 @@ class Image extends File {
 		if (!Image::canHasImageMagick()) {
 			die('Please install the Imagick PHP extensions.');
 		}
-		
-		$this->rotateAndStripExif();
 		
 		//debugging:
 		//if (!$this->isTooBig()) error_log($this->Filename . " is not too large");
@@ -276,7 +296,15 @@ class Image extends File {
 		return parent::validate();
 	}
 	
+	function onAfterUpload() {
+		//we only want to do this once, when the file is first uploaded.
+		$this->rotateAndStripExif();
+		
+		return parent::onAfterUpload();
+	}
+	
 	function onBeforeWrite() {
+		
 		$this->ensureNotInsanelyHuge();
 		return parent::onBeforeWrite();
 	}
