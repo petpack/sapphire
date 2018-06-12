@@ -166,38 +166,51 @@ class Image extends File {
 		if (!file_exists($filename))
 			return null;
 		
+
 		//backup filename (/path/to/filename.ext.orig)
 		$bkf = $filename.".orig";
 		
 		if (preg_match('/\.[Jj][Pp][Ee]?[Gg]$/',$filename)) {
-			try {
-				//error_log("rotateAndStripExif: working on '$filename'.");
+			
+			//try to read exif data:
+			$exif = exif_read_data($filename);
+			if ($exif) {
+				//there is computed exif data which is returned even for an image with no data.
+				//	we need to examine the SectionsFound header to see if there was exif data
+				if (isset($exif['SectionsFound']) && $exif['SectionsFound']) {
+					
+					try {
+						//error_log("rotateAndStripExif: working on '$filename'.");
+						
+						//make a backup before we let imagick near the image:
+						copy($filename,$bkf);
+						
+						$img = new Imagick();
+						if ($img->readimage($filename)) {
+							//auto-rotate according to exif data:
+							$img = Image::autoRotate($img);
+							$img->stripImage();
+							$img->writeImage();
+						}
+						
+						//if we got this far without exception, everything should be ok - delete the backup file
+						//TODO: uncomment this once we're confident that we're no longer getting corrupt images
+						//if (file_exists($bkf))
+						//	unlink($bkf);
+						
+					} catch (Exception $e) {
+						error_log("Exception '". $e->getMessage() . "' in rotateAndStripExif. File: '" . $filename . "'.");
+						//restore backup:
+						if (file_exists($bkf))
+							copy($bkf,$filename);
+					}
+					
+				} //else error_log("nothing in SectionsFound");
 				
-				//make a backup before we let imagick near the image:
-				copy($filename,$bkf);
-				
-				$img = new Imagick();
-				if ($img->readimage($filename)) {
-					//auto-rotate according to exif data:
-					$img = Image::autoRotate($img);
-					$img->stripImage();
-					$img->writeImage();
-				}
-				
-				//if we got this far without exception, everything should be ok - delete the backup file
-				//TODO: uncomment this once we're confident that we're no longer getting corrupt images
-				//if (file_exists($bkf))
-				//	unlink($bkf);
-				
-			} catch (Exception $e) {
-				error_log("Exception '". $e->getMessage() . "' in rotateAndStripExif. File: '" . $filename . "'.");
-				//restore backup:
-				if (file_exists($bkf))
-					copy($bkf,$filename);
-			}
-		} else {
-			//error_log("rotateAndStripExif: skipping '" . $filename . "'.");
-		}
+			} //else error_log("exif_read_data returned nothing");
+			
+		} //else error_log("rotateAndStripExif: skipping '" . $filename . "', not a jpeg.");
+		
 	}
 	
 	/**
@@ -304,7 +317,7 @@ class Image extends File {
 	}
 	
 	function onBeforeWrite() {
-		
+		$this->rotateAndStripExif();
 		$this->ensureNotInsanelyHuge();
 		return parent::onBeforeWrite();
 	}
