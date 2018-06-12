@@ -309,13 +309,6 @@ class Image extends File {
 		return parent::validate();
 	}
 	
-	function onAfterUpload() {
-		//we only want to do this once, when the file is first uploaded.
-		$this->rotateAndStripExif();
-		
-		return parent::onAfterUpload();
-	}
-	
 	function onBeforeWrite() {
 		$this->rotateAndStripExif();
 		$this->ensureNotInsanelyHuge();
