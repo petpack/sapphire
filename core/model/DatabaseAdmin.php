@@ -198,6 +198,20 @@ class DatabaseAdmin extends Controller {
 			if(Director::is_cli()) echo "\nCREATING DATABASE TABLES\n\n";
 			else echo "\n<p><b>Creating database tables</b></p>\n\n";
 		}
+		
+		/**
+		 * 
+		 * DM: This is an ugly hack to prevent trying to instantiate a client during build
+		 *		(which will fail if adding new fields to Client)
+		 *		Note that we set it to -1 so that it SubsiteDecorator::currentSubsiteID 
+		 *			pays attention to $_REQUEST, but SubsiteDecorator::isSubsite returns false.
+		 *	@see Account::_construct
+		 *	@see Account::FieldsToUnset
+		 *	@see SubsiteDecorator::currentSubsiteID
+		 *	@see SubsiteDecorator::isSubsite
+		 *
+		 */
+		$_REQUEST['SubsiteID'] = -1;
 
 		$conn = DB::getConn();
 		$conn->beginSchemaUpdate();

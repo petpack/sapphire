@@ -173,7 +173,7 @@ class Image extends File {
 		if (preg_match('/\.[Jj][Pp][Ee]?[Gg]$/',$filename)) {
 			
 			//try to read exif data:
-			$exif = exif_read_data($filename);
+			$exif = @exif_read_data($filename);
 			if ($exif) {
 				//there is computed exif data which is returned even for an image with no data.
 				//	we need to examine the SectionsFound header to see if there was exif data
